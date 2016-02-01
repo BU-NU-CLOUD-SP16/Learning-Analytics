@@ -1,0 +1,205 @@
+/*@background_c: #c2c2c2;*/
+
+html{
+  background: #c2c2c2; /*@background_c*/
+}
+
+body{
+  background: url("/dark_embroidery.png");
+}
+
+footer{
+  height: 50px;
+}
+
+footer p{
+  margin-top: 15px;
+  text-align: center;
+}
+
+h1#welcome{
+  color: white;
+  text-shadow: 3px 3px 3px black;
+  position: relative;
+  margin-top:50px;
+}
+
+.jumbotron{
+  background: linear-gradient(rgb(137, 52, 176), rgb(206, 182, 226));
+  box-shadow: 3px 3px 3px black;
+}
+
+.row{
+  margin:0px;
+  padding:20px;
+  width: 100%;
+  padding-bottom: 20px;
+  box-shadow: 0px 3px 10px black;
+}
+
+.jumbotron h1, .jumbotron {
+    position: relative;
+
+    /* Fade upward */
+    -webkit-animation-name: page_intro; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+    -webkit-animation-iteration-count: 1; /* Chrome, Safari, Opera */
+    -webkit-animation-direction: alternate; /* Chrome, Safari, Opera */
+    animation-name: page_intro;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-direction: alternate;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes page_intro {
+    0%   {top:50px;opacity: 0;}
+    100% {top:0px;opacity: 1;}
+}
+/* Standard syntax */
+@keyframes page_intro {
+  0%   {top:50px;opacity: 0;}
+  100% {top:0px;opacity: 1;}
+}
+
+/*Repeating Row Pattern*/
+/*clear row*/
+div.row:nth-of-type(odd) {
+   background-color: transparent;
+ }
+
+/* gray row*/
+div.row:nth-of-type(even) {
+   background:#c2c2c2; /*@background_c;*/
+ }
+
+/* navbar li hover animation */
+#navbar ul li a{
+  position: relative;
+  text-decoration: none;
+}
+
+#navbar ul li a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(137, 52, 176);
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+  box-shadow: 3px 3px 3px black;
+}
+
+#navbar ul li a:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.assignment{
+  height: 3em;
+  background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
+  background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e8e8e8));
+  background-image:         linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
+  border-bottom: solid #dedede 1px;
+}
+
+.assignmentBox .assignmentList {
+  overflow-y: auto;
+  height: 400px;
+  border-radius: 6px;
+  width: 100%;/*230px;*/
+  background: #c2c2c2;
+}
+
+#assignment_dir{
+  padding-top: 0px;
+  min-width: 100%;/* 260px;*/
+  box-shadow: 3px 3px 3px black;
+}
+
+#assignment_dir .panel-body{
+  padding: 10px;
+}
+
+#assignment_dir .panel-heading h3{
+  border-bottom: 4px solid rgb(137, 52, 176); /* This is how the headers have underlines */
+  -webkit-box-shadow: 0px 6px 3px -3px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 6px 3px -3px rgba(0,0,0,0.75);
+  box-shadow: 0px 6px 3px -3px rgba(0,0,0,0.75);
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+/*
+.assignmentBox{
+  background: #a6a6a6;
+  border-radius: 6px;
+  padding: 10px;
+  padding-top: 0px;
+  width: 250px;
+  box-shadow: 3px 3px 3px black;
+}*/
+
+.assignment span{
+  padding-left: 5em;
+}
+
+.assignment h3{
+  padding-left: 5px;
+  margin-bottom: -4px;
+}
+
+#assignment_dir .form-group{
+  width: calc(100% - 50px);
+}
+
+#assignment_dir input[type="text"]{
+  width: 100%;
+}
+
+.assignment a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+.assignment a:hover {
+  text-decoration: underline;
+}
+
+code {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
+  font-size: 12px;
+  margin: 0 2px;
+  padding: 0 5px;
+}
+
+h1, h2, h3, h4 {
+  font-weight: bold;
+  margin: 0 0 15px;
+  padding: 0;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+form.search_container > *{
+  display:inline-block;
+  vertical-align: text-top;
+}
+
+.center {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+}
