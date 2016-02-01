@@ -1,0 +1,40 @@
+id,title,description_html,function_template,test_suite,likes_count,comments_count,created_by,solvers_count,created_at
+470,"Scoring for oriented dominoes","<p>Given a list of ordered pairs, and the order they should be placed in a line, find the sum of the absolute values of the differences.</p><pre class=""language-matlab"">list = [1 2
+        5 3
+        2 4
+</pre><pre class=""language-matlab"">order = [1 3 2]
+</pre><pre class=""language-matlab"">yields: [1 2][2 4][5 3]
+    or: abs(2-2) + abs(4-5)
+    or:        0 + 1
+    or: 1
+</pre><p><b>This problem is associated with the <a href=""http://www.mathworks.com/matlabcentral/contest/contests/36"">MATLAB Tiles Contest</a> running from April 4th to April 11th.</b></p><img src=""http://www.mathworks.com/matlabcentral/contest_static/tiles/images/image05.png"">","function score = scoreOrderedDominoes(list, order)
+  y = 0;
+end","%%
+list  = [1 2; 5 4; 2 4];
+order = [1 3 2];
+y_correct = 1;
+assert(isequal(scoreOrderedDominoes(list, order),y_correct))
+
+%%
+list = [1 2; 5 4; 2 4];
+order = [2 1 3];
+y_correct = 3;
+assert(isequal(scoreOrderedDominoes(list, order),y_correct))
+
+%%
+list = [1 2; 5 4; 2 4; 1 6; 7 5; 4 5; 4 8];
+order = [2 1 3 7 4 6 5];
+y_correct = 14;
+assert(isequal(scoreOrderedDominoes(list, order),y_correct))
+
+%%
+list = [1 2; 6 6; 2 4];
+order = [2 1 3];
+y_correct = 5;
+assert(isequal(scoreOrderedDominoes(list, order),y_correct))
+
+%%
+list = [1 2; 5 4; 2 4];
+order = [1 2 3];
+y_correct = 5;
+assert(isequal(scoreOrderedDominoes(list, order),y_correct))",5,2,240,317,"2012-03-08 19:58:01"
