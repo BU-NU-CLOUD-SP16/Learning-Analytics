@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/BU-NU-CLOUD-SP16/Learning-Analytics#readme",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "mysql": "^2.10.2"
   }
 }
