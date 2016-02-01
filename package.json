@@ -1,0 +1,21 @@
+{
+  "name": "learning_analytics",
+  "version": "0.0.0",
+  "description": "Programming analytics web application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BU-NU-CLOUD-SP16/Learning-Analytics.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BU-NU-CLOUD-SP16/Learning-Analytics/issues"
+  },
+  "homepage": "https://github.com/BU-NU-CLOUD-SP16/Learning-Analytics#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
