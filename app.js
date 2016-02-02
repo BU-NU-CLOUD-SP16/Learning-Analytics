@@ -19,11 +19,12 @@ databaseConn.connect(function (err){
 });
 
 app.get('/', function (req, res) {
-	console.log(req);
-  	databaseConn.query('SELECT * FROM student', function (err, rows){
+  	databaseConn.query('SELECT * FROM solution', function (err, rows){
 		if(err) throw err;
-		res.send(rows);
 		console.log('Data received from the DB');
+
+		// Dump DB - All Solutions
+		res.send(rows);
 	});
 });
 
