@@ -227,6 +227,7 @@ var MasterGraphContainer = React.createClass({
 
     return (
       <div className="masterGraphContainer">
+
         <div className="col-md-2">
           <div className="property-container">
               <AssignmentBox url="/assignments" pollInterval={2000} />
@@ -239,14 +240,6 @@ var MasterGraphContainer = React.createClass({
             <div className="all-graph">
 
               <div className="graph-container col-md-4">
-
-
-
-                <h2><center>Lines of Code per Student</center></h2>
-                <div classID="bar-chart"></div>
-                <script src="../scripts/test_graph.js"></script>
-
-
 
 
               </div>

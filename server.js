@@ -19,7 +19,7 @@ var app = express();
 
 var COMMENTS_FILE = path.join(__dirname, 'assignments.json');
 
-app.set('port', (process.env.PORT || 4000));
+app.set('port', (process.env.PORT || 3000));
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 //app.use('/node_modules/bootstrap', express.static(path.join(__dirname, 'dist') ));
