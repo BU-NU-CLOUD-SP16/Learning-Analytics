@@ -26,7 +26,7 @@
 <!--    <link href="../../node_modules/boostrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
 
     <link href="/dist/css/custom.css" rel="stylesheet">
-    <link href="/dist/css/custom_index.css" rel="stylesheet">
+    <link href="/dist/css/custom_teacher.css" rel="stylesheet">
     <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
   </head>
       <body role="document">
@@ -51,11 +51,6 @@
                  <li class="dropdown">
                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Views<span class="caret"></span></a>
                    <ul class="dropdown-menu">
-                <!--     <li><a href="#">Action</a></li>
-                     <li><a href="#">Another action</a></li>
-                     <li><a href="#">Something else here</a></li>
-                     <li role="separator" class="divider"></li>
-                     <li class="dropdown-header">User Views</li> -->
                      <li><a href="/pages/teacher.html">Teacher</a></li>
                      <li><a href="/pages/student.html">Student</a></li>
                    </ul>
@@ -66,27 +61,14 @@
         </nav>
 
          <div class="row">
-           <div class="container" role="main">
-             <div class="jumbotron">
-               <h1  class="text-center" id="welcome" >Learning Analytics</h1>
-             </div>
-           </div>
+           <!-- This should be empty because this is were the jumbotron goes for the other pages -->
          </div>
 
          <div class="row">
-
             <div id="content"></div>
-
-
             <div id="user-select"></div>
-            <script type="text/babel" src="scripts/home_content.jsx"></script>
+            <script type="text/babel" src="../scripts/graph_app-student.jsx"></script>
          </div>
-
-      <footer class="footer">
-        <div class="container">
-          <p class="text-muted">Boston University EC500 A1</p>
-        </div>
-      </footer>
 
         <!-- Bootstrap core JavaScript Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

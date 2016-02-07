@@ -1,7 +1,7 @@
 /*@background_c: #c2c2c2;*/
 
 html{
-  background: #c2c2c2; /*@background_c*/
+  background: url("/dark_embroidery.png");
 }
 
 body{
@@ -101,27 +101,39 @@ div.row:nth-of-type(even) {
   transform: scaleX(1);
 }
 
-.assignment{
+.assignment, .student, .graph{
   height: 3em;
   background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
   background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e8e8e8));
   background-image:         linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);
   border-bottom: solid #dedede 1px;
+  overflow: hidden;
 }
 
-.assignmentBox .assignmentList {
+.assignmentBox .assignmentList, .studentList, .graphList{
   overflow-y: auto;
   height: 400px;
   border-radius: 6px;
   width: 100%;/*230px;*/
   background: #c2c2c2;
+  border: solid 1px rgb(204, 204, 204);
+}
+
+.studentList, .graphList{
+  height: 300px;
+}
+
+button[type="submit"]{
+  margin-left: 4px;
 }
 
 #assignment_dir{
+  margin-bottom: -15px;
+  padding-bottom: 10px;
   padding-top: 0px;
   min-width: 100%;/* 260px;*/
-  box-shadow: 3px 3px 3px black;
+  box-shadow: 3px 3px 10px 3px rgb(144, 144, 144);
 }
 
 #assignment_dir .panel-body{
@@ -135,17 +147,9 @@ div.row:nth-of-type(even) {
   box-shadow: 0px 6px 3px -3px rgba(0,0,0,0.75);
   font-size: 2.5em;
   font-weight: bold;
+  /*border: red solid 1px;*/
+  overflow: hidden;
 }
-
-/*
-.assignmentBox{
-  background: #a6a6a6;
-  border-radius: 6px;
-  padding: 10px;
-  padding-top: 0px;
-  width: 250px;
-  box-shadow: 3px 3px 3px black;
-}*/
 
 .assignment span{
   padding-left: 5em;
@@ -202,4 +206,76 @@ form.search_container > *{
      float: none;
      margin-left: auto;
      margin-right: auto;
+}
+
+ .userContainer{
+   height: 562px;
+   border: #c2c2c2 solid 1px;
+   background: #c2c2c2;
+   box-shadow: 7px 0 6px -6px rgb(144, 144, 144), -7px 0 6px -6px rgb(144, 144, 144);
+}
+
+ .userContainer .col-md-4 div{
+   display: inline;
+}
+
+.text-container{
+  /*position: absolute;*/
+  width: 100%;
+  text-align: center;
+  height: 200px;
+  padding-top: 10px;
+  margin-top: 90px;
+}
+
+ul.col-center{
+  zoom: 175%;
+  position: relative;
+  margin-right: 15%;
+}
+
+.text-container li{
+  list-style-type: none;
+}
+
+.text-container a{
+  color:white; /*  color:rgb(137, 52, 176);*/
+}
+
+.text-container h3{
+  margin-top: 10px;
+}
+
+.text-container > *{
+  position: absolute;
+}
+
+/* Overwritting the default characterisitics for primary button from Bootstrap */
+
+.btn-primary {                                  /* #337ab7 0%, #265a88 100%); */
+  border: red solid 1px;
+  background-image: -webkit-linear-gradient(top, rgb(175, 118, 223) 0%, rgb(137, 52, 176) 100%); /* rgb(175, 118, 223), rgb(137, 52, 176) */
+  background-image:      -o-linear-gradient(top, rgb(175, 118, 223) 0%, rgb(137, 52, 176) 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(175, 118, 223)), to(rgb(137, 52, 176)));
+  background-image:         linear-gradient(to bottom, rgb(175, 118, 223) 0%, rgb(137, 52, 176) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  background-repeat: repeat-x;
+  border-color: rgb(137, 52, 176);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: rgb(137, 52, 176);
+  background-position: 0 -15px;
+  border-color: rgb(137, 52, 176);
+}
+.btn-primary:active,
+.btn-primary.active {
+  background-color: rgb(137, 52, 176);
+  border-color: rgb(137, 52, 176);
+}
+.btn-primary:active:focus{
+  background-color: rgb(137, 52, 176);
+  border-color: rgb(137, 52, 176);
 }

@@ -105,7 +105,7 @@ fieldset[disabled] .btn-default.active {
   background-image: none;
 }
 .btn-primary {
-  background-image: -webkit-linear-gradient(top, #337ab7 0%, #265a88 100%);
+  background-image: -webkit-linear-gradient(top, #337ab7 0%, #265a88 100%); /* rgb(137, 52, 176), rgb(206, 182, 226) */
   background-image:      -o-linear-gradient(top, #337ab7 0%, #265a88 100%);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#337ab7), to(#265a88));
   background-image:         linear-gradient(to bottom, #337ab7 0%, #265a88 100%);

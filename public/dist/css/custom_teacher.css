@@ -1,0 +1,131 @@
+div.masterGraphContainer{
+  background: #c2c2c2;
+  box-shadow: 0px 3px 10px black;
+  margin: 0 auto;
+  display: table;
+  width: 100%;
+}
+
+.col-md-10, .col-md-2{ /*   border-radius: 6px; */
+  min-height: 90vh;
+  padding: 15px;
+}
+
+.col-md-2{
+
+}
+
+.col-md-10{
+
+}
+
+.col-md-2 .property-container,.col-md-10 .content-container{
+  height: 86vh;
+  width: 100%;
+  border: #c2c2c2 1px solid;
+  border-radius: 6px;
+}
+
+.graph-container{
+  display: inline-block;
+  height: 375px;
+  margin: 10px;
+  width: 700px;
+  box-shadow: 0px 3px 10px black;
+  background: rgb(144, 144, 144);
+  background-image: url("/place_holder_graph.png");
+  border: rgb(144, 144, 144) solid 1px;
+  border-radius: 6px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+/* properties */
+.col-md-2 .property-container{
+  background: #ffffff;
+  overflow: scroll;
+}
+
+/* graph container */
+.col-md-10 .content-container{
+  -moz-box-shadow:    inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow:         inset 0 0 10px #000000;
+  overflow-y: scroll;
+  background: url("/dark_embroidery.png");
+}
+
+.col-md-10 .content-container .all-graph{
+  position: relative;
+}
+
+/*override the alternating row background color*/
+.row, div.row:nth-of-type(even) {
+   background:transparent;
+   box-shadow: 0px 0px 0px 0px transparent;
+ }
+
+#assignment_dir{
+   box-shadow: 0px 0px 0px 0px transparent;
+   border-bottom: transparent 1px solid;
+}
+
+#assignment_dir .panel-heading{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.assignmentBox .assignmentList {
+  overflow-y: auto;
+  height: 25vh;
+  border-radius: 6px;
+  width: 100%;/*230px;*/
+  background: #c2c2c2;
+}
+
+.studentList h3{
+  display: block;
+}
+
+label {
+    display: block;
+    margin: 0;
+    padding-left: 15px;
+    text-indent: -15px;
+    font-size: 15px;
+}
+
+input {
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+}
+
+input[type='checkbox'] {
+    width:20px;
+    height:20px;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+label input[type=checkbox]{
+    position: relative;
+    vertical-align: middle;
+    bottom: 1px;
+}
+
+
+.assignment span{
+  padding-left: 5em;
+}
+
+.assignment h5{
+  padding-left: 5px;
+  margin-bottom: -4px;
+}
+
+.panel-title{
+  color: rgb(137, 52, 176);
+}

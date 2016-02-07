@@ -1,19 +1,3 @@
-/**
- * This file provided by Facebook is for non-commercial testing and evaluation
- * purposes only. Facebook reserves all rights not expressly granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-// strictly for loading the assignments from the server
-
-//window.alert("Here");
-
 var Assignment = React.createClass({
 /*rawMarkup: function(){
     // Sanitizes input from the site as a security precaution
@@ -33,8 +17,6 @@ var Assignment = React.createClass({
     );
   }
 });
-
-
 
 var AssignmentBox = React.createClass({
   loadAssignmentsFromServer: function(){
@@ -65,11 +47,29 @@ var AssignmentBox = React.createClass({
 
   render: function(){
     return (
-      <div className="assignmentBox">
-        <div>
-          <AssignmentList data={this.state.data} />
-        </div>
+      <div className="col-md-4 " >
+        <div id="assignment_dir" className="panel panel-default">
+          <div className="panel-heading">
+            <h3 className="panel-title">Assignment Library</h3>
+          </div>
+          <div className="panel-body">
+
+            <form role="form" className="search_container">
+                <div className="form-group">
+                  <input type="text" className="form-control" id="search" placeholder="Search..."/>
+                </div>
+                <button type="submit" className="btn btn-success">Go</button>
+            </form>
+
+            <div className="assignmentBox">
+              <div>
+                <AssignmentList data={this.state.data} />
+              </div>
+            </div>
+          </div>
+        <script type="text/babel" src="scripts/example.jsx"></script>
       </div>
+    </div>
     );
   }
 });
@@ -85,14 +85,44 @@ var AssignmentList = React.createClass({
     });
 
     return (
-      <div className="assignmentList panel panel-default">
-        {assignmentNodes}
-      </div>
+        <div className="assignmentList panel panel-default">
+          {assignmentNodes}
+        </div>
     );
   }
 });
 
 ReactDOM.render(<AssignmentBox url="/assignments" pollInterval={2000} />, document.getElementById('content'));
+
+var UserContainer = React.createClass({
+  render: function(){
+    return (
+      <div className="col-md-4">
+        <div className="userContainer">
+          <div className="text-container">
+              <ul className="col-center">
+                <li><h1>Are you a</h1></li>
+                <li>
+                    <a href="/pages/teacher.html">
+                      <button type="button" className="btn btn-lg btn-primary">Teacher</button>
+                    </a>
+                </li>
+                <li><h3>or a</h3></li>
+                <li>
+                  <a href="/pages/student.html">
+                    <button type="button" className="btn btn-lg btn-primary">Student?</button>
+                  </a>
+                </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+});
+
+ReactDOM.render(<UserContainer/>,document.getElementById('user-select'));
 
 /*
 
@@ -117,9 +147,6 @@ var Comment = React.createClass({
     );
   }
 });
-
-
-
 
 var CommentBox = React.createClass({
   loadCommentsFromServer: function() {
@@ -178,9 +205,6 @@ var CommentBox = React.createClass({
 });
 
   // ^^ Normally after CommentList  <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-
-
-
 
 var CommentList = React.createClass({
   // render up the list of authors and their respective comments
