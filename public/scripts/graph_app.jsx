@@ -1,3 +1,6 @@
+//var assn_box = require("./home_content.jsx");
+
+
 var Assignment = React.createClass({
 /*rawMarkup: function(){
     // Sanitizes input from the site as a security precaution
@@ -145,6 +148,8 @@ var StudentForm = React.createClass({
   }
 });
 
+
+
 var Graph = React.createClass({
   render: function(){
 
@@ -208,6 +213,16 @@ var GraphForm = React.createClass({
 });
 
 var MasterGraphContainer = React.createClass({
+  componentDidMount: function(){
+  /*var embedCode = "<script src='/public/scripts/test_graph.js'></script>"; // <script>//my js script code</script>
+  $('#scriptContainer').append(embedCode);*/
+
+  var script = document.createElement( 'script' );
+  //var url = '/public/scripts/test_graph.js';
+//  $('body').append('<script type="text/babel" src="/scripts/test_graph.js"></script>'); //#someElement
+//  alert("here");
+
+  },
   render:function(){
 
     return (
@@ -222,7 +237,20 @@ var MasterGraphContainer = React.createClass({
         <div className="col-md-10">
           <div className="content-container">
             <div className="all-graph">
-              <div className="graph-container col-md-4"></div>
+
+              <div className="graph-container col-md-4">
+
+
+
+                <h2><center>Lines of Code per Student</center></h2>
+                <div classID="bar-chart"></div>
+                <script src="../scripts/test_graph.js"></script>
+
+
+
+
+              </div>
+
               <div className="graph-container col-md-4"></div>
               <div className="graph-container col-md-4"></div>
               <div className="graph-container col-md-4"></div>
@@ -239,3 +267,8 @@ var MasterGraphContainer = React.createClass({
 });
 
 ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content')); //url="/assignments" pollInterval={2000}
+
+/*
+module.exports = AssignmentBox;
+module.exports = StudentForm;
+module.exports = GraphForm;*/

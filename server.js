@@ -10,6 +10,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+var rd3 = require('react-d3');
 var fs = require('fs');
 var path = require('path');
 var express = require('express');

@@ -33,7 +33,7 @@ div.masterGraphContainer{
   width: 700px;
   box-shadow: 0px 3px 10px black;
   background: rgb(144, 144, 144);
-  background-image: url("/place_holder_graph.png");
+/*  background-image: url("/place_holder_graph.png");*/
   border: rgb(144, 144, 144) solid 1px;
   border-radius: 6px;
   background-repeat: no-repeat;
@@ -129,3 +129,12 @@ label input[type=checkbox]{
 .panel-title{
   color: rgb(137, 52, 176);
 }
+/*
+.someclass{
+  border: red solid 1px;
+}
+
+#bar-chart{
+  border: solid 1px green;
+}
+*/

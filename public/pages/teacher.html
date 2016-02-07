@@ -25,9 +25,11 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!--    <link href="../../node_modules/boostrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
 
+    <!-- Include the graphing library -->
+    <script src="http://d3js.org/d3.v3.min.js"  charset="utf-8"></script>
+
     <link href="/dist/css/custom.css" rel="stylesheet">
     <link href="/dist/css/custom_teacher.css" rel="stylesheet">
-    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
   </head>
       <body role="document">
 
@@ -60,13 +62,26 @@
            </div>
         </nav>
 
-         <div class="row"></div>
+
 
          <div class="row">
-            <div id="content"></div>
-            <div id="user-select"></div>
-            <script type="text/babel" src="../scripts/graph_app.jsx"></script>
+
          </div>
+
+         <div class="row">
+
+           <!-- -->
+          <div id="content"></div>
+           <div id="user-select"></div>
+           <script type="text/babel" src="../scripts/graph_app.jsx"></script>
+
+
+  <!--      <h2><center>Lines of Code per Student</center></h2>
+        <div id="bar-chart"></div>
+        <script src="../scripts/test_graph.js"></script> -->
+
+      </div>
+
 
         <!-- Bootstrap core JavaScript Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

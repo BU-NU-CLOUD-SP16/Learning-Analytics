@@ -122,8 +122,10 @@ var UserContainer = React.createClass({
 
 });
 
-ReactDOM.render(<UserContainer/>,document.getElementById('user-select'));
 
+
+ReactDOM.render(<UserContainer/>,document.getElementById('user-select'));
+//module.exports = AssignmentBox;
 /*
 
 var Comment = React.createClass({
