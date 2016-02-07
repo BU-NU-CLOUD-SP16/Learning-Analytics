@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var mysql = require("mysql");
 
+
 // Connect to DB
 var databaseConn = mysql.createConnection({
 	host: "localhost",
@@ -25,6 +26,15 @@ app.get('/', function (req, res) {
 
 		// Dump DB - All Solutions
 		res.send(rows);
+	});
+});
+
+app.get('/problem/:problem_id', function(req, res) {
+	var problem_id = req.params.problem_id;
+	databaseConn.query('SELECT * FROM problem WHERE id = ' + problem_id, function (err, problem_title){
+		if(err) throw err;
+		console.log('Data received from DB');
+		res.send(problem_title);
 	});
 });
 
