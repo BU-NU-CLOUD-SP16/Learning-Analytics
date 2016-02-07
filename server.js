@@ -37,6 +37,15 @@ app.get('/assignments', function(req, res) {
 
 });
 
+app.get('/problem/:problem_id', function(req, res) {
+	var problem_id = req.params.problem_id;
+	databaseConn.query('SELECT * FROM problem WHERE id = ' + problem_id, function (err, problem_title){
+		if(err) throw err;
+		console.log('Data received from DB');
+		res.send(problem_title);
+	});
+});
+
 /*
 app.post('/api/comments', function(req, res) {
   fs.readFile(COMMENTS_FILE, function(err, data) {
