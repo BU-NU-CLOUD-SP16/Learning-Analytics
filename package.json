@@ -1,33 +1,22 @@
 {
-  "name": "react-tutorial",
+  "name": "learning_analytics",
   "version": "0.0.0",
-  "description": "Code from the React tutorial.",
-  "main": "server.js",
-  "dependencies": {
-    "body-parser": "^1.4.3",
-    "express": "^4.4.5"
-  },
-  "devDependencies": {},
+  "description": "Programming analytics web application",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/reactjs/react-tutorial.git"
+    "url": "git+https://github.com/BU-NU-CLOUD-SP16/Learning-Analytics.git"
   },
-  "keywords": [
-    "react",
-    "tutorial",
-    "comment",
-    "example"
-  ],
-  "author": "petehunt",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/reactjs/react-tutorial/issues"
+    "url": "https://github.com/BU-NU-CLOUD-SP16/Learning-Analytics/issues"
   },
-  "homepage": "https://github.com/reactjs/react-tutorial",
-  "engines" : {
-    "node" : "0.12.x"
+  "homepage": "https://github.com/BU-NU-CLOUD-SP16/Learning-Analytics#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mysql": "^2.10.2"
   }
 }
