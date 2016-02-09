@@ -19,11 +19,15 @@
     "body-parser": "^1.4.3",
     "express": "^4.13.4",
     "mysql": "^2.10.2",
-    "react-d3": "^0.4.0"
+    "react": "^0.14.7",
+    "react-d3": "^0.4.0",
+    "react-dom": "^0.14.7"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
     "gulp": "^3.9.1",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0"
   }

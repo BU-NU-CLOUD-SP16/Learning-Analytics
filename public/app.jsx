@@ -1,3 +1,6 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+
 var Assignment = React.createClass({
 /*rawMarkup: function(){
     // Sanitizes input from the site as a security precaution
