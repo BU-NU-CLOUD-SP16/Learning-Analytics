@@ -1,0 +1,18 @@
+# Used to create the table for problem
+CREATE TABLE problem (id INT NOT NULL PRIMARY KEY,
+	title VARCHAR(255),
+	description_html TEXT,
+	function_template TEXT,
+	test_suite TEXT,
+	likes_count INT(5),
+	comments_count INT(5),
+	created_by VARCHAR(255),
+	solvers_count INT(5),
+	created_at DATETIME);
+
+# Used to load the data from the given csv file
+LOAD DATA INFILE ‘<path_to_file>/cody_problem.csv' 
+	INTO TABLE problem 
+	FIELDS TERMINATED BY ',' 
+	ENCLOSED BY ‘”’
+	IGNORE 1 ROWS;

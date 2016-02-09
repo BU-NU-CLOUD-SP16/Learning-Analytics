@@ -1,0 +1,16 @@
+# Used to create the table for solutions
+CREATE TABLE solution (id INT NOT NULL PRIMARY KEY,
+	body TEXT,
+	result TEXT,
+	metric INT(3),
+	correct INT(3),
+	problem_id INT(5),
+	player_id INT(5),
+	created_at DATETIME);
+
+# Used to load the data from the given csv file
+LOAD DATA INFILE ‘<path_to_file>/cody_solutions.csv' 
+	INTO TABLE problem 
+	FIELDS TERMINATED BY ',' 
+	ENCLOSED BY ‘”’
+	IGNORE 1 ROWS;

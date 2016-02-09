@@ -1,25 +1,29 @@
-/**
- * This file provided by Facebook is for non-commercial testing and evaluation
- * purposes only. Facebook reserves all rights not expressly granted.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * FACEBOOK BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
+var express = require('express');
+var app = express();
+var mysql = require("mysql");
 var rd3 = require('react-d3');
 var fs = require('fs');
 var path = require('path');
-var express = require('express');
 var bodyParser = require('body-parser');
-var app = express();
-
 var COMMENTS_FILE = path.join(__dirname, 'assignments.json');
 
-app.set('port', (process.env.PORT || 3000));
+
+// Connect to DB
+var databaseConn = mysql.createConnection({
+	host: "localhost",
+    	user: "root",
+    	password: "",
+	database: "demo1",
+});
+
+databaseConn.connect(function (err){
+	if (err){
+		console.log('Error connecting to DB');
+		return;
+	}
+	console.log('Connection Established');
+});
+
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 //app.use('/node_modules/bootstrap', express.static(path.join(__dirname, 'dist') ));
@@ -38,6 +42,17 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.get('/dbtest', function (req, res) {
+  	databaseConn.query('SELECT * FROM solution', function (err, rows){
+		if(err) throw err;
+		console.log('Data received from the DB');
+
+		// Dump DB - All Solutions
+		res.send(rows);
+	});
+});
+
+
 app.get('/assignments', function(req, res) {
   fs.readFile(COMMENTS_FILE, function(err, data) {
     if (err) {
@@ -47,6 +62,29 @@ app.get('/assignments', function(req, res) {
     res.json(JSON.parse(data));
   });
 
+});
+
+// Return all info about problem based on id
+app.get('/problem/:problem_id', function(req, res) {
+	var problem_id = req.params.problem_id;
+	databaseConn.query('SELECT * FROM problem WHERE id = ' + problem_id, function (err, problem_title){
+		if(err) throw err;
+		console.log('Data received from DB');
+		res.send(problem_title);
+	});
+});
+
+// Return specific information related to the probelm
+app.get('/problem/:problem_id/:modifier', function(req, res) {
+	var problem_id = req.params.problem_id;
+	var modifier = req.params.modifier;
+
+	// Query DB
+	databaseConn.query('SELECT ' + modifier + ' FROM problem WHERE id = ' + problem_id, function (err, problem_specific_info){
+		if(err) throw err;
+		console.log('Data received from DB');
+		res.send(problem_specific_info);
+	});
 });
 
 /*
@@ -77,6 +115,10 @@ app.post('/api/comments', function(req, res) {
 });*/
 
 
-app.listen(app.get('port'), function() {
-  console.log('Server started: http://localhost:' + app.get('port') + '/');
+
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
 });
+
+//databaseConn.end(function (err){
+//});
