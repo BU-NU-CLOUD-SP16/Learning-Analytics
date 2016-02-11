@@ -1,5 +1,40 @@
 //var assn_box = require("./home_content.jsx");
 
+var rd3 = require('react-d3');
+
+/*
+var BarChart = rd3.BarChart;
+
+var barData = [
+  {label: 'A', value: 50},
+  {label: 'B', value: 64},
+  {label: 'C', value: 34},
+  {label: 'D', value: 56},
+  {label: 'E', value: 23},
+  {label: 'F', value: 78},
+  {label: 'G', value: 67},
+  {label: 'H', value: 45},
+  {label: 'I', value: 77},
+  {label: 'J', value: 88},
+  {label: 'K', value: 65},
+  {label: 'L', value: 45},
+  {label: 'M', value: 56},
+  {label: 'N', value: 87},
+  {label: 'O', value: 91},
+  {label: 'P', value: 54},
+  {label: 'Q', value: 42},
+  {label: 'R', value: 67},
+  {label: 'S', value: 55},
+  {label: 'T', value: 35},
+  {label: 'U', value: 79},
+  {label: 'V', value: 56},
+  {label: 'W', value: 76},
+  {label: 'X', value: 56},
+  {label: 'Y', value: 48},
+  {label: 'Z', value: 76}
+];
+
+*/ 
 
 var Assignment = React.createClass({
 /*rawMarkup: function(){
@@ -206,8 +241,6 @@ var GraphForm = React.createClass({
           </form>
         </div>
       </div>
-
-
     );
   }
 });
@@ -240,8 +273,7 @@ var MasterGraphContainer = React.createClass({
             <div className="all-graph">
 
               <div className="graph-container col-md-4">
-
-
+              Hello world!!  
               </div>
 
               <div className="graph-container col-md-4"></div>
@@ -250,7 +282,7 @@ var MasterGraphContainer = React.createClass({
               <div className="graph-container col-md-4"></div>
               <div className="graph-container col-md-4"></div>
               <div className="graph-container col-md-4"></div>
-              <div className="graph-container col-md-4"></div>
+              <div className="graph-container col-md-4"></div> 
             </div>
           </div>
         </div>

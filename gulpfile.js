@@ -6,7 +6,8 @@ var source = require('vinyl-source-stream');
 
 var paths = {
     js: ['./public/scripts/*.jsx'],
-    app_js: ['./public/app.jsx']
+    app_js: ['./public/app.jsx'],
+    teacher_js: ['./public/scripts/graph_app.jsx']
 };
 
 //Trasnform jsx files from jsx to js, then bundle them
@@ -18,10 +19,19 @@ gulp.task('js', function(){
         .pipe(gulp.dest('./public'));
 });
 
+gulp.task('teacher_js', function(){
+    browserify(paths.teacher_js)
+        .transform(reactify)
+	.bundle().on('error', onError)
+        .pipe(source('teacher_bundle.js'))
+        .pipe(gulp.dest('./public'));
+        
+});
 //Run the "js" task when files are changed
 gulp.task('watch', function(){
     gulp.watch(paths.app_js, ['js']);
     gulp.watch(paths.js, ['js']);
+    gulp.watch(paths.teacher_js, ['teacher_js']);
 });
 
 gulp.task('default', ['watch']);
