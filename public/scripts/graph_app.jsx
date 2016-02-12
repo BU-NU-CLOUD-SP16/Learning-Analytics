@@ -1,5 +1,6 @@
 //var assn_box = require("./home_content.jsx");
-
+var React = require('react');
+var ReactDOM = require('react-dom');
 var rd3 = require('react-d3');
 
 /*
@@ -34,7 +35,7 @@ var barData = [
   {label: 'Z', value: 76}
 ];
 
-*/ 
+*/
 
 var Assignment = React.createClass({
 /*rawMarkup: function(){
@@ -273,7 +274,10 @@ var MasterGraphContainer = React.createClass({
             <div className="all-graph">
 
               <div className="graph-container col-md-4">
-              Hello world!!  
+
+                 
+
+
               </div>
 
               <div className="graph-container col-md-4"></div>
@@ -282,7 +286,7 @@ var MasterGraphContainer = React.createClass({
               <div className="graph-container col-md-4"></div>
               <div className="graph-container col-md-4"></div>
               <div className="graph-container col-md-4"></div>
-              <div className="graph-container col-md-4"></div> 
+              <div className="graph-container col-md-4"></div>
             </div>
           </div>
         </div>
