@@ -181,6 +181,12 @@ var StudentList = React.createClass({
           <Student stud_name="John K"/>
           <Student stud_name="Li L"/>
           <Student stud_name="Ryan O"/>
+          <Student stud_name="Johnny Appleseed"/>
+          <Student stud_name="Mike T"/>
+          <Student stud_name="Nick M"/>
+          <Student stud_name="John K"/>
+          <Student stud_name="Li L"/>
+          <Student stud_name="Ryan O"/>
 
 
         </div>
@@ -242,11 +248,6 @@ var GraphList = React.createClass({
           <Graph stud_name="Line Numbers"/>
           <Graph stud_name="Line Numbers"/>
           <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-
         </div>
     );
   }
@@ -256,11 +257,11 @@ var GraphForm = React.createClass({
   render: function(){
 
     return (
-      <div id="assignment_dir" className="panel panel-default">
-        <div className="panel-heading">
-          <h5 className="panel-title">Graphs</h5>
-        </div>
-        <div className="panel-body">
+      <div className="graphForm">
+        <div id="assignment_dir">
+          <div className="panel-heading">
+            <h5 className="panel-title">Graphs</h5>
+          </div>
           <form>
             <GraphList/>
           </form>
@@ -303,25 +304,31 @@ var MasterGraphContainer = React.createClass({
     return (
       <div className="masterGraphContainer">
 
-        <div className="col-md-2">
-          <div className="property-container">
-              <AssignmentBox url="/assignments" pollInterval={2000} />
-              <StudentForm/>
-              <GraphForm/>
-          </div>
+        <div className="content-toolbar">
+          <GraphForm/>
         </div>
-        <div className="col-md-10">
-          <div className="content-container">
-            <div className="all-graph">
-                <GraphContainerList/>
-
-
-
-
+        <div className="content-body" >
+          <div className="col-md-2">
+            <div className="property-container">
+                <AssignmentBox url="/assignments" pollInterval={2000} />
+                <StudentForm/>
 
             </div>
           </div>
+          <div className="col-md-10">
+            <div className="content-container">
+              <div className="all-graph">
+                  <GraphContainerList/>
+
+
+
+
+
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
     );
   }

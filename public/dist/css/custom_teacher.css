@@ -4,10 +4,31 @@ div.masterGraphContainer{
   margin: 0 auto;
   display: table;
   width: 100%;
+
+}
+
+div.masterGraphContainer .content-toolbar{
+  height:60px;
+  width: 100%;
+  /*border: orange solid 1px;*/
+}
+
+div.masterGraphContainer .content-body{
+  /*border: green solid 1px;*/
+  display: table;
+}
+
+.graphList{
+  overflow-y: auto;
+  height: 60px;
+  border-radius: 6px;
+  width: 100%;/*230px;*/
+  background: #c2c2c2;
+  border: solid 1px transparent;
 }
 
 .col-md-10, .col-md-2{ /*   border-radius: 6px; */
-  min-height: 90vh;
+  min-height: 85vh;
   padding: 15px;
 }
 
@@ -20,10 +41,49 @@ div.masterGraphContainer{
 }
 
 .col-md-2 .property-container,.col-md-10 .content-container{
-  height: 86vh;
+  height: 82vh;
   width: 100%;
-  border: #c2c2c2 1px solid;
+/*  border: red 1px solid;*/
   border-radius: 6px;
+
+}
+
+.graphForm #assignment_dir > *{
+/*  border: red solid 1px;*/
+  height: 60px;
+  display: inline-block;
+}
+
+.graph{
+  height: 40px;
+  padding-top: 20px;
+  overflow: hidden;
+  padding-right:2px;
+}
+
+.graphForm #assignment_dir{
+/*  border: green solid 1px;*/
+  border-bottom: 1px solid rgb(144, 144, 144);
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background: #c2c2c2;
+  height:65px;
+}
+
+.graphForm #assignment_dir > div{
+  overflow: hidden;
+}
+
+.graphForm .panel-heading, .graphForm .panel{
+  width: 90px;
+  display: inline;
+  top: 0px;
+  vertical-align: top;
+  padding-top: 22px;
+}
+
+.graphForm .graphList > *{
+  display: inline-block;
 }
 
 .graph-container{
@@ -44,7 +104,7 @@ div.masterGraphContainer{
 /* properties */
 .col-md-2 .property-container{
   background: #ffffff;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 /* graph container */
@@ -124,6 +184,10 @@ label input[type=checkbox]{
 .assignment h5{
   padding-left: 5px;
   margin-bottom: -4px;
+}
+
+.assignmentBox .assignmentList{
+  height: 300px;
 }
 
 .panel-title{

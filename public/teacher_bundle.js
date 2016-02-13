@@ -32732,6 +32732,12 @@ var StudentList = React.createClass({displayName: "StudentList",
           React.createElement(Student, {stud_name: "Nick M"}), 
           React.createElement(Student, {stud_name: "John K"}), 
           React.createElement(Student, {stud_name: "Li L"}), 
+          React.createElement(Student, {stud_name: "Ryan O"}), 
+          React.createElement(Student, {stud_name: "Johnny Appleseed"}), 
+          React.createElement(Student, {stud_name: "Mike T"}), 
+          React.createElement(Student, {stud_name: "Nick M"}), 
+          React.createElement(Student, {stud_name: "John K"}), 
+          React.createElement(Student, {stud_name: "Li L"}), 
           React.createElement(Student, {stud_name: "Ryan O"})
 
 
@@ -32793,12 +32799,7 @@ var GraphList = React.createClass({displayName: "GraphList",
           React.createElement(Graph, {stud_name: "Line Numbers"}), 
           React.createElement(Graph, {stud_name: "Line Numbers"}), 
           React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
           React.createElement(Graph, {stud_name: "Line Numbers"})
-
         )
     );
   }
@@ -32808,11 +32809,11 @@ var GraphForm = React.createClass({displayName: "GraphForm",
   render: function(){
 
     return (
-      React.createElement("div", {id: "assignment_dir", className: "panel panel-default"}, 
-        React.createElement("div", {className: "panel-heading"}, 
-          React.createElement("h5", {className: "panel-title"}, "Graphs")
-        ), 
-        React.createElement("div", {className: "panel-body"}, 
+      React.createElement("div", {className: "graphForm"}, 
+        React.createElement("div", {id: "assignment_dir"}, 
+          React.createElement("div", {className: "panel-heading"}, 
+            React.createElement("h5", {className: "panel-title"}, "Graphs")
+          ), 
           React.createElement("form", null, 
             React.createElement(GraphList, null)
           )
@@ -32855,25 +32856,31 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
     return (
       React.createElement("div", {className: "masterGraphContainer"}, 
 
-        React.createElement("div", {className: "col-md-2"}, 
-          React.createElement("div", {className: "property-container"}, 
-              React.createElement(AssignmentBox, {url: "/assignments", pollInterval: 2000}), 
-              React.createElement(StudentForm, null), 
-              React.createElement(GraphForm, null)
-          )
+        React.createElement("div", {className: "content-toolbar"}, 
+          React.createElement(GraphForm, null)
         ), 
-        React.createElement("div", {className: "col-md-10"}, 
-          React.createElement("div", {className: "content-container"}, 
-            React.createElement("div", {className: "all-graph"}, 
-                React.createElement(GraphContainerList, null)
+        React.createElement("div", {className: "content-body"}, 
+          React.createElement("div", {className: "col-md-2"}, 
+            React.createElement("div", {className: "property-container"}, 
+                React.createElement(AssignmentBox, {url: "/assignments", pollInterval: 2000}), 
+                React.createElement(StudentForm, null)
+
+            )
+          ), 
+          React.createElement("div", {className: "col-md-10"}, 
+            React.createElement("div", {className: "content-container"}, 
+              React.createElement("div", {className: "all-graph"}, 
+                  React.createElement(GraphContainerList, null)
 
 
 
 
 
+              )
             )
           )
         )
+
       )
     );
   }

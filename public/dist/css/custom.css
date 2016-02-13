@@ -101,7 +101,7 @@ div.row:nth-of-type(even) {
   transform: scaleX(1);
 }
 
-.assignment, .student, .graph{
+.assignment, .student{
   height: 3em;
   background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
   background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
@@ -111,17 +111,14 @@ div.row:nth-of-type(even) {
   overflow: hidden;
 }
 
-.assignmentBox .assignmentList, .studentList, .graphList{
+.assignmentBox .assignmentList, .studentList{
   overflow-y: auto;
-  height: 400px;
+  height: 300px;
   border-radius: 6px;
   width: 100%;/*230px;*/
   background: #c2c2c2;
   border: solid 1px rgb(204, 204, 204);
-}
 
-.studentList, .graphList{
-  height: 300px;
 }
 
 button[type="submit"]{
@@ -130,7 +127,7 @@ button[type="submit"]{
 
 #assignment_dir{
   margin-bottom: -15px;
-  padding-bottom: 10px;
+  padding-bottom: 0px;
   padding-top: 0px;
   min-width: 100%;/* 260px;*/
   box-shadow: 3px 3px 10px 3px rgb(144, 144, 144);
