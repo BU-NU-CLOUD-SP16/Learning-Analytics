@@ -32623,6 +32623,7 @@ var Assignment = React.createClass({displayName: "Assignment",
   render: function(){
     return (
     React.createElement("div", {className: "assignment"}, 
+
       React.createElement("h5", null, 
         this.props.prob_statement + ":"
       ), 
@@ -32774,9 +32775,11 @@ var Graph = React.createClass({displayName: "Graph",
     return (
       React.createElement("div", {className: "graph"}, 
         React.createElement("label", null, 
+
           React.createElement("input", {type: "checkbox", name: "graph"}, 
-              this.props.stud_name
+              React.createElement("i", {className: "fa fa-" + this.props.icon_type}, " "), this.props.stud_name
           )
+
         )
       )
     );
@@ -32786,22 +32789,29 @@ var Graph = React.createClass({displayName: "Graph",
 var GraphList = React.createClass({displayName: "GraphList",
   render: function(){
 
-    return (
+    var test = (
         React.createElement("div", {className: "graphList"}, 
-          React.createElement(Graph, {stud_name: "Select All"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"}), 
-          React.createElement(Graph, {stud_name: "Line Numbers"})
+          React.createElement(Graph, {stud_name: "Select All", icon_type: "check-square"}), 
+          React.createElement(Graph, {stud_name: "Space Complexity", icon_type: "database"}), 
+          React.createElement(Graph, {stud_name: "Time Complexity", icon_type: "clock-o"}), 
+          React.createElement(Graph, {stud_name: "Line Numbers", icon_type: "align-justify"}), 
+          React.createElement(Graph, {stud_name: "Class Rank", icon_type: "bar-chart"}), 
+          React.createElement(Graph, {stud_name: "Loop Counter", icon_type: "circle-o-notch"}), 
+          React.createElement(Graph, {stud_name: "Attempt Count", icon_type: "repeat"}), 
+          React.createElement(Graph, {stud_name: "Comment Count", icon_type: "commenting-o"}), 
+          React.createElement(Graph, {stud_name: "Data Structures", icon_type: "sitemap"}), 
+
+          React.createElement(Graph, {stud_name: "Nested Loop Count", icon_type: "align-left"}), 
+          React.createElement(Graph, {stud_name: "Comment-Code Ratio", icon_type: "percent"}), 
+          React.createElement(Graph, {stud_name: "Clusters", icon_type: "dot-circle-o"}), 
+          React.createElement(Graph, {stud_name: "Popular Functions", icon_type: "sign-in"}), 
+          React.createElement(Graph, {stud_name: "Statistics", icon_type: "pie-chart"}), 
+          React.createElement(Graph, {stud_name: "Total Submissions", icon_type: "th-large"})
         )
     );
+
+    return test;
+
   }
 });
 

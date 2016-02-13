@@ -10,6 +10,7 @@ div.masterGraphContainer{
 div.masterGraphContainer .content-toolbar{
   height:60px;
   width: 100%;
+  white-space: nowrap;
   /*border: orange solid 1px;*/
 }
 
@@ -18,13 +19,22 @@ div.masterGraphContainer .content-body{
   display: table;
 }
 
+.graphForm #assignment_dir form{
+/*  border:orange solid 1px;*/
+
+  width: 95%;
+}
+
 .graphList{
-  overflow-y: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   height: 60px;
   border-radius: 6px;
   width: 100%;/*230px;*/
   background: #c2c2c2;
-  border: solid 1px transparent;
+  /* border: solid 1px red; */
+  white-space: normal;
+
 }
 
 .col-md-10, .col-md-2{ /*   border-radius: 6px; */
@@ -55,10 +65,14 @@ div.masterGraphContainer .content-body{
 }
 
 .graph{
-  height: 40px;
+  height: 60px;
   padding-top: 20px;
   overflow: hidden;
   padding-right:2px;
+}
+
+.graphForm h5.panel-title{
+  color: black;
 }
 
 .graphForm #assignment_dir{
@@ -71,7 +85,7 @@ div.masterGraphContainer .content-body{
 }
 
 .graphForm #assignment_dir > div{
-  overflow: hidden;
+/*  overflow: scroll;*/
 }
 
 .graphForm .panel-heading, .graphForm .panel{
@@ -174,6 +188,13 @@ label input[type=checkbox]{
     position: relative;
     vertical-align: middle;
     bottom: 1px;
+    border: solid green 1px;
+}
+
+.graphForm input[type="checkbox"]{
+  margin-right: 18px;
+  width: 22px;
+  height: 22px;
 }
 
 
@@ -186,10 +207,18 @@ label input[type=checkbox]{
   margin-bottom: -4px;
 }
 
-.assignmentBox .assignmentList{
+.assignmentBox .assignmentList, .studentList{
   height: 300px;
 }
 
 .panel-title{
   color: rgb(137, 52, 176);
+}
+
+.bar_chart h3{
+  margin-top: 5px;
+}
+
+.bar_chart{
+  margin-left: -15px;
 }

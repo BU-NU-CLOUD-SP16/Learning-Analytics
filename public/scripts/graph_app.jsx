@@ -71,6 +71,7 @@ var Assignment = React.createClass({
   render: function(){
     return (
     <div className="assignment">
+
       <h5>
         {this.props.prob_statement + ":"}
       </h5>
@@ -222,9 +223,11 @@ var Graph = React.createClass({
     return (
       <div className="graph">
         <label>
+
           <input type="checkbox" name="graph">
-              {this.props.stud_name}
+              <i className={"fa fa-" + this.props.icon_type}>&nbsp;</i>{this.props.stud_name}
           </input>
+
         </label>
       </div>
     );
@@ -234,22 +237,29 @@ var Graph = React.createClass({
 var GraphList = React.createClass({
   render: function(){
 
-    return (
+    var test = (
         <div className="graphList">
-          <Graph stud_name="Select All"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
-          <Graph stud_name="Line Numbers"/>
+          <Graph stud_name="Select All" icon_type="check-square"/>
+          <Graph stud_name="Space Complexity" icon_type="database"/>
+          <Graph stud_name="Time Complexity" icon_type="clock-o"/>
+          <Graph stud_name="Line Numbers" icon_type="align-justify"/>
+          <Graph stud_name="Class Rank" icon_type="bar-chart"/>
+          <Graph stud_name="Loop Counter" icon_type="circle-o-notch"/>
+          <Graph stud_name="Attempt Count" icon_type="repeat"/>
+          <Graph stud_name="Comment Count" icon_type="commenting-o"/>
+          <Graph stud_name="Data Structures" icon_type="sitemap"/>
+
+          <Graph stud_name="Nested Loop Count" icon_type="align-left"/>
+          <Graph stud_name="Comment-Code Ratio" icon_type="percent"/>
+          <Graph stud_name="Clusters" icon_type="dot-circle-o"/>
+          <Graph stud_name="Popular Functions" icon_type="sign-in"/>
+          <Graph stud_name="Statistics" icon_type="pie-chart"/>
+          <Graph stud_name="Total Submissions" icon_type="th-large"/>
         </div>
     );
+
+    return test;
+
   }
 });
 

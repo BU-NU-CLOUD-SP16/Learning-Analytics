@@ -111,9 +111,14 @@ div.row:nth-of-type(even) {
   overflow: hidden;
 }
 
+/* This is used for identifying what view the web app is in */
+.navbar-brand span{
+  color: rgb(167, 88, 203);
+}
+
 .assignmentBox .assignmentList, .studentList{
   overflow-y: auto;
-  height: 300px;
+  height: 400px;
   border-radius: 6px;
   width: 100%;/*230px;*/
   background: #c2c2c2;
