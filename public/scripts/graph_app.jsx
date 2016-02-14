@@ -5,10 +5,10 @@ var rd3 = require('react-d3');
 
 var BarChart = rd3.BarChart;
 
-var BarChartD3 = React.createClass({
+var BarChart_Lines_Code = React.createClass({
     getInitialState : function() {
         var barData = [{
-          "name":"Series A",
+          "name":"Class A",
           "values":[
             {"x": 'A', "y": 50},
             {"x": 'B', "y": 64},
@@ -41,10 +41,10 @@ var BarChartD3 = React.createClass({
         return {barData: barData};
     },
     render: function() {
-        return <div className="bar_chart">
+        return <div className="BarChart_Lines_Code">
                 <center>
                   <h3>
-                  Lines of Code Student
+                  Lines of Code
                   </h3>
                 </center>
                 <BarChart
@@ -52,6 +52,222 @@ var BarChartD3 = React.createClass({
                   width={700}
                   height={330}
                   fill={'#3182bd'}
+                  title=''
+                  margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                />
+               </div>;
+    }
+});
+
+var BarChart_Time_Complexity = React.createClass({
+    getInitialState : function() {
+        var barData = [{
+          "name":"Class A",
+          "values":[
+            {"x": 'A', "y": 2345},
+            {"x": 'B', "y": 5463},
+            {"x": 'C', "y": 10293},
+            {"x": 'D', "y": 5643},
+            {"x": 'E', "y": 3657},
+            {"x": 'F', "y": 7854},
+            {"x": 'G', "y": 6845},
+            {"x": 'H', "y": 2435},
+            {"x": 'I', "y": 1243},
+            {"x": 'J', "y": 5544},
+            {"x": 'K', "y": 7869},
+            {"x": 'L', "y": 3343},
+            {"x": 'M', "y": 4433},
+            {"x": 'N', "y": 3354},
+            {"x": 'O', "y": 3654},
+            {"x": 'P', "y": 7887},
+            {"x": 'Q', "y": 6657},
+            {"x": 'R', "y": 6587},
+            {"x": 'S', "y": 6645},
+            {"x": 'T', "y": 2343},
+            {"x": 'U', "y": 4565},
+            {"x": 'V', "y": 6645},
+            {"x": 'W', "y": 9786},
+            {"x": 'X', "y": 2302},
+            {"x": 'Y', "y": 4345},
+            {"x": 'Z', "y": 5675}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return <div className="BarChart_Time_Complexity">
+                <center>
+                  <h3>
+                  Time Complexity (ms)
+                  </h3>
+                </center>
+                <BarChart
+                  data={this.state.barData}
+                  width={700}
+                  height={330}
+                  fill={'#8a5715'}
+                  title=''
+                  margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                />
+               </div>;
+    }
+});
+
+var BarChart_Comment_Percent = React.createClass({
+    getInitialState : function() {
+        var barData = [{
+          "name":"Class A",
+          "values":[
+            {"x": 'A', "y": 23},
+            {"x": 'B', "y": 14},
+            {"x": 'C', "y": 0},
+            {"x": 'D', "y": 14},
+            {"x": 'E', "y": 5},
+            {"x": 'F', "y": 13},
+            {"x": 'G', "y": 5},
+            {"x": 'H', "y": 6},
+            {"x": 'I', "y": 23},
+            {"x": 'J', "y": 25},
+            {"x": 'K', "y": 32},
+            {"x": 'L', "y": 12},
+            {"x": 'M', "y": 43},
+            {"x": 'N', "y": 24},
+            {"x": 'O', "y": 16},
+            {"x": 'P', "y": 14},
+            {"x": 'Q', "y": 25},
+            {"x": 'R', "y": 27},
+            {"x": 'S', "y": 45},
+            {"x": 'T', "y": 12},
+            {"x": 'U', "y": 13},
+            {"x": 'V', "y": 5},
+            {"x": 'W', "y": 23},
+            {"x": 'X', "y": 45},
+            {"x": 'Y', "y": 21},
+            {"x": 'Z', "y": 22}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return <div className="BarChart_Comment_Percent">
+                <center>
+                  <h3>
+                  Comments Percentage 
+                  </h3>
+                </center>
+                <BarChart
+                  data={this.state.barData}
+                  width={700}
+                  height={330}
+                  fill={'#8a5715'}
+                  title=''
+                  margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                />
+               </div>;
+    }
+});
+
+var BarChart_Attempt_Count = React.createClass({
+    getInitialState : function() {
+        var barData = [{
+          "name":"Class A",
+          "values":[
+            {"x": 'A', "y": 1},
+            {"x": 'B', "y": 2},
+            {"x": 'C', "y": 1},
+            {"x": 'D', "y": 0},
+            {"x": 'E', "y": 3},
+            {"x": 'F', "y": 5},
+            {"x": 'G', "y": 7},
+            {"x": 'H', "y": 3},
+            {"x": 'I', "y": 2},
+            {"x": 'J', "y": 4},
+            {"x": 'K', "y": 4},
+            {"x": 'L', "y": 1},
+            {"x": 'M', "y": 1},
+            {"x": 'N', "y": 4},
+            {"x": 'O', "y": 6},
+            {"x": 'P', "y": 2},
+            {"x": 'Q', "y": 1},
+            {"x": 'R', "y": 2},
+            {"x": 'S', "y": 2},
+            {"x": 'T', "y": 5},
+            {"x": 'U', "y": 4},
+            {"x": 'V', "y": 3},
+            {"x": 'W', "y": 5},
+            {"x": 'X', "y": 2},
+            {"x": 'Y', "y": 1},
+            {"x": 'Z', "y": 1}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return <div className="BarChart_Attempt_Count">
+                <center>
+                  <h3>
+		    Number of Attempts 
+                  </h3>
+                </center>
+                <BarChart
+                  data={this.state.barData}
+                  width={700}
+                  height={330}
+                  fill={'#8a5715'}
+                  title=''
+                  margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                />
+               </div>;
+    }
+});
+
+var BarChart_Loop_Count = React.createClass({
+    getInitialState : function() {
+        var barData = [{
+          "name":"Class A",
+          "values":[
+            {"x": 'A', "y": 2},
+            {"x": 'B', "y": 2},
+            {"x": 'C', "y": 2},
+            {"x": 'D', "y": 3},
+            {"x": 'E', "y": 3},
+            {"x": 'F', "y": 5},
+            {"x": 'G', "y": 7},
+            {"x": 'H', "y": 3},
+            {"x": 'I', "y": 2},
+            {"x": 'J', "y": 4},
+            {"x": 'K', "y": 4},
+            {"x": 'L', "y": 1},
+            {"x": 'M', "y": 1},
+            {"x": 'N', "y": 4},
+            {"x": 'O', "y": 6},
+            {"x": 'P', "y": 2},
+            {"x": 'Q', "y": 1},
+            {"x": 'R', "y": 2},
+            {"x": 'S', "y": 2},
+            {"x": 'T', "y": 5},
+            {"x": 'U', "y": 4},
+            {"x": 'V', "y": 3},
+            {"x": 'W', "y": 5},
+            {"x": 'X', "y": 2},
+            {"x": 'Y', "y": 1},
+            {"x": 'Z', "y": 1}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return <div className="BarChart_Loop_Count">
+                <center>
+                  <h3>
+                    NNested Loop Count 
+                  </h3>
+                </center>
+                <BarChart
+                  data={this.state.barData}
+                  width={700}
+                  height={330}
+                  fill={'#8a5715'}
                   title=''
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
                 />
@@ -282,11 +498,41 @@ var GraphForm = React.createClass({
 });
 
 
-var GraphContainer = React.createClass({
+var GraphContainer_Lines_Code = React.createClass({
   render: function(){
     return (
       <div className="graph-container col-md-4">
-          <BarChartD3/>
+          <BarChart_Lines_Code/>
+      </div>
+    )
+  }
+});
+
+var GraphContainer_Time_Complexity = React.createClass({
+  render: function(){
+    return (
+      <div className="graph-container col-md-4">
+          <BarChart_Time_Complexity/>
+      </div>
+    )
+  }
+});
+
+var GraphContainer_Comment_Percent = React.createClass({
+  render: function(){
+    return (
+      <div className="graph-container col-md-4">
+          <BarChart_Comment_Percent/>
+      </div>
+    )
+  }
+});
+
+var GraphContainer_Attempt_Count = React.createClass({
+  render: function(){
+    return (
+      <div className="graph-container col-md-4">
+          <BarChart_Attempt_Count/>
       </div>
     )
   }
@@ -296,11 +542,10 @@ var GraphContainerList = React.createClass({
   render: function(){
     return(
       <div className="graphContainerList">
-        <GraphContainer/>
-        <GraphContainer/>
-        <GraphContainer/>
-        <GraphContainer/>
-        <GraphContainer/>
+        <GraphContainer_Lines_Code/>
+        <GraphContainer_Time_Complexity/>
+        <GraphContainer_Comment_Percent/>
+        <GraphContainer_Attempt_Count/>
       </div>
     )
   }
