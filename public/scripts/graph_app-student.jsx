@@ -1,3 +1,9 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+var rd3 = require('react-d3');
+
+var BarChart = rd3.BarChart;
+
 var Assignment = React.createClass({
 /*rawMarkup: function(){
     // Sanitizes input from the site as a security precaution
