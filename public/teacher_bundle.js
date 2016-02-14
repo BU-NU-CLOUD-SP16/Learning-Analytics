@@ -32515,6 +32515,114 @@ var BarChart_Loop_Count = React.createClass({displayName: "BarChart_Loop_Count",
     }
 });
 
+var BarChart_Space_Complexity = React.createClass({displayName: "BarChart_Space_Complexity",
+    getInitialState : function() {
+        var barData = [{
+          "name":"Class A",
+          "values":[
+            {"x": 'A', "y": 100},
+            {"x": 'B', "y": 200},
+            {"x": 'C', "y": 300},
+            {"x": 'D', "y": 200},
+            {"x": 'E', "y": 100},
+            {"x": 'F', "y": 100},
+            {"x": 'G', "y": 100},
+            {"x": 'H', "y": 200},
+            {"x": 'I', "y": 300},
+            {"x": 'J', "y": 200},
+            {"x": 'K', "y": 200},
+            {"x": 'L', "y": 200},
+            {"x": 'M', "y": 200},
+            {"x": 'N', "y": 200},
+            {"x": 'O', "y": 100},
+            {"x": 'P', "y": 200},
+            {"x": 'Q', "y": 200},
+            {"x": 'R', "y": 300},
+            {"x": 'S', "y": 400},
+            {"x": 'T', "y": 200},
+            {"x": 'U', "y": 200},
+            {"x": 'V', "y": 200},
+            {"x": 'W', "y": 100},
+            {"x": 'X', "y": 200},
+            {"x": 'Y', "y": 100},
+            {"x": 'Z', "y": 200}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return React.createElement("div", {className: "BarChart_Space_Complexity"}, 
+                React.createElement("center", null, 
+                  React.createElement("h3", null, 
+                    "Space Complexity (Percentage of input)"
+                  )
+                ), 
+                React.createElement(BarChart, {
+                  data: this.state.barData, 
+                  width: 700, 
+                  height: 330, 
+                  fill: '#8a5715', 
+                  title: "", 
+                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                )
+               );
+    }
+});
+
+var BarChart_Loop_Percent = React.createClass({displayName: "BarChart_Loop_Percent",
+    getInitialState : function() {
+        var barData = [{
+          "name":"Class A",
+          "values":[
+            {"x": 'A', "y": 100},
+            {"x": 'B', "y": 100},
+            {"x": 'C', "y": 340},
+            {"x": 'D', "y": 220},
+            {"x": 'E', "y": 150},
+            {"x": 'F', "y": 220},
+            {"x": 'G', "y": 150},
+            {"x": 'H', "y": 300},
+            {"x": 'I', "y": 400},
+            {"x": 'J', "y": 300},
+            {"x": 'K', "y": 300},
+            {"x": 'L', "y": 300},
+            {"x": 'M', "y": 300},
+            {"x": 'N', "y": 150},
+            {"x": 'O', "y": 220},
+            {"x": 'P', "y": 260},
+            {"x": 'Q', "y": 300},
+            {"x": 'R', "y": 400},
+            {"x": 'S', "y": 430},
+            {"x": 'T', "y": 210},
+            {"x": 'U', "y": 300},
+            {"x": 'V', "y": 200},
+            {"x": 'W', "y": 150},
+            {"x": 'X', "y": 300},
+            {"x": 'Y', "y": 200},
+            {"x": 'Z', "y": 200}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return React.createElement("div", {className: "BarChart_Loop_Percent"}, 
+                React.createElement("center", null, 
+                  React.createElement("h3", null, 
+                    "Loop Count (Percentage of input)" 
+                  )
+                ), 
+                React.createElement(BarChart, {
+                  data: this.state.barData, 
+                  width: 700, 
+                  height: 330, 
+                  fill: '#8a5715', 
+                  title: "", 
+                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                )
+               );
+    }
+});
+
 //ReactDOM.render(<BarChartD3 name="World" />, document.getElementById(''));
 
 var Assignment = React.createClass({displayName: "Assignment",
@@ -32778,6 +32886,26 @@ var GraphContainer_Attempt_Count = React.createClass({displayName: "GraphContain
   }
 });
 
+var GraphContainer_Space_Complexity = React.createClass({displayName: "GraphContainer_Space_Complexity",
+  render: function(){
+    return (
+      React.createElement("div", {className: "graph-container col-md-4"}, 
+          React.createElement(BarChart_Space_Complexity, null)
+      )
+    )
+  }
+});
+
+var GraphContainer_Loop_Percent = React.createClass({displayName: "GraphContainer_Loop_Percent",
+  render: function(){
+    return (
+      React.createElement("div", {className: "graph-container col-md-4"}, 
+          React.createElement(BarChart_Loop_Percent, null)
+      )
+    )
+  }
+});
+
 var GraphContainerList = React.createClass({displayName: "GraphContainerList",
   render: function(){
     return(
@@ -32785,7 +32913,9 @@ var GraphContainerList = React.createClass({displayName: "GraphContainerList",
         React.createElement(GraphContainer_Lines_Code, null), 
         React.createElement(GraphContainer_Time_Complexity, null), 
         React.createElement(GraphContainer_Comment_Percent, null), 
-        React.createElement(GraphContainer_Attempt_Count, null)
+        React.createElement(GraphContainer_Attempt_Count, null), 
+        React.createElement(GraphContainer_Space_Complexity, null), 
+        React.createElement(GraphContainer_Loop_Percent, null)
       )
     )
   }
