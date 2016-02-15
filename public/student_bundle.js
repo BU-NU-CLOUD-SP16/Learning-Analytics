@@ -2623,7 +2623,7 @@ exports.ViewBoxMixin = require('./ViewBoxMixin');
 },{"./CartesianChartPropsMixin":38,"./ViewBoxMixin":39}],41:[function(require,module,exports){
 !function() {
   var d3 = {
-    version: "3.5.15"
+    version: "3.5.14"
   };
   var d3_arraySlice = [].slice, d3_array = function(list) {
     return d3_arraySlice.call(list);
@@ -2843,20 +2843,20 @@ exports.ViewBoxMixin = require('./ViewBoxMixin');
     while (i < n) pairs[i] = [ p0 = p1, p1 = array[++i] ];
     return pairs;
   };
-  d3.transpose = function(matrix) {
-    if (!(n = matrix.length)) return [];
-    for (var i = -1, m = d3.min(matrix, d3_transposeLength), transpose = new Array(m); ++i < m; ) {
-      for (var j = -1, n, row = transpose[i] = new Array(n); ++j < n; ) {
-        row[j] = matrix[j][i];
+  d3.zip = function() {
+    if (!(n = arguments.length)) return [];
+    for (var i = -1, m = d3.min(arguments, d3_zipLength), zips = new Array(m); ++i < m; ) {
+      for (var j = -1, n, zip = zips[i] = new Array(n); ++j < n; ) {
+        zip[j] = arguments[j][i];
       }
     }
-    return transpose;
+    return zips;
   };
-  function d3_transposeLength(d) {
+  function d3_zipLength(d) {
     return d.length;
   }
-  d3.zip = function() {
-    return d3.transpose(arguments);
+  d3.transpose = function(matrix) {
+    return d3.zip.apply(d3, matrix);
   };
   d3.keys = function(map) {
     var keys = [];
@@ -3827,7 +3827,7 @@ exports.ViewBoxMixin = require('./ViewBoxMixin');
     }
     function dragstart(id, position, subject, move, end) {
       return function() {
-        var that = this, target = d3.event.target.correspondingElement || d3.event.target, parent = that.parentNode, dispatch = event.of(that, arguments), dragged = 0, dragId = id(), dragName = ".drag" + (dragId == null ? "" : "-" + dragId), dragOffset, dragSubject = d3.select(subject(target)).on(move + dragName, moved).on(end + dragName, ended), dragRestore = d3_event_dragSuppress(target), position0 = position(parent, dragId);
+        var that = this, target = d3.event.target, parent = that.parentNode, dispatch = event.of(that, arguments), dragged = 0, dragId = id(), dragName = ".drag" + (dragId == null ? "" : "-" + dragId), dragOffset, dragSubject = d3.select(subject(target)).on(move + dragName, moved).on(end + dragName, ended), dragRestore = d3_event_dragSuppress(target), position0 = position(parent, dragId);
         if (origin) {
           dragOffset = origin.apply(that, arguments);
           dragOffset = [ dragOffset.x - position0[0], dragOffset.y - position0[1] ];
@@ -32243,6 +32243,385 @@ var ReactDOM = require('react-dom');
 var rd3 = require('react-d3');
 
 var BarChart = rd3.BarChart;
+var LineChart = rd3.LineChart; 
+
+var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
+    getInitialState : function() {
+        var barData = [{
+          "name":"Assignments",
+          "values":[
+            {"x": 'A', "y": 50},
+            {"x": 'B', "y": 64},
+            {"x": 'C', "y": 34},
+            {"x": 'D', "y": 56},
+            {"x": 'E', "y": 23},
+            {"x": 'F', "y": 78},
+            {"x": 'G', "y": 67},
+            {"x": 'H', "y": 45},
+            {"x": 'I', "y": 77},
+            {"x": 'J', "y": 88},
+            {"x": 'K', "y": 65},
+            {"x": 'L', "y": 45},
+            {"x": 'M', "y": 56},
+            {"x": 'N', "y": 87},
+            {"x": 'O', "y": 91},
+            {"x": 'P', "y": 54},
+            {"x": 'Q', "y": 42},
+            {"x": 'R', "y": 67},
+            {"x": 'S', "y": 55},
+            {"x": 'T', "y": 35},
+            {"x": 'U', "y": 79},
+            {"x": 'V', "y": 56},
+            {"x": 'W', "y": 76},
+            {"x": 'X', "y": 56},
+            {"x": 'Y', "y": 48},
+            {"x": 'Z', "y": 76}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return React.createElement("div", {className: "BarChart_Lines_Code"}, 
+                React.createElement("center", null, 
+                  React.createElement("h3", null, 
+                  "Lines of Code"
+                  )
+                ), 
+                React.createElement(BarChart, {
+                  data: this.state.barData, 
+                  width: 700, 
+                  height: 330, 
+                  fill: '#3182bd', 
+                  title: "", 
+                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                )
+               );
+    }
+});
+
+var BarChart_Time_Complexity = React.createClass({displayName: "BarChart_Time_Complexity",
+    getInitialState : function() {
+        var barData = [{
+          "name":"Assignments",
+          "values":[
+            {"x": 'A', "y": 2345},
+            {"x": 'B', "y": 5463},
+            {"x": 'C', "y": 10293},
+            {"x": 'D', "y": 5643},
+            {"x": 'E', "y": 3657},
+            {"x": 'F', "y": 7854},
+            {"x": 'G', "y": 6845},
+            {"x": 'H', "y": 2435},
+            {"x": 'I', "y": 1243},
+            {"x": 'J', "y": 5544},
+            {"x": 'K', "y": 7869},
+            {"x": 'L', "y": 3343},
+            {"x": 'M', "y": 4433},
+            {"x": 'N', "y": 3354},
+            {"x": 'O', "y": 3654},
+            {"x": 'P', "y": 7887},
+            {"x": 'Q', "y": 6657},
+            {"x": 'R', "y": 6587},
+            {"x": 'S', "y": 6645},
+            {"x": 'T', "y": 2343},
+            {"x": 'U', "y": 4565},
+            {"x": 'V', "y": 6645},
+            {"x": 'W', "y": 9786},
+            {"x": 'X', "y": 2302},
+            {"x": 'Y', "y": 4345},
+            {"x": 'Z', "y": 5675}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return React.createElement("div", {className: "BarChart_Time_Complexity"}, 
+                React.createElement("center", null, 
+                  React.createElement("h3", null, 
+                  "Time Complexity (ms)"
+                  )
+                ), 
+                React.createElement(BarChart, {
+                  data: this.state.barData, 
+                  width: 700, 
+                  height: 330, 
+                  fill: '#8a5715', 
+                  title: "", 
+                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                )
+               );
+    }
+});
+
+var BarChart_Comment_Percent = React.createClass({displayName: "BarChart_Comment_Percent",
+    getInitialState : function() {
+        var barData = [{
+          "name":"Assignments",
+          "values":[
+            {"x": 'A', "y": 23},
+            {"x": 'B', "y": 14},
+            {"x": 'C', "y": 0},
+            {"x": 'D', "y": 14},
+            {"x": 'E', "y": 5},
+            {"x": 'F', "y": 13},
+            {"x": 'G', "y": 5},
+            {"x": 'H', "y": 6},
+            {"x": 'I', "y": 23},
+            {"x": 'J', "y": 25},
+            {"x": 'K', "y": 32},
+            {"x": 'L', "y": 12},
+            {"x": 'M', "y": 43},
+            {"x": 'N', "y": 24},
+            {"x": 'O', "y": 16},
+            {"x": 'P', "y": 14},
+            {"x": 'Q', "y": 25},
+            {"x": 'R', "y": 27},
+            {"x": 'S', "y": 45},
+            {"x": 'T', "y": 12},
+            {"x": 'U', "y": 13},
+            {"x": 'V', "y": 5},
+            {"x": 'W', "y": 23},
+            {"x": 'X', "y": 45},
+            {"x": 'Y', "y": 21},
+            {"x": 'Z', "y": 22}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return React.createElement("div", {className: "BarChart_Comment_Percent"}, 
+                React.createElement("center", null, 
+                  React.createElement("h3", null, 
+                  "Comments Percentage" 
+                  )
+                ), 
+                React.createElement(BarChart, {
+                  data: this.state.barData, 
+                  width: 700, 
+                  height: 330, 
+                  fill: '#8a5715', 
+                  title: "", 
+                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                )
+               );
+    }
+});
+
+var BarChart_Attempt_Count = React.createClass({displayName: "BarChart_Attempt_Count",
+    getInitialState : function() {
+        var barData = [{
+          "name":"Assignments",
+          "values":[
+            {"x": 'A', "y": 1},
+            {"x": 'B', "y": 2},
+            {"x": 'C', "y": 1},
+            {"x": 'D', "y": 0},
+            {"x": 'E', "y": 3},
+            {"x": 'F', "y": 5},
+            {"x": 'G', "y": 7},
+            {"x": 'H', "y": 3},
+            {"x": 'I', "y": 2},
+            {"x": 'J', "y": 4},
+            {"x": 'K', "y": 4},
+            {"x": 'L', "y": 1},
+            {"x": 'M', "y": 1},
+            {"x": 'N', "y": 4},
+            {"x": 'O', "y": 6},
+            {"x": 'P', "y": 2},
+            {"x": 'Q', "y": 1},
+            {"x": 'R', "y": 2},
+            {"x": 'S', "y": 2},
+            {"x": 'T', "y": 5},
+            {"x": 'U', "y": 4},
+            {"x": 'V', "y": 3},
+            {"x": 'W', "y": 5},
+            {"x": 'X', "y": 2},
+            {"x": 'Y', "y": 1},
+            {"x": 'Z', "y": 1}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return React.createElement("div", {className: "BarChart_Attempt_Count"}, 
+                React.createElement("center", null, 
+                  React.createElement("h3", null, 
+		    "Number of Attempts" 
+                  )
+                ), 
+                React.createElement(BarChart, {
+                  data: this.state.barData, 
+                  width: 700, 
+                  height: 330, 
+                  fill: '#8a5715', 
+                  title: "", 
+                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                )
+               );
+    }
+});
+
+var BarChart_Loop_Count = React.createClass({displayName: "BarChart_Loop_Count",
+    getInitialState : function() {
+        var barData = [{
+          "name":"Assignments",
+          "values":[
+            {"x": 'A', "y": 2},
+            {"x": 'B', "y": 2},
+            {"x": 'C', "y": 2},
+            {"x": 'D', "y": 3},
+            {"x": 'E', "y": 3},
+            {"x": 'F', "y": 5},
+            {"x": 'G', "y": 7},
+            {"x": 'H', "y": 3},
+            {"x": 'I', "y": 2},
+            {"x": 'J', "y": 4},
+            {"x": 'K', "y": 4},
+            {"x": 'L', "y": 1},
+            {"x": 'M', "y": 1},
+            {"x": 'N', "y": 4},
+            {"x": 'O', "y": 6},
+            {"x": 'P', "y": 2},
+            {"x": 'Q', "y": 1},
+            {"x": 'R', "y": 2},
+            {"x": 'S', "y": 2},
+            {"x": 'T', "y": 5},
+            {"x": 'U', "y": 4},
+            {"x": 'V', "y": 3},
+            {"x": 'W', "y": 5},
+            {"x": 'X', "y": 2},
+            {"x": 'Y', "y": 1},
+            {"x": 'Z', "y": 1}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return React.createElement("div", {className: "BarChart_Loop_Count"}, 
+                React.createElement("center", null, 
+                  React.createElement("h3", null, 
+                    "NNested Loop Count" 
+                  )
+                ), 
+                React.createElement(BarChart, {
+                  data: this.state.barData, 
+                  width: 700, 
+                  height: 330, 
+                  fill: '#8a5715', 
+                  title: "", 
+                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                )
+               );
+    }
+});
+
+var BarChart_Space_Complexity = React.createClass({displayName: "BarChart_Space_Complexity",
+    getInitialState : function() {
+        var barData = [{
+          "name":"Assignments",
+          "values":[
+            {"x": 'A', "y": 100},
+            {"x": 'B', "y": 200},
+            {"x": 'C', "y": 300},
+            {"x": 'D', "y": 200},
+            {"x": 'E', "y": 100},
+            {"x": 'F', "y": 100},
+            {"x": 'G', "y": 100},
+            {"x": 'H', "y": 200},
+            {"x": 'I', "y": 300},
+            {"x": 'J', "y": 200},
+            {"x": 'K', "y": 200},
+            {"x": 'L', "y": 200},
+            {"x": 'M', "y": 200},
+            {"x": 'N', "y": 200},
+            {"x": 'O', "y": 100},
+            {"x": 'P', "y": 200},
+            {"x": 'Q', "y": 200},
+            {"x": 'R', "y": 300},
+            {"x": 'S', "y": 400},
+            {"x": 'T', "y": 200},
+            {"x": 'U', "y": 200},
+            {"x": 'V', "y": 200},
+            {"x": 'W', "y": 100},
+            {"x": 'X', "y": 200},
+            {"x": 'Y', "y": 100},
+            {"x": 'Z', "y": 200}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return React.createElement("div", {className: "BarChart_Space_Complexity"}, 
+                React.createElement("center", null, 
+                  React.createElement("h3", null, 
+                    "Space Complexity (Percentage of input)"
+                  )
+                ), 
+                React.createElement(BarChart, {
+                  data: this.state.barData, 
+                  width: 700, 
+                  height: 330, 
+                  fill: '#8a5715', 
+                  title: "", 
+                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                )
+               );
+    }
+});
+
+var BarChart_Loop_Percent = React.createClass({displayName: "BarChart_Loop_Percent",
+    getInitialState : function() {
+        var barData = [{
+          "name":"Assignments",
+          "values":[
+            {"x": 'A', "y": 100},
+            {"x": 'B', "y": 100},
+            {"x": 'C', "y": 340},
+            {"x": 'D', "y": 220},
+            {"x": 'E', "y": 150},
+            {"x": 'F', "y": 220},
+            {"x": 'G', "y": 150},
+            {"x": 'H', "y": 300},
+            {"x": 'I', "y": 400},
+            {"x": 'J', "y": 300},
+            {"x": 'K', "y": 300},
+            {"x": 'L', "y": 300},
+            {"x": 'M', "y": 300},
+            {"x": 'N', "y": 150},
+            {"x": 'O', "y": 220},
+            {"x": 'P', "y": 260},
+            {"x": 'Q', "y": 300},
+            {"x": 'R', "y": 400},
+            {"x": 'S', "y": 430},
+            {"x": 'T', "y": 210},
+            {"x": 'U', "y": 300},
+            {"x": 'V', "y": 200},
+            {"x": 'W', "y": 150},
+            {"x": 'X', "y": 300},
+            {"x": 'Y', "y": 200},
+            {"x": 'Z', "y": 200}
+          ]}
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return React.createElement("div", {className: "BarChart_Loop_Percent"}, 
+                React.createElement("center", null, 
+                  React.createElement("h3", null, 
+                    "Loop Count (Percentage of input)" 
+                  )
+                ), 
+                React.createElement(BarChart, {
+                  data: this.state.barData, 
+                  width: 700, 
+                  height: 330, 
+                  fill: '#8a5715', 
+                  title: "", 
+                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                )
+               );
+    }
+});
 
 var Assignment = React.createClass({displayName: "Assignment",
 /*rawMarkup: function(){
@@ -32453,31 +32832,114 @@ var GraphForm = React.createClass({displayName: "GraphForm",
   }
 });
 
+var GraphContainer_Lines_Code = React.createClass({displayName: "GraphContainer_Lines_Code",
+  render: function(){
+    return (
+      React.createElement("div", {className: "graph-container col-md-4"}, 
+          React.createElement(BarChart_Lines_Code, null)
+      )
+    )
+  }
+});
+
+var GraphContainer_Time_Complexity = React.createClass({displayName: "GraphContainer_Time_Complexity",
+  render: function(){
+    return (
+      React.createElement("div", {className: "graph-container col-md-4"}, 
+          React.createElement(BarChart_Time_Complexity, null)
+      )
+    )
+  }
+});
+
+var GraphContainer_Comment_Percent = React.createClass({displayName: "GraphContainer_Comment_Percent",
+  render: function(){
+    return (
+      React.createElement("div", {className: "graph-container col-md-4"}, 
+          React.createElement(BarChart_Comment_Percent, null)
+      )
+    )
+  }
+});
+
+var GraphContainer_Attempt_Count = React.createClass({displayName: "GraphContainer_Attempt_Count",
+  render: function(){
+    return (
+      React.createElement("div", {className: "graph-container col-md-4"}, 
+          React.createElement(BarChart_Attempt_Count, null)
+      )
+    )
+  }
+});
+
+var GraphContainer_Space_Complexity = React.createClass({displayName: "GraphContainer_Space_Complexity",
+  render: function(){
+    return (
+      React.createElement("div", {className: "graph-container col-md-4"}, 
+          React.createElement(BarChart_Space_Complexity, null)
+      )
+    )
+  }
+});
+
+var GraphContainer_Loop_Percent = React.createClass({displayName: "GraphContainer_Loop_Percent",
+  render: function(){
+    return (
+      React.createElement("div", {className: "graph-container col-md-4"}, 
+          React.createElement(BarChart_Loop_Percent, null)
+      )
+    )
+  }
+});
+
+var GraphContainerList = React.createClass({displayName: "GraphContainerList",
+  render: function(){
+    return(
+      React.createElement("div", {className: "graphContainerList"}, 
+        React.createElement(GraphContainer_Lines_Code, null), 
+        React.createElement(GraphContainer_Time_Complexity, null), 
+        React.createElement(GraphContainer_Comment_Percent, null), 
+        React.createElement(GraphContainer_Attempt_Count, null), 
+        React.createElement(GraphContainer_Space_Complexity, null), 
+        React.createElement(GraphContainer_Loop_Percent, null)
+      )
+    )
+  }
+});
+
 var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer",
+  componentDidMount: function(){
+  },
   render:function(){
 
     return (
       React.createElement("div", {className: "masterGraphContainer"}, 
-        React.createElement("div", {className: "col-md-2"}, 
-          React.createElement("div", {className: "property-container"}, 
-              React.createElement(AssignmentBox, {url: "/assignments", pollInterval: 2000}), 
-              React.createElement(GraphForm, null)
-          )
+
+        React.createElement("div", {className: "content-toolbar"}, 
+          React.createElement(GraphForm, null)
         ), 
-        React.createElement("div", {className: "col-md-10"}, 
-          React.createElement("div", {className: "content-container"}, 
-            React.createElement("div", {className: "all-graph"}, 
-              React.createElement("div", {className: "graph-container col-md-4"}), 
-              React.createElement("div", {className: "graph-container col-md-4"}), 
-              React.createElement("div", {className: "graph-container col-md-4"}), 
-              React.createElement("div", {className: "graph-container col-md-4"}), 
-              React.createElement("div", {className: "graph-container col-md-4"}), 
-              React.createElement("div", {className: "graph-container col-md-4"}), 
-              React.createElement("div", {className: "graph-container col-md-4"}), 
-              React.createElement("div", {className: "graph-container col-md-4"})
+        React.createElement("div", {className: "content-body"}, 
+          React.createElement("div", {className: "col-md-2"}, 
+            React.createElement("div", {className: "property-container"}, 
+                React.createElement(AssignmentBox, {url: "/assignments", pollInterval: 2000}), 
+                React.createElement(StudentForm, null)
+
+            )
+          ), 
+          React.createElement("div", {className: "col-md-10"}, 
+            React.createElement("div", {className: "content-container"}, 
+              React.createElement("div", {className: "all-graph"}, 
+                  React.createElement(GraphContainerList, null)
+
+
+
+
+
+              )
             )
           )
         )
+
       )
     );
   }
