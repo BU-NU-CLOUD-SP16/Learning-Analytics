@@ -4,6 +4,7 @@ var rd3 = require('react-d3');
 
 var BarChart = rd3.BarChart;
 var LineChart = rd3.LineChart; 
+var PieChart = rd3.PieChart; 
 
 var BarChart_Lines_Code = React.createClass({
     getInitialState : function() {
@@ -412,15 +413,41 @@ var LineChart_Class_Rank = React.createClass({
              </h3> 
            </center>
            <LineChart
-             legend={true}
              data={lineData}
              width="700"
              height="300"
-             title="Line Chart"
              yAxisLabel="Class Rank"
              xAxisLabel="Assignment"
              gridHorizontal={true}
             />
+           </div>;
+    }
+});
+
+var PieChart_DataStruct_Percent = React.createClass({
+    render: function() {
+    var pieData = [
+       {label: 'Array', value: 20.0},
+       {label: 'Tree', value: 55.0},
+       {label: 'HashMap', value: 25.0 }
+    ];
+
+    return <div className="PieChart_DataStruct_Percent">
+           <center>
+             <h3>
+               Data Structures Used
+             </h3>
+           </center>
+           <center>
+           <PieChart
+	     data={pieData}
+	     width={600}
+	     height={300}
+	     radius={110}
+	     innerRadius={20}
+	     sectorBorderColor="white"
+	   />
+           </center>
            </div>;
     }
 });
@@ -704,6 +731,17 @@ var GraphContainer_Class_Rank = React.createClass({
   }
 });
 
+var GraphContainer_DataStruct_Percent = React.createClass({
+  render: function(){
+    return (
+      <div className="graph-container col-md-4">
+          <PieChart_DataStruct_Percent/>
+      </div>
+    )
+  }
+});
+
+
 var GraphContainerList = React.createClass({
   render: function(){
     return(
@@ -715,6 +753,7 @@ var GraphContainerList = React.createClass({
         <GraphContainer_Space_Complexity/>
         <GraphContainer_Loop_Percent/>
         <GraphContainer_Class_Rank/>
+        <GraphContainer_DataStruct_Percent/>
       </div>
     )
   }

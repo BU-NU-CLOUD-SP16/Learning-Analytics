@@ -32244,6 +32244,7 @@ var rd3 = require('react-d3');
 
 var BarChart = rd3.BarChart;
 var LineChart = rd3.LineChart; 
+var PieChart = rd3.PieChart; 
 
 var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
     getInitialState : function() {
@@ -32652,15 +32653,41 @@ var LineChart_Class_Rank = React.createClass({displayName: "LineChart_Class_Rank
              )
            ), 
            React.createElement(LineChart, {
-             legend: true, 
              data: lineData, 
              width: "700", 
              height: "300", 
-             title: "Line Chart", 
              yAxisLabel: "Class Rank", 
              xAxisLabel: "Assignment", 
              gridHorizontal: true}
             )
+           );
+    }
+});
+
+var PieChart_DataStruct_Percent = React.createClass({displayName: "PieChart_DataStruct_Percent",
+    render: function() {
+    var pieData = [
+       {label: 'Array', value: 20.0},
+       {label: 'Tree', value: 55.0},
+       {label: 'HashMap', value: 25.0 }
+    ];
+
+    return React.createElement("div", {className: "PieChart_DataStruct_Percent"}, 
+           React.createElement("center", null, 
+             React.createElement("h3", null, 
+               "Data Structures Used"
+             )
+           ), 
+           React.createElement("center", null, 
+           React.createElement(PieChart, {
+	     data: pieData, 
+	     width: 600, 
+	     height: 300, 
+	     radius: 110, 
+	     innerRadius: 20, 
+	     sectorBorderColor: "white"}
+	   )
+           )
            );
     }
 });
@@ -32944,6 +32971,17 @@ var GraphContainer_Class_Rank = React.createClass({displayName: "GraphContainer_
   }
 });
 
+var GraphContainer_DataStruct_Percent = React.createClass({displayName: "GraphContainer_DataStruct_Percent",
+  render: function(){
+    return (
+      React.createElement("div", {className: "graph-container col-md-4"}, 
+          React.createElement(PieChart_DataStruct_Percent, null)
+      )
+    )
+  }
+});
+
+
 var GraphContainerList = React.createClass({displayName: "GraphContainerList",
   render: function(){
     return(
@@ -32954,7 +32992,8 @@ var GraphContainerList = React.createClass({displayName: "GraphContainerList",
         React.createElement(GraphContainer_Attempt_Count, null), 
         React.createElement(GraphContainer_Space_Complexity, null), 
         React.createElement(GraphContainer_Loop_Percent, null), 
-        React.createElement(GraphContainer_Class_Rank, null)
+        React.createElement(GraphContainer_Class_Rank, null), 
+        React.createElement(GraphContainer_DataStruct_Percent, null)
       )
     )
   }
