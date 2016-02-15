@@ -32623,6 +32623,125 @@ var BarChart_Loop_Percent = React.createClass({displayName: "BarChart_Loop_Perce
     }
 });
 
+var BarChart_DataStruct_Percent = React.createClass({displayName: "BarChart_DataStruct_Percent",
+    getInitialState : function() {
+        var barData = [
+          {
+          "name":"Array",
+          "values":[
+            {"x": 'A', "y": 50},
+            {"x": 'B', "y": 64},
+            {"x": 'C', "y": 34},
+            {"x": 'D', "y": 56},
+            {"x": 'E', "y": 23},
+            {"x": 'F', "y": 78},
+            {"x": 'G', "y": 67},
+            {"x": 'H', "y": 45},
+            {"x": 'I', "y": 77},
+            {"x": 'J', "y": 88},
+            {"x": 'K', "y": 65},
+            {"x": 'L', "y": 45},
+            {"x": 'M', "y": 56},
+            {"x": 'N', "y": 87},
+            {"x": 'O', "y": 91},
+            {"x": 'P', "y": 54},
+            {"x": 'Q', "y": 42},
+            {"x": 'R', "y": 67},
+            {"x": 'S', "y": 55},
+            {"x": 'T', "y": 35},
+            {"x": 'U', "y": 79},
+            {"x": 'V', "y": 56},
+            {"x": 'W', "y": 76},
+            {"x": 'X', "y": 56},
+            {"x": 'Y', "y": 48},
+            {"x": 'Z', "y": 76}
+           ]
+          }, 
+          {
+          "name":"Tree",
+          "values":[
+            {"x": 'A', "y": 50},
+            {"x": 'B', "y": 64},
+            {"x": 'C', "y": 34},
+            {"x": 'D', "y": 56},
+            {"x": 'E', "y": 23},
+            {"x": 'F', "y": 78},
+            {"x": 'G', "y": 67},
+            {"x": 'H', "y": 45},
+            {"x": 'I', "y": 77}, 
+            {"x": 'J', "y": 88},
+            {"x": 'K', "y": 65},
+            {"x": 'L', "y": 45},
+            {"x": 'M', "y": 56},
+            {"x": 'N', "y": 87},
+            {"x": 'O', "y": 91},
+            {"x": 'P', "y": 54},
+            {"x": 'Q', "y": 42},
+            {"x": 'R', "y": 67},
+            {"x": 'S', "y": 55},
+            {"x": 'T', "y": 35},
+            {"x": 'U', "y": 79},
+            {"x": 'V', "y": 56},
+            {"x": 'W', "y": 76},
+            {"x": 'X', "y": 56},
+            {"x": 'Y', "y": 48},
+            {"x": 'Z', "y": 76}
+           ]
+          },
+          {
+          "name":"Hashmap",
+          "values":[
+            {"x": 'A', "y": 50},
+            {"x": 'B', "y": 64},
+            {"x": 'C', "y": 34},
+            {"x": 'D', "y": 56},
+            {"x": 'E', "y": 23},
+            {"x": 'F', "y": 78},
+            {"x": 'G', "y": 67},
+            {"x": 'H', "y": 45},
+            {"x": 'I', "y": 77},
+            {"x": 'J', "y": 88},
+            {"x": 'K', "y": 65},
+            {"x": 'L', "y": 45},
+            {"x": 'M', "y": 56},
+            {"x": 'N', "y": 87},
+            {"x": 'O', "y": 91},
+            {"x": 'P', "y": 54},
+            {"x": 'Q', "y": 42},
+            {"x": 'R', "y": 67},
+            {"x": 'S', "y": 55},
+            {"x": 'T', "y": 35},
+            {"x": 'U', "y": 79},
+            {"x": 'V', "y": 56},
+            {"x": 'W', "y": 76},
+            {"x": 'X', "y": 56},
+            {"x": 'Y', "y": 48},
+            {"x": 'Z', "y": 76}
+           ]
+          }
+        ];
+        return {barData: barData};
+    },
+    render: function() {
+        return React.createElement("div", {className: "BarChart_DataStruct_Percent"}, 
+                React.createElement("center", null, 
+                  React.createElement("h3", null, 
+                  "Data Structures Used" 
+                  )
+                ), 
+                React.createElement(BarChart, {
+	          legend: true, 
+                  data: this.state.barData, 
+                  width: 675, 
+                  height: 330, 
+                  fill: '#3182bd', 
+                  title: "", 
+                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                )
+               );
+    }
+});
+
 //ReactDOM.render(<BarChartD3 name="World" />, document.getElementById(''));
 
 var Assignment = React.createClass({displayName: "Assignment",
@@ -32906,6 +33025,17 @@ var GraphContainer_Loop_Percent = React.createClass({displayName: "GraphContaine
   }
 });
 
+var GraphContainer_DataStruct_Percent = React.createClass({displayName: "GraphContainer_DataStruct_Percent",
+  render: function(){
+    return (
+      React.createElement("div", {className: "graph-container col-md-4"}, 
+          React.createElement(BarChart_DataStruct_Percent, null)
+      )
+    )
+  }
+});
+
+
 var GraphContainerList = React.createClass({displayName: "GraphContainerList",
   render: function(){
     return(
@@ -32915,7 +33045,8 @@ var GraphContainerList = React.createClass({displayName: "GraphContainerList",
         React.createElement(GraphContainer_Comment_Percent, null), 
         React.createElement(GraphContainer_Attempt_Count, null), 
         React.createElement(GraphContainer_Space_Complexity, null), 
-        React.createElement(GraphContainer_Loop_Percent, null)
+        React.createElement(GraphContainer_Loop_Percent, null), 
+        React.createElement(GraphContainer_DataStruct_Percent, null)
       )
     )
   }
