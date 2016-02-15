@@ -32623,6 +32623,48 @@ var BarChart_Loop_Percent = React.createClass({displayName: "BarChart_Loop_Perce
     }
 });
 
+var LineChart_Class_Rank = React.createClass({displayName: "LineChart_Class_Rank",
+    render: function() {
+      var lineData = [
+          {
+          name: "Class A",
+          values: [ { x: 0, y: 24 },
+                    { x: 1, y: 20 },
+                    { x: 2, y: 21 },
+                    { x: 3, y: 15 },
+                    { x: 4, y: 22 },
+                    { x: 5, y: 3 },
+                    { x: 6, y: 7 },
+                    { x: 7, y: 9 },
+                    { x: 8, y: 25 },
+                    { x: 9, y: 3 },
+                    { x: 10, y: 7 } ],
+          strokeWidth: 3,
+          strokeDashArray: "5,5"
+          }
+      ];
+
+ 
+    return React.createElement("div", {className: "LineChart_Class_Rank"}, 
+           React.createElement("center", null, 
+             React.createElement("h3", null, 
+               "Class Rank" 
+             )
+           ), 
+           React.createElement(LineChart, {
+             legend: true, 
+             data: lineData, 
+             width: "700", 
+             height: "300", 
+             title: "Line Chart", 
+             yAxisLabel: "Class Rank", 
+             xAxisLabel: "Assignment", 
+             gridHorizontal: true}
+            )
+           );
+    }
+});
+
 var Assignment = React.createClass({displayName: "Assignment",
 /*rawMarkup: function(){
     // Sanitizes input from the site as a security precaution
@@ -32892,6 +32934,16 @@ var GraphContainer_Loop_Percent = React.createClass({displayName: "GraphContaine
   }
 });
 
+var GraphContainer_Class_Rank = React.createClass({displayName: "GraphContainer_Class_Rank",
+  render: function(){
+    return (
+      React.createElement("div", {className: "graph-container col-md-4"}, 
+          React.createElement(LineChart_Class_Rank, null)
+      )
+    )
+  }
+});
+
 var GraphContainerList = React.createClass({displayName: "GraphContainerList",
   render: function(){
     return(
@@ -32901,7 +32953,8 @@ var GraphContainerList = React.createClass({displayName: "GraphContainerList",
         React.createElement(GraphContainer_Comment_Percent, null), 
         React.createElement(GraphContainer_Attempt_Count, null), 
         React.createElement(GraphContainer_Space_Complexity, null), 
-        React.createElement(GraphContainer_Loop_Percent, null)
+        React.createElement(GraphContainer_Loop_Percent, null), 
+        React.createElement(GraphContainer_Class_Rank, null)
       )
     )
   }

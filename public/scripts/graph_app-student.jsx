@@ -383,6 +383,48 @@ var BarChart_Loop_Percent = React.createClass({
     }
 });
 
+var LineChart_Class_Rank = React.createClass({
+    render: function() {
+      var lineData = [
+          {
+          name: "Class A",
+          values: [ { x: 0, y: 24 },
+                    { x: 1, y: 20 },
+                    { x: 2, y: 21 },
+                    { x: 3, y: 15 },
+                    { x: 4, y: 22 },
+                    { x: 5, y: 3 },
+                    { x: 6, y: 7 },
+                    { x: 7, y: 9 },
+                    { x: 8, y: 25 },
+                    { x: 9, y: 3 },
+                    { x: 10, y: 7 } ],
+          strokeWidth: 3,
+          strokeDashArray: "5,5"
+          }
+      ];
+
+ 
+    return <div className="LineChart_Class_Rank">
+           <center>
+             <h3>
+               Class Rank 
+             </h3> 
+           </center>
+           <LineChart
+             legend={true}
+             data={lineData}
+             width="700"
+             height="300"
+             title="Line Chart"
+             yAxisLabel="Class Rank"
+             xAxisLabel="Assignment"
+             gridHorizontal={true}
+            />
+           </div>;
+    }
+});
+
 var Assignment = React.createClass({
 /*rawMarkup: function(){
     // Sanitizes input from the site as a security precaution
@@ -652,6 +694,16 @@ var GraphContainer_Loop_Percent = React.createClass({
   }
 });
 
+var GraphContainer_Class_Rank = React.createClass({
+  render: function(){
+    return (
+      <div className="graph-container col-md-4">
+          <LineChart_Class_Rank/>
+      </div>
+    )
+  }
+});
+
 var GraphContainerList = React.createClass({
   render: function(){
     return(
@@ -662,6 +714,7 @@ var GraphContainerList = React.createClass({
         <GraphContainer_Attempt_Count/>
         <GraphContainer_Space_Complexity/>
         <GraphContainer_Loop_Percent/>
+        <GraphContainer_Class_Rank/>
       </div>
     )
   }
