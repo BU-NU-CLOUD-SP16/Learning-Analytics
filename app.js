@@ -7,7 +7,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var COMMENTS_FILE = path.join(__dirname, 'assignments.json');
 
-// Connect to DB
+// Connect to MySQL Database
 var databaseConn = mysql.createConnection({
 	host: "localhost",
     	user: "root",
@@ -24,12 +24,73 @@ databaseConn.connect(function (err){
 });
 
 
+// Static hosting for public website
 app.use('/', express.static(path.join(__dirname, 'public')));
 //app.use('/node_modules/bootstrap', express.static(path.join(__dirname, 'dist') ));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
 
+// Configure app to use body parser, and allow us to get data from a POST
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+
+// Set port for app
+var port = process.env.port || 3000;
+
+// Routes for API
+var router = express.Router();
+
+router.use(function(req, res, next){
+  console.log('Request made.');
+  next();  
+})
+
+router.get('/', function(err, res, req){
+  res.json({message: 'Welcome to our api!'})
+});
+
+router.route('/problems')
+  .get(function(req, res){
+    databaseConn.query('SELECT * FROM problem', function (err, rows){
+      if(err) res.send(err);
+      console.log('Data received from the DB');
+
+      // Dump DB - All Solutions
+      res.json(rows);
+    });
+  })
+
+router.route('/problems/:problem_id')
+  .get( function (req, res){
+    databaseConn.query('SELECT * FROM problem WHERE id = ' + req.params.problem_id, function (err, problem_title){
+      if(err) {
+        console.log(err);
+        res.status(500).send({status:500, message: 'internal error', type:'internal'});
+      } else {
+      console.log('Data received from DB');
+      res.send(problem_title);
+      }
+    });
+  })
+
+router.route('/problems/:problem_id/:modifier')
+  .get( function (req, res) {
+    databaseConn.query('SELECT ' + req.params.modifier + ' FROM problem WHERE id = ' + req.params.problem_id, function (err, problem_specific_info){
+      if(err){
+        console.log(err);
+        res.status(500).send({status:500, message: 'internal error', type:'internal'});
+      } else {
+      console.log('Data received from DB');
+      res.send(problem_specific_info);
+      }
+    });
+  })
+
+// Register app routes
+app.use('/api', router);
+
+
+/*
 // Additional middleware which will set headers that we need on each request.
 app.use(function(req, res, next) {
     // Set permissive CORS header - this allows this server to be used only as
@@ -40,6 +101,7 @@ app.use(function(req, res, next) {
     res.setHeader('Cache-Control', 'no-cache');
     next();
 });
+*/
 
 app.get('/dbtest', function (req, res) {
   	databaseConn.query('SELECT * FROM solution', function (err, rows){
@@ -122,10 +184,7 @@ app.post('/api/comments', function(req, res) {
 });*/
 
 
-
-app.listen(3000, function () {
+// Listen on port for incoming requests
+app.listen(port, function () {
   console.log('Example app listening on port 3000!');
 });
-
-//databaseConn.end(function (err){
-//});
