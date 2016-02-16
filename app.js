@@ -7,13 +7,12 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var COMMENTS_FILE = path.join(__dirname, 'assignments.json');
 
-
 // Connect to DB
 var databaseConn = mysql.createConnection({
-	host: "localhost",
-    	user: "root",
-    	password: "",
-	database: "demo1",
+			host: "52.33.14.62",
+    	user: "remote",
+    	password: "learninganalytics",
+			database: "demo1",
 });
 
 databaseConn.connect(function (err){
@@ -23,7 +22,6 @@ databaseConn.connect(function (err){
 	}
 	console.log('Connection Established');
 });
-
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 //app.use('/node_modules/bootstrap', express.static(path.join(__dirname, 'dist') ));
@@ -51,7 +49,6 @@ app.get('/dbtest', function (req, res) {
 		res.send(rows);
 	});
 });
-
 
 app.get('/assignments', function(req, res) {
   fs.readFile(COMMENTS_FILE, function(err, data) {
@@ -87,38 +84,6 @@ app.get('/problem/:problem_id/:modifier', function(req, res) {
 	});
 });
 
-/*
-app.post('/api/comments', function(req, res) {
-  fs.readFile(COMMENTS_FILE, function(err, data) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    var comments = JSON.parse(data);
-    // NOTE: In a real implementation, we would likely rely on a database or
-    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
-    // treat Date.now() as unique-enough for our purposes.
-    var newComment = {
-      id: Date.now(),
-      author: req.body.author,
-      text: req.body.text,
-    };
-    comments.push(newComment);
-    fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
-      if (err) {
-        console.error(err);
-        process.exit(1);
-      }
-      res.json(comments);
-    });
-  });
-});*/
-
-
-
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
-
-//databaseConn.end(function (err){
-//});

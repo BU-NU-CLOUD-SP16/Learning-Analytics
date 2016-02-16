@@ -2,8 +2,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var rd3 = require('react-d3');
-
 var BarChart = rd3.BarChart;
+
+var db_url = "http://52.33.14.62:3000";
 
 var BarChart_Lines_Code = React.createClass({
     getInitialState : function() {
@@ -152,7 +153,7 @@ var BarChart_Comment_Percent = React.createClass({
         return <div className="BarChart_Comment_Percent">
                 <center>
                   <h3>
-                  Comments Percentage 
+                  Comments Percentage
                   </h3>
                 </center>
                 <BarChart
@@ -206,7 +207,7 @@ var BarChart_Attempt_Count = React.createClass({
         return <div className="BarChart_Attempt_Count">
                 <center>
                   <h3>
-		    Number of Attempts 
+		    Number of Attempts
                   </h3>
                 </center>
                 <BarChart
@@ -260,7 +261,7 @@ var BarChart_Loop_Count = React.createClass({
         return <div className="BarChart_Loop_Count">
                 <center>
                   <h3>
-                    NNested Loop Count 
+                    NNested Loop Count
                   </h3>
                 </center>
                 <BarChart
@@ -368,7 +369,7 @@ var BarChart_Loop_Percent = React.createClass({
         return <div className="BarChart_Loop_Percent">
                 <center>
                   <h3>
-                    Loop Count (Percentage of input) 
+                    Loop Count (Percentage of input)
                   </h3>
                 </center>
                 <BarChart
@@ -416,7 +417,7 @@ var BarChart_DataStruct_Percent = React.createClass({
             {"x": 'Y', "y": 48},
             {"x": 'Z', "y": 76}
            ]
-          }, 
+          },
           {
           "name":"Tree",
           "values":[
@@ -428,7 +429,7 @@ var BarChart_DataStruct_Percent = React.createClass({
             {"x": 'F', "y": 78},
             {"x": 'G', "y": 67},
             {"x": 'H', "y": 45},
-            {"x": 'I', "y": 77}, 
+            {"x": 'I', "y": 77},
             {"x": 'J', "y": 88},
             {"x": 'K', "y": 65},
             {"x": 'L', "y": 45},
@@ -486,7 +487,7 @@ var BarChart_DataStruct_Percent = React.createClass({
         return <div className="BarChart_DataStruct_Percent">
                 <center>
                   <h3>
-                  Data Structures Used 
+                  Data Structures Used
                   </h3>
                 </center>
                 <BarChart
@@ -502,8 +503,6 @@ var BarChart_DataStruct_Percent = React.createClass({
     }
 });
 
-//ReactDOM.render(<BarChartD3 name="World" />, document.getElementById(''));
-
 var Assignment = React.createClass({
 /*rawMarkup: function(){
     // Sanitizes input from the site as a security precaution
@@ -518,7 +517,7 @@ var Assignment = React.createClass({
       <h5>
         {this.props.prob_statement + ":"}
       </h5>
-      <span>{this.props.description}</span>
+      <span>{this.props.description_html}</span>
 
     </div>
     );
@@ -527,12 +526,30 @@ var Assignment = React.createClass({
 
 var AssignmentBox = React.createClass({
   loadAssignmentsFromServer: function(){
-    $.ajax({
+  /*  $.ajax({
       url: this.props.url,
       dataType: 'json',
       cache: false,
       // in the case ajax succeeds
       success: function(data) {
+        //window.alert("here");
+        this.setState({data: data});
+      }.bind(this),
+      // in the case ajax runs into an error
+      error: function(xhr, status, err) {
+      //  alert("err");
+
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });*/
+
+    $.ajax({
+      url: "/problem/470",
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+//        window.alert("here");
+      //  window.alert(JSON.stringify(data));
         this.setState({data: data});
       }.bind(this),
       // in the case ajax runs into an error
@@ -540,6 +557,9 @@ var AssignmentBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+
+
+
   },
 
   getInitialState: function(){
@@ -585,8 +605,7 @@ var AssignmentList = React.createClass({
     // commentNodes gets the values of all the json data as a mapping for each data element
     var assignmentNodes = this.props.data.map(function(assignment){
       return (
-        <Assignment prob_statement={assignment.prob_statement} key={assignment.id} description={assignment.description}>
-        </Assignment>
+        <Assignment prob_statement={assignment.title} key={assignment.id} description={assignment.description_html}/>
       );
     });
 
@@ -698,6 +717,7 @@ var GraphList = React.createClass({
           <Graph stud_name="Popular Functions" icon_type="sign-in"/>
           <Graph stud_name="Statistics" icon_type="pie-chart"/>
           <Graph stud_name="Total Submissions" icon_type="th-large"/>
+          <Graph stud_name="Size Metric" icon_type="file-text"/>
         </div>
     );
 
