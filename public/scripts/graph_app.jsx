@@ -493,11 +493,11 @@ var BarChart_DataStruct_Percent = React.createClass({
                 <BarChart
 	          legend={true}
                   data={this.state.barData}
-                  width={675}
+                  width={650}
                   height={330}
                   fill={'#3182bd'}
                   title=''
-                  margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                  margins={{top: 20, right: 100, bottom: 30, left: 40}}
                 />
                </div>;
     }
