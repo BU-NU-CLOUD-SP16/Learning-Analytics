@@ -503,6 +503,117 @@ var BarChart_DataStruct_Percent = React.createClass({
     }
 });
 
+var BarChart_Size_Metric = React.createClass({
+    loadSizeMetricFromServer: function(){
+//    window.alert("Barchart (Update Date)");
+      $.ajax({
+        url: "/student/metric",
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+//          window.alert(JSON.stringify(data));
+// 	window.alert("Barchart (Ajax Success)!!!!")
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+//	  window.alert("Barchart (Ajax error)!");
+//          console.error(this.props.url, status, err.toString());
+          var barData = [{
+            "name":"Class A",
+            "values":[
+              {"x": 'A', "y": 100},
+              {"x": 'B', "y": 100},
+              {"x": 'C', "y": 340},
+              {"x": 'D', "y": 220},
+              {"x": 'E', "y": 150},
+              {"x": 'F', "y": 220},
+              {"x": 'G', "y": 150},
+              {"x": 'H', "y": 300},
+              {"x": 'I', "y": 400},
+              {"x": 'J', "y": 300},
+              {"x": 'K', "y": 300},
+              {"x": 'L', "y": 300},
+              {"x": 'M', "y": 300},
+              {"x": 'N', "y": 150},
+              {"x": 'O', "y": 220},
+              {"x": 'P', "y": 260},
+              {"x": 'Q', "y": 300},
+              {"x": 'R', "y": 400},
+              {"x": 'S', "y": 430},
+              {"x": 'T', "y": 210},
+              {"x": 'U', "y": 300},
+              {"x": 'V', "y": 200},
+              {"x": 'W', "y": 150},
+              {"x": 'X', "y": 300},
+              {"x": 'Y', "y": 200},
+              {"x": 'Z', "y": 800}
+            ]}
+          ];
+          this.setState({data: barData});
+        }.bind(this)
+      });
+    },
+    getInitialState: function(){
+//      window.alert("Barchart (Get initial state)!");
+      var barData = [{
+        "name":"Class A",
+        "values":[
+          {"x": 'A', "y": 100},
+          {"x": 'B', "y": 100},
+          {"x": 'C', "y": 340},
+          {"x": 'D', "y": 220},
+          {"x": 'E', "y": 150},
+          {"x": 'F', "y": 220},
+          {"x": 'G', "y": 150},
+          {"x": 'H', "y": 300},
+          {"x": 'I', "y": 400},
+          {"x": 'J', "y": 300},
+          {"x": 'K', "y": 300},
+          {"x": 'L', "y": 300},
+          {"x": 'M', "y": 300},
+          {"x": 'N', "y": 150},
+          {"x": 'O', "y": 220},
+          {"x": 'P', "y": 260},
+          {"x": 'Q', "y": 300},
+          {"x": 'R', "y": 400},
+          {"x": 'S', "y": 430},
+          {"x": 'T', "y": 210},
+          {"x": 'U', "y": 300},
+          {"x": 'V', "y": 200},
+          {"x": 'W', "y": 150},
+          {"x": 'X', "y": 300},
+          {"x": 'Y', "y": 200},
+          {"x": 'Z', "y": 200}
+       ]}
+      ];
+      return {data: barData};
+    },
+    componentDidMount: function(){
+      this.loadSizeMetricFromServer();
+      //introduces that we will need a pollInterval for the external element
+      setInterval(this.loadSizeMetricFromServer, 3000); //this.props.pollInterval);
+    },
+    render: function() {
+//        window.alert("Barchart (Render)!"); 
+        return <div className="BarChart_Size_Metric">
+                <center>
+                  <h3>
+                    Size (MATLAB)
+                  </h3>
+                </center>
+                <BarChart
+                  data={this.state.data}
+// 		  data={barData}
+                  width={700}
+                  height={330}
+                  fill={'#8a5715'}
+                  title=''
+                  margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                />
+               </div>;
+    }
+});
+
 var Assignment = React.createClass({
 /*rawMarkup: function(){
     // Sanitizes input from the site as a security precaution
@@ -547,7 +658,7 @@ var AssignmentBox = React.createClass({
   componentDidMount: function(){
     this.loadAssignmentsFromServer();
     //introduces that we will need a pollInterval for the external element
-    setInterval(this.loadAssignmentsFromServer, this.props.pollInterval);
+    setInterval(this.loadAssignmentsFromServer, 3000); //this.props.pollInterval);
   },
 
   render: function(){
@@ -839,6 +950,15 @@ var GraphContainer_DataStruct_Percent = React.createClass({
   }
 });
 
+var GraphContainer_Size_Metric = React.createClass({
+  render: function(){
+    return (
+      <div className="graph-container col-md-4">
+          <BarChart_Size_Metric/>
+      </div>
+    )
+  }
+});
 
 var GraphContainerList = React.createClass({
   render: function(){
@@ -851,6 +971,7 @@ var GraphContainerList = React.createClass({
         <GraphContainer_Space_Complexity/>
         <GraphContainer_Loop_Percent/>
         <GraphContainer_DataStruct_Percent/>
+        <GraphContainer_Size_Metric/>
       </div>
     )
   }
