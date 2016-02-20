@@ -526,29 +526,11 @@ var Assignment = React.createClass({
 
 var AssignmentBox = React.createClass({
   loadAssignmentsFromServer: function(){
-  /*  $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      cache: false,
-      // in the case ajax succeeds
-      success: function(data) {
-        //window.alert("here");
-        this.setState({data: data});
-      }.bind(this),
-      // in the case ajax runs into an error
-      error: function(xhr, status, err) {
-      //  alert("err");
-
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });*/
-
     $.ajax({
       url: "/problem/470",
       dataType: 'json',
       cache: false,
       success: function(data) {
-//        window.alert("here");
       //  window.alert(JSON.stringify(data));
         this.setState({data: data});
       }.bind(this),
@@ -557,11 +539,7 @@ var AssignmentBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-
-
-
   },
-
   getInitialState: function(){
     return {data: []};
   },
@@ -601,6 +579,7 @@ var AssignmentBox = React.createClass({
 });
 
 var AssignmentList = React.createClass({
+
   render: function(){
     // commentNodes gets the values of all the json data as a mapping for each data element
     var assignmentNodes = this.props.data.map(function(assignment){
@@ -617,14 +596,45 @@ var AssignmentList = React.createClass({
   }
 });
 
+
 var Student = React.createClass({
+  getInitialState: function(){
+    // Takes control of the individual student's check boxes
+    return {check: false};
+  },
+  onChange: function(e){
+    var my_name =this.props.stud_name;
+  //  alert(my_name);
+    if(my_name == "Select All"){
+        var array = document.getElementsByClassName("student-input");
+        for(var ii = 0; ii < array.length; ii++)
+        {
+           if(array[ii].type == "checkbox")
+           {
+              if(array[ii].className =="student-input")
+               {
+                array[ii].checked = !(this.state.check);
+               }
+           }
+        }
+        this.setState({check: !(this.state.check)});
+    }
+  },
   render: function(){
+
+    var student_label;
+    if(this.props.stud_name == "Select All"){
+      student_label = "";
+    }
+    else{
+      student_label = "Student ";
+    }
 
     return (
       <div className="student">
         <label>
-          <input type="checkbox" name="student">
-              {this.props.stud_name}
+          <input className="student-input" type="checkbox" name="student"  defaultChecked={this.state.check} onChange={this.onChange} >
+              {student_label + this.props.stud_name}
           </input>
         </label>
       </div>
@@ -633,26 +643,40 @@ var Student = React.createClass({
 });
 
 var StudentList = React.createClass({
+  getInitialState : function() {
+      return {data: []};
+  },
+  loadStudentsFromServer: function(){
+    $.ajax({
+      url: "/dbtest",
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+    //    window.alert(JSON.stringify(data));
+        this.setState({data: data});
+      }.bind(this),
+      // in the case ajax runs into an error
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  componentDidMount: function(){
+    this.loadStudentsFromServer();
+    //introduces that we will need a pollInterval for the external element
+    setInterval(this.loadStudentsFromServer, this.props.pollInterval);
+  },
   render: function(){
-
+    var studentNodes = this.state.data.map(function(student){
+      return (
+        <Student stud_name={student.player_id}/>
+      );
+    });
     return (
-        <div className="studentList">
-          <Student stud_name="Select All"/>
-          <Student stud_name="Johnny Appleseed"/>
-          <Student stud_name="Mike T"/>
-          <Student stud_name="Nick M"/>
-          <Student stud_name="John K"/>
-          <Student stud_name="Li L"/>
-          <Student stud_name="Ryan O"/>
-          <Student stud_name="Johnny Appleseed"/>
-          <Student stud_name="Mike T"/>
-          <Student stud_name="Nick M"/>
-          <Student stud_name="John K"/>
-          <Student stud_name="Li L"/>
-          <Student stud_name="Ryan O"/>
-
-
-        </div>
+      <div className="studentList">
+        <Student stud_name={"Select All"}/>
+        {studentNodes}
+      </div>
     );
   }
 });
@@ -667,7 +691,7 @@ var StudentForm = React.createClass({
         </div>
         <div className="panel-body">
           <form>
-            <StudentList/>
+            <StudentList pollInterval={2000}/>
           </form>
         </div>
       </div>
@@ -871,8 +895,3 @@ var MasterGraphContainer = React.createClass({
 });
 
 ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content')); //url="/assignments" pollInterval={2000}
-
-/*
-module.exports = AssignmentBox;
-module.exports = StudentForm;
-module.exports = GraphForm;*/
