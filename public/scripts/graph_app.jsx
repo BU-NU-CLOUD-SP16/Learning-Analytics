@@ -513,6 +513,38 @@ var BarChart_Size_Metric = React.createClass({
         success: function(data) {
 //          window.alert(JSON.stringify(data));
 // 	window.alert("Barchart (Ajax Success)!!!!")
+          var barData = [{
+            "name":"Class A",
+            "values":[
+              {"x": 'A', "y": 100},
+              {"x": 'B', "y": 100},
+              {"x": 'C', "y": 340},
+              {"x": 'D', "y": 220},
+              {"x": 'E', "y": 150},
+              {"x": 'F', "y": 220},
+              {"x": 'G', "y": 150},
+              {"x": 'H', "y": 300},
+              {"x": 'I', "y": 400},
+              {"x": 'J', "y": 300},
+              {"x": 'K', "y": 300},
+              {"x": 'L', "y": 300},
+              {"x": 'M', "y": 300},
+              {"x": 'N', "y": 150},
+              {"x": 'O', "y": 220},
+              {"x": 'P', "y": 260},
+              {"x": 'Q', "y": 300},
+              {"x": 'R', "y": 400},
+              {"x": 'S', "y": 430},
+              {"x": 'T', "y": 210},
+              {"x": 'U', "y": 300},
+              {"x": 'V', "y": 200},
+              {"x": 'W', "y": 150},
+              {"x": 'X', "y": 300},
+              {"x": 'Y', "y": 200},
+              {"x": 'Z', "y": 800}
+            ]}
+          ];
+          this.setState({data: barData});
         }.bind(this),
         // in the case ajax runs into an error
         error: function(xhr, status, err) {
