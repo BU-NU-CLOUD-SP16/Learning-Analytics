@@ -513,7 +513,7 @@ var BarChart_Size_Metric = React.createClass({
         success: function(data) {
 //          window.alert(JSON.stringify(data));
 // 	window.alert("Barchart (Ajax Success)!!!!")
-          var barData = [{
+/*          var barData = [{
             "name":"Class A",
             "values":[
               {"x": 'A', "y": 100},
@@ -544,6 +544,8 @@ var BarChart_Size_Metric = React.createClass({
               {"x": 'Z', "y": 800}
             ]}
           ];
+*/ 
+	  var barData = data; 
           this.setState({data: barData});
         }.bind(this),
         // in the case ajax runs into an error
