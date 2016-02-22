@@ -40,14 +40,31 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/dbtest', function (req, res) {
-  	databaseConn.query('SELECT * FROM solution', function (err, rows){
-		if(err) throw err;
-		console.log('Data received from the DB');
-
-		// Dump DB - All Solutions
-		res.send(rows);
+app.get('/student/metric', function (req, res) {
+  	databaseConn.query('SELECT player_id, metric FROM solution;', function (err, rows){
+		if(err) {
+          		console.log(err);
+          		res.status(500).send({status:500, message: 'internal error', type:'internal'});
+        	} else {
+        		console.log('Data received from DB');
+			res.send(rows);
+		}
 	});
+});
+
+app.get('/student/metric/:id', function (req, res) {
+        databaseConn.query('SELECT player_id, metric FROM solution WHERE player_id=' + req.params.id, function (err, rows){
+		if(err) {
+          		console.log(err);
+         		res.status(500).send({status:500, message: 'internal error', type:'internal'});
+        	} else {
+        		console.log('Data received from DB');
+                	if(rows.length)
+				res.send(rows);
+			else
+				res.json({message: 'no results for player_id=' + req.params.id });
+		}
+        });
 });
 
 app.get('/assignments', function(req, res) {
