@@ -493,9 +493,120 @@ var BarChart_DataStruct_Percent = React.createClass({
                 <BarChart
 	          legend={true}
                   data={this.state.barData}
-                  width={675}
+                  width={650}
                   height={330}
                   fill={'#3182bd'}
+                  title=''
+                  margins={{top: 20, right: 100, bottom: 30, left: 40}}
+                />
+               </div>;
+    }
+});
+
+var BarChart_Size_Metric = React.createClass({
+    loadSizeMetricFromServer: function(){
+//    window.alert("Barchart (Update Date)");
+      $.ajax({
+        url: "/student/metric",
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+//          window.alert(JSON.stringify(data));
+// 	window.alert("Barchart (Ajax Success)!!!!")
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+//	  window.alert("Barchart (Ajax error)!");
+//          console.error(this.props.url, status, err.toString());
+          var barData = [{
+            "name":"Class A",
+            "values":[
+              {"x": 'A', "y": 100},
+              {"x": 'B', "y": 100},
+              {"x": 'C', "y": 340},
+              {"x": 'D', "y": 220},
+              {"x": 'E', "y": 150},
+              {"x": 'F', "y": 220},
+              {"x": 'G', "y": 150},
+              {"x": 'H', "y": 300},
+              {"x": 'I', "y": 400},
+              {"x": 'J', "y": 300},
+              {"x": 'K', "y": 300},
+              {"x": 'L', "y": 300},
+              {"x": 'M', "y": 300},
+              {"x": 'N', "y": 150},
+              {"x": 'O', "y": 220},
+              {"x": 'P', "y": 260},
+              {"x": 'Q', "y": 300},
+              {"x": 'R', "y": 400},
+              {"x": 'S', "y": 430},
+              {"x": 'T', "y": 210},
+              {"x": 'U', "y": 300},
+              {"x": 'V', "y": 200},
+              {"x": 'W', "y": 150},
+              {"x": 'X', "y": 300},
+              {"x": 'Y', "y": 200},
+              {"x": 'Z', "y": 800}
+            ]}
+          ];
+          this.setState({data: barData});
+        }.bind(this)
+      });
+    },
+    getInitialState: function(){
+//      window.alert("Barchart (Get initial state)!");
+      var barData = [{
+        "name":"Class A",
+        "values":[
+          {"x": 'A', "y": 100},
+          {"x": 'B', "y": 100},
+          {"x": 'C', "y": 340},
+          {"x": 'D', "y": 220},
+          {"x": 'E', "y": 150},
+          {"x": 'F', "y": 220},
+          {"x": 'G', "y": 150},
+          {"x": 'H', "y": 300},
+          {"x": 'I', "y": 400},
+          {"x": 'J', "y": 300},
+          {"x": 'K', "y": 300},
+          {"x": 'L', "y": 300},
+          {"x": 'M', "y": 300},
+          {"x": 'N', "y": 150},
+          {"x": 'O', "y": 220},
+          {"x": 'P', "y": 260},
+          {"x": 'Q', "y": 300},
+          {"x": 'R', "y": 400},
+          {"x": 'S', "y": 430},
+          {"x": 'T', "y": 210},
+          {"x": 'U', "y": 300},
+          {"x": 'V', "y": 200},
+          {"x": 'W', "y": 150},
+          {"x": 'X', "y": 300},
+          {"x": 'Y', "y": 200},
+          {"x": 'Z', "y": 200}
+       ]}
+      ];
+      return {data: barData};
+    },
+    componentDidMount: function(){
+      this.loadSizeMetricFromServer();
+      //introduces that we will need a pollInterval for the external element
+      setInterval(this.loadSizeMetricFromServer, 3000); //this.props.pollInterval);
+    },
+    render: function() {
+//        window.alert("Barchart (Render)!"); 
+        return <div className="BarChart_Size_Metric">
+                <center>
+                  <h3>
+                    Size (MATLAB)
+                  </h3>
+                </center>
+                <BarChart
+                  data={this.state.data}
+// 		  data={barData}
+                  width={700}
+                  height={330}
+                  fill={'#8a5715'}
                   title=''
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
                 />
@@ -526,29 +637,11 @@ var Assignment = React.createClass({
 
 var AssignmentBox = React.createClass({
   loadAssignmentsFromServer: function(){
-  /*  $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      cache: false,
-      // in the case ajax succeeds
-      success: function(data) {
-        //window.alert("here");
-        this.setState({data: data});
-      }.bind(this),
-      // in the case ajax runs into an error
-      error: function(xhr, status, err) {
-      //  alert("err");
-
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });*/
-
     $.ajax({
       url: "/problem/470",
       dataType: 'json',
       cache: false,
       success: function(data) {
-//        window.alert("here");
       //  window.alert(JSON.stringify(data));
         this.setState({data: data});
       }.bind(this),
@@ -557,11 +650,7 @@ var AssignmentBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-
-
-
   },
-
   getInitialState: function(){
     return {data: []};
   },
@@ -569,7 +658,7 @@ var AssignmentBox = React.createClass({
   componentDidMount: function(){
     this.loadAssignmentsFromServer();
     //introduces that we will need a pollInterval for the external element
-    setInterval(this.loadAssignmentsFromServer, this.props.pollInterval);
+    setInterval(this.loadAssignmentsFromServer, 3000); //this.props.pollInterval);
   },
 
   render: function(){
@@ -601,6 +690,7 @@ var AssignmentBox = React.createClass({
 });
 
 var AssignmentList = React.createClass({
+
   render: function(){
     // commentNodes gets the values of all the json data as a mapping for each data element
     var assignmentNodes = this.props.data.map(function(assignment){
@@ -617,14 +707,45 @@ var AssignmentList = React.createClass({
   }
 });
 
+
 var Student = React.createClass({
+  getInitialState: function(){
+    // Takes control of the individual student's check boxes
+    return {check: false};
+  },
+  onChange: function(e){
+    var my_name =this.props.stud_name;
+  //  alert(my_name);
+    if(my_name == "Select All"){
+        var array = document.getElementsByClassName("student-input");
+        for(var ii = 0; ii < array.length; ii++)
+        {
+           if(array[ii].type == "checkbox")
+           {
+              if(array[ii].className =="student-input")
+               {
+                array[ii].checked = !(this.state.check);
+               }
+           }
+        }
+        this.setState({check: !(this.state.check)});
+    }
+  },
   render: function(){
+
+    var student_label;
+    if(this.props.stud_name == "Select All"){
+      student_label = "";
+    }
+    else{
+      student_label = "Student ";
+    }
 
     return (
       <div className="student">
         <label>
-          <input type="checkbox" name="student">
-              {this.props.stud_name}
+          <input className="student-input" type="checkbox" name="student"  defaultChecked={this.state.check} onChange={this.onChange} >
+              {student_label + this.props.stud_name}
           </input>
         </label>
       </div>
@@ -633,26 +754,40 @@ var Student = React.createClass({
 });
 
 var StudentList = React.createClass({
+  getInitialState : function() {
+      return {data: []};
+  },
+  loadStudentsFromServer: function(){
+    $.ajax({
+      url: "/dbtest",
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+    //    window.alert(JSON.stringify(data));
+        this.setState({data: data});
+      }.bind(this),
+      // in the case ajax runs into an error
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  componentDidMount: function(){
+    this.loadStudentsFromServer();
+    //introduces that we will need a pollInterval for the external element
+    setInterval(this.loadStudentsFromServer, this.props.pollInterval);
+  },
   render: function(){
-
+    var studentNodes = this.state.data.map(function(student){
+      return (
+        <Student stud_name={student.player_id}/>
+      );
+    });
     return (
-        <div className="studentList">
-          <Student stud_name="Select All"/>
-          <Student stud_name="Johnny Appleseed"/>
-          <Student stud_name="Mike T"/>
-          <Student stud_name="Nick M"/>
-          <Student stud_name="John K"/>
-          <Student stud_name="Li L"/>
-          <Student stud_name="Ryan O"/>
-          <Student stud_name="Johnny Appleseed"/>
-          <Student stud_name="Mike T"/>
-          <Student stud_name="Nick M"/>
-          <Student stud_name="John K"/>
-          <Student stud_name="Li L"/>
-          <Student stud_name="Ryan O"/>
-
-
-        </div>
+      <div className="studentList">
+        <Student stud_name={"Select All"}/>
+        {studentNodes}
+      </div>
     );
   }
 });
@@ -667,7 +802,7 @@ var StudentForm = React.createClass({
         </div>
         <div className="panel-body">
           <form>
-            <StudentList/>
+            <StudentList pollInterval={2000}/>
           </form>
         </div>
       </div>
@@ -815,6 +950,15 @@ var GraphContainer_DataStruct_Percent = React.createClass({
   }
 });
 
+var GraphContainer_Size_Metric = React.createClass({
+  render: function(){
+    return (
+      <div className="graph-container col-md-4">
+          <BarChart_Size_Metric/>
+      </div>
+    )
+  }
+});
 
 var GraphContainerList = React.createClass({
   render: function(){
@@ -827,6 +971,7 @@ var GraphContainerList = React.createClass({
         <GraphContainer_Space_Complexity/>
         <GraphContainer_Loop_Percent/>
         <GraphContainer_DataStruct_Percent/>
+        <GraphContainer_Size_Metric/>
       </div>
     )
   }
@@ -871,8 +1016,3 @@ var MasterGraphContainer = React.createClass({
 });
 
 ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content')); //url="/assignments" pollInterval={2000}
-
-/*
-module.exports = AssignmentBox;
-module.exports = StudentForm;
-module.exports = GraphForm;*/
