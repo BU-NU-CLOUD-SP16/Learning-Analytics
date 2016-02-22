@@ -15,10 +15,10 @@ var dbtestRoute = require('./routes/dbtest');
 
 // Connect to MySQL Database
 var databaseConn = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "demo1",
+	host: "52.33.14.62",
+    	user: "remote",
+    	password: "learninganalytics",
+    	database: "demo1",
 });
 
 databaseConn.connect(function (err){
@@ -44,7 +44,6 @@ var port = process.env.port || 3000;
 assignmentsRoute(app, fs, COMMENTS_FILE);
 dbtestRoute(app, databaseConn);
 problemRoute(app);
-
 
 // Listen on port for incoming requests
 app.listen(port, function () {

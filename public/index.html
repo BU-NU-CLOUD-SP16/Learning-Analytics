@@ -12,9 +12,11 @@
     <title>Learning Analytics</title>
 
     <!-- Not present in the tutorial. Just for basic styling. -->
+    <!-- Pre-browserify scripts
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
 
@@ -25,9 +27,10 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <!--    <link href="../../node_modules/boostrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
 
+
     <link href="/dist/css/custom.css" rel="stylesheet">
     <link href="/dist/css/custom_index.css" rel="stylesheet">
-    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/d3.v3.min.js"  charset="utf-8"></script>
   </head>
       <body role="document">
 
@@ -77,9 +80,9 @@
 
             <div id="content"></div>
 
-
             <div id="user-select"></div>
-            <script type="text/babel" src="scripts/home_content.jsx"></script>
+            <!-- <script type="text/babel" src="scripts/home_content.jsx"></script> -->
+            <script src="bundle.js"></script>
          </div>
 
       <footer class="footer">
