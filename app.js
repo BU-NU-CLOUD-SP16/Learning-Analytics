@@ -43,7 +43,7 @@ var port = process.env.port || 3000;
 // Register app routes
 assignmentsRoute(app, fs, COMMENTS_FILE);
 dbtestRoute(app, databaseConn);
-problemRoute(app);
+problemRoute(app, databaseConn);
 
 // Listen on port for incoming requests
 app.listen(port, function () {

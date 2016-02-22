@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function(app, databaseConn) {
 
     // Return all info about problem based on id
     app.get('/problem/:problem_id', function(req, res) {
