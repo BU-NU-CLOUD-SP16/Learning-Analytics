@@ -9,10 +9,10 @@ var COMMENTS_FILE = path.join(__dirname, 'assignments.json');
 
 // Connect to MySQL Database
 var databaseConn = mysql.createConnection({
-	host: "localhost",
-    	user: "root",
-    	password: "",
-	database: "demo1",
+			host: "52.33.14.62",
+    	user: "remote",
+    	password: "learninganalytics",
+			database: "demo1",
 });
 
 databaseConn.connect(function (err){
@@ -22,7 +22,6 @@ databaseConn.connect(function (err){
 	}
 	console.log('Connection Established');
 });
-
 
 // Static hosting for public website
 app.use('/', express.static(path.join(__dirname, 'public')));
@@ -43,10 +42,10 @@ var router = express.Router();
 router.use(function(req, res, next){
   console.log('Request made.');
   next();  
-})
+});
 
 router.get('/', function(err, res, req){
-  res.json({message: 'Welcome to our api!'})
+  res.json({message: 'Welcome to our api!'});
 });
 
 router.route('/problems')
@@ -58,7 +57,7 @@ router.route('/problems')
       // Dump DB - All Solutions
       res.json(rows);
     });
-  })
+  });
 
 router.route('/problems/:problem_id')
   .get( function (req, res){
@@ -71,7 +70,7 @@ router.route('/problems/:problem_id')
       res.send(problem_title);
       }
     });
-  })
+  });
 
 router.route('/problems/:problem_id/:modifier')
   .get( function (req, res) {
@@ -84,7 +83,7 @@ router.route('/problems/:problem_id/:modifier')
       res.send(problem_specific_info);
       }
     });
-  })
+  });
 
 // Register app routes
 app.use('/api', router);
@@ -103,16 +102,32 @@ app.use(function(req, res, next) {
 });
 */
 
-app.get('/dbtest', function (req, res) {
-  	databaseConn.query('SELECT * FROM solution', function (err, rows){
-		if(err) throw err;
-		console.log('Data received from the DB');
-
-		// Dump DB - All Solutions
-		res.send(rows);
+app.get('/student/metric', function (req, res) {
+  	databaseConn.query('SELECT player_id, metric FROM solution;', function (err, rows){
+		if(err) {
+          		console.log(err);
+          		res.status(500).send({status:500, message: 'internal error', type:'internal'});
+        	} else {
+        		console.log('Data received from DB');
+			res.send(rows);
+		}
 	});
 });
 
+app.get('/student/metric/:id', function (req, res) {
+        databaseConn.query('SELECT player_id, metric FROM solution WHERE player_id=' + req.params.id, function (err, rows){
+		if(err) {
+          		console.log(err);
+         		res.status(500).send({status:500, message: 'internal error', type:'internal'});
+        	} else {
+        		console.log('Data received from DB');
+                	if(rows.length)
+				res.send(rows);
+			else
+				res.json({message: 'no results for player_id=' + req.params.id });
+		}
+        });
+});
 
 app.get('/assignments', function(req, res) {
   fs.readFile(COMMENTS_FILE, function(err, data) {
@@ -156,35 +171,6 @@ app.get('/problem/:problem_id/:modifier', function(req, res) {
 	});
 });
 
-/*
-app.post('/api/comments', function(req, res) {
-  fs.readFile(COMMENTS_FILE, function(err, data) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    var comments = JSON.parse(data);
-    // NOTE: In a real implementation, we would likely rely on a database or
-    // some other approach (e.g. UUIDs) to ensure a globally unique id. We'll
-    // treat Date.now() as unique-enough for our purposes.
-    var newComment = {
-      id: Date.now(),
-      author: req.body.author,
-      text: req.body.text,
-    };
-    comments.push(newComment);
-    fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 4), function(err) {
-      if (err) {
-        console.error(err);
-        process.exit(1);
-      }
-      res.json(comments);
-    });
-  });
-});*/
-
-
-// Listen on port for incoming requests
-app.listen(port, function () {
+app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
