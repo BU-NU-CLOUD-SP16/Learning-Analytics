@@ -107,7 +107,6 @@ div.masterGraphContainer .content-body{
   width: 700px;
   box-shadow: 0px 3px 10px black;
   background: rgb(144, 144, 144);
-  background-image: url("/place_holder_graph.png");
   border: rgb(144, 144, 144) solid 1px;
   border-radius: 6px;
   background-repeat: no-repeat;
