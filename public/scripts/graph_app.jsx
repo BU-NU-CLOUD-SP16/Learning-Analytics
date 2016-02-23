@@ -507,14 +507,13 @@ var BarChart_Size_Metric = React.createClass({
     loadSizeMetricFromServer: function(){
 //    window.alert("Barchart (Update Date)");
       $.ajax({
-        url: "/student/metric",
+        url: "/student/metric/bins",
         dataType: 'json',
         cache: false,
         success: function(data) {
 //          window.alert(JSON.stringify(data));
 // 	window.alert("Barchart (Ajax Success)!!!!")
-var barData = [{"meta":[{"count":860,"bins":null}],"name":"barData","values":[{"x":240,"y":-1},{"x":3038,"y":58},{"x":84,"y":40},{"x":1696,"y":55},{"x":1696,"y":41},{"x":1696,"y":46},{"x":3038,"y":54},{"x":57131,"y":63},{"x":48874,"y":66},{"x":54708,"y":71},{"x":50716,"y":93},{"x":57376,"y":66},{"x":57376,"y":66},{"x":45073,"y":-1},{"x":45073,"y":-1},{"x":45073,"y":-1},{"x":45073,"y":54},{"x":8580,"y":55},{"x":8580,"y":55},{"x":8580,"y":47},{"x":60441,"y":37},{"x":60441,"y":38},{"x":60441,"y":40},{"x":60441,"y":42},{"x":60441,"y":46},{"x":60441,"y":48},{"x":60441,"y":50},{"x":60441,"y":50},{"x":60441,"y":53},{"x":60441,"y":52},{"x":60441,"y":63},{"x":60441,"y":63},{"x":60441,"y":63},{"x":60441,"y":63},{"x":3635,"y":52},{"x":3635,"y":54},{"x":62446,"y":49},{"x":62446,"y":45}]}];
-//	  var barData = data; 
+	  var barData = data; 
           this.setState({data: barData});
         }.bind(this),
         // in the case ajax runs into an error
@@ -562,7 +561,7 @@ var barData = [{"meta":[{"count":860,"bins":null}],"name":"barData","values":[{"
     componentDidMount: function(){
       this.loadSizeMetricFromServer();
       //introduces that we will need a pollInterval for the external element
-      setInterval(this.loadSizeMetricFromServer, 3000); //this.props.pollInterval);
+      setInterval(this.loadSizeMetricFromServer, this.props.pollInterval);
     },
     render: function() {
 //        window.alert("Barchart (Render)!"); 
