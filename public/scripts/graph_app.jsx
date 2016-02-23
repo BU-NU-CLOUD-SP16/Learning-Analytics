@@ -513,77 +513,14 @@ var BarChart_Size_Metric = React.createClass({
         success: function(data) {
 //          window.alert(JSON.stringify(data));
 // 	window.alert("Barchart (Ajax Success)!!!!")
-/*          var barData = [{
-            "name":"Class A",
-            "values":[
-              {"x": 'A', "y": 100},
-              {"x": 'B', "y": 100},
-              {"x": 'C', "y": 340},
-              {"x": 'D', "y": 220},
-              {"x": 'E', "y": 150},
-              {"x": 'F', "y": 220},
-              {"x": 'G', "y": 150},
-              {"x": 'H', "y": 300},
-              {"x": 'I', "y": 400},
-              {"x": 'J', "y": 300},
-              {"x": 'K', "y": 300},
-              {"x": 'L', "y": 300},
-              {"x": 'M', "y": 300},
-              {"x": 'N', "y": 150},
-              {"x": 'O', "y": 220},
-              {"x": 'P', "y": 260},
-              {"x": 'Q', "y": 300},
-              {"x": 'R', "y": 400},
-              {"x": 'S', "y": 430},
-              {"x": 'T', "y": 210},
-              {"x": 'U', "y": 300},
-              {"x": 'V', "y": 200},
-              {"x": 'W', "y": 150},
-              {"x": 'X', "y": 300},
-              {"x": 'Y', "y": 200},
-              {"x": 'Z', "y": 800}
-            ]}
-          ];
-*/ 
-	  var barData = data; 
+var barData = [{"meta":[{"count":860,"bins":null}],"name":"barData","values":[{"x":240,"y":-1},{"x":3038,"y":58},{"x":84,"y":40},{"x":1696,"y":55},{"x":1696,"y":41},{"x":1696,"y":46},{"x":3038,"y":54},{"x":57131,"y":63},{"x":48874,"y":66},{"x":54708,"y":71},{"x":50716,"y":93},{"x":57376,"y":66},{"x":57376,"y":66},{"x":45073,"y":-1},{"x":45073,"y":-1},{"x":45073,"y":-1},{"x":45073,"y":54},{"x":8580,"y":55},{"x":8580,"y":55},{"x":8580,"y":47},{"x":60441,"y":37},{"x":60441,"y":38},{"x":60441,"y":40},{"x":60441,"y":42},{"x":60441,"y":46},{"x":60441,"y":48},{"x":60441,"y":50},{"x":60441,"y":50},{"x":60441,"y":53},{"x":60441,"y":52},{"x":60441,"y":63},{"x":60441,"y":63},{"x":60441,"y":63},{"x":60441,"y":63},{"x":3635,"y":52},{"x":3635,"y":54},{"x":62446,"y":49},{"x":62446,"y":45}]}];
+//	  var barData = data; 
           this.setState({data: barData});
         }.bind(this),
         // in the case ajax runs into an error
         error: function(xhr, status, err) {
 //	  window.alert("Barchart (Ajax error)!");
 //          console.error(this.props.url, status, err.toString());
-          var barData = [{
-            "name":"Class A",
-            "values":[
-              {"x": 'A', "y": 100},
-              {"x": 'B', "y": 100},
-              {"x": 'C', "y": 340},
-              {"x": 'D', "y": 220},
-              {"x": 'E', "y": 150},
-              {"x": 'F', "y": 220},
-              {"x": 'G', "y": 150},
-              {"x": 'H', "y": 300},
-              {"x": 'I', "y": 400},
-              {"x": 'J', "y": 300},
-              {"x": 'K', "y": 300},
-              {"x": 'L', "y": 300},
-              {"x": 'M', "y": 300},
-              {"x": 'N', "y": 150},
-              {"x": 'O', "y": 220},
-              {"x": 'P', "y": 260},
-              {"x": 'Q', "y": 300},
-              {"x": 'R', "y": 400},
-              {"x": 'S', "y": 430},
-              {"x": 'T', "y": 210},
-              {"x": 'U', "y": 300},
-              {"x": 'V', "y": 200},
-              {"x": 'W', "y": 150},
-              {"x": 'X', "y": 300},
-              {"x": 'Y', "y": 200},
-              {"x": 'Z', "y": 800}
-            ]}
-          ];
-          this.setState({data: barData});
         }.bind(this)
       });
     },
@@ -998,6 +935,7 @@ var GraphContainerList = React.createClass({
   render: function(){
     return(
       <div className="graphContainerList">
+        <GraphContainer_Size_Metric/>
         <GraphContainer_Lines_Code/>
         <GraphContainer_Time_Complexity/>
         <GraphContainer_Comment_Percent/>
@@ -1005,7 +943,6 @@ var GraphContainerList = React.createClass({
         <GraphContainer_Space_Complexity/>
         <GraphContainer_Loop_Percent/>
         <GraphContainer_DataStruct_Percent/>
-        <GraphContainer_Size_Metric/>
       </div>
     )
   }
