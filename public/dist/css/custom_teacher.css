@@ -4,14 +4,14 @@ div.masterGraphContainer{
   margin: 0 auto;
   display: table;
   width: 100%;
-
+  margin-top: 55px;
 }
 
 div.masterGraphContainer .content-toolbar{
   height:60px;
   width: 100%;
   white-space: nowrap;
-  /*border: orange solid 1px;*/
+  /**/
 }
 
 div.masterGraphContainer .content-body{
@@ -25,7 +25,9 @@ div.masterGraphContainer .content-body{
   width: 95%;
 }
 
+
 .graphList{
+  /*border:30px blue solid;*/
   overflow-y: scroll;
   overflow-x: hidden;
   height: 60px;

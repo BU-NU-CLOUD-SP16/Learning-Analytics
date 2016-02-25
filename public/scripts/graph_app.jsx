@@ -3,8 +3,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var rd3 = require('react-d3');
 var BarChart = rd3.BarChart;
-
-var db_url = "http://52.33.14.62:3000";
+// var db_url = "http://52.33.14.62:3000";
 
 var BarChart_Lines_Code = React.createClass({
     getInitialState : function() {
@@ -660,7 +659,6 @@ var AssignmentBox = React.createClass({
 });
 
 var AssignmentList = React.createClass({
-
   render: function(){
     // commentNodes gets the values of all the json data as a mapping for each data element
     var assignmentNodes = this.props.data.map(function(assignment){
@@ -668,7 +666,6 @@ var AssignmentList = React.createClass({
         <Assignment prob_statement={assignment.title} key={assignment.id} description={assignment.description_html}/>
       );
     });
-
     return (
         <div className="assignmentList panel panel-default">
           {assignmentNodes}
@@ -677,7 +674,6 @@ var AssignmentList = React.createClass({
   }
 });
 
-
 var Student = React.createClass({
   getInitialState: function(){
     // Takes control of the individual student's check boxes
@@ -685,14 +681,14 @@ var Student = React.createClass({
   },
   onChange: function(e){
     var my_name =this.props.stud_name;
-  //  alert(my_name);
+    var input_class = "student-input";
     if(my_name == "Select All"){
-        var array = document.getElementsByClassName("student-input");
+        var array = document.getElementsByClassName(input_class);
         for(var ii = 0; ii < array.length; ii++)
         {
            if(array[ii].type == "checkbox")
            {
-              if(array[ii].className =="student-input")
+              if(array[ii].className == input_class)
                {
                 array[ii].checked = !(this.state.check);
                }
@@ -702,7 +698,6 @@ var Student = React.createClass({
     }
   },
   render: function(){
-
     var student_label;
     if(this.props.stud_name == "Select All"){
       student_label = "";
@@ -710,7 +705,6 @@ var Student = React.createClass({
     else{
       student_label = "Student ";
     }
-
     return (
       <div className="student">
         <label>
@@ -764,7 +758,6 @@ var StudentList = React.createClass({
 
 var StudentForm = React.createClass({
   render: function(){
-
     return (
       <div id="assignment_dir" className="panel panel-default">
         <div className="panel-heading">
@@ -776,8 +769,6 @@ var StudentForm = React.createClass({
           </form>
         </div>
       </div>
-
-
     );
   }
 });
@@ -785,16 +776,34 @@ var StudentForm = React.createClass({
 
 
 var Graph = React.createClass({
+  getInitialState: function(){
+    // Takes control of the individual student's check boxes
+    return {check: false};
+  },
+  onChange: function(e){
+    var my_name =this.props.stud_name;
+    if(my_name == "Select All"){
+        var array = document.getElementsByClassName("graph-select");
+        for(var ii = 0; ii < array.length; ii++)
+        {
+           if(array[ii].type == "checkbox")
+           {
+              if(array[ii].className =="graph-select")
+               {
+                array[ii].checked = !(this.state.check);
+               }
+           }
+        }
+        this.setState({check: !(this.state.check)});
+    }
+  },
   render: function(){
-
     return (
       <div className="graph">
         <label>
-
-          <input type="checkbox" name="graph">
+          <input className="graph-select" type="checkbox" name="graph" defaultChecked={this.state.check} onChange={this.onChange}>
               <i className={"fa fa-" + this.props.icon_type}>&nbsp;</i>{this.props.stud_name}
           </input>
-
         </label>
       </div>
     );
@@ -951,10 +960,8 @@ var MasterGraphContainer = React.createClass({
   componentDidMount: function(){
   },
   render:function(){
-
     return (
       <div className="masterGraphContainer">
-
         <div className="content-toolbar">
           <GraphForm/>
         </div>
@@ -963,18 +970,12 @@ var MasterGraphContainer = React.createClass({
             <div className="property-container">
                 <AssignmentBox url="/assignments" pollInterval={2000} />
                 <StudentForm/>
-
             </div>
           </div>
           <div className="col-md-10">
             <div className="content-container">
               <div className="all-graph">
                   <GraphContainerList/>
-
-
-
-
-
               </div>
             </div>
           </div>
@@ -985,4 +986,4 @@ var MasterGraphContainer = React.createClass({
   }
 });
 
-ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content')); //url="/assignments" pollInterval={2000}
+ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content'));

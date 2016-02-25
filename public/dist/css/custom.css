@@ -1,5 +1,10 @@
 /*@background_c: #c2c2c2;*/
 
+*{
+  font-family: Quicksand;
+  src: url("/quicksand/Quicksand-Regular.otf") format("opentype");
+}
+
 html{
   background: url("/dark_embroidery.png");
 }
@@ -8,8 +13,16 @@ body{
   background: url("/dark_embroidery.png");
 }
 
+.navbar{
+  
+}
+
 footer{
   height: 50px;
+}
+
+footer.footer a{
+  border: solid orange 1px;
 }
 
 footer p{
@@ -19,27 +32,30 @@ footer p{
 
 h1#welcome{
   color: white;
-  text-shadow: 3px 3px 3px black;
+  text-shadow: 3px 3px 3px rgb(121,119,119);
   position: relative;
   margin-top:50px;
+  margin-bottom: 50px;
 }
 
 .jumbotron{
-  background: linear-gradient(rgb(137, 52, 176), rgb(206, 182, 226));
-  box-shadow: 3px 3px 3px black;
+/*  background: linear-gradient(rgb(137, 52, 176), rgb(206, 182, 226));*/
+  box-shadow: 3px 3px 3px rgb(121,119,119);
 }
 
 .row{
   margin:0px;
-  padding:20px;
+
+  padding:0px;
   width: 100%;
-  padding-bottom: 20px;
-  box-shadow: 0px 3px 10px black;
+  padding-bottom: 0px;
+  box-shadow: 0px 3px 10px rgb(121,119,119);
 }
 
-.jumbotron h1, .jumbotron {
+#welcome, #user-select {
     position: relative;
-
+    margin-top: 0px;
+    margin-bottom: 0px;
     /* Fade upward */
     -webkit-animation-name: page_intro; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
@@ -53,25 +69,25 @@ h1#welcome{
 
 /* Chrome, Safari, Opera */
 @-webkit-keyframes page_intro {
-    0%   {top:50px;opacity: 0;}
+    0%   {top:20px;opacity: 0;}
     100% {top:0px;opacity: 1;}
 }
 /* Standard syntax */
 @keyframes page_intro {
-  0%   {top:50px;opacity: 0;}
+  0%   {top:20px;opacity: 0;}
   100% {top:0px;opacity: 1;}
 }
 
-/*Repeating Row Pattern*/
-/*clear row*/
+/*Repeating Row Pattern
+/*clear row
 div.row:nth-of-type(odd) {
    background-color: transparent;
  }
 
-/* gray row*/
-div.row:nth-of-type(even) {
-   background:#c2c2c2; /*@background_c;*/
- }
+/* gray row
+/*div.row:nth-of-type(even) {
+   background:#c2c2c2; @background_c;
+ }*/
 
 /* navbar li hover animation */
 #navbar ul li a{
@@ -92,7 +108,7 @@ div.row:nth-of-type(even) {
   transform: scaleX(0);
   -webkit-transition: all 0.3s ease-in-out 0s;
   transition: all 0.3s ease-in-out 0s;
-  box-shadow: 3px 3px 3px black;
+  box-shadow: 3px 3px 3px rgb(121,119,119);
 }
 
 #navbar ul li a:hover:before {
@@ -211,10 +227,9 @@ form.search_container > *{
 }
 
  .userContainer{
-   height: 562px;
    border: #c2c2c2 solid 1px;
    background: #c2c2c2;
-   box-shadow: 7px 0 6px -6px rgb(144, 144, 144), -7px 0 6px -6px rgb(144, 144, 144);
+   /*box-shadow: 7px 0 6px -6px rgb(144, 144, 144), -7px 0 6px -6px rgb(144, 144, 144);*/
 }
 
  .userContainer .col-md-4 div{
@@ -222,34 +237,44 @@ form.search_container > *{
 }
 
 .text-container{
-  /*position: absolute;*/
   width: 100%;
+  clear: both;
   text-align: center;
-  height: 200px;
-  padding-top: 10px;
-  margin-top: 90px;
+  margin-top: 0px;
 }
 
 ul.col-center{
-  zoom: 175%;
-  position: relative;
-  margin-right: 15%;
+  padding:0px;
+  margin:0px;
+  /*border: solid orange 10px;*/
 }
 
+ul.col-center li{
+  display:inline;
+}
+
+ul.col-center li a button{
+  font-size: 60px;
+  margin:20px;
+  display: table-cell;
+}
+
+
+
 .text-container li{
-  list-style-type: none;
+  /*list-style-type: none;*/
 }
 
 .text-container a{
-  color:white; /*  color:rgb(137, 52, 176);*/
+  color: grey; /*  color:rgb(137, 52, 176);*/
 }
 
 .text-container h3{
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .text-container > *{
-  position: absolute;
+  /*position: absolute;*/
 }
 
 /* Overwritting the default characterisitics for primary button from Bootstrap */
