@@ -1,10 +1,11 @@
 div.masterGraphContainer{
-  background: #c2c2c2;
+  background: rgb(252,252,252);
+/*  border:red solid 30px;*/
   box-shadow: 0px 3px 10px black;
   margin: 0 auto;
   display: table;
   width: 100%;
-  margin-top: 55px;
+  margin-top: 0px;
 }
 
 div.masterGraphContainer .content-toolbar{
@@ -15,13 +16,14 @@ div.masterGraphContainer .content-toolbar{
 }
 
 div.masterGraphContainer .content-body{
-  /*border: green solid 1px;*/
+/*  border: green solid 1px;*/
+
   display: table;
 }
 
 .graphForm #assignment_dir form{
 /*  border:orange solid 1px;*/
-
+  padding-right: 20px;
   width: 95%;
 }
 
@@ -33,7 +35,7 @@ div.masterGraphContainer .content-body{
   height: 60px;
   border-radius: 6px;
   width: 100%;/*230px;*/
-  background: #c2c2c2;
+  background: rgb(252,252,252);
   /* border: solid 1px red; */
   white-space: normal;
 
@@ -57,7 +59,6 @@ div.masterGraphContainer .content-body{
   width: 100%;
 /*  border: red 1px solid;*/
   border-radius: 6px;
-
 }
 
 .graphForm #assignment_dir > *{
@@ -71,18 +72,18 @@ div.masterGraphContainer .content-body{
   padding-top: 20px;
   overflow: hidden;
   padding-right:2px;
+  color:rgb(121,119,119);
 }
 
 .graphForm h5.panel-title{
-  color: black;
+  color: rgb(121,119,119);
 }
 
 .graphForm #assignment_dir{
-/*  border: green solid 1px;*/
-  border-bottom: 1px solid rgb(144, 144, 144);
+  border-bottom: 1px solid rgb(212, 212, 212);
   overflow-y: hidden;
   overflow-x: hidden;
-  background: #c2c2c2;
+  background: rgb(252,252,252);
   height:65px;
 }
 
@@ -103,13 +104,13 @@ div.masterGraphContainer .content-body{
 }
 
 .graph-container{
-  display: inline-block;
-  height: 375px;
+  display: inline-block;   /* 3750/7 = x */
+  height: 535px;
   margin: 10px;
-  width: 700px;
-  box-shadow: 0px 3px 10px black;
-  background: rgb(144, 144, 144);
-  border: rgb(144, 144, 144) solid 1px;
+  width: 1000px;
+  box-shadow: 0px 3px 10px rgb(121,119,119);
+  background: rgb(121,119,119);
+  border: rgb(121,119,119) solid 1px;
   border-radius: 6px;
   background-repeat: no-repeat;
   background-size: contain;
@@ -128,7 +129,7 @@ div.masterGraphContainer .content-body{
   -webkit-box-shadow: inset 0 0 10px #000000;
   box-shadow:         inset 0 0 10px #000000;
   overflow-y: scroll;
-  background: url("/dark_embroidery.png");
+  background: rgb(177, 204, 255);
 }
 
 .col-md-10 .content-container .all-graph{
@@ -156,7 +157,7 @@ div.masterGraphContainer .content-body{
   height: 25vh;
   border-radius: 6px;
   width: 100%;/*230px;*/
-  background: #c2c2c2;
+  background: rgb(252,252,252);
 }
 
 .studentList h3{
@@ -213,7 +214,7 @@ label input[type=checkbox]{
 }
 
 .panel-title{
-  color: rgb(137, 52, 176);
+  color: rgb(50,119,178);
 }
 
 .bar_chart h3{
@@ -222,4 +223,10 @@ label input[type=checkbox]{
 
 .bar_chart{
   margin-left: -15px;
+}
+
+div.graph-container.col-md-4{
+  /*border: red solid 3px;*/
+  background:rgb(212,212,212);
+  padding-top: 5px;
 }

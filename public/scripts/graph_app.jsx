@@ -49,8 +49,8 @@ var BarChart_Lines_Code = React.createClass({
                 </center>
                 <BarChart
                   data={this.state.barData}
-                  width={700}
-                  height={330}
+                  width={1000}
+                  height={490}
                   fill={'#3182bd'}
                   title=''
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
@@ -103,8 +103,8 @@ var BarChart_Time_Complexity = React.createClass({
                 </center>
                 <BarChart
                   data={this.state.barData}
-                  width={700}
-                  height={330}
+                  width={1000}
+                  height={490}
                   fill={'#8a5715'}
                   title=''
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
@@ -157,8 +157,8 @@ var BarChart_Comment_Percent = React.createClass({
                 </center>
                 <BarChart
                   data={this.state.barData}
-                  width={700}
-                  height={330}
+                  width={1000}
+                  height={490}
                   fill={'#8a5715'}
                   title=''
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
@@ -211,8 +211,8 @@ var BarChart_Attempt_Count = React.createClass({
                 </center>
                 <BarChart
                   data={this.state.barData}
-                  width={700}
-                  height={330}
+                  width={1000}
+                  height={490}
                   fill={'#8a5715'}
                   title=''
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
@@ -265,8 +265,8 @@ var BarChart_Loop_Count = React.createClass({
                 </center>
                 <BarChart
                   data={this.state.barData}
-                  width={700}
-                  height={330}
+                  width={1000}
+                  height={490}
                   fill={'#8a5715'}
                   title=''
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
@@ -319,8 +319,8 @@ var BarChart_Space_Complexity = React.createClass({
                 </center>
                 <BarChart
                   data={this.state.barData}
-                  width={700}
-                  height={330}
+                  width={1000}
+                  height={490}
                   fill={'#8a5715'}
                   title=''
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
@@ -373,8 +373,8 @@ var BarChart_Loop_Percent = React.createClass({
                 </center>
                 <BarChart
                   data={this.state.barData}
-                  width={700}
-                  height={330}
+                  width={1000}
+                  height={490}
                   fill={'#8a5715'}
                   title=''
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
@@ -490,10 +490,10 @@ var BarChart_DataStruct_Percent = React.createClass({
                   </h3>
                 </center>
                 <BarChart
-	          legend={true}
+      	          legend={true}
                   data={this.state.barData}
-                  width={650}
-                  height={330}
+                  width={1000}
+                  height={490}
                   fill={'#3182bd'}
                   title=''
                   margins={{top: 20, right: 100, bottom: 30, left: 40}}
@@ -504,26 +504,21 @@ var BarChart_DataStruct_Percent = React.createClass({
 
 var BarChart_Size_Metric = React.createClass({
     loadSizeMetricFromServer: function(){
-//    window.alert("Barchart (Update Date)");
       $.ajax({
         url: "/student/metric/bins",
         dataType: 'json',
         cache: false,
         success: function(data) {
-//          window.alert(JSON.stringify(data));
-// 	window.alert("Barchart (Ajax Success)!!!!")
-	  var barData = data; 
+      	  var barData = data;
           this.setState({data: barData});
         }.bind(this),
         // in the case ajax runs into an error
         error: function(xhr, status, err) {
-//	  window.alert("Barchart (Ajax error)!");
-//          console.error(this.props.url, status, err.toString());
+          console.error(this.props.url, status, err.toString());
         }.bind(this)
       });
     },
     getInitialState: function(){
-//      window.alert("Barchart (Get initial state)!");
       var barData = [{
         "name":"Class A",
         "values":[
@@ -563,7 +558,7 @@ var BarChart_Size_Metric = React.createClass({
       setInterval(this.loadSizeMetricFromServer, this.props.pollInterval);
     },
     render: function() {
-//        window.alert("Barchart (Render)!"); 
+//        window.alert("Barchart (Render)!");
         return <div className="BarChart_Size_Metric">
                 <center>
                   <h3>
@@ -573,8 +568,8 @@ var BarChart_Size_Metric = React.createClass({
                 <BarChart
                   data={this.state.data}
 // 		  data={barData}
-                  width={700}
-                  height={330}
+                  width={1000}
+                  height={490}
                   fill={'#8a5715'}
                   title=''
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
@@ -980,7 +975,6 @@ var MasterGraphContainer = React.createClass({
             </div>
           </div>
         </div>
-
       </div>
     );
   }

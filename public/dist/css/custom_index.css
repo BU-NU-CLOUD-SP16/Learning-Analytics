@@ -3,8 +3,6 @@ html, body{
   background-size: cover;
 }
 
-
-
 div.row{
   box-shadow: 0px 3px 10px transparent;
   /*border: yellow 5px solid;*/
@@ -14,22 +12,8 @@ div.row{
   align:left;
 }
 
-/*
-div.row:nth-of-type(odd) {
-   background-color: transparent;
- }*/
-
-
-
-/* gray row
-div.row:nth-of-type(even) {
-   background: transparent; /*#c2c2c2; @background_c;
- }
-*/
 .userContainer{
-
   box-shadow: 0px 3px 10px transparent;
-
 }
 
 .jumbotron{

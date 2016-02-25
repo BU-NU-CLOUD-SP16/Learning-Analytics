@@ -5,16 +5,8 @@
   src: url("/quicksand/Quicksand-Regular.otf") format("opentype");
 }
 
-html{
-  background: url("/dark_embroidery.png");
-}
-
-body{
-  background: url("/dark_embroidery.png");
-}
-
 .navbar{
-  
+
 }
 
 footer{
