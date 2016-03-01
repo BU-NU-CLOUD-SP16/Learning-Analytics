@@ -578,7 +578,7 @@ var BarChart_Size_Metric = React.createClass({
     componentDidMount: function(){
       this.loadSizeMetricFromServer();
       //introduces that we will need a pollInterval for the external element
-      setInterval(this.loadSizeMetricFromServer, this.props.pollInterval);
+      setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
 //        window.alert("Barchart (Render)!");
