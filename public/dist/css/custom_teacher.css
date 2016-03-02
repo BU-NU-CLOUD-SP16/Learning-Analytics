@@ -9,15 +9,14 @@ div.masterGraphContainer{
 }
 
 div.masterGraphContainer .content-toolbar{
-  height:60px;
+  /*height:60px;*/
   width: 100%;
   white-space: nowrap;
   /**/
 }
 
 div.masterGraphContainer .content-body{
-/*  border: green solid 1px;*/
-
+  height: calc(100vh - 50px);
   display: table;
 }
 
@@ -29,21 +28,22 @@ div.masterGraphContainer .content-body{
 
 
 .graphList{
-  /*border:30px blue solid;*/
-  overflow-y: scroll;
+  /*overflow-y: scroll;
   overflow-x: hidden;
   height: 60px;
-  border-radius: 6px;
-  width: 100%;/*230px;*/
+  width: 100%;/*230px;
   background: rgb(252,252,252);
-  /* border: solid 1px red; */
-  white-space: normal;
+  /* border: solid 1px red;
+  white-space: normal;*/
+}
 
+.graphList a{
+  color:rgb(121,119,119);
 }
 
 .col-md-10, .col-md-2{ /*   border-radius: 6px; */
   min-height: 85vh;
-  padding: 15px;
+  padding: 0px;
 }
 
 .col-md-2{
@@ -55,10 +55,8 @@ div.masterGraphContainer .content-body{
 }
 
 .col-md-2 .property-container,.col-md-10 .content-container{
-  height: 82vh;
+  height: 100vh;
   width: 100%;
-/*  border: red 1px solid;*/
-  border-radius: 6px;
 }
 
 .graphForm #assignment_dir > *{
@@ -80,7 +78,7 @@ div.masterGraphContainer .content-body{
 }
 
 .graphForm #assignment_dir{
-  border-bottom: 1px solid rgb(212, 212, 212);
+  border-bottom: 1px solid rgb(237,237,237);
   overflow-y: hidden;
   overflow-x: hidden;
   background: rgb(252,252,252);
@@ -104,32 +102,68 @@ div.masterGraphContainer .content-body{
 }
 
 .graph-container{
-  display: inline-block;   /* 3750/7 = x */
+
+}
+
+.col-md-10 .content-container .all-graph div.graph-container{
+  background:transparent;
+  display: inline-block;
   height: 535px;
   margin: 10px;
   width: 1000px;
-  box-shadow: 0px 3px 10px rgb(121,119,119);
-  background: rgb(121,119,119);
-  border: rgb(121,119,119) solid 1px;
-  border-radius: 6px;
+  /*box-shadow: 0px 3px 10px rgb(121,119,119);*/
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 }
 
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default{
+  width: 1000px;
+  border: rgb(221,221,221) 1px solid;
+  margin-top: 12px;
+}
+
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading{
+  background: rgb(248,248,248);
+  /*border: red solid 2px;*/
+  height: 50px;
+}
+
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading h3{
+  /*border: solid green 1px;*/
+  margin-top: 2px;
+}
+
 /* properties */
 .col-md-2 .property-container{
   background: #ffffff;
-  overflow: hidden;
+  overflow-y: scroll;
+  background: rgb(248,248,248);
+}
+
+/*
+.col-md-2 .property-container > *{
+  box-shadow: none;
+}*/
+
+
+.col-md-2 .property-container {
+    overflow: scroll;
+    overflow-x: hidden;
+    border-right:rgb(237,237,237) 1px solid;
+}
+.col-md-2 .property-container::-webkit-scrollbar{
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
 }
 
 /* graph container */
 .col-md-10 .content-container{
-  -moz-box-shadow:    inset 0 0 10px #000000;
+/*  -moz-box-shadow:    inset 0 0 10px #000000;
   -webkit-box-shadow: inset 0 0 10px #000000;
-  box-shadow:         inset 0 0 10px #000000;
-  overflow-y: scroll;
-  background: rgb(177, 204, 255);
+  box-shadow:         inset 0 0 10px #000000;*/
+  overflow: hidden;
+  background: white;/*rgb(177, 204, 255);*/
 }
 
 .col-md-10 .content-container .all-graph{
@@ -155,7 +189,7 @@ div.masterGraphContainer .content-body{
 .assignmentBox .assignmentList {
   overflow-y: auto;
   height: 25vh;
-  border-radius: 6px;
+  /*border-radius: 6px;*/
   width: 100%;/*230px;*/
   background: rgb(252,252,252);
 }
@@ -209,8 +243,16 @@ label input[type=checkbox]{
   margin-bottom: -4px;
 }
 
-.assignmentBox .assignmentList, .studentList{
+.assignmentBox .assignmentList{
   height: 300px;
+}
+
+.studentList{
+/*  border:red solid 1px;*/
+  max-height: 240px;
+  border-bottom: solid 2px rgb(237,237,237);
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .panel-title{
@@ -229,4 +271,58 @@ div.graph-container.col-md-4{
   /*border: red solid 3px;*/
   background:rgb(212,212,212);
   padding-top: 5px;
+}
+
+nav.navbar{
+  border-bottom: solid 1px rgb(237,237,237);
+  box-shadow: none;
+}
+
+nav.navbar div.sidebar{
+  margin:0px;
+  margin-top: 2px;
+}
+
+ul.nav li{
+  background: rgb(248,248,248);
+}
+
+nav.navbar-static-top{
+  background:rgb(248,248,248);
+}
+
+/* Left box where the selected project will have basic info displayed */
+div.description-box{
+/*  border: red solid 3px;*/
+  padding: 15px;
+}
+
+div.description-box h1{
+    color: rgb(50,119,178);
+    text-decoration: underline;
+}
+
+div.description-box p{
+  font-weight: bold;
+  color:rgb(121,119,119);
+}
+
+div#wrapper > *{
+  background: rgb(248,248,248);
+}
+
+.assignment, .student{
+  height: 3em;
+  background: rgb(248,248,248);
+  /*background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
+  background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e8e8e8));
+  background-image:         linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);*/
+  overflow: hidden;
+  border-bottom: solid 1px rgb(237,237,237);
+}
+
+div.navbar-default.sidebar > *{
+  box-shadow: 0px 0px 0px transparent;
+  /*border: red solid 1px;*/
 }

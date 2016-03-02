@@ -489,15 +489,15 @@ var BarChart_DataStruct_Percent = React.createClass({
                   Data Structures Used
                   </h3>
                 </center>
-                <BarChart
-      	          legend={true}
-                  data={this.state.barData}
-                  width={1000}
-                  height={490}
-                  fill={'#3182bd'}
-                  title=''
-                  margins={{top: 20, right: 100, bottom: 30, left: 40}}
-                />
+                  <BarChart
+        	          legend={true}
+                    data={this.state.barData}
+                    width={1000}
+                    height={490}
+                    fill={'#3182bd'}
+                    title=''
+                    margins={{top: 20, right: 100, bottom: 30, left: 40}}
+                  />
                </div>;
     }
 });
@@ -559,32 +559,30 @@ var BarChart_Size_Metric = React.createClass({
     },
     render: function() {
 //        window.alert("Barchart (Render)!");
-        return <div className="BarChart_Size_Metric">
-                <center>
-                  <h3>
-                    Size (MATLAB)
-                  </h3>
-                </center>
-                <BarChart
-                  data={this.state.data}
-// 		  data={barData}
-                  width={1000}
-                  height={490}
-                  fill={'#8a5715'}
-                  title=''
-                  margins={{top: 20, right: 30, bottom: 30, left: 40}}
-                />
+        return <div className="panel panel-default BarChart_Size_Metric">
+                <div className="panel-heading">
+                  <center>
+                    <h3>
+                      Size (MATLAB)
+                    </h3>
+                  </center>
+                </div>
+                <div className="panel-body">
+                  <BarChart
+                    data={this.state.data}
+  // 		  data={barData}
+                    width={1000}
+                    height={490}
+                    fill={'#8a5715'}
+                    title=''
+                    margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                  />
+                </div>
                </div>;
     }
 });
 
 var Assignment = React.createClass({
-/*rawMarkup: function(){
-    // Sanitizes input from the site as a security precaution
-    //  var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
-    // Return the sanitized string
-    return { __html: rawMarkup };
-  },*/
   render: function(){
     return (
     <div className="assignment">
@@ -626,21 +624,17 @@ var AssignmentBox = React.createClass({
   },
 
   render: function(){
-    return (
-      <div>
-        <div id="assignment_dir" className="panel panel-default">
-          <div className="panel-heading">
-            <h5 className="panel-title">Assignments</h5>
-          </div>
-          <div className="panel-body">
 
+    var replac_tmp = (
+        <div id="assignment_dir" className="panel panel-default">
+
+          <div className="panel-body">
             <form role="form" className="search_container">
                 <div className="form-group">
                   <input type="text" className="form-control" id="search" placeholder="Search..."/>
                 </div>
                 <button type="submit" className="btn btn-success">Go</button>
             </form>
-
             <div className="assignmentBox">
               <div>
                 <AssignmentList data={this.state.data} />
@@ -648,8 +642,9 @@ var AssignmentBox = React.createClass({
             </div>
           </div>
         </div>
-      </div>
     );
+
+    return replac_tmp;
   }
 });
 
@@ -670,12 +665,19 @@ var AssignmentList = React.createClass({
 });
 
 var Student = React.createClass({
+  rawMarkup: function(){
+    // Sanitizes input from the site as a security precaution
+    var rawMarkup = marked(this.props.stud_name, {sanitize: true});
+  //  alert(rawMarkup);
+    // Return the sanitized string
+    return { __html: rawMarkup };
+  },
   getInitialState: function(){
     // Takes control of the individual student's check boxes
     return {check: false};
   },
   onChange: function(e){
-    var my_name =this.props.stud_name;
+    var my_name = this.props.stud_name;
     var input_class = "student-input";
     if(my_name == "Select All"){
         var array = document.getElementsByClassName(input_class);
@@ -704,7 +706,7 @@ var Student = React.createClass({
       <div className="student">
         <label>
           <input className="student-input" type="checkbox" name="student"  defaultChecked={this.state.check} onChange={this.onChange} >
-              {student_label + this.props.stud_name}
+            {student_label + this.props.stud_name}
           </input>
         </label>
       </div>
@@ -753,11 +755,22 @@ var StudentList = React.createClass({
 
 var StudentForm = React.createClass({
   render: function(){
-    return (
+
+/* // OLD VERSION OF STUCTURING STUDENT INFO
       <div id="assignment_dir" className="panel panel-default">
         <div className="panel-heading">
           <h5 className="panel-title">Students</h5>
         </div>
+        <div className="panel-body">
+          <form>
+            <StudentList pollInterval={2000}/>
+          </form>
+        </div>
+      </div>
+*/
+
+    return (
+      <div id="assignment_dir" className="panel panel-default">
         <div className="panel-body">
           <form>
             <StudentList pollInterval={2000}/>
@@ -793,14 +806,27 @@ var Graph = React.createClass({
     }
   },
   render: function(){
+
+    /* // OLD CODE
+
+    <div className="graph">
+      <label>
+        <input className="graph-select" type="checkbox" name="graph" defaultChecked={this.state.check} onChange={this.onChange}>
+            <i className={"fa fa-" + this.props.icon_type}>&nbsp;</i>{this.props.stud_name}
+        </input>
+      </label>
+    </div>
+
+
+    */
+
     return (
-      <div className="graph">
-        <label>
-          <input className="graph-select" type="checkbox" name="graph" defaultChecked={this.state.check} onChange={this.onChange}>
-              <i className={"fa fa-" + this.props.icon_type}>&nbsp;</i>{this.props.stud_name}
-          </input>
-        </label>
-      </div>
+      <li>
+        <a href="#">
+          <i className={"fa fa-" + this.props.icon_type}>&nbsp;</i>{this.props.stud_name}
+        </a>
+      </li>
+
     );
   }
 });
@@ -809,25 +835,26 @@ var GraphList = React.createClass({
   render: function(){
 
     var test = (
-        <div className="graphList">
-          <Graph stud_name="Select All" icon_type="check-square"/>
-          <Graph stud_name="Space Complexity" icon_type="database"/>
-          <Graph stud_name="Time Complexity" icon_type="clock-o"/>
-          <Graph stud_name="Line Numbers" icon_type="align-justify"/>
-          <Graph stud_name="Class Rank" icon_type="bar-chart"/>
-          <Graph stud_name="Loop Counter" icon_type="circle-o-notch"/>
-          <Graph stud_name="Attempt Count" icon_type="repeat"/>
-          <Graph stud_name="Comment Count" icon_type="commenting-o"/>
-          <Graph stud_name="Data Structures" icon_type="sitemap"/>
 
-          <Graph stud_name="Nested Loop Count" icon_type="align-left"/>
-          <Graph stud_name="Comment-Code Ratio" icon_type="percent"/>
-          <Graph stud_name="Clusters" icon_type="dot-circle-o"/>
-          <Graph stud_name="Popular Functions" icon_type="sign-in"/>
-          <Graph stud_name="Statistics" icon_type="pie-chart"/>
-          <Graph stud_name="Total Submissions" icon_type="th-large"/>
-          <Graph stud_name="Size Metric" icon_type="file-text"/>
-        </div>
+          <ul className="graphList nav nav-second-level">
+            <Graph stud_name="Select All" icon_type="check-square"/>
+            <Graph stud_name="Space Complexity" icon_type="database"/>
+            <Graph stud_name="Time Complexity" icon_type="clock-o"/>
+            <Graph stud_name="Line Numbers" icon_type="align-justify"/>
+            <Graph stud_name="Class Rank" icon_type="bar-chart"/>
+            <Graph stud_name="Loop Counter" icon_type="circle-o-notch"/>
+            <Graph stud_name="Attempt Count" icon_type="repeat"/>
+            <Graph stud_name="Comment Count" icon_type="commenting-o"/>
+            <Graph stud_name="Data Structures" icon_type="sitemap"/>
+
+            <Graph stud_name="Nested Loop Count" icon_type="align-left"/>
+            <Graph stud_name="Comment-Code Ratio" icon_type="percent"/>
+            <Graph stud_name="Clusters" icon_type="dot-circle-o"/>
+            <Graph stud_name="Popular Functions" icon_type="sign-in"/>
+            <Graph stud_name="Statistics" icon_type="pie-chart"/>
+            <Graph stud_name="Total Submissions" icon_type="th-large"/>
+            <Graph stud_name="Size Metric" icon_type="file-text"/>
+          </ul>
     );
 
     return test;
@@ -837,7 +864,6 @@ var GraphList = React.createClass({
 
 var GraphForm = React.createClass({
   render: function(){
-
     return (
       <div className="graphForm">
         <div id="assignment_dir">
@@ -936,7 +962,8 @@ var GraphContainer_Size_Metric = React.createClass({
 
 var GraphContainerList = React.createClass({
   render: function(){
-    return(
+
+    /*old_code = (
       <div className="graphContainerList">
         <GraphContainer_Size_Metric/>
         <GraphContainer_Lines_Code/>
@@ -946,6 +973,12 @@ var GraphContainerList = React.createClass({
         <GraphContainer_Space_Complexity/>
         <GraphContainer_Loop_Percent/>
         <GraphContainer_DataStruct_Percent/>
+      </div>
+    );*/
+
+    return(
+      <div className="graphContainerList">
+        <GraphContainer_Size_Metric/>
       </div>
     )
   }
@@ -958,13 +991,50 @@ var MasterGraphContainer = React.createClass({
     return (
       <div className="masterGraphContainer">
         <div className="content-toolbar">
-          <GraphForm/>
+
         </div>
         <div className="content-body" >
           <div className="col-md-2">
             <div className="property-container">
-                <AssignmentBox url="/assignments" pollInterval={2000} />
-                <StudentForm/>
+
+
+              <div id="wrapper">
+                <nav className="navbar" role="navigation">
+                  <div className="description-box">
+                    <h1>Welcome</h1>
+                    <p>Pick an assignment and then a graph to see your learning analytics!</p>
+                  </div>
+                  <div className="navbar-default sidebar" role="navigation">
+                    <div className="sidebar-nav navbar-collapse">
+                      <ul className="nav" id="side-menu">
+                        <li className="col-md-12">
+                            <a href="#"><i className="fa fa-bar-chart-o fa-fw"></i> Graphs<span className="fa arrow"></span></a>
+                            <GraphList/>
+                        </li>
+                        <li className="col-md-12">
+                            <a href="#"><i className="fa fa-book fa-fw"></i> Assignments<span className="fa arrow"></span></a>
+                            <ul className="nav nav-second-level">
+                                <li>
+                                  <AssignmentBox url="/assignments" pollInterval={2000} />
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="col-md-12">
+                          <a href="#"><i className="fa fa-user fa-fw"></i> Students<span className="fa arrow"></span></a>
+                          <ul className="nav nav-second-level" style={{"min-height": "250px"}}>
+                            <li>
+                                <StudentForm/>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+
+
+
             </div>
           </div>
           <div className="col-md-10">
