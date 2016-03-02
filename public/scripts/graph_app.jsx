@@ -2,14 +2,28 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var rd3 = require('react-d3');
+var Tooltip = require('react-d3-tooltip'); 
+var BarTooltip = Tooltip.BarTooltip;
 var BarChart = rd3.BarChart;
 // var db_url = "http://52.33.14.62:3000";
 
 var BarChart_Lines_Code = React.createClass({
     getInitialState : function() {
-        var barData = [{
-          "name":"Class A",
-          "values":[
+	var chartSeries = [
+	      {
+	        field: 'y',
+	        name: 'Lines of Code'
+	      }
+	    ];
+	
+	var x = function(d) {
+	      return d.x;
+	    };
+
+	var xScale = 'ordinal';
+	var yTicks = [10, ""];
+
+        var barData = [
             {"x": 'A', "y": 50},
             {"x": 'B', "y": 64},
             {"x": 'C', "y": 34},
@@ -36,9 +50,13 @@ var BarChart_Lines_Code = React.createClass({
             {"x": 'X', "y": 56},
             {"x": 'Y', "y": 48},
             {"x": 'Z', "y": 76}
-          ]}
+
         ];
-        return {barData: barData};
+        return {barData: barData,
+                series: chartSeries, 
+                x: x,
+                xScale: xScale,
+                yTicks: yTicks};
     },
     render: function() {
         return <div className="BarChart_Lines_Code">
@@ -47,12 +65,17 @@ var BarChart_Lines_Code = React.createClass({
                   Lines of Code
                   </h3>
                 </center>
-                <BarChart
+		<BarTooltip
                   data={this.state.barData}
+		  legend={false}
                   width={1000}
                   height={490}
                   fill={'#3182bd'}
                   title=''
+		  chartSeries = {this.state.series}
+                  x= {this.state.x}
+      	          xScale= {this.state.xScale}
+                  yTicks= {this.state.yTicks}
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
                 />
                </div>;
@@ -555,7 +578,7 @@ var BarChart_Size_Metric = React.createClass({
     componentDidMount: function(){
       this.loadSizeMetricFromServer();
       //introduces that we will need a pollInterval for the external element
-      setInterval(this.loadSizeMetricFromServer, this.props.pollInterval);
+      setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
 //        window.alert("Barchart (Render)!");
