@@ -1,3 +1,5 @@
+/* 331 lines (pre-less) ->  lines (post-less) */
+
 div.masterGraphContainer{
   background: rgb(252,252,252);
 /*  border:red solid 30px;*/
@@ -6,39 +8,21 @@ div.masterGraphContainer{
   display: table;
   width: 100%;
   margin-top: 0px;
+  .content-toolbar{
+    /*height:60px;*/
+    width: 100%;
+    white-space: nowrap;
+  }
+  .content-body{
+    height: calc(100vh - 50px);
+    display: table;
+  }
 }
-
-div.masterGraphContainer .content-toolbar{
-  /*height:60px;*/
-  width: 100%;
-  white-space: nowrap;
-  /**/
-}
-
-div.masterGraphContainer .content-body{
-  height: calc(100vh - 50px);
-  display: table;
-}
-
-.graphForm #assignment_dir form{
-/*  border:orange solid 1px;*/
-  padding-right: 20px;
-  width: 95%;
-}
-
 
 .graphList{
-  /*overflow-y: scroll;
-  overflow-x: hidden;
-  height: 60px;
-  width: 100%;/*230px;
-  background: rgb(252,252,252);
-  /* border: solid 1px red;
-  white-space: normal;*/
-}
-
-.graphList a{
-  color:rgb(121,119,119);
+  a{
+    color:rgb(121,119,119);
+  }
 }
 
 .col-md-10, .col-md-2{ /*   border-radius: 6px; */
@@ -46,23 +30,9 @@ div.masterGraphContainer .content-body{
   padding: 0px;
 }
 
-.col-md-2{
-
-}
-
-.col-md-10{
-
-}
-
 .col-md-2 .property-container,.col-md-10 .content-container{
   height: 100vh;
   width: 100%;
-}
-
-.graphForm #assignment_dir > *{
-/*  border: red solid 1px;*/
-  height: 60px;
-  display: inline-block;
 }
 
 .graph{
@@ -73,67 +43,42 @@ div.masterGraphContainer .content-body{
   color:rgb(121,119,119);
 }
 
-.graphForm h5.panel-title{
-  color: rgb(121,119,119);
-}
+/* graph container */
+.col-md-10 .content-container{
+  overflow: hidden;
+  background: white;
+  .all-graph{
+    position: relative;
 
-.graphForm #assignment_dir{
-  border-bottom: 1px solid rgb(237,237,237);
-  overflow-y: hidden;
-  overflow-x: hidden;
-  background: rgb(252,252,252);
-  height:65px;
-}
+    div.graph-container{
+      background:transparent;
+      display: inline-block;
+      height: 535px;
+      margin: 10px;
+      width: 1000px;
+      /*box-shadow: 0px 3px 10px rgb(121,119,119);*/
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+      div.panel.panel-default{
+        width: 1000px;
+        color:white;
+        border: rgb(50,119,178) 1px solid;
+        margin-top: 12px;
+        div.panel-heading{
+          background: rgb(50,119,178);
+          /*border: red solid 2px;*/
+          height: 50px;
+          h3{
+            /*border: solid green 1px;*/
+            color:white;
+            margin-top: 2px;
+          }
+        }
+      }
+    }
+  }
 
-.graphForm #assignment_dir > div{
-/*  overflow: scroll;*/
-}
-
-.graphForm .panel-heading, .graphForm .panel{
-  width: 90px;
-  display: inline;
-  top: 0px;
-  vertical-align: top;
-  padding-top: 22px;
-}
-
-.graphForm .graphList > *{
-  display: inline-block;
-}
-
-.graph-container{
-
-}
-
-.col-md-10 .content-container .all-graph div.graph-container{
-  background:transparent;
-  display: inline-block;
-  height: 535px;
-  margin: 10px;
-  width: 1000px;
-  /*box-shadow: 0px 3px 10px rgb(121,119,119);*/
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-}
-
-.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default{
-  width: 1000px;
-  color:white;
-  border: rgb(50,119,178) 1px solid;
-  margin-top: 12px;
-}
-
-.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading{
-  background: rgb(50,119,178);
-  /*border: red solid 2px;*/
-  height: 50px;
-}
-
-.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading h3{
-  /*border: solid green 1px;*/
-  color:white;
-  margin-top: 2px;
 }
 
 /* properties */
@@ -141,35 +86,13 @@ div.masterGraphContainer .content-body{
   background: #ffffff;
   overflow-y: scroll;
   background: rgb(248,248,248);
-}
-
-/*
-.col-md-2 .property-container > *{
-  box-shadow: none;
-}*/
-
-
-.col-md-2 .property-container {
-    overflow: scroll;
-    overflow-x: hidden;
-    border-right:rgb(237,237,237) 1px solid;
-}
-.col-md-2 .property-container::-webkit-scrollbar{
-    width: 0px;  /* remove scrollbar space */
-    background: transparent;  /* optional: just make scrollbar invisible */
-}
-
-/* graph container */
-.col-md-10 .content-container{
-/*  -moz-box-shadow:    inset 0 0 10px #000000;
-  -webkit-box-shadow: inset 0 0 10px #000000;
-  box-shadow:         inset 0 0 10px #000000;*/
-  overflow: hidden;
-  background: white;/*rgb(177, 204, 255);*/
-}
-
-.col-md-10 .content-container .all-graph{
-  position: relative;
+  overflow: scroll;
+  overflow-x: hidden;
+  border-right:rgb(237,237,237) 1px solid;
+  &::-webkit-scrollbar{
+      width: 0px;  /* remove scrollbar space */
+      background: transparent;  /* optional: just make scrollbar invisible */
+  }
 }
 
 /*override the alternating row background color*/
@@ -181,14 +104,13 @@ div.masterGraphContainer .content-body{
 #assignment_dir{
    box-shadow: 0px 0px 0px 0px transparent;
    border-bottom: transparent 1px solid;
+   .panel-heading{
+       border-bottom-left-radius: 0px;
+       border-bottom-right-radius: 0px;
+   }
 }
 
-#assignment_dir .panel-heading{
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-}
-
-.assignmentBox .assignmentList {
+.assignmentBox .assignmentList{
   overflow-y: auto;
   height: 25vh;
   /*border-radius: 6px;*/
@@ -206,6 +128,12 @@ label {
     padding-left: 15px;
     text-indent: -15px;
     font-size: 15px;
+    input[type=checkbox]{
+        position: relative;
+        vertical-align: middle;
+        bottom: 1px;
+        border: solid green 1px;
+    }
 }
 
 input {
@@ -213,20 +141,13 @@ input {
     position: relative;
     top: -1px;
     *overflow: hidden;
-}
+    &[type='checkbox'] {
+        width:20px;
+        height:20px;
+        margin-right: 5px;
+        margin-left: 10px;
+    }
 
-input[type='checkbox'] {
-    width:20px;
-    height:20px;
-    margin-right: 5px;
-    margin-left: 10px;
-}
-
-label input[type=checkbox]{
-    position: relative;
-    vertical-align: middle;
-    bottom: 1px;
-    border: solid green 1px;
 }
 
 .graphForm input[type="checkbox"]{
@@ -236,13 +157,14 @@ label input[type=checkbox]{
 }
 
 
-.assignment span{
-  padding-left: 5em;
-}
-
-.assignment h5{
-  padding-left: 5px;
-  margin-bottom: -4px;
+.assignment{
+  span{
+    padding-left: 5em;
+  }
+  h5{
+    padding-left: 5px;
+    margin-bottom: -4px;
+  }
 }
 
 .assignmentBox .assignmentList{
@@ -261,12 +183,11 @@ label input[type=checkbox]{
   color: rgb(50,119,178);
 }
 
-.bar_chart h3{
-  margin-top: 5px;
-}
-
 .bar_chart{
   margin-left: -15px;
+  h3{
+    margin-top: 5px;
+  }
 }
 
 div.graph-container.col-md-4{
@@ -278,11 +199,10 @@ div.graph-container.col-md-4{
 nav.navbar{
   border-bottom: solid 1px rgb(237,237,237);
   box-shadow: none;
-}
-
-nav.navbar div.sidebar{
-  margin:0px;
-  margin-top: 2px;
+  div.sidebar{
+    margin:0px;
+    margin-top: 2px;
+  }
 }
 
 ul.nav li{
@@ -294,19 +214,16 @@ nav.navbar-static-top{
 }
 
 /* Left box where the selected project will have basic info displayed */
-div.description-box{
-/*  border: red solid 3px;*/
+div.description-box {
   padding: 15px;
-}
-
-div.description-box h1{
-    color: rgb(50,119,178);
-    text-decoration: underline;
-}
-
-div.description-box p{
-  font-weight: bold;
-  color:rgb(121,119,119);
+  h1{
+  color: rgb(50,119,178);
+  text-decoration: underline;
+  }
+  p{
+    font-weight: bold;
+    color:rgb(121,119,119);
+  }
 }
 
 div#wrapper > *{
