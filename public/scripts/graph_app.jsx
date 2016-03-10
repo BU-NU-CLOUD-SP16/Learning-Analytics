@@ -2,7 +2,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var rd3 = require('react-d3');
-var Tooltip = require('react-d3-tooltip'); 
+var Tooltip = require('react-d3-tooltip');
 var BarTooltip = Tooltip.BarTooltip;
 var BarChart = rd3.BarChart;
 // var db_url = "http://52.33.14.62:3000";
@@ -15,7 +15,7 @@ var BarChart_Lines_Code = React.createClass({
 	        name: 'Lines of Code'
 	      }
 	    ];
-	
+
 	var x = function(d) {
 	      return d.x;
 	    };
@@ -53,7 +53,7 @@ var BarChart_Lines_Code = React.createClass({
 
         ];
         return {barData: barData,
-                series: chartSeries, 
+                series: chartSeries,
                 x: x,
                 xScale: xScale,
                 yTicks: yTicks};
@@ -544,56 +544,27 @@ var BarChart_Size_Metric = React.createClass({
     getInitialState: function(){
       var barData = [{
         "name":"Class A",
-        "values":[
-          {"x": 'A', "y": 100},
-          {"x": 'B', "y": 100},
-          {"x": 'C', "y": 340},
-          {"x": 'D', "y": 220},
-          {"x": 'E', "y": 150},
-          {"x": 'F', "y": 220},
-          {"x": 'G', "y": 150},
-          {"x": 'H', "y": 300},
-          {"x": 'I', "y": 400},
-          {"x": 'J', "y": 300},
-          {"x": 'K', "y": 300},
-          {"x": 'L', "y": 300},
-          {"x": 'M', "y": 300},
-          {"x": 'N', "y": 150},
-          {"x": 'O', "y": 220},
-          {"x": 'P', "y": 260},
-          {"x": 'Q', "y": 300},
-          {"x": 'R', "y": 400},
-          {"x": 'S', "y": 430},
-          {"x": 'T', "y": 210},
-          {"x": 'U', "y": 300},
-          {"x": 'V', "y": 200},
-          {"x": 'W', "y": 150},
-          {"x": 'X', "y": 300},
-          {"x": 'Y', "y": 200},
-          {"x": 'Z', "y": 200}
-       ]}
+        "values":[]}
       ];
       return {data: barData};
     },
     componentDidMount: function(){
       this.loadSizeMetricFromServer();
       //introduces that we will need a pollInterval for the external element
-      setInterval(this.loadSizeMetricFromServer);
+//      setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-//        window.alert("Barchart (Render)!");
         return <div className="panel panel-default BarChart_Size_Metric">
                 <div className="panel-heading">
                   <center>
                     <h3>
-                      Size (MATLAB)
+                      Size Metric
                     </h3>
                   </center>
                 </div>
                 <div className="panel-body">
                   <BarChart
                     data={this.state.data}
-  // 		  data={barData}
                     width={1000}
                     height={490}
                     fill={'#8a5715'}
@@ -643,7 +614,7 @@ var AssignmentBox = React.createClass({
   componentDidMount: function(){
     this.loadAssignmentsFromServer();
     //introduces that we will need a pollInterval for the external element
-    setInterval(this.loadAssignmentsFromServer, 3000); //this.props.pollInterval);
+//    setInterval(this.loadAssignmentsFromServer, 3000); //this.props.pollInterval);
   },
 
   render: function(){
@@ -759,7 +730,7 @@ var StudentList = React.createClass({
   componentDidMount: function(){
     this.loadStudentsFromServer();
     //introduces that we will need a pollInterval for the external element
-    setInterval(this.loadStudentsFromServer, this.props.pollInterval);
+//    setInterval(this.loadStudentsFromServer, this.props.pollInterval);
   },
   render: function(){
     var studentNodes = this.state.data.map(function(student){

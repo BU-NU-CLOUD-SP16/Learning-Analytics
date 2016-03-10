@@ -12,7 +12,7 @@ var UserContainer = React.createClass({
       <div className="col-md-4">
         <div className="userContainer panel panel-primary">
           <div className="panel-heading">
-            <h4>Which are you?</h4>
+            <h4>Which are you?</h4> 
           </div>
           <div className="text-container" >
               <ul className="col-center center panel-body">

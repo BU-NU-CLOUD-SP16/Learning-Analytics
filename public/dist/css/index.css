@@ -1,0 +1,53 @@
+html,
+body {
+  background: url("/dark-sky.jpeg");
+  background-size: cover;
+}
+.no_shadow {
+  box-shadow: 0px 0px 0px transparent;
+}
+div.row {
+  box-shadow: 0px 0px 0px transparent;
+}
+div.row.bottom-container {
+  margin: 0px;
+  background: white;
+}
+#mission-statement p,
+#contact-statement p {
+  align: left;
+}
+.userContainer {
+  box-shadow: 0px 0px 0px transparent;
+  border: solid blue 3px;
+  margin-bottom: 0px;
+}
+div.additional-info {
+  padding-bottom: 20px;
+  background: white;
+}
+div.additional-info h1 {
+  color: #3277b2;
+}
+footer.footer {
+  color: #797777;
+  width: 100%;
+  bottom: 0px;
+  background: white;
+  padding-bottom: 20px;
+  margin: 0px;
+  margin-top: 0px;
+  text-align: center;
+}
+.bottom-container {
+  color: grey;
+  width: 100%;
+  height: 50%;
+  background: white;
+  border-top: grey solid 1px;
+  bottom: 0px;
+  margin: 0px;
+}
+#user-type-select {
+  margin-bottom: 20px;
+}
