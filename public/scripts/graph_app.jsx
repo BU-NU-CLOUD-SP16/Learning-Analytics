@@ -5,6 +5,7 @@ var rd3 = require('react-d3');
 var Tooltip = require('react-d3-tooltip');
 var BarTooltip = Tooltip.BarTooltip;
 var BarChart = rd3.BarChart;
+var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
 // var db_url = "http://52.33.14.62:3000";
 
 var BarChart_Lines_Code = React.createClass({
@@ -19,6 +20,12 @@ var BarChart_Lines_Code = React.createClass({
 	var x = function(d) {
 	      return d.x;
 	    };
+
+        var temp = {
+                  color: 'black',
+                  fontWeight: 'bold',
+                  marginBottom: '5px'
+                };
 
 	var xScale = 'ordinal';
 	var yTicks = [10, ""];
@@ -59,6 +66,7 @@ var BarChart_Lines_Code = React.createClass({
                 yTicks: yTicks};
     },
     render: function() {
+
         return <div className="BarChart_Lines_Code">
                 <center>
                   <h3>
@@ -77,7 +85,14 @@ var BarChart_Lines_Code = React.createClass({
       	          xScale= {this.state.xScale}
                   yTicks= {this.state.yTicks}
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
-                />
+                >
+		<SimpleTooltipStyle
+			tooltip_title={this.state.temp}
+		/>
+
+
+
+		</BarTooltip>
                </div>;
     }
 });
@@ -948,7 +963,7 @@ var GraphContainer_Size_Metric = React.createClass({
   render: function(){
     return (
       <div className="graph-container col-md-4">
-          <BarChart_Size_Metric/>
+	    <BarChart_Lines_Code/>
       </div>
     )
   }
