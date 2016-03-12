@@ -28,7 +28,7 @@ var BarChart_Lines_Code = React.createClass({
                 };
 
 	var xScale = 'ordinal';
-	var yTicks = [10, ""];
+	var yTicks = [10, "c"];
 
         var barData = [
             {"x": 'A', "y": 50},
