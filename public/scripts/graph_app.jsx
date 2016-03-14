@@ -596,9 +596,9 @@ var Assignment = React.createClass({
     return (
     <div className="assignment">
 
-      <h5>
+      <button type="button" className="btn btn-primary"><h5>
         {this.props.prob_statement + ":"}
-      </h5>
+      </h5></button>
       <span>{this.props.description_html}</span>
 
     </div>
@@ -634,16 +634,24 @@ var AssignmentBox = React.createClass({
 
   render: function(){
 
-    var replac_tmp = (
-        <div id="assignment_dir" className="panel panel-default">
+/*
 
-          <div className="panel-body">
-            <form role="form" className="search_container">
-                <div className="form-group">
-                  <input type="text" className="form-control" id="search" placeholder="Search..."/>
-                </div>
-                <button type="submit" className="btn btn-success">Go</button>
-            </form>
+<form role="form" className="search_container">
+    <div className="form-group">
+      <input type="text" className="form-control" id="search" placeholder="Search..."/>
+    </div>
+    <button type="submit" className="btn btn-success">Go</button>
+</form>
+
+*/
+
+    var replac_tmp = (
+        <div id="assignment_dir">
+          <div>
+
+
+
+
             <div className="assignmentBox">
               <div>
                 <AssignmentList data={this.state.data} />
@@ -798,7 +806,7 @@ var Graph = React.createClass({
     return {check: false};
   },
   onChange: function(e){
-    var my_name =this.props.stud_name;
+    /*var my_name =this.props.stud_name;
     if(my_name == "Select All"){
         var array = document.getElementsByClassName("graph-select");
         for(var ii = 0; ii < array.length; ii++)
@@ -812,7 +820,7 @@ var Graph = React.createClass({
            }
         }
         this.setState({check: !(this.state.check)});
-    }
+    }*/
   },
   render: function(){
 
@@ -843,10 +851,12 @@ var Graph = React.createClass({
 var GraphList = React.createClass({
   render: function(){
 
+          //<Graph stud_name="Select All" icon_type="check-square"/>
+
     var test = (
 
           <ul className="graphList nav nav-second-level">
-            <Graph stud_name="Select All" icon_type="check-square"/>
+
             <Graph stud_name="Space Complexity" icon_type="database"/>
             <Graph stud_name="Time Complexity" icon_type="clock-o"/>
             <Graph stud_name="Line Numbers" icon_type="align-justify"/>

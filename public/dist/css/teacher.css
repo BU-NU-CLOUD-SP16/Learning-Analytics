@@ -97,6 +97,7 @@ div.row:nth-of-type(even) {
 #assignment_dir {
   box-shadow: 0px 0px 0px 0px transparent;
   border-bottom: transparent 1px solid;
+  border: transparent solid 0px;
 }
 #assignment_dir .panel-heading {
   border-bottom-left-radius: 0px;
@@ -143,12 +144,13 @@ input[type='checkbox'] {
   width: 22px;
   height: 22px;
 }
+.assignment button {
+  height: 40px;
+  padding-top: 0px;
+  width: 100%;
+}
 .assignment span {
   padding-left: 5em;
-}
-.assignment h5 {
-  padding-left: 5px;
-  margin-bottom: -4px;
 }
 .assignmentBox .assignmentList {
   height: 300px;
