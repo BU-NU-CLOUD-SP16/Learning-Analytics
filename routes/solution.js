@@ -1,6 +1,6 @@
 module.exports = function(app, databaseConn){
 
-app.get('/student/metric', function (req, res) {
+app.get('/students/metric', function (req, res) {
   	databaseConn.query('SELECT player_id, metric FROM solution;', function (err, rows){
 		if(err) {
           	console.log(err);
@@ -13,7 +13,7 @@ app.get('/student/metric', function (req, res) {
 	});
 });
 
-app.get('/student/metric/bins', function (req, res) {
+app.get('/students/metric/bins', function (req, res) {
   	databaseConn.query('SELECT player_id, metric FROM solution;', function (err, rows){
 		if(err) {
           	console.log(err);
@@ -26,7 +26,7 @@ app.get('/student/metric/bins', function (req, res) {
 	});
 });
 
-app.get('/student/metrics/:id', function (req, res) {
+app.get('/students/metrics/:id', function (req, res) {
     databaseConn.query('SELECT player_id, metric FROM solution WHERE player_id=' + req.params.id, function (err, rows){
 		if(err) {
           		console.log(err);

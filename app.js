@@ -12,7 +12,9 @@ var problemRoute = require('./routes/problem');
 var assignmentsRoute = require('./routes/assignments');
 var dbtestRoute = require('./routes/dbtest');
 var solutionRoute = require('./routes/solution');
-
+var metricsRoute = require('./routes/metrics');
+var studentRoute = require('./routes/student');
+var apiRoute = require('./routes/api');
 
 // Connect to MySQL Database
 var databaseConn = mysql.createConnection({
@@ -24,10 +26,10 @@ var databaseConn = mysql.createConnection({
 
 databaseConn.connect(function (err){
   if (err){
-    console.log('Error connecting to DB');
+    console.log('Error connecting to the database');
     return;
   }
-  console.log('Connection Established');
+  console.log('Connection established');
 });
 
 // Static hosting for public website
@@ -36,7 +38,6 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 // Configure app to use body parser, and allow us to get data from a POST
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
 
 // Set port for app
 var port = process.env.port || 3000;
@@ -48,7 +49,6 @@ router.use(function(req, res, next){
   console.log('Request made.');
   next();  
 });
-
 
 // Configure app to use body parser, and allow us to get data from a POST
 app.use(bodyParser.urlencoded({extended: true}));
@@ -62,6 +62,9 @@ assignmentsRoute(app, fs, COMMENTS_FILE);
 dbtestRoute(app, databaseConn);
 problemRoute(app, databaseConn);
 solutionRoute(app, databaseConn);
+metricsRoute(app, databaseConn);
+studentRoute(app, databaseConn);
+apiRoute(app, databaseConn);
 
 // Listen on port for incoming requests
 app.listen(port, function () {
