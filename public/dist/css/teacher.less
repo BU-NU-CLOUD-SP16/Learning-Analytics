@@ -1,5 +1,7 @@
 /* 331 lines (pre-less) ->  lines (post-less) */
 
+@dft_font_clr: rgb(121,119,119);
+
 div.masterGraphContainer{
   background: rgb(252,252,252);
 /*  border:red solid 30px;*/
@@ -62,7 +64,7 @@ div.masterGraphContainer{
       background-position: center;
       div.panel.panel-default{
         width: 1000px;
-        color:black;
+        color:@dft_font_clr;
         border: rgb(50,119,178) 1px solid;
         margin-top: 12px;
         div.panel-heading{
@@ -111,12 +113,24 @@ div.masterGraphContainer{
    border:transparent solid 0px;
 }
 
+.assignmentBox{
+//  border:orange solid 2px;
+  //height:240px;
+  margin-bottom:30px;
+}
+
 .assignmentBox .assignmentList{
   overflow-y: auto;
-  height: 25vh;
-  /*border-radius: 6px;*/
-  width: 100%;/*230px;*/
-  background: rgb(252,252,252);
+  //height:240px;
+  width: 100%;
+  background: rgb(248,248,248);
+  border-radius: 0px;
+  border:none;
+  border-bottom: solid 2px rgb(237,237,237);
+  button{
+      border-radius: 0px;
+  }
+
 }
 
 .studentList h3{
@@ -171,9 +185,7 @@ input {
   }
 }
 
-.assignmentBox .assignmentList{
-  height: 300px;
-}
+
 
 .studentList{
 /*  border:red solid 1px;*/
@@ -225,8 +237,8 @@ div.description-box {
   text-decoration: underline;
   }
   p{
-    font-weight: bold;
-    color:rgb(121,119,119);
+    //font-weight: bold;
+    color:@dft_font_clr;
   }
 }
 
