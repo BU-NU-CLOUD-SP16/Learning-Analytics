@@ -10,60 +10,55 @@ var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
 
 var BarChart_Lines_Code = React.createClass({
     getInitialState : function() {
-	var chartSeries = [
-	      {
-	        field: 'y',
-	        name: 'Lines of Code'
-	      }
-	    ];
+    	var chartSeries = [
+    	      {
+    	        field: 'y',
+    	        name: 'Lines of Code'
+    	      }
+    	    ];
 
-	var x = function(d) {
-	      return d.x;
-	    };
+    	var x = function(d) {
+    	      return d.x;
+    	    };
 
-        var temp = {
-                  color: 'black',
-                  fontWeight: 'bold',
-                  marginBottom: '5px'
-                };
+      var temp = {
+                color: 'black',
+                fontWeight: 'bold',
+                marginBottom: '5px'
+              };
 
-	var xScale = 'ordinal';
-	var yTicks = [10, "c"];
+    	var xScale = 'ordinal';
+    	var yTicks = [10, "c"];
 
-        var barData = [
-            {"x": 'A', "y": 50},
-            {"x": 'B', "y": 64},
-            {"x": 'C', "y": 34},
-            {"x": 'D', "y": 56},
-            {"x": 'E', "y": 23},
-            {"x": 'F', "y": 78},
-            {"x": 'G', "y": 67},
-            {"x": 'H', "y": 45},
-            {"x": 'I', "y": 77},
-            {"x": 'J', "y": 88},
-            {"x": 'K', "y": 65},
-            {"x": 'L', "y": 45},
-            {"x": 'M', "y": 56},
-            {"x": 'N', "y": 87},
-            {"x": 'O', "y": 91},
-            {"x": 'P', "y": 54},
-            {"x": 'Q', "y": 42},
-            {"x": 'R', "y": 67},
-            {"x": 'S', "y": 55},
-            {"x": 'T', "y": 35},
-            {"x": 'U', "y": 79},
-            {"x": 'V', "y": 56},
-            {"x": 'W', "y": 76},
-            {"x": 'X', "y": 56},
-            {"x": 'Y', "y": 48},
-            {"x": 'Z', "y": 76}
-
-        ];
-        return {barData: barData,
-                series: chartSeries,
-                x: x,
-                xScale: xScale,
-                yTicks: yTicks};
+      var barData = [
+          {"x": 'A', "y": 50},
+          {"x": 'B', "y": 64},
+      ];
+      return {barData: barData,
+              series: chartSeries,
+              x: x,
+              xScale: xScale,
+              yTicks: yTicks};
+    },loadLineCountMetricFromServer: function(){
+      $.ajax({
+        url: "/metrics/linecount",
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+      	  var loaded_barData = data;
+          this.setState({barData: loaded_barData});
+          //window.alert(barData);
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.loadLineCountMetricFromServer();
+      //introduces that we will need a pollInterval for the external element
+    //  setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
 
@@ -790,7 +785,7 @@ var StudentForm = React.createClass({
       <div id="assignment_dir" className="panel panel-default">
         <div className="panel-body">
           <form>
-            <StudentList pollInterval={2000}/>
+            <StudentList pollInterval={0}/>
           </form>
         </div>
       </div>
