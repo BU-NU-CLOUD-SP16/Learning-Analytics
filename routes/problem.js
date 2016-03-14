@@ -1,5 +1,19 @@
 module.exports = function(app, databaseConn) {
 
+    // Return all info about all problems
+    app.get('/problems', function(req, res) {
+      var problem_id = req.params.problem_id;
+      databaseConn.query('SELECT * FROM problem', function (err, problems){
+        if(err) {
+          console.log(err);
+          res.status(500).send({status:500, message: 'internal error', type:'internal'});
+        } else {
+        console.log('Data received from DB');
+        res.send(problems);
+      }
+      });
+    });
+
     // Return all info about problem based on id
     app.get('/problem/:problem_id', function(req, res) {
       var problem_id = req.params.problem_id;
