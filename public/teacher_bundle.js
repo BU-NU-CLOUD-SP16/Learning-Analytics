@@ -58916,11 +58916,14 @@ var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
     render: function() {
 
         return React.createElement("div", {className: "BarChart_Lines_Code"}, 
-                React.createElement("center", null, 
-                  React.createElement("h3", null, 
-                  "Lines of Code"
+          React.createElement("div", {className: "panel panel-default"}, 
+              React.createElement("div", {className: "panel-heading"}, 
+                  React.createElement("center", null, 
+                    React.createElement("h3", null, 
+                    "Lines of Code"
+                    )
                   )
-                ), 
+              ), 
 		React.createElement(BarTooltip, {
                   data: this.state.barData, 
 		  legend: false, 
@@ -58941,6 +58944,7 @@ var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
 
 
 		)
+          )
                );
     }
 });
@@ -59496,10 +59500,6 @@ var AssignmentBox = React.createClass({displayName: "AssignmentBox",
     var replac_tmp = (
         React.createElement("div", {id: "assignment_dir"}, 
           React.createElement("div", null, 
-
-
-
-
             React.createElement("div", {className: "assignmentBox"}, 
               React.createElement("div", null, 
                 React.createElement(AssignmentList, {data: this.state.data})

@@ -68,11 +68,14 @@ var BarChart_Lines_Code = React.createClass({
     render: function() {
 
         return <div className="BarChart_Lines_Code">
-                <center>
-                  <h3>
-                  Lines of Code
-                  </h3>
-                </center>
+          <div className="panel panel-default">
+              <div className="panel-heading">
+                  <center>
+                    <h3>
+                    Lines of Code
+                    </h3>
+                  </center>
+              </div>
 		<BarTooltip
                   data={this.state.barData}
 		  legend={false}
@@ -93,6 +96,7 @@ var BarChart_Lines_Code = React.createClass({
 
 
 		</BarTooltip>
+          </div>
                </div>;
     }
 });
@@ -648,10 +652,6 @@ var AssignmentBox = React.createClass({
     var replac_tmp = (
         <div id="assignment_dir">
           <div>
-
-
-
-
             <div className="assignmentBox">
               <div>
                 <AssignmentList data={this.state.data} />

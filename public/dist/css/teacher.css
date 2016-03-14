@@ -59,7 +59,7 @@ div.masterGraphContainer .content-body {
 }
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default {
   width: 1000px;
-  color: white;
+  color: black;
   border: #3277b2 1px solid;
   margin-top: 12px;
 }
