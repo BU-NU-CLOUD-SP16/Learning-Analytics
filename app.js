@@ -12,7 +12,7 @@ var problemRoute = require('./routes/problem');
 var assignmentsRoute = require('./routes/assignments');
 var dbtestRoute = require('./routes/dbtest');
 var solutionRoute = require('./routes/solution');
-
+var metricsRoute = require('./routes/metrics');
 
 // Connect to MySQL Database
 var databaseConn = mysql.createConnection({
@@ -62,7 +62,7 @@ assignmentsRoute(app, fs, COMMENTS_FILE);
 dbtestRoute(app, databaseConn);
 problemRoute(app, databaseConn);
 solutionRoute(app, databaseConn);
-
+metricsRoute(app, databaseConn);
 // Listen on port for incoming requests
 app.listen(port, function () {
   console.log('Example app listening on port 3000!');
