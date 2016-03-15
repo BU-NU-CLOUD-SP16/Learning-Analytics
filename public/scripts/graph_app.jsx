@@ -28,7 +28,7 @@ var BarChart_Lines_Code = React.createClass({
     	var chartSeries = [
     	      {
     	        field: 'y',
-    	        name: 'Lines of Code'
+    	        name: 'Submissions'
     	      }
     	    ];
 
