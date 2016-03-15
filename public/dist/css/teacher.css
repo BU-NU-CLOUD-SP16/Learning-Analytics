@@ -65,13 +65,39 @@ div.masterGraphContainer .content-body {
 }
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading {
   background: #3277b2;
-  /*border: red solid 2px;*/
   height: 50px;
 }
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading > * {
+  display: inline;
+}
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading h3 {
-  /*border: solid green 1px;*/
   color: white;
+  width: 200px;
   margin-top: 2px;
+  margin-left: 420px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading div {
+  margin-right: -16px;
+  margin-top: -11px;
+  width: 28px;
+  height: 28px;
+  float: right;
+  border-top-right-radius: 4px;
+  background: #0f5999;
+  border-top: #3277b2 solid 1px;
+  border-right: #3277b2 solid 1px;
+  color: black;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading div i {
+  float: right;
+  margin-top: 6px;
+  margin-right: 8px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading div:hover {
+  background: #f8f8f8;
+  color: #797777;
+  border-top: #ededed solid 1px;
+  border-right: #ededed solid 1px;
 }
 /* properties */
 .col-md-2 .property-container {
@@ -151,9 +177,19 @@ input[type='checkbox'] {
   height: 22px;
 }
 .assignment button {
-  height: 40px;
   padding-top: 0px;
+  height: 60px;
   width: 100%;
+  padding-left: 3px;
+}
+.assignment button h5 {
+  margin-top: -5px;
+  margin-bottom: 8px;
+  white-space: normal;
+  padding-left: 0px;
+  align: left;
+  margin-left: 0px;
+  text-align: left;
 }
 .assignment span {
   padding-left: 5em;

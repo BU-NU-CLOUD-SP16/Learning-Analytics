@@ -58856,6 +58856,21 @@ var BarChart = rd3.BarChart;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
 // var db_url = "http://52.33.14.62:3000";
 
+
+// test functionality for couting
+var yell = function(){
+  window.alert("YELLING");
+}
+
+// function for hiding current graph
+var hide = function(){
+  $(".barChart_Lines_Code").fadeOut(); // this needs to be changed to hide the current graph no matter which it is
+}
+
+var show = function(){
+  $(".barChart_Lines_Code").fadeIn(); // this needs to be changed to hide the current graph no matter which it is
+}
+
 var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
     getInitialState : function() {
     	var chartSeries = [
@@ -58879,8 +58894,9 @@ var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
     	var yTicks = [10, "c"];
 
       var barData = [
-          {"x": 'A', "y": 50},
-          {"x": 'B', "y": 64},
+          {"x": 'A', "y": 0},
+          {"x": 'B', "y": 50},
+          {"x": 'C', "y": 100}
       ];
       return {barData: barData,
               series: chartSeries,
@@ -58909,14 +58925,15 @@ var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
     //  setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-        return React.createElement("div", {className: "BarChart_Lines_Code"}, 
+        return React.createElement("div", {className: "barChart_Lines_Code"}, 
           React.createElement("div", {className: "panel panel-default"}, 
               React.createElement("div", {className: "panel-heading"}, 
-                  React.createElement("center", null, 
                     React.createElement("h3", null, 
                     "Lines of Code"
+                    ), 
+                    React.createElement("div", {className: "graph-x", onClick: hide}, 
+                      React.createElement("i", {className: "fa fa-times"})
                     )
-                  )
               ), 
 		React.createElement(BarTooltip, {
                   data: this.state.barData, 
@@ -59438,13 +59455,13 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
 var Assignment = React.createClass({displayName: "Assignment",
   render: function(){
     return (
-    React.createElement("div", {className: "assignment"}, 
-
-      React.createElement("button", {type: "button", className: "btn btn-primary"}, React.createElement("h5", null, 
-        this.props.prob_statement + ":"
-      )), 
+    React.createElement("div", {className: "assignment", onClick: show}, 
+      React.createElement("button", {type: "button", className: "btn btn-primary"}, 
+        React.createElement("h5", null, 
+          this.props.prob_statement + ":"
+        )
+      ), 
       React.createElement("span", null, this.props.description_html)
-
     )
     );
   }
@@ -59453,12 +59470,12 @@ var Assignment = React.createClass({displayName: "Assignment",
 var AssignmentBox = React.createClass({displayName: "AssignmentBox",
   loadAssignmentsFromServer: function(){
     $.ajax({
-      url: "/problem/470",
+      url: "/problems",
       dataType: 'json',
       cache: false,
       success: function(data) {
-        window.alert(JSON.stringify(data));
-
+    //    window.alert(JSON.stringify(data));
+      //  yell();
         this.setState({data: data});
       }.bind(this),
       // in the case ajax runs into an error
@@ -59701,7 +59718,7 @@ var GraphList = React.createClass({displayName: "GraphList",
 
             React.createElement(Graph, {stud_name: "Space Complexity", icon_type: "database"}), 
             React.createElement(Graph, {stud_name: "Time Complexity", icon_type: "clock-o"}), 
-            React.createElement(Graph, {stud_name: "Line Numbers", icon_type: "align-justify"}), 
+            React.createElement(Graph, {stud_name: "Number of Lines", icon_type: "align-justify"}), 
             React.createElement(Graph, {stud_name: "Class Rank", icon_type: "bar-chart"}), 
             React.createElement(Graph, {stud_name: "Loop Counter", icon_type: "circle-o-notch"}), 
             React.createElement(Graph, {stud_name: "Attempt Count", icon_type: "repeat"}), 
@@ -59823,20 +59840,6 @@ var GraphContainer_Size_Metric = React.createClass({displayName: "GraphContainer
 
 var GraphContainerList = React.createClass({displayName: "GraphContainerList",
   render: function(){
-
-    /*old_code = (
-      <div className="graphContainerList">
-        <GraphContainer_Size_Metric/>
-        <GraphContainer_Lines_Code/>
-        <GraphContainer_Time_Complexity/>
-        <GraphContainer_Comment_Percent/>
-        <GraphContainer_Attempt_Count/>
-        <GraphContainer_Space_Complexity/>
-        <GraphContainer_Loop_Percent/>
-        <GraphContainer_DataStruct_Percent/>
-      </div>
-    );*/
-
     return(
       React.createElement("div", {className: "graphContainerList"}, 
         React.createElement(GraphContainer_Size_Metric, null)
@@ -59912,5 +59915,8 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
 });
 
 ReactDOM.render(React.createElement(MasterGraphContainer, null), document.getElementById('content'));
+
+// Intitially Set the Graph to be hidden so the user can pick one
+$(".barChart_Lines_Code").hide();
 
 },{"react":459,"react-d3":120,"react-d3-tooltip":13,"react-dom":303}]},{},[460]);

@@ -1,6 +1,11 @@
 /* 331 lines (pre-less) ->  lines (post-less) */
 
 @dft_font_clr: rgb(121,119,119);
+@bg_clr:rgb(248,248,248);
+@gry_brdr:rgb(237,237,237);
+@blue:rgb(50,119,178);
+@blue_drk:rgb(15, 89, 153);
+
 
 div.masterGraphContainer{
   background: rgb(252,252,252);
@@ -23,7 +28,7 @@ div.masterGraphContainer{
 
 .graphList{
   a{
-    color:rgb(121,119,119);
+    color:@dft_font_clr;
   }
 }
 
@@ -42,7 +47,7 @@ div.masterGraphContainer{
   padding-top: 20px;
   overflow: hidden;
   padding-right:2px;
-  color:rgb(121,119,119);
+  color:@dft_font_clr;
 }
 
 /* graph container */
@@ -65,16 +70,44 @@ div.masterGraphContainer{
       div.panel.panel-default{
         width: 1000px;
         color:@dft_font_clr;
-        border: rgb(50,119,178) 1px solid;
+        border: @blue 1px solid;
         margin-top: 12px;
         div.panel-heading{
-          background: rgb(50,119,178);
-          /*border: red solid 2px;*/
+          background: @blue;
+          // border: red solid 2px;
           height: 50px;
+
+          & > *{
+            display: inline;
+          }
           h3{
-            /*border: solid green 1px;*/
             color:white;
+            width:200px;
             margin-top: 2px;
+            margin-left: 420px;
+          }
+          div{
+            margin-right: -16px;
+            margin-top: -11px;
+            width:28px;
+            height:28px;
+            float: right;
+            border-top-right-radius: 4px;
+            background: @blue_drk;
+            border-top: @blue solid 1px;
+            border-right: @blue solid 1px;
+            color:black;
+              i{ // Will inherit color from parent
+                float:right;
+                margin-top: 6px;
+                margin-right: 8px;
+              }
+          }
+          div:hover{
+            background: @bg_clr;
+            color:@dft_font_clr;
+            border-top: @gry_brdr solid 1px;
+            border-right: @gry_brdr solid 1px;
           }
         }
       }
@@ -87,10 +120,10 @@ div.masterGraphContainer{
 .col-md-2 .property-container{
   background: #ffffff;
   overflow-y: scroll;
-  background: rgb(248,248,248);
+  background: @bg_clr;
   overflow: scroll;
   overflow-x: hidden;
-  border-right:rgb(237,237,237) 1px solid;
+  border-right:@gry_brdr 1px solid;
   &::-webkit-scrollbar{
       width: 0px;  /* remove scrollbar space */
       background: transparent;  /* optional: just make scrollbar invisible */
@@ -123,10 +156,10 @@ div.masterGraphContainer{
   overflow-y: auto;
   //height:240px;
   width: 100%;
-  background: rgb(248,248,248);
+  background: @bg_clr;
   border-radius: 0px;
   border:none;
-  border-bottom: solid 2px rgb(237,237,237);
+  border-bottom: solid 2px @gry_brdr;
   button{
       border-radius: 0px;
   }
@@ -174,9 +207,21 @@ input {
 
 .assignment{
   button{
-    height: 40px;
+//    border: solid green 1px;
     padding-top: 0px;
+    height:60px;
     width: 100%;
+    padding-left: 3px;
+    h5{
+//      padding-bottom: 3px;
+      margin-top: -5px;
+      margin-bottom: 8px;
+      white-space: normal;
+      padding-left: 0px;
+      align:left;
+      margin-left: 0px;
+      text-align: left;
+    }
   }
   span{
     padding-left: 5em;
@@ -190,13 +235,13 @@ input {
 .studentList{
 /*  border:red solid 1px;*/
   max-height: 240px;
-  border-bottom: solid 2px rgb(237,237,237);
+  border-bottom: solid 2px @gry_brdr;
   overflow-x: hidden;
   overflow-y: scroll;
 }
 
 .panel-title{
-  color: rgb(50,119,178);
+  color: @blue;
 }
 
 .bar_chart{
@@ -213,7 +258,7 @@ div.graph-container.col-md-4{
 }
 
 nav.navbar{
-  border-bottom: solid 1px rgb(237,237,237);
+  border-bottom: solid 1px @gry_brdr;
   box-shadow: none;
   div.sidebar{
     margin:0px;
@@ -222,18 +267,18 @@ nav.navbar{
 }
 
 ul.nav li{
-  background: rgb(248,248,248);
+  background: @bg_clr;
 }
 
 nav.navbar-static-top{
-  background:rgb(248,248,248);
+  background:@bg_clr;
 }
 
 /* Left box where the selected project will have basic info displayed */
 div.description-box {
   padding: 15px;
   h1{
-  color: rgb(50,119,178);
+  color: @blue;
   text-decoration: underline;
   }
   p{
@@ -243,18 +288,18 @@ div.description-box {
 }
 
 div#wrapper > *{
-  background: rgb(248,248,248);
+  background: @bg_clr;
 }
 
 .assignment, .student{
   height: 3em;
-  background: rgb(248,248,248);
+  background: @bg_clr;
   /*background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
   background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e8e8e8));
   background-image:         linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);*/
   overflow: hidden;
-  border-bottom: solid 1px rgb(237,237,237);
+  border-bottom: solid 1px @gry_brdr;
 }
 
 div.navbar-default.sidebar > *{

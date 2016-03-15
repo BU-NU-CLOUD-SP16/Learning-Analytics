@@ -8,6 +8,21 @@ var BarChart = rd3.BarChart;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
 // var db_url = "http://52.33.14.62:3000";
 
+
+// test functionality for couting
+var yell = function(){
+  window.alert("YELLING");
+}
+
+// function for hiding current graph
+var hide = function(){
+  $(".barChart_Lines_Code").fadeOut(); // this needs to be changed to hide the current graph no matter which it is
+}
+
+var show = function(){
+  $(".barChart_Lines_Code").fadeIn(); // this needs to be changed to hide the current graph no matter which it is
+}
+
 var BarChart_Lines_Code = React.createClass({
     getInitialState : function() {
     	var chartSeries = [
@@ -31,8 +46,9 @@ var BarChart_Lines_Code = React.createClass({
     	var yTicks = [10, "c"];
 
       var barData = [
-          {"x": 'A', "y": 50},
-          {"x": 'B', "y": 64},
+          {"x": 'A', "y": 0},
+          {"x": 'B', "y": 50},
+          {"x": 'C', "y": 100}
       ];
       return {barData: barData,
               series: chartSeries,
@@ -61,14 +77,15 @@ var BarChart_Lines_Code = React.createClass({
     //  setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-        return <div className="BarChart_Lines_Code">
+        return <div className="barChart_Lines_Code">
           <div className="panel panel-default">
               <div className="panel-heading">
-                  <center>
                     <h3>
                     Lines of Code
                     </h3>
-                  </center>
+                    <div className="graph-x" onClick={hide}>
+                      <i className="fa fa-times"></i>
+                    </div>
               </div>
 		<BarTooltip
                   data={this.state.barData}
@@ -590,13 +607,13 @@ var BarChart_Size_Metric = React.createClass({
 var Assignment = React.createClass({
   render: function(){
     return (
-    <div className="assignment">
-
-      <button type="button" className="btn btn-primary"><h5>
-        {this.props.prob_statement + ":"}
-      </h5></button>
+    <div className="assignment" onClick={show}>
+      <button type="button" className="btn btn-primary">
+        <h5>
+          {this.props.prob_statement + ":"}
+        </h5>
+      </button>
       <span>{this.props.description_html}</span>
-
     </div>
     );
   }
@@ -605,12 +622,12 @@ var Assignment = React.createClass({
 var AssignmentBox = React.createClass({
   loadAssignmentsFromServer: function(){
     $.ajax({
-      url: "/problem/470",
+      url: "/problems",
       dataType: 'json',
       cache: false,
       success: function(data) {
-        window.alert(JSON.stringify(data));
-
+    //    window.alert(JSON.stringify(data));
+      //  yell();
         this.setState({data: data});
       }.bind(this),
       // in the case ajax runs into an error
@@ -853,7 +870,7 @@ var GraphList = React.createClass({
 
             <Graph stud_name="Space Complexity" icon_type="database"/>
             <Graph stud_name="Time Complexity" icon_type="clock-o"/>
-            <Graph stud_name="Line Numbers" icon_type="align-justify"/>
+            <Graph stud_name="Number of Lines" icon_type="align-justify"/>
             <Graph stud_name="Class Rank" icon_type="bar-chart"/>
             <Graph stud_name="Loop Counter" icon_type="circle-o-notch"/>
             <Graph stud_name="Attempt Count" icon_type="repeat"/>
@@ -975,20 +992,6 @@ var GraphContainer_Size_Metric = React.createClass({
 
 var GraphContainerList = React.createClass({
   render: function(){
-
-    /*old_code = (
-      <div className="graphContainerList">
-        <GraphContainer_Size_Metric/>
-        <GraphContainer_Lines_Code/>
-        <GraphContainer_Time_Complexity/>
-        <GraphContainer_Comment_Percent/>
-        <GraphContainer_Attempt_Count/>
-        <GraphContainer_Space_Complexity/>
-        <GraphContainer_Loop_Percent/>
-        <GraphContainer_DataStruct_Percent/>
-      </div>
-    );*/
-
     return(
       <div className="graphContainerList">
         <GraphContainer_Size_Metric/>
@@ -1064,3 +1067,6 @@ var MasterGraphContainer = React.createClass({
 });
 
 ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content'));
+
+// Intitially Set the Graph to be hidden so the user can pick one
+$(".barChart_Lines_Code").hide();
