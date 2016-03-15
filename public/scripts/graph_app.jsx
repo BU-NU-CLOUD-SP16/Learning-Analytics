@@ -14,7 +14,7 @@ var yell = function(){
   window.alert("YELLING");
 }
 
-// function for hiding current graph
+// function for hiding current graph 
 var hide = function(){
   $(".barChart_Lines_Code").fadeOut(); // this needs to be changed to hide the current graph no matter which it is
 }

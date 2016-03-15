@@ -1645,7 +1645,7 @@ var SimpleTooltipStyle = function (_Component) {
         _react2.default.createElement(
           'div',
           { style: tooltip_title },
-          "Student: ",
+          "Lines of Code: ",
 	  fieldTitle
         ),
         _react2.default.createElement(
@@ -58862,7 +58862,7 @@ var yell = function(){
   window.alert("YELLING");
 }
 
-// function for hiding current graph
+// function for hiding current graph 
 var hide = function(){
   $(".barChart_Lines_Code").fadeOut(); // this needs to be changed to hide the current graph no matter which it is
 }
@@ -58876,7 +58876,7 @@ var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
     	var chartSeries = [
     	      {
     	        field: 'y',
-    	        name: 'Lines of Code'
+    	        name: 'Submissions'
     	      }
     	    ];
 
