@@ -61,7 +61,6 @@ var BarChart_Lines_Code = React.createClass({
     //  setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-
         return <div className="BarChart_Lines_Code">
           <div className="panel panel-default">
               <div className="panel-heading">
@@ -87,8 +86,6 @@ var BarChart_Lines_Code = React.createClass({
 		<SimpleTooltipStyle
 			tooltip_title={this.state.temp}
 		/>
-
-
 
 		</BarTooltip>
           </div>
@@ -612,12 +609,14 @@ var AssignmentBox = React.createClass({
       dataType: 'json',
       cache: false,
       success: function(data) {
-      //  window.alert(JSON.stringify(data));
+        window.alert(JSON.stringify(data));
+
         this.setState({data: data});
       }.bind(this),
       // in the case ajax runs into an error
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
+        window.alert("fail");
       }.bind(this)
     });
   },
