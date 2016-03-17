@@ -58856,20 +58856,28 @@ var BarChart = rd3.BarChart;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
 // var db_url = "http://52.33.14.62:3000";
 
+// Should set these to default values
+var active_graph = ".barChart_Lines_Code";
+var graph_tag = ".barChart_Lines_Code";
+var active_assignment = "";
 
 // test functionality for couting
 var yell = function(){
   window.alert("YELLING");
 }
 
-// function for hiding current graph 
+// function for hiding current graph
 var hide = function(){
-  $(".barChart_Lines_Code").fadeOut(); // this needs to be changed to hide the current graph no matter which it is
+  $(graph_tag).fadeOut(); // this needs to be changed to hide the current graph no matter which it is
 }
 
 var show = function(){
-  $(".barChart_Lines_Code").fadeIn(); // this needs to be changed to hide the current graph no matter which it is
+  $(graph_tag).fadeIn(); // this needs to be changed to hide the current graph no matter which it is
 }
+
+
+
+/****************** Chart Implementations Begin ******************/
 
 var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
     getInitialState : function() {
@@ -58894,9 +58902,32 @@ var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
     	var yTicks = [10, "c"];
 
       var barData = [
-          {"x": 'A', "y": 0},
-          {"x": 'B', "y": 50},
-          {"x": 'C', "y": 100}
+        {"x": 'A', "y": 2345},
+        {"x": 'B', "y": 5463},
+        {"x": 'C', "y": 10293},
+        {"x": 'D', "y": 5643},
+        {"x": 'E', "y": 3657},
+        {"x": 'F', "y": 7854},
+        {"x": 'G', "y": 6845},
+        {"x": 'H', "y": 2435},
+        {"x": 'I', "y": 1243},
+        {"x": 'J', "y": 5544},
+        {"x": 'K', "y": 7869},
+        {"x": 'L', "y": 3343},
+        {"x": 'M', "y": 4433},
+        {"x": 'N', "y": 3354},
+        {"x": 'O', "y": 3654},
+        {"x": 'P', "y": 7887},
+        {"x": 'Q', "y": 6657},
+        {"x": 'R', "y": 6587},
+        {"x": 'S', "y": 6645},
+        {"x": 'T', "y": 2343},
+        {"x": 'U', "y": 4565},
+        {"x": 'V', "y": 6645},
+        {"x": 'W', "y": 9786},
+        {"x": 'X', "y": 2302},
+        {"x": 'Y', "y": 4345},
+        {"x": 'Z', "y": 5675}
       ];
       return {barData: barData,
               series: chartSeries,
@@ -58925,36 +58956,39 @@ var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
     //  setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-        return React.createElement("div", {className: "barChart_Lines_Code"}, 
-          React.createElement("div", {className: "panel panel-default"}, 
-              React.createElement("div", {className: "panel-heading"}, 
-                    React.createElement("h3", null, 
-                    "Lines of Code"
-                    ), 
-                    React.createElement("div", {className: "graph-x", onClick: hide}, 
-                      React.createElement("i", {className: "fa fa-times"})
-                    )
-              ), 
-		React.createElement(BarTooltip, {
-                  data: this.state.barData, 
-		  legend: false, 
-                  width: 1000, 
-                  height: 490, 
-                  fill: '#3182bd', 
-                  title: "", 
-		  chartSeries: this.state.series, 
-                  x: this.state.x, 
-      	          xScale: this.state.xScale, 
-                  yTicks: this.state.yTicks, 
-                  margins: {top: 20, right: 30, bottom: 30, left: 40}
-                }, 
-		React.createElement(SimpleTooltipStyle, {
-			tooltip_title: this.state.temp}
-		)
-
-		)
-          )
-               );
+        return React.createElement("div", {className: "graph-container col-md-4"}, 
+                React.createElement("div", {className: "graphContainerList"}, 
+                  React.createElement("div", {className: "barChart_Lines_Code"}, 
+                    React.createElement("div", {className: "panel panel-default"}, 
+                        React.createElement("div", {className: "panel-heading"}, 
+                              React.createElement("h3", null, 
+                              "Lines of Code"
+                              ), 
+                              React.createElement("div", {className: "graph-x", onClick: hide}, 
+                                React.createElement("i", {className: "fa fa-times"})
+                              )
+                        ), 
+                    		React.createElement(BarTooltip, {
+                                      data: this.state.barData, 
+                                		  legend: false, 
+                                      width: 1000, 
+                                      height: 490, 
+                                      fill: '#3182bd', 
+                                      title: "", 
+                                		  chartSeries: this.state.series, 
+                                      x: this.state.x, 
+                          	          xScale: this.state.xScale, 
+                                      yTicks: this.state.yTicks, 
+                                      margins: {top: 20, right: 30, bottom: 30, left: 40}
+                                    }, 
+                    		React.createElement(SimpleTooltipStyle, {
+                    			tooltip_title: this.state.temp}
+                    		)
+                    		)
+                      )
+                   )
+                 )
+          		);
     }
 });
 
@@ -58994,20 +59028,24 @@ var BarChart_Time_Complexity = React.createClass({displayName: "BarChart_Time_Co
         return {barData: barData};
     },
     render: function() {
-        return React.createElement("div", {className: "BarChart_Time_Complexity"}, 
-                React.createElement("center", null, 
-                  React.createElement("h3", null, 
-                  "Time Complexity (ms)"
-                  )
-                ), 
-                React.createElement(BarChart, {
-                  data: this.state.barData, 
-                  width: 1000, 
-                  height: 490, 
-                  fill: '#8a5715', 
-                  title: "", 
-                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
-                )
+        return React.createElement("div", {className: "graph-container col-md-4"}, 
+                React.createElement("div", {className: "graphContainerList"}, 
+                  React.createElement("div", {className: "barChart_Time_Complexity"}, 
+                    React.createElement("center", null, 
+                      React.createElement("h3", null, 
+                      "Time Complexity (ms)"
+                      )
+                    ), 
+                    React.createElement(BarChart, {
+                      data: this.state.barData, 
+                      width: 1000, 
+                      height: 490, 
+                      fill: '#8a5715', 
+                      title: "", 
+                      margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                    )
+                   )
+                 )
                );
     }
 });
@@ -59048,20 +59086,24 @@ var BarChart_Comment_Percent = React.createClass({displayName: "BarChart_Comment
         return {barData: barData};
     },
     render: function() {
-        return React.createElement("div", {className: "BarChart_Comment_Percent"}, 
-                React.createElement("center", null, 
-                  React.createElement("h3", null, 
-                  "Comments Percentage"
-                  )
-                ), 
-                React.createElement(BarChart, {
-                  data: this.state.barData, 
-                  width: 1000, 
-                  height: 490, 
-                  fill: '#8a5715', 
-                  title: "", 
-                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
-                )
+        return React.createElement("div", {className: "graph-container col-md-4"}, 
+                React.createElement("div", {className: "graphContainerList"}, 
+                  React.createElement("div", {className: "barChart_Comment_Percent"}, 
+                    React.createElement("center", null, 
+                      React.createElement("h3", null, 
+                      "Comments Percentage"
+                      )
+                    ), 
+                    React.createElement(BarChart, {
+                      data: this.state.barData, 
+                      width: 1000, 
+                      height: 490, 
+                      fill: '#8a5715', 
+                      title: "", 
+                      margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                    )
+                   )
+                 )
                );
     }
 });
@@ -59102,20 +59144,24 @@ var BarChart_Attempt_Count = React.createClass({displayName: "BarChart_Attempt_C
         return {barData: barData};
     },
     render: function() {
-        return React.createElement("div", {className: "BarChart_Attempt_Count"}, 
-                React.createElement("center", null, 
-                  React.createElement("h3", null, 
-		    "Number of Attempts"
-                  )
-                ), 
-                React.createElement(BarChart, {
-                  data: this.state.barData, 
-                  width: 1000, 
-                  height: 490, 
-                  fill: '#8a5715', 
-                  title: "", 
-                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
-                )
+        return React.createElement("div", {className: "graph-container col-md-4"}, 
+                React.createElement("div", {className: "graphContainerList"}, 
+                  React.createElement("div", {className: "barChart_Attempt_Count"}, 
+                    React.createElement("center", null, 
+                      React.createElement("h3", null, 
+                		    "Number of Attempts"
+                      )
+                    ), 
+                    React.createElement(BarChart, {
+                      data: this.state.barData, 
+                      width: 1000, 
+                      height: 490, 
+                      fill: '#8a5715', 
+                      title: "", 
+                      margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                    )
+                   )
+                 )
                );
     }
 });
@@ -59156,20 +59202,24 @@ var BarChart_Loop_Count = React.createClass({displayName: "BarChart_Loop_Count",
         return {barData: barData};
     },
     render: function() {
-        return React.createElement("div", {className: "BarChart_Loop_Count"}, 
-                React.createElement("center", null, 
-                  React.createElement("h3", null, 
-                    "NNested Loop Count"
-                  )
-                ), 
-                React.createElement(BarChart, {
-                  data: this.state.barData, 
-                  width: 1000, 
-                  height: 490, 
-                  fill: '#8a5715', 
-                  title: "", 
-                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
-                )
+        return React.createElement("div", {className: "graph-container col-md-4"}, 
+                React.createElement("div", {className: "graphContainerList"}, 
+                  React.createElement("div", {className: "barChart_Loop_Count"}, 
+                    React.createElement("center", null, 
+                      React.createElement("h3", null, 
+                        "Nested Loop Count"
+                      )
+                    ), 
+                    React.createElement(BarChart, {
+                      data: this.state.barData, 
+                      width: 1000, 
+                      height: 490, 
+                      fill: '#8a5715', 
+                      title: "", 
+                      margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                    )
+                   )
+                 )
                );
     }
 });
@@ -59210,21 +59260,25 @@ var BarChart_Space_Complexity = React.createClass({displayName: "BarChart_Space_
         return {barData: barData};
     },
     render: function() {
-        return React.createElement("div", {className: "BarChart_Space_Complexity"}, 
-                React.createElement("center", null, 
-                  React.createElement("h3", null, 
-                    "Space Complexity (Percentage of input)"
+        return React.createElement("div", {className: "graph-container col-md-4"}, 
+                React.createElement("div", {className: "graphContainerList"}, 
+                  React.createElement("div", {className: "barChart_Space_Complexity"}, 
+                    React.createElement("center", null, 
+                      React.createElement("h3", null, 
+                        "Space Complexity (Percentage of input)"
+                      )
+                    ), 
+                    React.createElement(BarChart, {
+                      data: this.state.barData, 
+                      width: 1000, 
+                      height: 490, 
+                      fill: '#8a5715', 
+                      title: "", 
+                      margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                    )
                   )
-                ), 
-                React.createElement(BarChart, {
-                  data: this.state.barData, 
-                  width: 1000, 
-                  height: 490, 
-                  fill: '#8a5715', 
-                  title: "", 
-                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
                 )
-               );
+              );
     }
 });
 
@@ -59264,20 +59318,24 @@ var BarChart_Loop_Percent = React.createClass({displayName: "BarChart_Loop_Perce
         return {barData: barData};
     },
     render: function() {
-        return React.createElement("div", {className: "BarChart_Loop_Percent"}, 
-                React.createElement("center", null, 
-                  React.createElement("h3", null, 
-                    "Loop Count (Percentage of input)"
-                  )
-                ), 
-                React.createElement(BarChart, {
-                  data: this.state.barData, 
-                  width: 1000, 
-                  height: 490, 
-                  fill: '#8a5715', 
-                  title: "", 
-                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
-                )
+        return React.createElement("div", {className: "graph-container col-md-4"}, 
+                React.createElement("div", {className: "graphContainerList"}, 
+                  React.createElement("div", {className: "barChart_Loop_Percent"}, 
+                    React.createElement("center", null, 
+                      React.createElement("h3", null, 
+                        "Loop Count (Percentage of input)"
+                      )
+                    ), 
+                    React.createElement(BarChart, {
+                      data: this.state.barData, 
+                      width: 1000, 
+                      height: 490, 
+                      fill: '#8a5715', 
+                      title: "", 
+                      margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                    )
+                   )
+                 )
                );
     }
 });
@@ -59382,29 +59440,33 @@ var BarChart_DataStruct_Percent = React.createClass({displayName: "BarChart_Data
         return {barData: barData};
     },
     render: function() {
-        return React.createElement("div", {className: "BarChart_DataStruct_Percent"}, 
-                React.createElement("center", null, 
-                  React.createElement("h3", null, 
-                  "Data Structures Used"
+        return React.createElement("div", {className: "graph-container col-md-4"}, 
+                React.createElement("div", {className: "graphContainerList"}, 
+                  React.createElement("div", {className: "barChart_DataStruct_Percent"}, 
+                    React.createElement("center", null, 
+                      React.createElement("h3", null, 
+                      "Data Structures Used"
+                      )
+                    ), 
+                    React.createElement(BarChart, {
+          	          legend: true, 
+                      data: this.state.barData, 
+                      width: 1000, 
+                      height: 490, 
+                      fill: '#3182bd', 
+                      title: "", 
+                      margins: {top: 20, right: 100, bottom: 30, left: 40}}
+                    )
                   )
-                ), 
-                  React.createElement(BarChart, {
-        	          legend: true, 
-                    data: this.state.barData, 
-                    width: 1000, 
-                    height: 490, 
-                    fill: '#3182bd', 
-                    title: "", 
-                    margins: {top: 20, right: 100, bottom: 30, left: 40}}
-                  )
-               );
+                )
+              );
     }
 });
 
 var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric",
     loadSizeMetricFromServer: function(){
       $.ajax({
-        url: "/student/metric/bins",
+        url: "",//"/student/metric/bins",
         dataType: 'json',
         cache: false,
         success: function(data) {
@@ -59430,27 +59492,40 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
 //      setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-        return React.createElement("div", {className: "panel panel-default BarChart_Size_Metric"}, 
-                React.createElement("div", {className: "panel-heading"}, 
-                  React.createElement("center", null, 
-                    React.createElement("h3", null, 
-                      "Size Metric"
+        return React.createElement("div", {className: "graph-container col-md-4"}, 
+                React.createElement("div", {className: "graphContainerList"}, 
+                  React.createElement("div", {className: "panel panel-default barChart_Size_Metric"}, 
+                    React.createElement("div", {className: "panel-heading"}, 
+                      React.createElement("center", null, 
+                        React.createElement("h3", null, 
+                          "Size Metric"
+                        )
+                      )
+                    ), 
+                    React.createElement("div", {className: "panel-body"}, 
+                      React.createElement(BarChart, {
+                        data: this.state.data, 
+                        width: 1000, 
+                        height: 490, 
+                        fill: '#8a5715', 
+                        title: "", 
+                        margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                      )
                     )
-                  )
-                ), 
-                React.createElement("div", {className: "panel-body"}, 
-                  React.createElement(BarChart, {
-                    data: this.state.data, 
-                    width: 1000, 
-                    height: 490, 
-                    fill: '#8a5715', 
-                    title: "", 
-                    margins: {top: 20, right: 30, bottom: 30, left: 40}}
-                  )
-                )
+                   )
+                 )
                );
     }
 });
+
+/****************** Chart Implementation End ******************/
+
+
+
+
+
+
+/****************** Assignment Directory Implementation Begin ******************/
 
 var Assignment = React.createClass({displayName: "Assignment",
   render: function(){
@@ -59497,17 +59572,6 @@ var AssignmentBox = React.createClass({displayName: "AssignmentBox",
 
   render: function(){
 
-/*
-
-<form role="form" className="search_container">
-    <div className="form-group">
-      <input type="text" className="form-control" id="search" placeholder="Search..."/>
-    </div>
-    <button type="submit" className="btn btn-success">Go</button>
-</form>
-
-*/
-
     var replac_tmp = (
         React.createElement("div", {id: "assignment_dir"}, 
           React.createElement("div", null, 
@@ -59540,6 +59604,10 @@ var AssignmentList = React.createClass({displayName: "AssignmentList",
   }
 });
 
+/****************** Assignment Directory End ******************/
+
+
+/****************** Student Directory Implementation Begin ******************/
 var Student = React.createClass({displayName: "Student",
   rawMarkup: function(){
     // Sanitizes input from the site as a security precaution
@@ -59631,20 +59699,6 @@ var StudentList = React.createClass({displayName: "StudentList",
 
 var StudentForm = React.createClass({displayName: "StudentForm",
   render: function(){
-
-/* // OLD VERSION OF STUCTURING STUDENT INFO
-      <div id="assignment_dir" className="panel panel-default">
-        <div className="panel-heading">
-          <h5 className="panel-title">Students</h5>
-        </div>
-        <div className="panel-body">
-          <form>
-            <StudentList pollInterval={2000}/>
-          </form>
-        </div>
-      </div>
-*/
-
     return (
       React.createElement("div", {id: "assignment_dir", className: "panel panel-default"}, 
         React.createElement("div", {className: "panel-body"}, 
@@ -59657,65 +59711,102 @@ var StudentForm = React.createClass({displayName: "StudentForm",
   }
 });
 
+/****************** Student Directory End ******************/
 
-
+/****************** Graph Selection Directory Begin ******************/
 var Graph = React.createClass({displayName: "Graph",
   getInitialState: function(){
     // Takes control of the individual student's check boxes
     return {check: false};
   },
   onChange: function(e){
-    /*var my_name =this.props.stud_name;
-    if(my_name == "Select All"){
-        var array = document.getElementsByClassName("graph-select");
-        for(var ii = 0; ii < array.length; ii++)
-        {
-           if(array[ii].type == "checkbox")
-           {
-              if(array[ii].className =="graph-select")
-               {
-                array[ii].checked = !(this.state.check);
-               }
-           }
-        }
-        this.setState({check: !(this.state.check)});
-    }*/
+    active_graph = this.props.stud_name;
+
+    //window.alert("active graph = " + active_graph);
+
+    switch(active_graph){
+      case("Space Complexity"):{
+          graph_tag = ".barChart_Space_Complexity";
+        break;
+      }
+      case("Time Complexity"):{
+          graph_tag = ".barChart_Time_Complexity";
+        break;
+      }
+      case("Number of Lines"):{
+          graph_tag = ".barChart_Lines_Code";
+        break;
+      }
+      case("Class Rank"):{
+          graph_tag = "";
+        break;
+      }
+      case("Loop Counter"):{
+          graph_tag = ".barChart_Loop_Percent";
+        break;
+      }
+      case("Attempt Count"):{
+          graph_tag = ".barChart_Attempt_Count";
+        break;
+      }
+      case("Comment Count"):{
+          graph_tag = ".barChart_Comment_Percent"; // This needs to be re-set to another class in future
+        break;
+      }
+      case("Data Structures"):{
+          graph_tag = ".barChart_DataStruct_Percent";
+        break;
+      }
+      case("Nested Loop Count"):{
+          graph_tag = "";
+        break;
+      }
+      case("Comment-Code Ratio"):{
+          graph_tag = ".barChart_Comment_Percent";
+        break;
+      }
+      case("Clusters"):{
+          graph_tag = "";
+        break;
+      }
+      case("Popular Functions"):{
+          graph_tag = "";
+        break;
+      }
+      case("Statistics"):{
+          graph_tag = "";
+        break;
+      }
+      case("Total Submissions"):{
+          graph_tag = "";
+        break;
+      }
+      case("Size Metric"):{
+          graph_tag = ".barChart_Size_Metric";
+        break;
+      }
+      default:{
+
+      }
+    }
+
+  //  window.alert(graph_tag);
   },
   render: function(){
-
-    /* // OLD CODE
-
-    <div className="graph">
-      <label>
-        <input className="graph-select" type="checkbox" name="graph" defaultChecked={this.state.check} onChange={this.onChange}>
-            <i className={"fa fa-" + this.props.icon_type}>&nbsp;</i>{this.props.stud_name}
-        </input>
-      </label>
-    </div>
-
-
-    */
-
     return (
       React.createElement("li", null, 
-        React.createElement("a", {href: "#"}, 
+        React.createElement("a", {href: "#", onClick: this.onChange}, 
           React.createElement("i", {className: "fa fa-" + this.props.icon_type}, " "), this.props.stud_name
         )
       )
-
     );
   }
 });
 
 var GraphList = React.createClass({displayName: "GraphList",
   render: function(){
-
-          //<Graph stud_name="Select All" icon_type="check-square"/>
-
-    var test = (
-
+  var graph_select = (
           React.createElement("ul", {className: "graphList nav nav-second-level"}, 
-
             React.createElement(Graph, {stud_name: "Space Complexity", icon_type: "database"}), 
             React.createElement(Graph, {stud_name: "Time Complexity", icon_type: "clock-o"}), 
             React.createElement(Graph, {stud_name: "Number of Lines", icon_type: "align-justify"}), 
@@ -59724,7 +59815,6 @@ var GraphList = React.createClass({displayName: "GraphList",
             React.createElement(Graph, {stud_name: "Attempt Count", icon_type: "repeat"}), 
             React.createElement(Graph, {stud_name: "Comment Count", icon_type: "commenting-o"}), 
             React.createElement(Graph, {stud_name: "Data Structures", icon_type: "sitemap"}), 
-
             React.createElement(Graph, {stud_name: "Nested Loop Count", icon_type: "align-left"}), 
             React.createElement(Graph, {stud_name: "Comment-Code Ratio", icon_type: "percent"}), 
             React.createElement(Graph, {stud_name: "Clusters", icon_type: "dot-circle-o"}), 
@@ -59735,7 +59825,7 @@ var GraphList = React.createClass({displayName: "GraphList",
           )
     );
 
-    return test;
+    return graph_select;
 
   }
 });
@@ -59757,97 +59847,126 @@ var GraphForm = React.createClass({displayName: "GraphForm",
   }
 });
 
+/****************** Graph Selection Directory End ******************/
 
-var GraphContainer_Lines_Code = React.createClass({displayName: "GraphContainer_Lines_Code",
-  render: function(){
-    return (
-      React.createElement("div", {className: "graph-container col-md-4"}, 
-          React.createElement(BarChart_Lines_Code, null)
-      )
-    )
-  }
-});
 
-var GraphContainer_Time_Complexity = React.createClass({displayName: "GraphContainer_Time_Complexity",
-  render: function(){
-    return (
-      React.createElement("div", {className: "graph-container col-md-4"}, 
-          React.createElement(BarChart_Time_Complexity, null)
-      )
-    )
-  }
-});
-
-var GraphContainer_Comment_Percent = React.createClass({displayName: "GraphContainer_Comment_Percent",
-  render: function(){
-    return (
-      React.createElement("div", {className: "graph-container col-md-4"}, 
-          React.createElement(BarChart_Comment_Percent, null)
-      )
-    )
-  }
-});
-
-var GraphContainer_Attempt_Count = React.createClass({displayName: "GraphContainer_Attempt_Count",
-  render: function(){
-    return (
-      React.createElement("div", {className: "graph-container col-md-4"}, 
-          React.createElement(BarChart_Attempt_Count, null)
-      )
-    )
-  }
-});
-
-var GraphContainer_Space_Complexity = React.createClass({displayName: "GraphContainer_Space_Complexity",
-  render: function(){
-    return (
-      React.createElement("div", {className: "graph-container col-md-4"}, 
-          React.createElement(BarChart_Space_Complexity, null)
-      )
-    )
-  }
-});
-
-var GraphContainer_Loop_Percent = React.createClass({displayName: "GraphContainer_Loop_Percent",
-  render: function(){
-    return (
-      React.createElement("div", {className: "graph-container col-md-4"}, 
-          React.createElement(BarChart_Loop_Percent, null)
-      )
-    )
-  }
-});
-
-var GraphContainer_DataStruct_Percent = React.createClass({displayName: "GraphContainer_DataStruct_Percent",
-  render: function(){
-    return (
-      React.createElement("div", {className: "graph-container col-md-4"}, 
-          React.createElement(BarChart_DataStruct_Percent, null)
-      )
-    )
-  }
-});
-
-var GraphContainer_Size_Metric = React.createClass({displayName: "GraphContainer_Size_Metric",
-  render: function(){
-    return (
-      React.createElement("div", {className: "graph-container col-md-4"}, 
-	    React.createElement(BarChart_Lines_Code, null)
-      )
-    )
-  }
-});
 
 var GraphContainerList = React.createClass({displayName: "GraphContainerList",
+  /*getInitialState: function(){
+    return {current_graph: active_graph};
+  },*/
+  /*componentDidMount: function(){
+    //setInterval(10000);
+    //window.alert(active_graph);
+  },*/
   render: function(){
-    return(
-      React.createElement("div", {className: "graphContainerList"}, 
-        React.createElement(GraphContainer_Size_Metric, null)
-      )
-    )
+/*
+
+HERE HERE
+
+*/
+    // To test a graph, change this varible for the initial view (this is for testing purposes)
+/*
+
+<BarChart_Lines_Code/>
+<BarChart_Space_Complexity/>
+<BarChart_Time_Complexity/>
+<BarChart_Lines_Code/>
+<BarChart_Loop_Percent/>
+<BarChart_Attempt_Count/>
+<BarChart_DataStruct_Percent/>
+<BarChart_Comment_Percent/>
+<BarChart_Size_Metric/>
+
+*/
+
+return(
+  React.createElement(BarChart_Lines_Code, null)
+  );
+
+
+
+    /*var curr_graph;
+
+    switch(this.state.current_graph){
+      case("Space Complexity"):{
+        curr_graph = (<BarChart_Space_Complexity/>);
+        break;
+      }
+      case("Time Complexity"):{
+        curr_graph = (<BarChart_Time_Complexity/>);
+        break;
+      }
+      case("Number of Lines"):{
+        curr_graph = (<BarChart_Lines_Code/>);
+        break;
+      }
+      case("Class Rank"):{
+
+        break;
+      }
+      case("Loop Counter"):{
+        curr_graph = (<BarChart_Loop_Percent/>);
+        break;
+      }
+      case("Attempt Count"):{
+        curr_graph = (<BarChart_Attempt_Count/>);
+        break;
+      }
+      case("Comment Count"):{
+
+        break;
+      }
+      case("Data Structures"):{
+        curr_graph = (<BarChart_DataStruct_Percent/>);
+        break;
+      }
+      case("Nested Loop Count"):{
+
+        break;
+      }
+      case("Comment-Code Ratio"):{
+        curr_graph = (<BarChart_Comment_Percent/>);
+
+        break;
+      }
+      case("Clusters"):{
+
+        break;
+      }
+      case("Popular Functions"):{
+
+        break;
+      }
+      case("Statistics"):{
+
+        break;
+      }
+      case("Total Submissions"):{
+
+        break;
+      }
+      case("Size Metric"):{
+        curr_graph = (<BarChart_Size_Metric/>);
+        break;
+      }
+      default:{
+        // do nothing
+        curr_graph = (<BarChart_Lines_Code/>);
+        break;
+      }
+
+    }*/
+
+     //yell();
+
+  //  return curr_graph;
   }
 });
+/****************** Graph Directory End ******************/
 
+
+/****************** Main Begin ******************/
 var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer",
   componentDidMount: function(){
   },
@@ -59896,9 +60015,6 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
                   )
                 )
               )
-
-
-
             )
           ), 
           React.createElement("div", {className: "col-md-10"}, 
@@ -59914,9 +60030,11 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
   }
 });
 
+/****************** Main End ******************/
+
 ReactDOM.render(React.createElement(MasterGraphContainer, null), document.getElementById('content'));
 
 // Intitially Set the Graph to be hidden so the user can pick one
-$(".barChart_Lines_Code").hide();
+$(graph_tag).hide();
 
 },{"react":459,"react-d3":120,"react-d3-tooltip":13,"react-dom":303}]},{},[460]);
