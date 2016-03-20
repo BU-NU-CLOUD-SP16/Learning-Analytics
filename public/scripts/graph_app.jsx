@@ -36,7 +36,7 @@ var BarChart_Lines_Code = React.createClass({
     	var chartSeries = [
     	      {
     	        field: 'y',
-    	        name: 'Submissions'
+    	        name: 'Submissions.Lines of Code'
     	      }
     	    ];
 
@@ -127,7 +127,7 @@ var BarChart_Lines_Code = React.createClass({
                                       height={490}
                                       fill={'#3182bd'}
                                       title=''
-                                		  chartSeries = {this.state.series}
+                               	      chartSeries = {this.state.series}
                                       x= {this.state.x}
                           	          xScale= {this.state.xScale}
                                       yTicks= {this.state.yTicks}
