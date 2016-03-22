@@ -62,12 +62,13 @@ div.masterGraphContainer .content-body {
         border: green solid 1px;
         position: absolute;
       }*/
-}
-.col-md-10 .content-container .all-graph div.graph-container div.panel-heading h3 {
-  width: 500px;
-  white-space: nowrap;
-  position: absolute;
-  text-align: center;
+  /*
+      div.panel-heading{
+        h3{
+
+
+        }
+      }*/
 }
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default {
   width: 1000px;
@@ -84,9 +85,13 @@ div.masterGraphContainer .content-body {
 }
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading h3 {
   color: white;
-  width: 200px;
   margin-top: 2px;
-  margin-left: 420px;
+  width: 950px;
+  magin-left: 20px;
+  white-space: nowrap;
+  border: solid 2px red;
+  position: absolute;
+  text-align: center;
 }
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading div {
   margin-right: -16px;
