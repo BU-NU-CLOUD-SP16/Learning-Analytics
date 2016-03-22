@@ -63,6 +63,12 @@ div.masterGraphContainer .content-body {
         position: absolute;
       }*/
 }
+.col-md-10 .content-container .all-graph div.graph-container div.panel-heading h3 {
+  width: 500px;
+  white-space: nowrap;
+  position: absolute;
+  text-align: center;
+}
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default {
   width: 1000px;
   color: #797777;

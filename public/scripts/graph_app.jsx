@@ -145,7 +145,7 @@ var BarChart_Lines_Code = React.createClass({
                         margins={{top: 20, right: 30, bottom: 30, left: 40}}>
                     		<SimpleTooltipStyle tooltip_title={this.state.temp}/>
                     	</BarTooltip>
-                      </div>
+                    </div>
                    </div>
                  </div>
                </div>);
@@ -677,7 +677,32 @@ var BarChart_Size_Metric = React.createClass({
     getInitialState: function(){
       var barData = [{
         "name":"Class A",
-        "values":[]}
+        "values":[{"x": 'A', "y": 2345},
+        {"x": 'B', "y": 5463},
+        {"x": 'C', "y": 102},
+        {"x": 'D', "y": 5643},
+        {"x": 'E', "y": 3657},
+        {"x": 'F', "y": 7854},
+        {"x": 'G', "y": 6845},
+        {"x": 'H', "y": 2435},
+        {"x": 'I', "y": 1243},
+        {"x": 'J', "y": 5544},
+        {"x": 'K', "y": 7869},
+        {"x": 'L', "y": 3343},
+        {"x": 'M', "y": 4433},
+        {"x": 'N', "y": 3354},
+        {"x": 'O', "y": 3654},
+        {"x": 'P', "y": 7887},
+        {"x": 'Q', "y": 6657},
+        {"x": 'R', "y": 6587},
+        {"x": 'S', "y": 6645},
+        {"x": 'T', "y": 2343},
+        {"x": 'U', "y": 4565},
+        {"x": 'V', "y": 6645},
+        {"x": 'W', "y": 9786},
+        {"x": 'X', "y": 2302},
+        {"x": 'Y', "y": 4345},
+        {"x": 'Z', "y": 5675}]}
       ];
       return {data: barData};
     },
@@ -699,20 +724,18 @@ var BarChart_Size_Metric = React.createClass({
                             <i className="fa fa-times"></i>
                           </div>
                         </div>
+                        <BarChart
+                          data={this.state.data}
+                          width={1000}
+                          height={490}
+                          fill={'#8a5715'}
+                          title=''
+                          margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                        />
                       </div>
-                    <div className="panel-body">
-                      <BarChart
-                        data={this.state.data}
-                        width={1000}
-                        height={490}
-                        fill={'#8a5715'}
-                        title=''
-                        margins={{top: 20, right: 30, bottom: 30, left: 40}}
-                      />
-                    </div>
+                     </div>
                    </div>
-                 </div>
-               </div>);
+                 </div>);
     }
 });
 
