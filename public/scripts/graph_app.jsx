@@ -8,9 +8,13 @@ var BarChart = rd3.BarChart;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
 // var db_url = "http://52.33.14.62:3000";
 
+all_graphs = [".barChart_Space_Complexity",".barChart_Time_Complexity",".barChart_Lines_Code",".barChart_Loop_Percent",".barChart_Attempt_Count",".barChart_Comment_Percent",".barChart_DataStruct_Percent",".barChart_Comment_Percent",".barChart_Size_Metric"];
+
+init_graph = ".barChart_Lines_Code";
+
 // Should set these to default values
-var active_graph = ".barChart_Lines_Code";
-var graph_tag = ".barChart_Lines_Code";
+var active_graph = init_graph;
+var graph_tag = init_graph;
 var active_assignment = "";
 
 // test functionality for couting
@@ -20,11 +24,17 @@ var yell = function(){
 
 // function for hiding current graph
 var hide = function(){
-  $(graph_tag).fadeOut(); // this needs to be changed to hide the current graph no matter which it is
+  $(active_graph).fadeOut(); // this needs to be changed to hide the current graph no matter which it is
 }
 
 var show = function(){
+  if(active_graph != graph_tag){
+    hide();
+  }
+
   $(graph_tag).fadeIn(); // this needs to be changed to hide the current graph no matter which it is
+  //window.alert($(graph_tag).offset().top);
+  active_graph = graph_tag;
 }
 
 
@@ -108,39 +118,37 @@ var BarChart_Lines_Code = React.createClass({
     //  setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-        return <div className="graph-container col-md-4">
+        return (
+          <div className="graph-container col-md-4">
                 <div className="graphContainerList">
                   <div className="barChart_Lines_Code">
                     <div className="panel panel-default">
-                        <div className="panel-heading">
-                              <h3>
-                              Lines of Code
-                              </h3>
-                              <div className="graph-x" onClick={hide}>
-                                <i className="fa fa-times"></i>
-                              </div>
+                      <div className="panel-heading">
+                        <h3>
+                        Lines of Code
+                        </h3>
+                        <div className="graph-x" onClick={hide}>
+                          <i className="fa fa-times"></i>
                         </div>
-                    		<BarTooltip
-                                      data={this.state.barData}
-                                		  legend={false}
-                                      width={1000}
-                                      height={490}
-                                      fill={'#3182bd'}
-                                      title=''
-                                		  chartSeries = {this.state.series}
-                                      x= {this.state.x}
-                          	          xScale= {this.state.xScale}
-                                      yTicks= {this.state.yTicks}
-                                      margins={{top: 20, right: 30, bottom: 30, left: 40}}
-                                    >
-                    		<SimpleTooltipStyle
-                    			tooltip_title={this.state.temp}
-                    		/>
-                    		</BarTooltip>
+                      </div>
+                  		<BarTooltip
+                        data={this.state.barData}
+                  		  legend={false}
+                        width={1000}
+                        height={490}
+                        fill={'#3182bd'}
+                        title=''
+                  		  chartSeries = {this.state.series}
+                        x= {this.state.x}
+            	          xScale= {this.state.xScale}
+                        yTicks= {this.state.yTicks}
+                        margins={{top: 20, right: 30, bottom: 30, left: 40}}>
+                    		<SimpleTooltipStyle tooltip_title={this.state.temp}/>
+                    	</BarTooltip>
                       </div>
                    </div>
                  </div>
-          		</div>;
+               </div>);
     }
 });
 
@@ -180,14 +188,18 @@ var BarChart_Time_Complexity = React.createClass({
         return {barData: barData};
     },
     render: function() {
-        return <div className="graph-container col-md-4">
+        return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
                   <div className="barChart_Time_Complexity">
-                    <center>
-                      <h3>
-                      Time Complexity (ms)
-                      </h3>
-                    </center>
+                    <div className="panel panel-default">
+                      <div className="panel-heading">
+                        <h3>
+                        Time Complexity (ms)
+                        </h3>
+                        <div className="graph-x" onClick={hide}>
+                          <i className="fa fa-times"></i>
+                        </div>
+                      </div>
                     <BarChart
                       data={this.state.barData}
                       width={1000}
@@ -196,9 +208,10 @@ var BarChart_Time_Complexity = React.createClass({
                       title=''
                       margins={{top: 20, right: 30, bottom: 30, left: 40}}
                     />
+                    </div>
                    </div>
                  </div>
-               </div>;
+               </div>);
     }
 });
 
@@ -238,25 +251,30 @@ var BarChart_Comment_Percent = React.createClass({
         return {barData: barData};
     },
     render: function() {
-        return <div className="graph-container col-md-4">
+        return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
                   <div className="barChart_Comment_Percent">
-                    <center>
-                      <h3>
-                      Comments Percentage
-                      </h3>
-                    </center>
-                    <BarChart
-                      data={this.state.barData}
-                      width={1000}
-                      height={490}
-                      fill={'#8a5715'}
-                      title=''
-                      margins={{top: 20, right: 30, bottom: 30, left: 40}}
-                    />
+                    <div className="panel panel-default">
+                      <div className="panel-heading">
+                        <h3>
+                        Comments Percentage
+                        </h3>
+                        <div className="graph-x" onClick={hide}>
+                          <i className="fa fa-times"></i>
+                        </div>
+                      </div>
+                      <BarChart
+                        data={this.state.barData}
+                        width={1000}
+                        height={490}
+                        fill={'#8a5715'}
+                        title=''
+                        margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                      />
+                    </div>
                    </div>
-                 </div>
-               </div>;
+                  </div>
+                </div>);
     }
 });
 
@@ -296,25 +314,30 @@ var BarChart_Attempt_Count = React.createClass({
         return {barData: barData};
     },
     render: function() {
-        return <div className="graph-container col-md-4">
+        return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
                   <div className="barChart_Attempt_Count">
-                    <center>
-                      <h3>
-                		    Number of Attempts
-                      </h3>
-                    </center>
-                    <BarChart
-                      data={this.state.barData}
-                      width={1000}
-                      height={490}
-                      fill={'#8a5715'}
-                      title=''
-                      margins={{top: 20, right: 30, bottom: 30, left: 40}}
-                    />
-                   </div>
-                 </div>
-               </div>;
+                    <div className="panel panel-default">
+                        <div className="panel-heading">
+                          <h3>
+                    		    Number of Attempts
+                          </h3>
+                          <div className="graph-x" onClick={hide}>
+                            <i className="fa fa-times"></i>
+                          </div>
+                        </div>
+                        <BarChart
+                          data={this.state.barData}
+                          width={1000}
+                          height={490}
+                          fill={'#8a5715'}
+                          title=''
+                          margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                        />
+                        </div>
+                       </div>
+                     </div>
+                   </div>);
     }
 });
 
@@ -354,25 +377,30 @@ var BarChart_Loop_Count = React.createClass({
         return {barData: barData};
     },
     render: function() {
-        return <div className="graph-container col-md-4">
+        return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
                   <div className="barChart_Loop_Count">
-                    <center>
-                      <h3>
-                        Nested Loop Count
-                      </h3>
-                    </center>
-                    <BarChart
-                      data={this.state.barData}
-                      width={1000}
-                      height={490}
-                      fill={'#8a5715'}
-                      title=''
-                      margins={{top: 20, right: 30, bottom: 30, left: 40}}
-                    />
+                    <div className="panel panel-default">
+                      <div className="panel-heading">
+                        <h3>
+                          Nested Loop Count
+                        </h3>
+                        <div className="graph-x" onClick={hide}>
+                          <i className="fa fa-times"></i>
+                        </div>
+                      </div>
+                      <BarChart
+                        data={this.state.barData}
+                        width={1000}
+                        height={490}
+                        fill={'#8a5715'}
+                        title=''
+                        margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                      />
+                    </div>
                    </div>
                  </div>
-               </div>;
+               </div>);
     }
 });
 
@@ -412,25 +440,30 @@ var BarChart_Space_Complexity = React.createClass({
         return {barData: barData};
     },
     render: function() {
-        return <div className="graph-container col-md-4">
+        return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
                   <div className="barChart_Space_Complexity">
-                    <center>
-                      <h3>
-                        Space Complexity (Percentage of input)
-                      </h3>
-                    </center>
-                    <BarChart
-                      data={this.state.barData}
-                      width={1000}
-                      height={490}
-                      fill={'#8a5715'}
-                      title=''
-                      margins={{top: 20, right: 30, bottom: 30, left: 40}}
-                    />
+                    <div className="panel panel-default">
+                      <div className="panel-heading">
+                        <h3>
+                          Space Complexity (Percentage of input)
+                        </h3>
+                        <div className="graph-x" onClick={hide}>
+                          <i className="fa fa-times"></i>
+                        </div>
+                      </div>
+                      <BarChart
+                        data={this.state.barData}
+                        width={1000}
+                        height={490}
+                        fill={'#8a5715'}
+                        title=''
+                        margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>;
+              </div>);
     }
 });
 
@@ -470,14 +503,18 @@ var BarChart_Loop_Percent = React.createClass({
         return {barData: barData};
     },
     render: function() {
-        return <div className="graph-container col-md-4">
+        return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
                   <div className="barChart_Loop_Percent">
-                    <center>
-                      <h3>
-                        Loop Count (Percentage of input)
-                      </h3>
-                    </center>
+                    <div className="panel panel-default">
+                      <div className="panel-heading">
+                        <h3>
+                          Loop Count (Percentage of input)
+                        </h3>
+                        <div className="graph-x" onClick={hide}>
+                          <i className="fa fa-times"></i>
+                        </div>
+                      </div>
                     <BarChart
                       data={this.state.barData}
                       width={1000}
@@ -486,9 +523,10 @@ var BarChart_Loop_Percent = React.createClass({
                       title=''
                       margins={{top: 20, right: 30, bottom: 30, left: 40}}
                     />
+                    </div>
                    </div>
                  </div>
-               </div>;
+               </div>);
     }
 });
 
@@ -592,14 +630,18 @@ var BarChart_DataStruct_Percent = React.createClass({
         return {barData: barData};
     },
     render: function() {
-        return <div className="graph-container col-md-4">
+        return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
                   <div className="barChart_DataStruct_Percent">
-                    <center>
+                    <div className="panel panel-default">
+                      <div className="panel-heading">
                       <h3>
                       Data Structures Used
                       </h3>
-                    </center>
+                      <div className="graph-x" onClick={hide}>
+                        <i className="fa fa-times"></i>
+                      </div>
+                    </div>
                     <BarChart
           	          legend={true}
                       data={this.state.barData}
@@ -609,9 +651,10 @@ var BarChart_DataStruct_Percent = React.createClass({
                       title=''
                       margins={{top: 20, right: 100, bottom: 30, left: 40}}
                     />
+                    </div>
                   </div>
                 </div>
-              </div>;
+              </div>);
     }
 });
 
@@ -644,16 +687,19 @@ var BarChart_Size_Metric = React.createClass({
 //      setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-        return <div className="graph-container col-md-4">
-                <div className="graphContainerList">
-                  <div className="panel panel-default barChart_Size_Metric">
-                    <div className="panel-heading">
-                      <center>
-                        <h3>
-                          Size Metric
-                        </h3>
-                      </center>
-                    </div>
+        return (<div className="graph-container col-md-4">
+                  <div className="graphContainerList">
+                    <div className="barChart_Size_Metric">
+                      <div className="panel panel-default">
+                        <div className="panel-heading">
+                          <h3>
+                            Size Metric
+                          </h3>
+                          <div className="graph-x" onClick={hide}>
+                            <i className="fa fa-times"></i>
+                          </div>
+                        </div>
+                      </div>
                     <div className="panel-body">
                       <BarChart
                         data={this.state.data}
@@ -666,7 +712,7 @@ var BarChart_Size_Metric = React.createClass({
                     </div>
                    </div>
                  </div>
-               </div>;
+               </div>);
     }
 });
 
@@ -682,7 +728,7 @@ var BarChart_Size_Metric = React.createClass({
 var Assignment = React.createClass({
   render: function(){
     return (
-    <div className="assignment" onClick={show}>
+    <div className="assignment">
       <button type="button" className="btn btn-primary">
         <h5>
           {this.props.prob_statement + ":"}
@@ -865,176 +911,52 @@ var StudentForm = React.createClass({
 
 /****************** Student Directory End ******************/
 
-/****************** Graph Selection Directory Begin ******************/
-var Graph = React.createClass({
-  getInitialState: function(){
-    // Takes control of the individual student's check boxes
-    return {check: false};
-  },
-  onChange: function(e){
-    active_graph = this.props.stud_name;
-
-    //window.alert("active graph = " + active_graph);
-
-    switch(active_graph){
-      case("Space Complexity"):{
-          graph_tag = ".barChart_Space_Complexity";
-        break;
-      }
-      case("Time Complexity"):{
-          graph_tag = ".barChart_Time_Complexity";
-        break;
-      }
-      case("Number of Lines"):{
-          graph_tag = ".barChart_Lines_Code";
-        break;
-      }
-      case("Class Rank"):{
-          graph_tag = "";
-        break;
-      }
-      case("Loop Counter"):{
-          graph_tag = ".barChart_Loop_Percent";
-        break;
-      }
-      case("Attempt Count"):{
-          graph_tag = ".barChart_Attempt_Count";
-        break;
-      }
-      case("Comment Count"):{
-          graph_tag = ".barChart_Comment_Percent"; // This needs to be re-set to another class in future
-        break;
-      }
-      case("Data Structures"):{
-          graph_tag = ".barChart_DataStruct_Percent";
-        break;
-      }
-      case("Nested Loop Count"):{
-          graph_tag = "";
-        break;
-      }
-      case("Comment-Code Ratio"):{
-          graph_tag = ".barChart_Comment_Percent";
-        break;
-      }
-      case("Clusters"):{
-          graph_tag = "";
-        break;
-      }
-      case("Popular Functions"):{
-          graph_tag = "";
-        break;
-      }
-      case("Statistics"):{
-          graph_tag = "";
-        break;
-      }
-      case("Total Submissions"):{
-          graph_tag = "";
-        break;
-      }
-      case("Size Metric"):{
-          graph_tag = ".barChart_Size_Metric";
-        break;
-      }
-      default:{
-
-      }
-    }
-
-  //  window.alert(graph_tag);
-  },
-  render: function(){
-    return (
-      <li>
-        <a href="#" onClick={this.onChange}>
-          <i className={"fa fa-" + this.props.icon_type}>&nbsp;</i>{this.props.stud_name}
-        </a>
-      </li>
-    );
-  }
-});
-
-var GraphList = React.createClass({
-  render: function(){
-  var graph_select = (
-          <ul className="graphList nav nav-second-level">
-            <Graph stud_name="Space Complexity" icon_type="database"/>
-            <Graph stud_name="Time Complexity" icon_type="clock-o"/>
-            <Graph stud_name="Number of Lines" icon_type="align-justify"/>
-            <Graph stud_name="Class Rank" icon_type="bar-chart"/>
-            <Graph stud_name="Loop Counter" icon_type="circle-o-notch"/>
-            <Graph stud_name="Attempt Count" icon_type="repeat"/>
-            <Graph stud_name="Comment Count" icon_type="commenting-o"/>
-            <Graph stud_name="Data Structures" icon_type="sitemap"/>
-            <Graph stud_name="Nested Loop Count" icon_type="align-left"/>
-            <Graph stud_name="Comment-Code Ratio" icon_type="percent"/>
-            <Graph stud_name="Clusters" icon_type="dot-circle-o"/>
-            <Graph stud_name="Popular Functions" icon_type="sign-in"/>
-            <Graph stud_name="Statistics" icon_type="pie-chart"/>
-            <Graph stud_name="Total Submissions" icon_type="th-large"/>
-            <Graph stud_name="Size Metric" icon_type="file-text"/>
-          </ul>
-    );
-
-    return graph_select;
-
-  }
-});
-
-var GraphForm = React.createClass({
-  render: function(){
-    return (
-      <div className="graphForm">
-        <div id="assignment_dir">
-          <div className="panel-heading">
-            <h5 className="panel-title">Graphs</h5>
-          </div>
-          <form>
-            <GraphList/>
-          </form>
-        </div>
-      </div>
-    );
-  }
-});
-
-/****************** Graph Selection Directory End ******************/
-
-
-
 var GraphContainerList = React.createClass({
-  /*getInitialState: function(){
+  getInitialState: function(){
     return {current_graph: active_graph};
-  },*/
-  /*componentDidMount: function(){
-    //setInterval(10000);
+  },
+  componentDidMount: function(){
+    //setInterval(2000);
     //window.alert(active_graph);
-  },*/
+  },
+  senseClick: function(){
+    yell();
+    //this.setState({current_graph: active_graph}); //this.senseClick();
+  },
   render: function(){
-/*
+    /*
 
-HERE HERE
+    HERE HERE
 
-*/
-    // To test a graph, change this varible for the initial view (this is for testing purposes)
-/*
+    */
+        // To test a graph, change this varible for the initial view (this is for testing purposes)
+    /*
 
-<BarChart_Lines_Code/>
-<BarChart_Space_Complexity/>
-<BarChart_Time_Complexity/>
-<BarChart_Lines_Code/>
-<BarChart_Loop_Percent/>
-<BarChart_Attempt_Count/>
-<BarChart_DataStruct_Percent/>
-<BarChart_Comment_Percent/>
-<BarChart_Size_Metric/>
+    <BarChart_Lines_Code/>
+    <BarChart_Space_Complexity/>
+    <BarChart_Time_Complexity/>
+    <BarChart_Lines_Code/>
+    <BarChart_Loop_Percent/>
+    <BarChart_Attempt_Count/>
+    <BarChart_DataStruct_Percent/>
+    <BarChart_Comment_Percent/>
+    <BarChart_Size_Metric/>
 
-*/
-
-return(
-  <BarChart_Lines_Code/>
-  );
+    */
+  //  yell();
+    return (
+    <div>
+      <BarChart_Space_Complexity/>
+      <BarChart_Lines_Code/>
+      <BarChart_Time_Complexity/>
+      <BarChart_Lines_Code/>
+      <BarChart_Loop_Percent/>
+      <BarChart_Attempt_Count/>
+      <BarChart_DataStruct_Percent/>
+      <BarChart_Comment_Percent/>
+      <BarChart_Size_Metric/>
+    </div>
+    );
 
 
 
@@ -1118,6 +1040,146 @@ return(
 /****************** Graph Directory End ******************/
 
 
+/****************** Graph Selection Directory Begin ******************/
+var Graph = React.createClass({
+  getInitialState: function(){
+    // Takes control of the individual student's check boxes
+    return {check: false};
+  },
+  onChange: function(e){
+    //active_graph = this.props.stud_name;
+
+    //window.alert("active graph = " + active_graph);
+
+    switch(this.props.stud_name){
+      case("Space Complexity"):{
+          graph_tag = ".barChart_Space_Complexity";
+        break;
+      }
+      case("Time Complexity"):{
+          graph_tag = ".barChart_Time_Complexity";
+        break;
+      }
+      case("Number of Lines"):{
+          graph_tag = ".barChart_Lines_Code";
+        break;
+      }
+      case("Class Rank"):{
+          graph_tag = "";
+        break;
+      }
+      case("Loop Counter"):{
+          graph_tag = ".barChart_Loop_Percent";
+        break;
+      }
+      case("Attempt Count"):{
+          graph_tag = ".barChart_Attempt_Count";
+        break;
+      }
+      case("Comment Count"):{
+          graph_tag = ".barChart_Comment_Percent"; // This needs to be re-set to another class in future
+        break;
+      }
+      case("Data Structures"):{
+          graph_tag = ".barChart_DataStruct_Percent";
+        break;
+      }
+      case("Nested Loop Count"):{
+          graph_tag = "";
+        break;
+      }
+      case("Comment-Code Ratio"):{
+          graph_tag = ".barChart_Comment_Percent";
+        break;
+      }
+      case("Clusters"):{
+          graph_tag = "";
+        break;
+      }
+      case("Popular Functions"):{
+          graph_tag = "";
+        break;
+      }
+      case("Statistics"):{
+          graph_tag = "";
+        break;
+      }
+      case("Total Submissions"):{
+          graph_tag = "";
+        break;
+      }
+      case("Size Metric"):{
+          graph_tag = ".barChart_Size_Metric";
+        break;
+      }
+      default:{
+
+      }
+    }
+    show();
+    //React.render(,getElementsByClassName("graph-container"));
+    //ReactDOM.render(<GraphContainerList/>, document.getElementsByClassName('all-graph'));
+    //GraphContainerList.senseClick();
+    //window.alert(graph_tag);
+  },
+  render: function(){
+    return (
+      <li>
+        <a href="#" onClick={this.onChange}>
+          <i className={"fa fa-" + this.props.icon_type}>&nbsp;</i>{this.props.stud_name}
+        </a>
+      </li>
+    );
+  }
+});
+
+/* GraphList Begins*/
+var GraphList = React.createClass({
+  render: function(){
+  var graph_select = (
+          <ul className="graphList nav nav-second-level">
+            <Graph stud_name="Space Complexity" icon_type="database"/>
+            <Graph stud_name="Time Complexity" icon_type="clock-o"/>
+            <Graph stud_name="Number of Lines" icon_type="align-justify"/>
+            <Graph stud_name="Class Rank" icon_type="bar-chart"/>
+            <Graph stud_name="Loop Counter" icon_type="circle-o-notch"/>
+            <Graph stud_name="Attempt Count" icon_type="repeat"/>
+            <Graph stud_name="Comment Count" icon_type="commenting-o"/>
+            <Graph stud_name="Data Structures" icon_type="sitemap"/>
+            <Graph stud_name="Nested Loop Count" icon_type="align-left"/>
+            <Graph stud_name="Comment-Code Ratio" icon_type="percent"/>
+            <Graph stud_name="Clusters" icon_type="dot-circle-o"/>
+            <Graph stud_name="Popular Functions" icon_type="sign-in"/>
+            <Graph stud_name="Statistics" icon_type="pie-chart"/>
+            <Graph stud_name="Total Submissions" icon_type="th-large"/>
+            <Graph stud_name="Size Metric" icon_type="file-text"/>
+          </ul>
+    );
+
+    return graph_select;
+
+  }
+});
+
+var GraphForm = React.createClass({
+  render: function(){
+    return (
+      <div className="graphForm">
+        <div id="assignment_dir">
+          <div className="panel-heading">
+            <h5 className="panel-title">Graphs</h5>
+          </div>
+          <form>
+            <GraphList/>
+          </form>
+        </div>
+      </div>
+    );
+  }
+});
+
+/****************** Graph Selection Directory End ******************/
+
 /****************** Main Begin ******************/
 var MasterGraphContainer = React.createClass({
   componentDidMount: function(){
@@ -1187,4 +1249,12 @@ var MasterGraphContainer = React.createClass({
 ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content'));
 
 // Intitially Set the Graph to be hidden so the user can pick one
-$(graph_tag).hide();
+//$(graph_tag).hide();
+
+$(".graph-container").offset({top: 60});
+
+all_graphs.map(function(graph_type){
+  $("div" + graph_type).hide();
+  //$("div.graphContainerList").hide();
+  //window.alert("hiding " + graph_type);
+});

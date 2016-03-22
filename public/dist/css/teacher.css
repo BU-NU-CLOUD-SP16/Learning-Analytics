@@ -17,6 +17,9 @@ div.masterGraphContainer .content-body {
   height: calc(50vh);
   display: table;
 }
+.pop_brdr {
+  border: solid 2px red;
+}
 .graphList a {
   color: #797777;
 }
@@ -48,7 +51,6 @@ div.masterGraphContainer .content-body {
 }
 .col-md-10 .content-container .all-graph div.graph-container {
   background: transparent;
-  display: inline-block;
   height: 535px;
   margin: 10px;
   width: 1000px;
@@ -56,6 +58,10 @@ div.masterGraphContainer .content-body {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  /*div.graphContainerList{
+        border: green solid 1px;
+        position: absolute;
+      }*/
 }
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default {
   width: 1000px;

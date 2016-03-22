@@ -26,6 +26,10 @@ div.masterGraphContainer{
   }
 }
 
+.pop_brdr{
+  border:solid 2px red;
+}
+
 .graphList{
   a{
     color:@dft_font_clr;
@@ -58,8 +62,10 @@ div.masterGraphContainer{
     position: relative;
 
     div.graph-container{
+  //    .pop_brdr;
+      //top: 0px;
+
       background:transparent;
-      display: inline-block;
       height: 535px;
       margin: 10px;
       width: 1000px;
@@ -67,6 +73,12 @@ div.masterGraphContainer{
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;
+
+      /*div.graphContainerList{
+        border: green solid 1px;
+        position: absolute;
+      }*/
+
       div.panel.panel-default{
         width: 1000px;
         color:@dft_font_clr;
