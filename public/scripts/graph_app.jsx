@@ -6,8 +6,11 @@ var Tooltip = require('react-d3-tooltip');
 var BarTooltip = Tooltip.BarTooltip;
 var BarChart = rd3.BarChart;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
-// var db_url = "http://52.33.14.62:3000";
+var Yati = require("yati");
 
+
+
+// var db_url = "http://52.33.14.62:3000";
 var new_title = "Placeholder!";
 var new_descrpt = "wow, this description";
 
@@ -101,7 +104,7 @@ var BarChart_Lines_Code = React.createClass({
               yTicks: yTicks};
     },loadLineCountMetricFromServer: function(){
       $.ajax({
-        url: "/problem/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        url: "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
         dataType: 'json',
         cache: false,
         success: function(data) {
@@ -1197,7 +1200,7 @@ var GraphList = React.createClass({
     // <Graph stud_name="Comment-Code Ratio" icon_type="percent"/>
     // <Graph stud_name="Comment Count" icon_type="commenting-o"/>
     // <Graph stud_name="Data Structures" icon_type="sitemap"/>
-  
+
   var graph_select = (
           <ul className="graphList nav nav-second-level">
             <Graph stud_name="Correct-Incorrect" icon_type="th-large"/>
