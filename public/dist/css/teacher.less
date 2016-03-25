@@ -105,7 +105,7 @@ div.masterGraphContainer{
             width:950px;
             magin-left:20px;
             white-space: nowrap;
-            .pop_brdr;
+            //.pop_brdr;
             position: absolute;
             text-align: center;
           }
@@ -317,10 +317,6 @@ div#wrapper > *{
 .assignment, .student{
   height: 3em;
   background: @bg_clr;
-  /*background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
-  background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e8e8e8));
-  background-image:         linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);*/
   overflow: hidden;
   border-bottom: solid 1px @gry_brdr;
 }
@@ -328,4 +324,18 @@ div#wrapper > *{
 div.navbar-default.sidebar > *{
   box-shadow: 0px 0px 0px transparent;
   /*border: red solid 1px;*/
+}
+
+div.sidebar-search{
+  //.pop_brdr;
+  background: @bg_clr;
+}
+
+div.custom-search-form {
+  //.pop_brdr;
+  span.input-group-btn {
+    top:-1px;
+    margin-top:-1px;
+    //.pop_brdr;
+  }
 }
