@@ -145,6 +145,9 @@ div.row:nth-of-type(even) {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
+#assignment_dir .panel-body form {
+  max-height: 170px;
+}
 .assignmentBox {
   margin-bottom: 30px;
 }
@@ -211,8 +214,7 @@ input[type='checkbox'] {
   padding-left: 5em;
 }
 .studentList {
-  /*  border:red solid 1px;*/
-  max-height: 240px;
+  max-height: 170px;
   border-bottom: solid 2px #ededed;
   overflow-x: hidden;
   overflow-y: scroll;

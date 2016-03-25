@@ -6,9 +6,78 @@ var Tooltip = require('react-d3-tooltip');
 var BarTooltip = Tooltip.BarTooltip;
 var BarChart = rd3.BarChart;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
-var Yati = require("yati");
 
 
+/* nvtaveras implemented this Trie Tree Implementation & this implementation is from his github */
+var Node = function(value, ends){
+  return {
+    v : value,
+    e : ends,
+    childs : {
+    }
+  };
+};
+
+var Trie = function(){
+  this.cnt = 0;
+  this.rootObj = {
+    childs : {
+    }
+  };
+};
+
+Trie.prototype.add = function(str){
+  var cur = this.rootObj;
+  for(var i = 0; i < str.length; ++i){
+    var c = str[i];
+    if(cur.childs.hasOwnProperty(c)){
+      cur = cur.childs[c];
+    }else{
+      cur = cur.childs[c] = new Node(c, (i == str.length - 1));
+    }
+  }
+  this.cnt++;
+  return true;
+};
+
+Trie.prototype.find = function(str){
+  var cur = this.rootObj;
+  var exists = true;
+  for(var i = 0; i < str.length && exists; ++i){
+    var c = str[i];
+    if(!cur.childs.hasOwnProperty(c)){
+      exists = false;
+    }
+    cur = cur.childs[c];
+  }
+  if(!exists) cur = null;
+  return cur;
+};
+
+
+Trie.prototype.explore = function(cur, str, arr){
+  var keys = Object.keys(cur.childs);
+  for(var i = 0; i < keys.length; ++i){
+    var k = keys[i];
+    var next = cur.childs[k];
+    var nstr = str + k;
+    if(next.e) arr.push(nstr);
+    arr.concat(this.explore(next, nstr, arr));
+  }
+  return arr;
+};
+
+Trie.prototype.suggestions = function(str){
+  var cur = this.find(str);
+  if(!cur) return [];
+  return this.explore(cur, str, []);
+};
+
+Trie.prototype.count = function(){
+  return this.cnt;
+};
+
+/**** End of Trie Implementation ****/
 
 // var db_url = "http://52.33.14.62:3000";
 var new_title = "Placeholder!";
@@ -852,6 +921,8 @@ var AssignmentList = React.createClass({
 
 
 /****************** Student Directory Implementation Begin ******************/
+var student_container = new Trie();
+
 var Student = React.createClass({
   rawMarkup: function(){
     // Sanitizes input from the site as a security precaution
@@ -862,7 +933,7 @@ var Student = React.createClass({
   },
   getInitialState: function(){
     // Takes control of the individual student's check boxes
-    return {check: false};
+    return {check: true};
   },
   onChange: function(e){
     var my_name = this.props.stud_name;
@@ -927,11 +998,34 @@ var StudentList = React.createClass({
 //    setInterval(this.loadStudentsFromServer, this.props.pollInterval);
   },
   render: function(){
-    var studentNodes = this.state.data.map(function(student){
-      return (
-        <Student stud_name={student.player_id}/>
-      );
-    });
+//    window.alert(this.props.searched_prefix == "");
+    var set_arr = this.state.data;
+    var studentNodes;
+    if(this.props.searched_prefix != ""){
+      set_arr = this.props.searched_prefix;
+      this.setState({data : set_arr});
+      studentNodes = set_arr.map(function(student_name){
+        var stud_node = null
+        if(student_container.find(name) == null){
+          student_container.add(student_name);
+          stud_node = (<Student stud_name={student_name}/>);
+        }
+        return stud_node;
+      });
+      window.alert(set_arr);
+    }
+    else{
+      studentNodes = set_arr.map(function(student){
+        var stud_node = null
+        name = "Student " + student.player_id;
+        if(student_container.find(name) == null){
+          student_container.add(name);
+          stud_node = (<Student stud_name={student.player_id}/>);
+        }
+        return stud_node;
+      });
+    }
+
     return (
       <div className="studentList">
         <Student stud_name={"Select All"}/>
@@ -942,6 +1036,24 @@ var StudentList = React.createClass({
 });
 
 var StudentForm = React.createClass({
+  getInitialState: function(){
+      return ({prefix: []}); // iniitially the user hasnt entered anything into the search box
+  },
+  // in the case the user clicks the search box
+  onGo: function(){
+    // Get elements of the same class results in multiple elements being grabbed, so need to specify the 0th
+    var searched = document.getElementsByClassName("form-control")[0].value;
+    this.setState({prefix:student_container.suggestions(searched)});
+    student_container = new Trie();
+/*
+
+this.state.prefix.map(function(student){
+  student_container.
+});
+
+*/
+    //window.alert(this.state.prefix); the suggested array will change after each click
+  },
   render: function(){
     return (
       <div id="assignment_dir" className="panel panel-default">
@@ -950,17 +1062,15 @@ var StudentForm = React.createClass({
                 <div className="input-group custom-search-form">
                     <input type="text" className="form-control" placeholder="Search..."></input>
                     <span className="input-group-btn">
-                      <button className="btn btn-default" type="button">
+                      <button className="btn btn-default" type="button" onClick={this.onGo}>
                           <i className="fa fa-search"></i>
                       </button>
                     </span>
                 </div>
             </div>
           <form>
-            <StudentList pollInterval={0}/>
+            <StudentList pollInterval={0} searched_prefix={this.state.prefix}/>
           </form>
-
-
         </div>
       </div>
     );
