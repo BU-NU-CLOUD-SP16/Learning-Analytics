@@ -7,7 +7,6 @@ var BarTooltip = Tooltip.BarTooltip;
 var BarChart = rd3.BarChart;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
 
-
 /* nvtaveras implemented this Trie Tree Implementation & this implementation is from his github */
 var Node = function(value, ends){
   return {
@@ -1006,17 +1005,31 @@ var StudentList = React.createClass({
     if(clicked_go == true){
       // window.alert(student_container.count());
       set_arr = this.props.searched_prefix;
+      var temp_arr = [];
+      window.alert(this.props.searched_prefix);
       // student_name is actually just the student_id string
       studentNodes = set_arr.map(function(student_name){
         var stud_node = null
-        if(student_container.find(student_name) == null){
+        // make sure the value is not already in the Trie && value is in the passed filtered array
+        if(student_container.find(student_name) == null && ($.inArray(student_name, set_arr))){
+          temp_arr.push(student_name);
           student_container.add(student_name);
           stud_node = (<Student stud_name={student_name}/>);
         }
         return stud_node;
       });
       clicked_go = false;
-      //window.alert(set_arr);
+
+    /*  // if it isnt in the array, it should be deleted - Student clean up
+      var all_studs = document.getElementsByClassName("student");
+      for(var ii = 0; ii < all_studs.length; ii++){
+        cur_stud = all_studs[ii];
+        if(!($.inArray(cur_stud.value,set_arr))){
+            var parent = document.getElementsByClassName("div.studentList");
+            parent.removeChild(cur_stud);
+        }
+      }*/
+
     }
     else{
       studentNodes = set_arr.map(function(student){
@@ -1053,18 +1066,12 @@ var StudentForm = React.createClass({
 
     // this is just for string formatting since the "Student" component of the string isnt saved in the Trie - only the id_num is
     searched = searched.substring(8,searched.length);
-
     this.setState({prefix:student_container.suggestions(searched)});
     student_container = new Trie();
     clicked_go = true;
-
-
     /*this.state.prefix.map(function(student){
       student_container.add(student);
     });*/
-
-
-    //window.alert(this.state.prefix); the suggested array will change after each click
   },
   HandleEnter: function(event){
     if(event.charCode == 13){
