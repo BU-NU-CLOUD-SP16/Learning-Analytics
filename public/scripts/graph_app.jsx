@@ -973,6 +973,7 @@ var Student = React.createClass({
   }
 });
 
+var clicked_go = false;
 var StudentList = React.createClass({
   getInitialState : function() {
       return {data: []};
@@ -996,28 +997,32 @@ var StudentList = React.createClass({
     this.loadStudentsFromServer();
     //introduces that we will need a pollInterval for the external element
 //    setInterval(this.loadStudentsFromServer, this.props.pollInterval);
+
+
   },
   render: function(){
-//    window.alert(this.props.searched_prefix == "");
     var set_arr = this.state.data;
     var studentNodes;
-    if(this.props.searched_prefix != ""){
+    if(clicked_go == true){
+      // window.alert(student_container.count());
       set_arr = this.props.searched_prefix;
-      this.setState({data : set_arr});
+      // student_name is actually just the student_id string
       studentNodes = set_arr.map(function(student_name){
         var stud_node = null
-        if(student_container.find(name) == null){
+        if(student_container.find(student_name) == null){
           student_container.add(student_name);
           stud_node = (<Student stud_name={student_name}/>);
         }
         return stud_node;
       });
-      window.alert(set_arr);
+      clicked_go = false;
+      //window.alert(set_arr);
     }
     else{
       studentNodes = set_arr.map(function(student){
         var stud_node = null
-        name = "Student " + student.player_id;
+        // only save player_id's in the Trie
+        name = student.player_id;
         if(student_container.find(name) == null){
           student_container.add(name);
           stud_node = (<Student stud_name={student.player_id}/>);
@@ -1025,6 +1030,8 @@ var StudentList = React.createClass({
         return stud_node;
       });
     }
+
+
 
     return (
       <div className="studentList">
@@ -1043,16 +1050,26 @@ var StudentForm = React.createClass({
   onGo: function(){
     // Get elements of the same class results in multiple elements being grabbed, so need to specify the 0th
     var searched = document.getElementsByClassName("form-control")[0].value;
+
+    // this is just for string formatting since the "Student" component of the string isnt saved in the Trie - only the id_num is
+    searched = searched.substring(8,searched.length);
+
     this.setState({prefix:student_container.suggestions(searched)});
     student_container = new Trie();
-/*
+    clicked_go = true;
 
-this.state.prefix.map(function(student){
-  student_container.
-});
 
-*/
+    /*this.state.prefix.map(function(student){
+      student_container.add(student);
+    });*/
+
+
     //window.alert(this.state.prefix); the suggested array will change after each click
+  },
+  HandleEnter: function(event){
+    if(event.charCode == 13){
+      $("button.btn.btn-default").click();
+    }
   },
   render: function(){
     return (
@@ -1060,7 +1077,7 @@ this.state.prefix.map(function(student){
         <div className="panel-body">
             <div className="sidebar-search">
                 <div className="input-group custom-search-form">
-                    <input type="text" className="form-control" placeholder="Search..."></input>
+                    <input type="text" className="form-control" placeholder="Search..." onKeyPress={this.HandleEnter}></input>
                     <span className="input-group-btn">
                       <button className="btn btn-default" type="button" onClick={this.onGo}>
                           <i className="fa fa-search"></i>
