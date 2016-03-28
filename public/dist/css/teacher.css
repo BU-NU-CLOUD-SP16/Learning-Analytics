@@ -89,7 +89,6 @@ div.masterGraphContainer .content-body {
   width: 950px;
   magin-left: 20px;
   white-space: nowrap;
-  border: solid 2px red;
   position: absolute;
   text-align: center;
 }
@@ -145,6 +144,9 @@ div.row:nth-of-type(even) {
 #assignment_dir .panel-heading {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
+}
+#assignment_dir .panel-body form {
+  max-height: 170px;
 }
 .assignmentBox {
   margin-bottom: 30px;
@@ -212,8 +214,7 @@ input[type='checkbox'] {
   padding-left: 5em;
 }
 .studentList {
-  /*  border:red solid 1px;*/
-  max-height: 240px;
+  max-height: 170px;
   border-bottom: solid 2px #ededed;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -264,14 +265,17 @@ div#wrapper > * {
 .student {
   height: 3em;
   background: #f8f8f8;
-  /*background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
-  background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e8e8e8));
-  background-image:         linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);*/
   overflow: hidden;
   border-bottom: solid 1px #ededed;
 }
 div.navbar-default.sidebar > * {
   box-shadow: 0px 0px 0px transparent;
   /*border: red solid 1px;*/
+}
+div.sidebar-search {
+  background: #f8f8f8;
+}
+div.custom-search-form span.input-group-btn {
+  top: -1px;
+  margin-top: -1px;
 }

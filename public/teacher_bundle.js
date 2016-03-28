@@ -58866,6 +58866,9 @@ var BarChart = rd3.BarChart;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
 // var db_url = "http://52.33.14.62:3000";
 
+var new_title = "Placeholder!";
+var new_descrpt = "wow, this description";
+
 all_graphs = [".barChart_Space_Complexity",".barChart_Time_Complexity",".barChart_Lines_Code",".barChart_Loop_Percent",".barChart_Attempt_Count",".barChart_Comment_Percent",".barChart_DataStruct_Percent",".barChart_Comment_Percent",".barChart_Size_Metric"];
 
 init_graph = ".barChart_Lines_Code";
@@ -58956,7 +58959,7 @@ var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
               yTicks: yTicks};
     },loadLineCountMetricFromServer: function(){
       $.ajax({
-        url: "/metrics/linecount",
+        url: "/problem/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
         dataType: 'json',
         cache: false,
         success: function(data) {
@@ -59518,7 +59521,7 @@ var BarChart_DataStruct_Percent = React.createClass({displayName: "BarChart_Data
 
 var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric",
     loadSizeMetricFromServer: function(){
-      $.ajax({
+      /*$.ajax({
         url: "",//"/student/metric/bins",
         dataType: 'json',
         cache: false,
@@ -59530,7 +59533,7 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
         error: function(xhr, status, err) {
           console.error(this.props.url, status, err.toString());
         }.bind(this)
-      });
+      });*/
     },
     getInitialState: function(){
       var barData = [{
@@ -59606,11 +59609,16 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
 
 /****************** Assignment Directory Implementation Begin ******************/
 
-var Assignment = React.createClass({displayName: "Assignment",
+var Assignment = React.createClass({displayName: "Assignment", //updateAssignment={this.props.updateAssignment(new_title, new_descrpt)}
+  updateAssignment: function(){
+    //this.props.updateAssignment().bind(null,this);
+    window.alert("assit");
+
+  },
   render: function(){
     return (
     React.createElement("div", {className: "assignment"}, 
-      React.createElement("button", {type: "button", className: "btn btn-primary"}, 
+      React.createElement("button", {type: "button", className: "btn btn-primary", onClick: this.props.updateAssignment}, 
         React.createElement("h5", null, 
           this.props.prob_statement + ":"
         )
@@ -59628,8 +59636,6 @@ var AssignmentBox = React.createClass({displayName: "AssignmentBox",
       dataType: 'json',
       cache: false,
       success: function(data) {
-    //    window.alert(JSON.stringify(data));
-      //  yell();
         this.setState({data: data});
       }.bind(this),
       // in the case ajax runs into an error
@@ -59642,21 +59648,25 @@ var AssignmentBox = React.createClass({displayName: "AssignmentBox",
   getInitialState: function(){
     return {data: []};
   },
-
   componentDidMount: function(){
     this.loadAssignmentsFromServer();
-    //introduces that we will need a pollInterval for the external element
-//    setInterval(this.loadAssignmentsFromServer, 3000); //this.props.pollInterval);
+    // introduces that we will need a pollInterval for the external element
+    // setInterval(this.loadAssignmentsFromServer, 3000); //this.props.pollInterval);
   },
-
+  updateAssignment: function(){
+    this.props.updateAssignment();//().bind(null,this);
+//    window.alert("assignmentBox");
+  },
   render: function(){
-
     var replac_tmp = (
         React.createElement("div", {id: "assignment_dir"}, 
           React.createElement("div", null, 
             React.createElement("div", {className: "assignmentBox"}, 
               React.createElement("div", null, 
-                React.createElement(AssignmentList, {data: this.state.data})
+                React.createElement(AssignmentList, {
+                  data: this.state.data, 
+                  updateAssignment: this.updateAssignment}
+                )
               )
             )
           )
@@ -59668,12 +59678,22 @@ var AssignmentBox = React.createClass({displayName: "AssignmentBox",
 });
 
 var AssignmentList = React.createClass({displayName: "AssignmentList",
+  updateAssignment: function(){
+    this.props.updateAssignment().bind(null,this);
+  //  yell();
+  //  window.alert("assignmentList");
+  },
   render: function(){
     // commentNodes gets the values of all the json data as a mapping for each data element
     var assignmentNodes = this.props.data.map(function(assignment){
+      var id = assignment.id;
       return (
-        React.createElement(Assignment, {prob_statement: assignment.title, key: assignment.id, description: assignment.description_html})
-      );
+        React.createElement(Assignment, {
+          prob_statement: assignment.title, 
+          key: id, 
+          description: assignment.description_html, 
+          updateAssignment: this.updateAssignment}
+        ));
     });
     return (
         React.createElement("div", {className: "assignmentList panel panel-default"}, 
@@ -59781,9 +59801,21 @@ var StudentForm = React.createClass({displayName: "StudentForm",
     return (
       React.createElement("div", {id: "assignment_dir", className: "panel panel-default"}, 
         React.createElement("div", {className: "panel-body"}, 
+            React.createElement("div", {className: "sidebar-search"}, 
+                React.createElement("div", {className: "input-group custom-search-form"}, 
+                    React.createElement("input", {type: "text", className: "form-control", placeholder: "Search..."}), 
+                    React.createElement("span", {className: "input-group-btn"}, 
+                      React.createElement("button", {className: "btn btn-default", type: "button"}, 
+                          React.createElement("i", {className: "fa fa-search"})
+                      )
+                    )
+                )
+            ), 
           React.createElement("form", null, 
             React.createElement(StudentList, {pollInterval: 0})
           )
+
+
         )
       )
     );
@@ -60017,22 +60049,24 @@ var Graph = React.createClass({displayName: "Graph",
 /* GraphList Begins*/
 var GraphList = React.createClass({displayName: "GraphList",
   render: function(){
+
+    // cut out <Graph stud_name="Clusters" icon_type="dot-circle-o"/>
+    // <Graph stud_name="Statistics" icon_type="pie-chart"/>
+    // <Graph stud_name="Comment-Code Ratio" icon_type="percent"/>
+    // <Graph stud_name="Comment Count" icon_type="commenting-o"/>
+    // <Graph stud_name="Data Structures" icon_type="sitemap"/>
+  
   var graph_select = (
           React.createElement("ul", {className: "graphList nav nav-second-level"}, 
+            React.createElement(Graph, {stud_name: "Correct-Incorrect", icon_type: "th-large"}), 
             React.createElement(Graph, {stud_name: "Space Complexity", icon_type: "database"}), 
             React.createElement(Graph, {stud_name: "Time Complexity", icon_type: "clock-o"}), 
             React.createElement(Graph, {stud_name: "Number of Lines", icon_type: "align-justify"}), 
             React.createElement(Graph, {stud_name: "Class Rank", icon_type: "bar-chart"}), 
             React.createElement(Graph, {stud_name: "Loop Counter", icon_type: "circle-o-notch"}), 
             React.createElement(Graph, {stud_name: "Attempt Count", icon_type: "repeat"}), 
-            React.createElement(Graph, {stud_name: "Comment Count", icon_type: "commenting-o"}), 
-            React.createElement(Graph, {stud_name: "Data Structures", icon_type: "sitemap"}), 
             React.createElement(Graph, {stud_name: "Nested Loop Count", icon_type: "align-left"}), 
-            React.createElement(Graph, {stud_name: "Comment-Code Ratio", icon_type: "percent"}), 
-            React.createElement(Graph, {stud_name: "Clusters", icon_type: "dot-circle-o"}), 
             React.createElement(Graph, {stud_name: "Popular Functions", icon_type: "sign-in"}), 
-            React.createElement(Graph, {stud_name: "Statistics", icon_type: "pie-chart"}), 
-            React.createElement(Graph, {stud_name: "Total Submissions", icon_type: "th-large"}), 
             React.createElement(Graph, {stud_name: "Size Metric", icon_type: "file-text"})
           )
     );
@@ -60063,24 +60097,27 @@ var GraphForm = React.createClass({displayName: "GraphForm",
 
 /****************** Main Begin ******************/
 var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer",
+  getInitialState: function(){
+    return {title: "Welcome", description: "Pick an assignment and then a graph to see your learning analytics!"};
+  },
+  assignmentChosen: function(){
+    this.setState({title:new_title,description:new_descrpt});
+  },
   componentDidMount: function(){
   },
   render:function(){
     return (
       React.createElement("div", {className: "masterGraphContainer"}, 
         React.createElement("div", {className: "content-toolbar"}
-
         ), 
         React.createElement("div", {className: "content-body"}, 
           React.createElement("div", {className: "col-md-2"}, 
             React.createElement("div", {className: "property-container"}, 
-
-
               React.createElement("div", {id: "wrapper"}, 
                 React.createElement("nav", {className: "navbar", role: "navigation"}, 
                   React.createElement("div", {className: "description-box"}, 
-                    React.createElement("h1", null, "Welcome"), 
-                    React.createElement("p", null, "Pick an assignment and then a graph to see your learning analytics!")
+                    React.createElement("h1", null, this.state.title), 
+                    React.createElement("p", null, this.state.description)
                   ), 
                   React.createElement("div", {className: "navbar-default sidebar", role: "navigation"}, 
                     React.createElement("div", {className: "sidebar-nav navbar-collapse"}, 
@@ -60093,13 +60130,13 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
                             React.createElement("a", {href: "#"}, React.createElement("i", {className: "fa fa-book fa-fw"}), " Assignments", React.createElement("span", {className: "fa arrow"})), 
                             React.createElement("ul", {className: "nav nav-second-level"}, 
                                 React.createElement("li", null, 
-                                  React.createElement(AssignmentBox, {url: "/assignments", pollInterval: 2000})
+                                  React.createElement(AssignmentBox, {url: "/assignments", pollInterval: 2000, updateAssignment: this.assignmentChosen})
                                 )
                             )
                         ), 
                         React.createElement("li", {className: "col-md-12"}, 
                           React.createElement("a", {href: "#"}, React.createElement("i", {className: "fa fa-user fa-fw"}), " Students", React.createElement("span", {className: "fa arrow"})), 
-                          React.createElement("ul", {className: "nav nav-second-level", style: {"min-height": "250px"}}, 
+                          React.createElement("ul", {className: "nav nav-second-level", style: {"minHeight": "250px"}}, 
                             React.createElement("li", null, 
                                 React.createElement(StudentForm, null)
                             )
@@ -60130,14 +60167,11 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
 ReactDOM.render(React.createElement(MasterGraphContainer, null), document.getElementById('content'));
 
 // Intitially Set the Graph to be hidden so the user can pick one
-//$(graph_tag).hide();
-
 $(".graph-container").offset({top: 60});
 
 all_graphs.map(function(graph_type){
   $("div" + graph_type).hide();
-  //$("div.graphContainerList").hide();
-  //window.alert("hiding " + graph_type);
 });
 
 },{"react":459,"react-d3":120,"react-d3-tooltip":13,"react-dom":303}]},{},[460]);
+0]);

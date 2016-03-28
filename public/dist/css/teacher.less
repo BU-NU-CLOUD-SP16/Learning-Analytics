@@ -5,7 +5,7 @@
 @gry_brdr:rgb(237,237,237);
 @blue:rgb(50,119,178);
 @blue_drk:rgb(15, 89, 153);
-
+@stud_list_h: 170px;
 
 div.masterGraphContainer{
   background: rgb(252,252,252);
@@ -105,7 +105,7 @@ div.masterGraphContainer{
             width:950px;
             magin-left:20px;
             white-space: nowrap;
-            .pop_brdr;
+            //.pop_brdr;
             position: absolute;
             text-align: center;
           }
@@ -167,6 +167,12 @@ div.masterGraphContainer{
        border-bottom-right-radius: 0px;
    }
    border:transparent solid 0px;
+   .panel-body{
+     form{
+      // .pop_brdr;
+       max-height: @stud_list_h;
+     }
+   }
 }
 
 .assignmentBox{
@@ -253,11 +259,9 @@ input {
   }
 }
 
-
-
 .studentList{
-/*  border:red solid 1px;*/
-  max-height: 240px;
+  //.pop_brdr;
+  max-height: @stud_list_h;
   border-bottom: solid 2px @gry_brdr;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -317,10 +321,6 @@ div#wrapper > *{
 .assignment, .student{
   height: 3em;
   background: @bg_clr;
-  /*background-image: -webkit-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
-  background-image:      -o-linear-gradient(top, #f5f5f5 0%, #e8e8e8 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#e8e8e8));
-  background-image:         linear-gradient(to bottom, #f5f5f5 0%, #e8e8e8 100%);*/
   overflow: hidden;
   border-bottom: solid 1px @gry_brdr;
 }
@@ -328,4 +328,18 @@ div#wrapper > *{
 div.navbar-default.sidebar > *{
   box-shadow: 0px 0px 0px transparent;
   /*border: red solid 1px;*/
+}
+
+div.sidebar-search{
+  //.pop_brdr;
+  background: @bg_clr;
+}
+
+div.custom-search-form {
+  //.pop_brdr;
+  span.input-group-btn {
+    top:-1px;
+    margin-top:-1px;
+    //.pop_brdr;
+  }
 }
