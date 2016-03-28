@@ -3,7 +3,7 @@ module.exports = function(app, databaseConn) {
     // Return all info about all problems
     app.get('/problem', function(req, res) {
       var problem_id = req.params.problem_id;
-      databaseConn.query('SELECT title, id FROM problem ORDER BY created_at DESC LIMIT 10;', function (err, problems){
+      databaseConn.query('SELECT title, id, description_html FROM problem ORDER BY created_at DESC LIMIT 10;', function (err, problems){
         if(err) {
           console.log(err);
           res.status(500).send({status:500, message: 'internal error', type:'internal'});
