@@ -5,6 +5,8 @@ var rd3 = require('react-d3');
 var Tooltip = require('react-d3-tooltip');
 var BarTooltip = Tooltip.BarTooltip;
 var BarChart = rd3.BarChart;
+var PieChart = rd3.PieChart;
+var PieTooltip = Tooltip.PieTooltip;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
 // var db_url = "http://52.33.14.62:3000";
 
@@ -279,65 +281,38 @@ var BarChart_Comment_Percent = React.createClass({
 });
 
 var BarChart_Attempt_Count = React.createClass({
-    getInitialState : function() {
-        var barData = [{
-          "name":"Class A",
-          "values":[
-            {"x": 'A', "y": 1},
-            {"x": 'B', "y": 2},
-            {"x": 'C', "y": 1},
-            {"x": 'D', "y": 0},
-            {"x": 'E', "y": 3},
-            {"x": 'F', "y": 5},
-            {"x": 'G', "y": 7},
-            {"x": 'H', "y": 3},
-            {"x": 'I', "y": 2},
-            {"x": 'J', "y": 4},
-            {"x": 'K', "y": 4},
-            {"x": 'L', "y": 1},
-            {"x": 'M', "y": 1},
-            {"x": 'N', "y": 4},
-            {"x": 'O', "y": 6},
-            {"x": 'P', "y": 2},
-            {"x": 'Q', "y": 1},
-            {"x": 'R', "y": 2},
-            {"x": 'S', "y": 2},
-            {"x": 'T', "y": 5},
-            {"x": 'U', "y": 4},
-            {"x": 'V', "y": 3},
-            {"x": 'W', "y": 5},
-            {"x": 'X', "y": 2},
-            {"x": 'Y', "y": 1},
-            {"x": 'Z', "y": 1}
-          ]}
-        ];
-        return {barData: barData};
-    },
     render: function() {
+
+var pieData = [
+  {label: 'Correct', value: 55.0},
+  {label: 'Incorrect', value: 45.0}
+];
+
         return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
-                  <div className="barChart_Attempt_Count">
+                  <div className="barChart_Loop_Count">
                     <div className="panel panel-default">
-                        <div className="panel-heading">
-                          <h3>
-                    		    Number of Attempts
-                          </h3>
-                          <div className="graph-x" onClick={hide}>
-                            <i className="fa fa-times"></i>
-                          </div>
+                      <div className="panel-heading">
+                        <h3>
+                          Submissions
+                        </h3>
+                        <div className="graph-x" onClick={hide}>
+                          <i className="fa fa-times"></i>
                         </div>
-                        <BarChart
-                          data={this.state.barData}
-                          width={1000}
-                          height={490}
-                          fill={'#8a5715'}
-                          title=''
-                          margins={{top: 20, right: 30, bottom: 30, left: 40}}
-                        />
-                        </div>
-                       </div>
-                     </div>
-                   </div>);
+                      </div>
+			<PieChart
+			  data={pieData}
+			  width={400}
+			  height={400}
+			  radius={100}
+			  innerRadius={20}
+			  sectorBorderColor="white"
+			  //title="Pie Chart"
+			/>
+                    </div>
+                   </div>
+                 </div>
+               </div>);
     }
 });
 
@@ -670,7 +645,7 @@ var BarChart_Size_Metric = React.createClass({
         }.bind(this),
         // in the case ajax runs into an error
         error: function(xhr, status, err) {
-          console.error(this.props.url, status, err.toString());
+          //console.error(this.props.url, status, err.toString());
         }.bind(this)
       });
     },
