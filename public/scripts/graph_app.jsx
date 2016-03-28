@@ -364,7 +364,7 @@ var pieData = [
 
         return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
-                  <div className="barChart_Loop_Count">
+                  <div className="barChart_Attempt_Count">
                     <div className="panel panel-default">
                       <div className="panel-heading">
                         <h3>
