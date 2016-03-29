@@ -174,7 +174,7 @@ var BarChart_Lines_Code = React.createClass({
               yTicks: yTicks};
     },loadLineCountMetricFromServer: function(){
       $.ajax({
-        url: "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        url: "/problem/470/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
         dataType: 'json',
         cache: false,
         success: function(data) {
