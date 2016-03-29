@@ -81,7 +81,8 @@ module.exports = function(app, databaseConn){
         } else if (req.params.metric == "submissions"){
             //databaseConn.query('SELECT player_id, COUNT(correct) FROM solution WHERE correct=1 AND problem_id=' + req.params.problem_id + ' GROUP BY player_id;',
             //databaseConn.query('SELECT COUNT(*) count FROM solution WHERE correct=1 AND problem_id=' + req.params.problem_id + ';',
-            databaseConn.query('SELECT player_id, COUNT(correct) correct FROM solution WHERE problem_id=' + req.params.problem_id + ' GROUP BY player_id;',
+            //databaseConn.query('SELECT player_id, COUNT(correct) correct FROM solution WHERE problem_id=' + req.params.problem_id + ' GROUP BY player_id;',
+            databaseConn.query('SELECT COUNT(*) total, COUNT(CASE WHEN correct=1 THEN 1 END) correct FROM solution WHERE problem_id=' + req.params.problem_id + ' GROUP BY player_id;',    
                 function (err, rows){
                 if(err) {
                     console.log(err);
