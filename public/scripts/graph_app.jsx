@@ -362,6 +362,14 @@ var pieData = [
   {label: 'Incorrect', value: 45.0}
 ];
 
+var colorFunction = function(d) {
+  if (d == 0) {
+    return "rgb(108,208,87)";
+  } else {
+    return "red";
+  }
+};
+
         return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
                   <div className="pieChart_Attempt_Count">
@@ -379,6 +387,7 @@ var pieData = [
 			  width={1000}
 			  height={500}
 			  radius={200}
+			  colors={colorFunction}
 			  innerRadius={60}
 			  sectorBorderColor="white"
 			  //title="Pie Chart"
