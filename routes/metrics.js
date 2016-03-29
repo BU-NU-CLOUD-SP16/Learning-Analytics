@@ -32,13 +32,36 @@ function countToBarChart(lineArray){
     return barData;
 }
 
+function submissionToBarChart(submissionArray){
+    var correctCount = 0, incorrectCount = 0;
+    var correctPercent = 0.0, incorrectPercent = 0.0;
+
+    for (var i = 0; i < submissionArray.length; i++){
+        if (submissionArray[i].correct > 0) {
+            correctCount++;
+        } else {
+            incorrectCount++;
+        }
+    }
+
+    correctPercent = 100 * correctCount/(correctCount+incorrectCount);
+    incorrectPercent = 100 - correctPercent;
+
+    var submissionData = [
+        {"label": 'correct', "value": (correctPercent).toFixed(2)},
+        {"label": 'incorrect', "value": (incorrectPercent).toFixed(2)},
+        ];
+
+    return submissionData;
+}
+
 
 module.exports = function(app, databaseConn){
     
-    app.get('/metrics/:metric', function(req, res) {
+    app.get('/problem/:problem_id/metrics/:metric', function(req, res) {
         
         if(req.params.metric == "linecount"){
-            databaseConn.query('SELECT linecount FROM solution_metrics;',
+            databaseConn.query('SELECT linecount FROM solution_metrics;', //WHERE problem_id = ' + req.params.problem_id,
                 function (err, rows){
                 if(err) {
                     console.log(err);
@@ -55,7 +78,24 @@ module.exports = function(app, databaseConn){
                     res.send(countToBarChart(linecounts));
                 }
             });
-        } else res.sendStatus(404);
+        } else if (req.params.metric == "submissions"){
+            //databaseConn.query('SELECT player_id, COUNT(correct) FROM solution WHERE correct=1 AND problem_id=' + req.params.problem_id + ' GROUP BY player_id;',
+            //databaseConn.query('SELECT COUNT(*) count FROM solution WHERE correct=1 AND problem_id=' + req.params.problem_id + ';',
+            databaseConn.query('SELECT player_id, COUNT(correct) correct FROM solution WHERE problem_id=' + req.params.problem_id + ' GROUP BY player_id;',
+                function (err, rows){
+                if(err) {
+                    console.log(err);
+                    res.status(500).send({
+                        status:500,
+                        message: 'internal error',
+                        type: 'internal'
+                    });
+                } else {
+                    res.send(submissionToBarChart(rows));
+                }
+            });
+        }
+        else res.sendStatus(404);
     });
 };
 

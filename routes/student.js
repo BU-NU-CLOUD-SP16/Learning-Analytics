@@ -15,7 +15,15 @@ app.get('/student', function (req, res) {
 
 app.get('/student/:id', function (req, res) {
 	console.log('Request for information about a particular student');
-	res.send('It worked');
+	databaseConn.query('SELECT * FROM solution WHERE player_id=' + req.params.id, function (err, rows){
+		if(err) {
+          		console.log(err);
+         		res.status(500).send({status:500, message: 'internal error', type:'internal'});
+    	} else {
+    		console.log('Data received from DB');
+			res.send(rows);
+		}
+    });
 });
 
 /*app.get('/student/:id/:metric', function (req, res) {
