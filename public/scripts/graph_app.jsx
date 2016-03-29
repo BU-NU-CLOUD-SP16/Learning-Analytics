@@ -355,20 +355,44 @@ var BarChart_Comment_Percent = React.createClass({
 });
 
 var PieChart_Attempt_Count = React.createClass({
-    render: function() {
-
+getInitialState : function() {
     var pieData = [
       {label: 'Correct', value: 55.0},
       {label: 'Incorrect', value: 45.0}
     ];
 
-var colorFunction = function(d) {
-  if (d == 0) {
-    return "rgb(108,208,87)";
-  } else {
-    return "red";
-  }
-};
+    var colorFunction = function(d) {
+      if (d == 0) {
+        return "rgb(108,208,87)";
+      } else {
+        return "red";
+      }
+    };
+
+    return {pieData: pieData,
+            colorFunction: colorFunction};
+}, loadSubmissionDataFromServer: function(){
+      $.ajax({
+        url: "/problem/470/metrics/submissions", 
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          var loaded_pieData = data;
+          this.setState({pieData: loaded_pieData});
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.loadSubmissionDataFromServer();
+      //introduces that we will need a pollInterval for the external element
+      setInterval(300);
+    },
+
+    render: function() {
 
         return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
@@ -383,11 +407,11 @@ var colorFunction = function(d) {
                         </div>
                       </div>
 			<PieChart
-			  data={pieData}
+			  data={this.state.pieData}
 			  width={1000}
 			  height={500}
 			  radius={200}
-			  colors={colorFunction}
+			  colors={this.state.colorFunction}
 			  innerRadius={60}
 			  sectorBorderColor="white"
 			  //title="Pie Chart"
@@ -829,7 +853,7 @@ var Assignment = React.createClass({ //updateAssignment={this.props.updateAssign
 var AssignmentBox = React.createClass({
   loadAssignmentsFromServer: function(){
     $.ajax({
-      url: "/problems",
+      url: "/problem",
       dataType: 'json',
       cache: false,
       success: function(data) {
@@ -838,7 +862,7 @@ var AssignmentBox = React.createClass({
       // in the case ajax runs into an error
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
-        window.alert("fail");
+        window.alert("load assignments fail");
       }.bind(this)
     });
   },
