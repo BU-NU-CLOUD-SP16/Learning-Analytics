@@ -86,7 +86,7 @@ var new_descrpt = "wow, this description";
 
 all_graphs = [".barChart_Space_Complexity",".barChart_Time_Complexity",".barChart_Lines_Code",".barChart_Loop_Percent",".pieChart_Attempt_Count",".barChart_Comment_Percent",".barChart_DataStruct_Percent",".barChart_Comment_Percent",".barChart_Size_Metric"];
 
-init_graph = ".barChart_Lines_Code";
+init_graph = ".pieChart_Attempt_Count";
 
 // Should set these to default values
 var active_graph = init_graph;
@@ -357,10 +357,10 @@ var BarChart_Comment_Percent = React.createClass({
 var PieChart_Attempt_Count = React.createClass({
     render: function() {
 
-var pieData = [
-  {label: 'Correct', value: 55.0},
-  {label: 'Incorrect', value: 45.0}
-];
+    var pieData = [
+      {label: 'Correct', value: 55.0},
+      {label: 'Incorrect', value: 45.0}
+    ];
 
         return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
@@ -1091,25 +1091,6 @@ var GraphContainerList = React.createClass({
     //this.setState({current_graph: active_graph}); //this.senseClick();
   },
   render: function(){
-    /*
-
-    HERE HERE
-
-    */
-        // To test a graph, change this varible for the initial view (this is for testing purposes)
-    /*
-
-    <BarChart_Lines_Code/>
-    <BarChart_Space_Complexity/>
-    <BarChart_Time_Complexity/>
-    <BarChart_Lines_Code/>
-    <BarChart_Loop_Percent/>
-    <PieChart_Attempt_Count/>
-    <BarChart_DataStruct_Percent/>
-    <BarChart_Comment_Percent/>
-    <BarChart_Size_Metric/>
-
-    */
   //  yell();
     return (
     <div>
@@ -1124,84 +1105,6 @@ var GraphContainerList = React.createClass({
       <BarChart_Size_Metric/>
     </div>
     );
-
-
-
-    /*var curr_graph;
-
-    switch(this.state.current_graph){
-      case("Space Complexity"):{
-        curr_graph = (<BarChart_Space_Complexity/>);
-        break;
-      }
-      case("Time Complexity"):{
-        curr_graph = (<BarChart_Time_Complexity/>);
-        break;
-      }
-      case("Number of Lines"):{
-        curr_graph = (<BarChart_Lines_Code/>);
-        break;
-      }
-      case("Class Rank"):{
-
-        break;
-      }
-      case("Loop Counter"):{
-        curr_graph = (<BarChart_Loop_Percent/>);
-        break;
-      }
-      case("Attempt Count"):{
-        curr_graph = (<PieChart_Attempt_Count/>);
-        break;
-      }
-      case("Comment Count"):{
-
-        break;
-      }
-      case("Data Structures"):{
-        curr_graph = (<BarChart_DataStruct_Percent/>);
-        break;
-      }
-      case("Nested Loop Count"):{
-
-        break;
-      }
-      case("Comment-Code Ratio"):{
-        curr_graph = (<BarChart_Comment_Percent/>);
-
-        break;
-      }
-      case("Clusters"):{
-
-        break;
-      }
-      case("Popular Functions"):{
-
-        break;
-      }
-      case("Statistics"):{
-
-        break;
-      }
-      case("Total Submissions"):{
-
-        break;
-      }
-      case("Size Metric"):{
-        curr_graph = (<BarChart_Size_Metric/>);
-        break;
-      }
-      default:{
-        // do nothing
-        curr_graph = (<BarChart_Lines_Code/>);
-        break;
-      }
-
-    }*/
-
-     //yell();
-
-  //  return curr_graph;
   }
 });
 /****************** Graph Directory End ******************/
@@ -1407,6 +1310,7 @@ var MasterGraphContainer = React.createClass({
             <div className="content-container">
               <div className="all-graph">
                   <GraphContainerList/>
+
               </div>
             </div>
           </div>
@@ -1423,6 +1327,10 @@ ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content'));
 // Intitially Set the Graph to be hidden so the user can pick one
 $(".graph-container").offset({top: 60});
 
+// this hides all graphs
 all_graphs.map(function(graph_type){
   $("div" + graph_type).hide();
 });
+
+// initially show the active graph
+show();
