@@ -981,7 +981,7 @@ var StudentList = React.createClass({
       // window.alert(student_container.count());
       set_arr = this.props.searched_prefix;
       var temp_arr = [];
-      window.alert(this.props.searched_prefix);
+//      window.alert(this.props.searched_prefix);
       // student_name is actually just the student_id string
       studentNodes = set_arr.map(function(student_name){
         var stud_node = null
