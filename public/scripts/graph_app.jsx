@@ -84,7 +84,7 @@ Trie.prototype.count = function(){
 var new_title = "Placeholder!";
 var new_descrpt = "wow, this description";
 
-all_graphs = [".barChart_Space_Complexity",".barChart_Time_Complexity",".barChart_Lines_Code",".barChart_Loop_Percent",".barChart_Attempt_Count",".barChart_Comment_Percent",".barChart_DataStruct_Percent",".barChart_Comment_Percent",".barChart_Size_Metric"];
+all_graphs = [".barChart_Space_Complexity",".barChart_Time_Complexity",".barChart_Lines_Code",".barChart_Loop_Percent",".pieChart_Attempt_Count",".barChart_Comment_Percent",".barChart_DataStruct_Percent",".barChart_Comment_Percent",".barChart_Size_Metric"];
 
 init_graph = ".barChart_Lines_Code";
 
@@ -354,7 +354,7 @@ var BarChart_Comment_Percent = React.createClass({
     }
 });
 
-var BarChart_Attempt_Count = React.createClass({
+var PieChart_Attempt_Count = React.createClass({
     render: function() {
 
 var pieData = [
@@ -364,7 +364,7 @@ var pieData = [
 
         return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
-                  <div className="barChart_Attempt_Count">
+                  <div className="pieChart_Attempt_Count">
                     <div className="panel panel-default">
                       <div className="panel-heading">
                         <h3>
@@ -376,10 +376,10 @@ var pieData = [
                       </div>
 			<PieChart
 			  data={pieData}
-			  width={400}
-			  height={400}
-			  radius={100}
-			  innerRadius={20}
+			  width={1000}
+			  height={500}
+			  radius={200}
+			  innerRadius={60}
 			  sectorBorderColor="white"
 			  //title="Pie Chart"
 			/>
@@ -1104,7 +1104,7 @@ var GraphContainerList = React.createClass({
     <BarChart_Time_Complexity/>
     <BarChart_Lines_Code/>
     <BarChart_Loop_Percent/>
-    <BarChart_Attempt_Count/>
+    <PieChart_Attempt_Count/>
     <BarChart_DataStruct_Percent/>
     <BarChart_Comment_Percent/>
     <BarChart_Size_Metric/>
@@ -1118,7 +1118,7 @@ var GraphContainerList = React.createClass({
       <BarChart_Time_Complexity/>
       <BarChart_Lines_Code/>
       <BarChart_Loop_Percent/>
-      <BarChart_Attempt_Count/>
+      <PieChart_Attempt_Count/>
       <BarChart_DataStruct_Percent/>
       <BarChart_Comment_Percent/>
       <BarChart_Size_Metric/>
@@ -1151,7 +1151,7 @@ var GraphContainerList = React.createClass({
         break;
       }
       case("Attempt Count"):{
-        curr_graph = (<BarChart_Attempt_Count/>);
+        curr_graph = (<PieChart_Attempt_Count/>);
         break;
       }
       case("Comment Count"):{
@@ -1240,7 +1240,7 @@ var Graph = React.createClass({
         break;
       }
       case("Attempt Count"):{
-          graph_tag = ".barChart_Attempt_Count";
+          graph_tag = ".pieChart_Attempt_Count";
         break;
       }
       case("Comment Count"):{
