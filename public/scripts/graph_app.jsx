@@ -92,8 +92,11 @@ init_graph = ".pieChart_Incorrect_Correct";
 var active_graph = init_graph;
 var graph_tag = init_graph;
 var active_assignment = "556";
-var graph_widths = 1000;
-var graph_heights = 490;
+var graph_widths = 1000; //250; //500;  // 1000;
+var graph_heights = 480; //123; //245; // 490;
+
+var graph_R = Math.round(graph_heights/3);
+var graph_r = 20;
 
 // test functionality for couting
 var yell = function(){
@@ -387,7 +390,7 @@ var PieChart_Incorrect_Correct = React.createClass({
           console.error(this.props.url, status, err.toString());
         }.bind(this)
       });
-      
+
     },
     componentDidMount: function(){
       this.loadSubmissionDataFromServer();
@@ -417,9 +420,9 @@ var PieChart_Incorrect_Correct = React.createClass({
                   			  data={this.state.pieData}
                   			  width={graph_widths}
                   			  height={graph_heights}
-                  			  radius={200}
+                  			  radius={graph_R}
                   			  colors={this.state.colorFunction}
-                  			  innerRadius={60}
+                  			  innerRadius={graph_r}
                   			  sectorBorderColor="white"
                   			  //title="Pie Chart"
                   			/>
@@ -1250,6 +1253,15 @@ var Activity_Panel = React.createClass({
     <div className=".activity_Panel">
       <div className="col-md-10">
         <div className="content-container">
+          <div className="assignment_Description">
+            <h4>
+              Selected Assignment:
+            </h4>
+            <h4>
+              <span>Stuff the Board</span>
+            </h4>
+            <p> This is the stub for the Assignment Description</p>
+          </div>
           <div className="all-graph">
               <GraphContainerList act_assign={this.props.act_assign}/>
           </div>
@@ -1481,7 +1493,7 @@ var MasterGraphContainer = React.createClass({
 ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content'));
 
 // Intitially Set the Graph to be hidden so the user can pick one
-$(".graph-container").offset({top: 60});
+$(".graph-container").offset({top: 127});
 
 // this hides all graphs
 all_graphs.map(function(graph_type){

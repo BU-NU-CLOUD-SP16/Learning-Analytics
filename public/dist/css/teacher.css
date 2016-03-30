@@ -46,6 +46,27 @@ div.masterGraphContainer .content-body {
   overflow: hidden;
   background: white;
 }
+.col-md-10 .content-container div.assignment_Description {
+  background: #f8f8f8;
+  border-radius: 2px;
+  border: #3277b2 solid 1px;
+  width: 1000px;
+  margin-left: 8px;
+  margin-top: 9px;
+}
+.col-md-10 .content-container div.assignment_Description span {
+  color: #0f5999;
+  font-style: italic;
+}
+.col-md-10 .content-container div.assignment_Description h4 {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 10px;
+  color: black;
+}
+.col-md-10 .content-container div.assignment_Description p {
+  margin-left: 10px;
+}
 .col-md-10 .content-container .all-graph {
   position: relative;
 }
@@ -58,17 +79,7 @@ div.masterGraphContainer .content-body {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  /*div.graphContainerList{
-        border: green solid 1px;
-        position: absolute;
-      }*/
-  /*
-      div.panel-heading{
-        h3{
-
-
-        }
-      }*/
+  margin-left: -7px;
 }
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default {
   width: 1000px;

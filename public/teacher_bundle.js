@@ -58950,8 +58950,11 @@ init_graph = ".pieChart_Incorrect_Correct";
 var active_graph = init_graph;
 var graph_tag = init_graph;
 var active_assignment = "556";
-var graph_widths = 1000;
-var graph_heights = 490;
+var graph_widths = 1000; //250; //500;  // 1000;
+var graph_heights = 480; //123; //245; // 490;
+
+var graph_R = Math.round(graph_heights/3);
+var graph_r = 20;
 
 // test functionality for couting
 var yell = function(){
@@ -59245,7 +59248,7 @@ var PieChart_Incorrect_Correct = React.createClass({displayName: "PieChart_Incor
           console.error(this.props.url, status, err.toString());
         }.bind(this)
       });
-      
+
     },
     componentDidMount: function(){
       this.loadSubmissionDataFromServer();
@@ -59275,9 +59278,9 @@ var PieChart_Incorrect_Correct = React.createClass({displayName: "PieChart_Incor
                   			  data: this.state.pieData, 
                   			  width: graph_widths, 
                   			  height: graph_heights, 
-                  			  radius: 200, 
+                  			  radius: graph_R, 
                   			  colors: this.state.colorFunction, 
-                  			  innerRadius: 60, 
+                  			  innerRadius: graph_r, 
                   			  sectorBorderColor: "white"}
                   			  //title="Pie Chart"
                   			)
@@ -60108,6 +60111,15 @@ var Activity_Panel = React.createClass({displayName: "Activity_Panel",
     React.createElement("div", {className: ".activity_Panel"}, 
       React.createElement("div", {className: "col-md-10"}, 
         React.createElement("div", {className: "content-container"}, 
+          React.createElement("div", {className: "assignment_Description"}, 
+            React.createElement("h4", null, 
+              "Selected Assignment:"
+            ), 
+            React.createElement("h4", null, 
+              React.createElement("span", null, "Stuff the Board")
+            ), 
+            React.createElement("p", null, " This is the stub for the Assignment Description")
+          ), 
           React.createElement("div", {className: "all-graph"}, 
               React.createElement(GraphContainerList, {act_assign: this.props.act_assign})
           )
@@ -60339,7 +60351,7 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
 ReactDOM.render(React.createElement(MasterGraphContainer, null), document.getElementById('content'));
 
 // Intitially Set the Graph to be hidden so the user can pick one
-$(".graph-container").offset({top: 60});
+$(".graph-container").offset({top: 127});
 
 // this hides all graphs
 all_graphs.map(function(graph_type){
