@@ -58,6 +58,76 @@ div.masterGraphContainer{
 .col-md-10 .content-container{
   overflow: hidden;
   background: white;
+  & > *{
+    display:inline-block;
+    vertical-align: top;
+  }
+  div.assignment_Flags{
+    margin-left: 8px;
+    margin-top: 9px;
+
+    div.alert{
+      height: 75px;
+      width: 495px;
+      padding-left:0px;
+      padding-top:0px;
+      span{
+        color: rgb(173, 162, 14);
+        font-style: italic;
+      }
+      h4{
+          display:inline-block;
+          margin-left: 10px;
+          margin-top: 10px;
+          color:black;
+      }
+      p{
+        margin-left: 10px;
+      }
+    }
+  }
+
+  div.assignment_Description{
+    background: @bg_clr;
+    border-radius: 2px;
+    border: @blue solid 1px;
+    width:495px;
+    margin-left: 8px;
+    margin-top: 9px;
+    span{
+      color: @blue_drk;
+      font-style: italic;
+    }
+    h4{
+        display:inline-block;
+        margin-left: 10px;
+        margin-top: 10px;
+        color:black;
+    }
+    p{
+      margin-left: 10px;
+    }
+    div.submission_counter-container{
+      border-bottom: @blue solid 1px;
+      border-left: @blue solid 1px;
+      background: @blue;
+      margin: 0px;
+      width: 115px;
+      height:25px;
+      position: relative;
+      float:right;
+      h7{
+        position: absolute;
+        color: white;
+        padding-left: 2px;
+        padding-top: 2px;
+
+        //.pop_brdr;
+      }
+    }
+  }
+
+
   .all-graph{
     position: relative;
 
@@ -74,17 +144,8 @@ div.masterGraphContainer{
       background-size: contain;
       background-position: center;
 
-      /*div.graphContainerList{
-        border: green solid 1px;
-        position: absolute;
-      }*/
-/*
-      div.panel-heading{
-        h3{
-
-
-        }
-      }*/
+      //.pop_brdr;
+      margin-left: -7px;
 
       div.panel.panel-default{
         width: 1000px;
@@ -312,6 +373,15 @@ div.description-box {
     //font-weight: bold;
     color:@dft_font_clr;
   }
+  div.fb-container{
+    top:0px;
+    position: absolute;
+    right:0px;
+    margin-right: -1px;
+    margin-top: -1px;
+  }
+
+
 }
 
 div#wrapper > *{
@@ -343,3 +413,10 @@ div.custom-search-form {
     //.pop_brdr;
   }
 }
+
+/*
+div.activity_Panel{
+  border:solid 100px green;
+  height:10px;
+  width:10px;
+}*/
