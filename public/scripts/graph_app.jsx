@@ -86,7 +86,8 @@ var new_descrpt = "wow, this description";
 
 all_graphs = [".barChart_Space_Complexity",".barChart_Time_Complexity",".barChart_Lines_Code",".barChart_Loop_Percent",".pieChart_Attempt_Count",".barChart_Comment_Percent",".barChart_DataStruct_Percent",".barChart_Comment_Percent",".barChart_Size_Metric"];
 
-init_graph = ".pieChart_Attempt_Count";
+/*init_graph = ".pieChart_Attempt_Count";*/
+init_graph = "";
 
 // Should set these to default values
 var active_graph = init_graph;
@@ -100,15 +101,15 @@ var yell = function(){
 
 // function for hiding current graph
 var hide = function(){
-  $(active_graph).fadeOut(); // this needs to be changed to hide the current graph no matter which it is
+  //$(active_graph).fadeOut(); // this needs to be changed to hide the current graph no matter which it i
 }
 
 var show = function(){
   if(active_graph != graph_tag){
-    hide();
+    //hide();
   }
 
-  $(graph_tag).fadeIn(); // this needs to be changed to hide the current graph no matter which it is
+  //$(graph_tag).fadeIn(); // this needs to be changed to hide the current graph no matter which it is
   //window.alert($(graph_tag).offset().top);
   active_graph = graph_tag;
 }
@@ -741,6 +742,10 @@ var BarChart_DataStruct_Percent = React.createClass({
 });
 
 var BarChart_Size_Metric = React.createClass({
+    test_func: function(new_xx, new_yy) {
+      this.setState({xx: new_xx, yy: new_yy});
+      window.alert("last New_xx = " + this.state.xx + " last New_yy = " + this.state.yy);
+    },
     loadSizeMetricFromServer: function(){
       /*$.ajax({
         url: "",//"/student/metric/bins",
@@ -786,7 +791,7 @@ var BarChart_Size_Metric = React.createClass({
         {"x": 'Y', "y": 4345},
         {"x": 'Z', "y": 5675}]}
       ];
-      return {data: barData};
+      return {data: barData, xx: -1, yy: -1};
     },
     componentDidMount: function(){
       this.loadSizeMetricFromServer();
@@ -807,6 +812,7 @@ var BarChart_Size_Metric = React.createClass({
                           </div>
                         </div>
                         <BarChart
+			  test_func={this.test_func}
                           data={this.state.data}
                           width={1000}
                           height={490}
@@ -1342,6 +1348,7 @@ var MasterGraphContainer = React.createClass({
           <div className="col-md-10">
             <div className="content-container">
               <div className="all-graph">
+		  <BarChart_Time_Complexity/>
                   <GraphContainerList/>
 
               </div>
@@ -1361,9 +1368,11 @@ ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content'));
 $(".graph-container").offset({top: 60});
 
 // this hides all graphs
+/*
 all_graphs.map(function(graph_type){
   $("div" + graph_type).hide();
 });
+*/
 
 // initially show the active graph
-show();
+//show();
