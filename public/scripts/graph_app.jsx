@@ -1237,13 +1237,16 @@ var Activity_Panel = React.createClass({
       <div className="col-md-10">
         <div className="content-container">
           <div className="assignment_Description">
+            <div className="submission_counter-container">
+              <h7>Submissions: 2342</h7>
+            </div>
             <h4>
               Selected Assignment:
             </h4>
             <h4>
               <span>Stuff the Board</span>
             </h4>
-            <p> This is the stub for the Assignment Description</p>
+            <p> This is the stub for the assignment description</p>
           </div>
           <div className="assignment_Flags">
             <div className="alert alert-warning" role="alert">
@@ -1253,7 +1256,7 @@ var Activity_Panel = React.createClass({
                   <h4>
                     <span>No Flags</span>
                   </h4>
-                  <p>This assignment has no flags to report</p>
+                  <p>This assignment has no flags or outliers to report</p>
             </div>
           </div>
 

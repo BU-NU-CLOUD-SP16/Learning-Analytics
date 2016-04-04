@@ -94,6 +94,22 @@ div.masterGraphContainer .content-body {
 .col-md-10 .content-container div.assignment_Description p {
   margin-left: 10px;
 }
+.col-md-10 .content-container div.assignment_Description div.submission_counter-container {
+  border-bottom: #3277b2 solid 1px;
+  border-left: #3277b2 solid 1px;
+  background: #3277b2;
+  margin: 0px;
+  width: 115px;
+  height: 25px;
+  position: relative;
+  float: right;
+}
+.col-md-10 .content-container div.assignment_Description div.submission_counter-container h7 {
+  position: absolute;
+  color: white;
+  padding-left: 2px;
+  padding-top: 2px;
+}
 .col-md-10 .content-container .all-graph {
   position: relative;
 }
@@ -300,8 +316,8 @@ div.description-box div.fb-container {
   top: 0px;
   position: absolute;
   right: 0px;
-  margin-right: 5px;
-  margin-top: 20px;
+  margin-right: -1px;
+  margin-top: -1px;
 }
 div#wrapper > * {
   background: #f8f8f8;

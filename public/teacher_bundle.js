@@ -256,6 +256,7 @@ var BarTooltip = function (_BarEvt) {
       var width = _props.width;
       var height = _props.height;
 
+
       return _react2.default.createElement(
         'div',
         null,
@@ -283,7 +284,6 @@ var BarTooltip = function (_BarEvt) {
 BarTooltip.defaultProps = _commonProps2.default;
 exports.default = BarTooltip;
 module.exports = exports['default'];
-
 },{"./charts/bar":7,"./commonProps":12,"./inherit/barEvt":14,"./utils/focus":21,"./utils/tooltip":22,"react":459,"react-d3-core":41,"react-d3-shape":67}],4:[function(require,module,exports){
 "use strict";
 
@@ -60096,13 +60096,16 @@ var Activity_Panel = React.createClass({displayName: "Activity_Panel",
       React.createElement("div", {className: "col-md-10"}, 
         React.createElement("div", {className: "content-container"}, 
           React.createElement("div", {className: "assignment_Description"}, 
+            React.createElement("div", {className: "submission_counter-container"}, 
+              React.createElement("h7", null, "Submissions: 2342")
+            ), 
             React.createElement("h4", null, 
               "Selected Assignment:"
             ), 
             React.createElement("h4", null, 
               React.createElement("span", null, "Stuff the Board")
             ), 
-            React.createElement("p", null, " This is the stub for the Assignment Description")
+            React.createElement("p", null, " This is the stub for the assignment description")
           ), 
           React.createElement("div", {className: "assignment_Flags"}, 
             React.createElement("div", {className: "alert alert-warning", role: "alert"}, 
@@ -60112,7 +60115,7 @@ var Activity_Panel = React.createClass({displayName: "Activity_Panel",
                   React.createElement("h4", null, 
                     React.createElement("span", null, "No Flags")
                   ), 
-                  React.createElement("p", null, "This assignment has no flags to report")
+                  React.createElement("p", null, "This assignment has no flags or outliers to report")
             )
           ), 
 
