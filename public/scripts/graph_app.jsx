@@ -9,6 +9,10 @@ var PieChart = rd3.PieChart;
 var PieTooltip = Tooltip.PieTooltip;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 /* nvtaveras implemented this Trie Tree Implementation & this implementation is from his github */
 var Node = function(value, ends){
   return {
@@ -1019,7 +1023,7 @@ var AssignmentBox = React.createClass({
 
 
 /****************** Student Directory Implementation Begin ******************/
-var student_container = new Trie();
+//var student_container = new Trie();
 
 var Student = React.createClass({
   rawMarkup: function(){
@@ -1072,102 +1076,34 @@ var Student = React.createClass({
 });
 
 var clicked_go = false;
-var StudentList = React.createClass({
-  getInitialState : function() {
-      return {data: []};
-  },
-  loadStudentsFromServer: function(){
-    $.ajax({
-      url: "/dbtest",
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-    //    window.alert(JSON.stringify(data));
-        this.setState({data: data});
-      }.bind(this),
-      // in the case ajax runs into an error
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
-  componentDidMount: function(){
-    this.loadStudentsFromServer();
-    //introduces that we will need a pollInterval for the external element
-//    setInterval(this.loadStudentsFromServer, this.props.pollInterval);
-
-
-  },
-  render: function(){
-    var set_arr = this.state.data;
-    var studentNodes;
-    if(clicked_go == true){
-      // window.alert(student_container.count());
-      set_arr = this.props.searched_prefix;
-      var temp_arr = [];
-//      window.alert(this.props.searched_prefix);
-      // student_name is actually just the student_id string
-      studentNodes = set_arr.map(function(student_name){
-        var stud_node = null
-        // make sure the value is not already in the Trie && value is in the passed filtered array
-        if(student_container.find(student_name) == null && ($.inArray(student_name, set_arr))){
-          temp_arr.push(student_name);
-          student_container.add(student_name);
-          stud_node = (<Student stud_name={student_name}/>);
-        }
-        return stud_node;
-      });
-      clicked_go = false;
-
-    /*  // if it isnt in the array, it should be deleted - Student clean up
-      var all_studs = document.getElementsByClassName("student");
-      for(var ii = 0; ii < all_studs.length; ii++){
-        cur_stud = all_studs[ii];
-        if(!($.inArray(cur_stud.value,set_arr))){
-            var parent = document.getElementsByClassName("div.studentList");
-            parent.removeChild(cur_stud);
-        }
-      }*/
-
-    }
-    else{
-      studentNodes = set_arr.map(function(student){
-        var stud_node = null
-        // only save player_id's in the Trie
-        name = student.player_id;
-        if(student_container.find(name) == null){
-          student_container.add(name);
-          stud_node = (<Student stud_name={student.player_id}/>);
-        }
-        return stud_node;
-      });
-    }
-
-
-
-    return (
-      <div className="studentList">
-        <Student stud_name={"Select All"}/>
-        {studentNodes}
-      </div>
-    );
-  }
-});
-
 var StudentForm = React.createClass({
   getInitialState: function(){
-      return ({prefix: []}); // iniitially the user hasnt entered anything into the search box
+      var this_loaded = new Trie();
+      return ({prefix: [], data: [],trie: this_loaded}); // iniitially the user hasnt entered anything into the search box
+
   },
   // in the case the user clicks the search box
   onGo: function(){
     // Get elements of the same class results in multiple elements being grabbed, so need to specify the 0th
     var searched = document.getElementsByClassName("form-control")[0].value;
-
+    //yell();
     // this is just for string formatting since the "Student" component of the string isnt saved in the Trie - only the id_num is
     searched = searched.substring(8,searched.length);
-    this.setState({prefix:student_container.suggestions(searched)});
-    student_container = new Trie();
-    clicked_go = true;
+    this.setState({prefix: this.state.trie.suggestions(searched)});
+
+    // if it isnt in the array, it should be deleted - Student clean up
+    /*var all_studs = document.getElementsByClassName("student");
+    for(var ii = 0; ii < all_studs.length; ii++){
+      cur_stud = all_studs[ii];
+      if(!($.inArray(cur_stud.value,set_arr))){
+          var parent = document.getElementsByClassName("div.studentList");
+          parent.removeChild(cur_stud);
+      }
+    }*/
+
+
+    //student_container = new Trie();
+    //clicked_go = true;
     /*this.state.prefix.map(function(student){
       student_container.add(student);
     });*/
@@ -1177,7 +1113,51 @@ var StudentForm = React.createClass({
       $("button.btn.btn-default").click();
     }
   },
+  componentDidMount: function(){
+    this.loadStudentsFromServer();
+  },
+  loadStudentsFromServer: function(){
+    $.ajax({
+      url: "/dbtest",
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+    //    window.alert(JSON.stringify(data));
+        this.setState({data: data});
+
+        // initially load up the trie tree
+        var temp_trie = new Trie();
+        temp_trie.add(" ");
+        var temp_arr = new Array();
+        data.map(function(student){
+          var student_name = student.player_id.toString(); /**HERE HERE**/
+
+          // Only add it if it does not already exist. We do not want duplicates
+          //window.alert(JSON.stringify(temp_trie.find(student_name)) + " " + student_name);
+          if(temp_trie.find(student_name) == null){
+          //  window.alert(student_name);
+            temp_trie.add(student_name);
+            temp_arr.push(student_name);
+          }
+        });
+        this.setState({trie: temp_trie, prefix: temp_arr}); //temp_trie.suggestions("")
+      }.bind(this),
+      // in the case ajax runs into an error
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   render: function(){
+  //initialized to hold everything
+  var set_arr = this.state.prefix;
+  var studentNodes = set_arr.map(function(student_name){
+    var stud_node = null;
+    if($.inArray(student_name, set_arr) != -1){
+      stud_node = (<Student stud_name={student_name} key={student_name}/>);
+    }
+    return stud_node;
+  });
     return (
       <div id="assignment_dir" className="panel panel-default">
         <div className="panel-body">
@@ -1192,7 +1172,10 @@ var StudentForm = React.createClass({
                 </div>
             </div>
           <form>
-            <StudentList pollInterval={0} searched_prefix={this.state.prefix}/>
+          <div className="studentList">
+            <Student stud_name={"Select All"}/>
+            {studentNodes}
+          </div>
           </form>
         </div>
       </div>
@@ -1262,6 +1245,18 @@ var Activity_Panel = React.createClass({
             </h4>
             <p> This is the stub for the Assignment Description</p>
           </div>
+          <div className="assignment_Flags">
+            <div className="alert alert-warning" role="alert">
+                  <h4>
+                    Assignment Flags:
+                  </h4>
+                  <h4>
+                    <span>No Flags</span>
+                  </h4>
+                  <p>This assignment has no flags to report</p>
+            </div>
+          </div>
+
           <div className="all-graph">
               <GraphContainerList act_assign={this.props.act_assign}/>
           </div>
@@ -1450,6 +1445,12 @@ var MasterGraphContainer = React.createClass({
                   <div className="description-box">
                     <h1>{this.state.title}</h1>
                     <p>{this.state.description}</p>
+                    <div className="fb-container">
+                      <div className="btn-group" role="group">
+                        <button type="button" className="btn btn-default btn-sm"><i className="fa fa-arrow-left"></i></button>
+                        <button type="button" className="btn btn-default btn-sm"><i className="fa fa-arrow-right"></i></button>
+                      </div>
+                    </div>
                   </div>
                   <div className="navbar-default sidebar" role="navigation">
                     <div className="sidebar-nav navbar-collapse">

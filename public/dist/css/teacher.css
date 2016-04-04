@@ -46,11 +46,38 @@ div.masterGraphContainer .content-body {
   overflow: hidden;
   background: white;
 }
+.col-md-10 .content-container > * {
+  display: inline-block;
+  vertical-align: top;
+}
+.col-md-10 .content-container div.assignment_Flags {
+  margin-left: 8px;
+  margin-top: 9px;
+}
+.col-md-10 .content-container div.assignment_Flags div.alert {
+  height: 75px;
+  width: 495px;
+  padding-left: 0px;
+  padding-top: 0px;
+}
+.col-md-10 .content-container div.assignment_Flags div.alert span {
+  color: #ada20e;
+  font-style: italic;
+}
+.col-md-10 .content-container div.assignment_Flags div.alert h4 {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 10px;
+  color: black;
+}
+.col-md-10 .content-container div.assignment_Flags div.alert p {
+  margin-left: 10px;
+}
 .col-md-10 .content-container div.assignment_Description {
   background: #f8f8f8;
   border-radius: 2px;
   border: #3277b2 solid 1px;
-  width: 1000px;
+  width: 495px;
   margin-left: 8px;
   margin-top: 9px;
 }
@@ -268,6 +295,13 @@ div.description-box h1 {
 }
 div.description-box p {
   color: #797777;
+}
+div.description-box div.fb-container {
+  top: 0px;
+  position: absolute;
+  right: 0px;
+  margin-right: 5px;
+  margin-top: 20px;
 }
 div#wrapper > * {
   background: #f8f8f8;

@@ -58,12 +58,40 @@ div.masterGraphContainer{
 .col-md-10 .content-container{
   overflow: hidden;
   background: white;
+  & > *{
+    display:inline-block;
+    vertical-align: top;
+  }
+  div.assignment_Flags{
+    margin-left: 8px;
+    margin-top: 9px;
+
+    div.alert{
+      height: 75px;
+      width: 495px;
+      padding-left:0px;
+      padding-top:0px;
+      span{
+        color: rgb(173, 162, 14);
+        font-style: italic;
+      }
+      h4{
+          display:inline-block;
+          margin-left: 10px;
+          margin-top: 10px;
+          color:black;
+      }
+      p{
+        margin-left: 10px;
+      }
+    }
+  }
 
   div.assignment_Description{
     background: @bg_clr;
     border-radius: 2px;
     border: @blue solid 1px;
-    width:1000px;
+    width:495px;
     margin-left: 8px;
     margin-top: 9px;
     span{
@@ -327,6 +355,15 @@ div.description-box {
     //font-weight: bold;
     color:@dft_font_clr;
   }
+  div.fb-container{
+    top:0px;
+    position: absolute;
+    right:0px;
+    margin-right: 5px;
+    margin-top: 20px;
+  }
+
+
 }
 
 div#wrapper > *{
