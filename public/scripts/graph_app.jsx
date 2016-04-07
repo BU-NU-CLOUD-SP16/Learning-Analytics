@@ -272,6 +272,10 @@ var BarChart_Time_Complexity = React.createClass({
 });
 
 var PieChart_Incorrect_Correct = React.createClass({
+    test_func: function(new_label, new_value) {
+      this.setState({myLabel: new_label, myValue: new_value});
+      window.alert("last myLabel = " + this.state.myLabel + " last myValue = " + this.state.myValue);
+    },
     getInitialState : function() {
     var pieData = [
       {label: 'Correct', value: 55.0},
@@ -286,7 +290,7 @@ var PieChart_Incorrect_Correct = React.createClass({
       }
     };
 
-    return {pieData: pieData, colorFunction: colorFunction, last_assign:"556"};
+    return {pieData: pieData, colorFunction: colorFunction, last_assign:"556",  myLabel: "unknown", myValue: -1};
     },
     loadSubmissionDataFromServer: function(){
       $.ajax({
@@ -328,6 +332,7 @@ var PieChart_Incorrect_Correct = React.createClass({
                           </div>
                         </div>
                   			<PieChart
+					  test_func={this.test_func}
                   			  data={this.state.pieData}
                   			  width={graph_widths}
                   			  height={graph_heights}
@@ -662,6 +667,10 @@ var BarChart_DataStruct_Percent = React.createClass({
 });
 
 var BarChart_Size_Metric = React.createClass({
+    test_func: function(new_xx, new_yy) {
+      this.setState({xx: new_xx, yy: new_yy});
+      window.alert("last New_xx = " + this.state.xx + " last New_yy = " + this.state.yy);
+    },
     loadSizeMetricFromServer: function(){
       /*$.ajax({
         url: "",//"/student/metric/bins",
@@ -707,7 +716,7 @@ var BarChart_Size_Metric = React.createClass({
         {"x": 'Y', "y": 4345},
         {"x": 'Z', "y": 5675}]}
       ];
-      return {data: barData};
+      return {data: barData, xx: -1, yy: -1};
     },
     componentDidMount: function(){
       this.loadSizeMetricFromServer();
@@ -726,6 +735,7 @@ var BarChart_Size_Metric = React.createClass({
                           </div>
                         </div>
                         <BarChart
+			  			  test_func={this.test_func}
                           data={this.state.data}
                           width={graph_widths}
                           height={graph_heights}
