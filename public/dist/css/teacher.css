@@ -81,13 +81,14 @@ div.masterGraphContainer .content-body {
   margin-top: 9px;
   max-height: 75px;
 }
-.col-md-10 .content-container div.assignment_Description h4 span {
+.col-md-10 .content-container div.assignment_Description div.h4-container h4 span {
   font-size: 16px;
   color: #0f5999;
   font-style: italic;
 }
-.col-md-10 .content-container div.assignment_Description h4 {
+.col-md-10 .content-container div.assignment_Description div.h4-container h4 {
   font-size: 16px;
+  white-space: nowrap;
   display: inline-block;
   margin-left: 10px;
   margin-top: 10px;

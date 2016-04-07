@@ -1018,6 +1018,11 @@ var Activity_Panel = React.createClass({
 
     // ensure the graph is up to date
     var ActiveGraph = React.cloneElement(this.props.active_graph, {act_assign:this.props.active_assignment.id}, null);
+/*
+<h4>
+  Selected Assignment:
+</h4>
+*/
     return (
     <div className=".activity_Panel">
       <div className="col-md-10">
@@ -1026,12 +1031,11 @@ var Activity_Panel = React.createClass({
             <div className="submission_counter-container">
               <h7>Submissions: 2342</h7>
             </div>
-            <h4>
-              Selected Assignment:
-            </h4>
-            <h4>
-              <span>{this.props.active_assignment.title}</span>
-            </h4>
+            <div className="h4-container">
+              <h4>
+                <span>{this.props.active_assignment.title}</span>
+              </h4>
+            </div>
             <p>{this.props.active_assignment.description}</p>
           </div>
           <div className="assignment_Flags">
@@ -1195,26 +1199,27 @@ var MasterGraphContainer = React.createClass({
   },
   clickedBack: function(old_window){
     this.state.forward_stack.push(old_window);
-    yell("clicked back");
+    if(this.state.backward_stack.size() > 0){
+      this.setState({activity_window: this.state.backward_stack.pop()});
+    }
+    // yell("clicked back");
   },
   clickedForward: function(old_window){
     this.state.backward_stack.push(old_window);
-    yell("clickedForward");
+    if(this.state.forward_stack.size() > 0){
+      this.setState({activity_window: this.state.forward_stack.pop()});
+    }
+    // yell("clicked forward");
   },
-  /*setActivityWindow: function(){
-    this.setState({activity_window: <Activity_Panel
-                                      active_assignment={this.state.active_assignment}
-                                      active_graph={this.state.active_graph}
-                                    />
-    });
-  },*/
   setActiveGraph: function(new_graph = null){
+    var new_active_window = (<Activity_Panel
+                              active_assignment={this.state.active_assignment}
+                              active_graph={new_graph}
+                             />);
     this.setState({active_graph: new_graph,
-                  activity_window: <Activity_Panel
-                                    active_assignment={this.state.active_assignment}
-                                    active_graph={new_graph}
-                                   />
+                  activity_window: new_active_window
     });
+    this.state.backward_stack.push(new_active_window);
   },
   setActiveAssignment: function(new_title = "Scoring for Oriented Dominoes", new_description = "The assignment description has been changed", new_id = "470"){
     var new_assignment = {
@@ -1222,13 +1227,15 @@ var MasterGraphContainer = React.createClass({
                           description: new_description,
                           id: new_id
     }
+    var new_active_window = (<Activity_Panel
+                              active_assignment={new_assignment}
+                              active_graph={this.state.active_graph}
+                             />);
     this.setState({
       active_assignment: new_assignment,
-      activity_window: <Activity_Panel
-                        active_assignment={new_assignment}
-                        active_graph={this.state.active_graph}
-                       />
+      activity_window: new_active_window
     });
+    this.state.backward_stack.push(new_active_window);
   },
   render:function(){
     var Activity_Window = <Activity_Panel active_assignment={this.state.active_assignment} active_graph={this.state.active_graph}/>;
