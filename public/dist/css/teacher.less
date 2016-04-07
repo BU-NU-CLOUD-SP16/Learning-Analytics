@@ -94,17 +94,26 @@ div.masterGraphContainer{
     width:495px;
     margin-left: 8px;
     margin-top: 9px;
-    span{
+    h4 span{
+      font-size: 16px;
       color: @blue_drk;
       font-style: italic;
+    //  white-space: nowrap;
     }
     h4{
+    //     position: static;
+        font-size: 16px;
+      //  white-space: nowrap;
         display:inline-block;
         margin-left: 10px;
         margin-top: 10px;
         color:black;
     }
     p{
+      //.pop_brdr;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      max-height: 20px;
       margin-left: 10px;
     }
     div.submission_counter-container{
@@ -119,7 +128,7 @@ div.masterGraphContainer{
       h7{
         position: absolute;
         color: white;
-        padding-left: 2px;
+        padding-left: 4px;
         padding-top: 2px;
 
         //.pop_brdr;
@@ -132,26 +141,20 @@ div.masterGraphContainer{
     position: relative;
 
     div.graph-container{
-  //    .pop_brdr;
-      //top: 0px;
-
+      margin-left: -7px;
+      margin-top: -13px;
       background:transparent;
       height: 535px;
-      margin: 10px;
       width: 1000px;
-      /*box-shadow: 0px 3px 10px rgb(121,119,119);*/
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;
-
-      //.pop_brdr;
-      margin-left: -7px;
 
       div.panel.panel-default{
         width: 1000px;
         color:@dft_font_clr;
         border: @blue 1px solid;
-        margin-top: 12px;
+      //  margin-top: 12px;
         div.panel-heading{
           background: @blue;
           // border: red solid 2px;
@@ -339,12 +342,6 @@ input {
   }
 }
 
-div.graph-container.col-md-4{
-  /*border: red solid 3px;*/
-  background:rgb(212,212,212);
-  padding-top: 5px;
-}
-
 nav.navbar{
   border-bottom: solid 1px @gry_brdr;
   box-shadow: none;
@@ -371,6 +368,7 @@ div.description-box {
   }
   p{
     //font-weight: bold;
+    text-decoration: none;
     color:@dft_font_clr;
   }
   div.fb-container{

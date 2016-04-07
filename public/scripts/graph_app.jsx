@@ -84,45 +84,16 @@ Trie.prototype.count = function(){
 
 /**** End of Trie Implementation ****/
 
-// var db_url = "http://52.33.14.62:3000";
-var new_title = "Placeholder!";
-var new_descrpt = "wow, this description";
-
-all_graphs = [".pieChart_Incorrect_Correct",".barChart_Space_Complexity",".barChart_Time_Complexity",".barChart_Lines_Code",".barChart_Loop_Percent",".pieChart_Attempt_Count",".barChart_Comment_Percent",".barChart_DataStruct_Percent",".barChart_Comment_Percent",".barChart_Size_Metric"];
-
-init_graph = ".pieChart_Incorrect_Correct";
-
-// Should set these to default values
-var active_graph = init_graph;
-var graph_tag = init_graph;
-var active_assignment = "556";
+/*Treat the following as CONSTANTS*/
 var graph_widths = 1000; //250; //500;  // 1000;
 var graph_heights = 480; //123; //245; // 490;
-
 var graph_R = Math.round(graph_heights/3);
 var graph_r = 20;
 
 // test functionality for couting
-var yell = function(){
-  window.alert("YELLING");
+var yell = function(yelling_what = ""){
+  window.alert("YELLING " + yelling_what);
 }
-
-// function for hiding current graph
-var hide = function(){
-  $(active_graph).fadeOut(); // this needs to be changed to hide the current graph no matter which it is
-}
-
-var show = function(){
-  if(active_graph != graph_tag){
-    hide();
-  }
-
-  $(graph_tag).fadeIn(); // this needs to be changed to hide the current graph no matter which it is
-  //window.alert($(graph_tag).offset().top);
-  active_graph = graph_tag;
-}
-
-
 
 /****************** Chart Implementations Begin ******************/
 
@@ -212,7 +183,7 @@ var BarChart_Lines_Code = React.createClass({
                         <h3>
                         Lines of Code
                         </h3>
-                        <div className="graph-x" onClick={hide}>
+                        <div className="graph-x">
                           <i className="fa fa-times"></i>
                         </div>
                       </div>
@@ -281,7 +252,7 @@ var BarChart_Time_Complexity = React.createClass({
                         <h3>
                         Time Complexity (ms)
                         </h3>
-                        <div className="graph-x" onClick={hide}>
+                        <div className="graph-x" >
                           <i className="fa fa-times"></i>
                         </div>
                       </div>
@@ -297,69 +268,6 @@ var BarChart_Time_Complexity = React.createClass({
                    </div>
                  </div>
                </div>);
-    }
-});
-
-var BarChart_Comment_Percent = React.createClass({
-    getInitialState : function() {
-        var barData = [{
-          "name":"Class A",
-          "values":[
-            {"x": 'A', "y": 23},
-            {"x": 'B', "y": 14},
-            {"x": 'C', "y": 0},
-            {"x": 'D', "y": 14},
-            {"x": 'E', "y": 5},
-            {"x": 'F', "y": 13},
-            {"x": 'G', "y": 5},
-            {"x": 'H', "y": 6},
-            {"x": 'I', "y": 23},
-            {"x": 'J', "y": 25},
-            {"x": 'K', "y": 32},
-            {"x": 'L', "y": 12},
-            {"x": 'M', "y": 43},
-            {"x": 'N', "y": 24},
-            {"x": 'O', "y": 16},
-            {"x": 'P', "y": 14},
-            {"x": 'Q', "y": 25},
-            {"x": 'R', "y": 27},
-            {"x": 'S', "y": 45},
-            {"x": 'T', "y": 12},
-            {"x": 'U', "y": 13},
-            {"x": 'V', "y": 5},
-            {"x": 'W', "y": 23},
-            {"x": 'X', "y": 45},
-            {"x": 'Y', "y": 21},
-            {"x": 'Z', "y": 22}
-          ]}
-        ];
-        return {barData: barData};
-    },
-    render: function() {
-        return (<div className="graph-container col-md-4">
-                <div className="graphContainerList">
-                  <div className="barChart_Comment_Percent">
-                    <div className="panel panel-default">
-                      <div className="panel-heading">
-                        <h3>
-                        Comments Percentage
-                        </h3>
-                        <div className="graph-x" onClick={hide}>
-                          <i className="fa fa-times"></i>
-                        </div>
-                      </div>
-                      <BarChart
-                        data={this.state.barData}
-                        width={graph_widths}
-                        height={graph_heights}
-                        fill={'#8a5715'}
-                        title=''
-                        margins={{top: 20, right: 30, bottom: 30, left: 40}}
-                      />
-                    </div>
-                   </div>
-                  </div>
-                </div>);
     }
 });
 
@@ -407,7 +315,6 @@ var PieChart_Incorrect_Correct = React.createClass({
         this.loadSubmissionDataFromServer();
       }
 
-
         return (<div className="graph-container col-md-4">
                   <div className="graphContainerList">
                     <div className="pieChart_Incorrect_Correct">
@@ -416,7 +323,7 @@ var PieChart_Incorrect_Correct = React.createClass({
                           <h3>
                             Correct-Incorrect
                           </h3>
-                          <div className="graph-x" onClick={hide}>
+                          <div className="graph-x" >
                             <i className="fa fa-times"></i>
                           </div>
                         </div>
@@ -435,78 +342,6 @@ var PieChart_Incorrect_Correct = React.createClass({
                      </div>
                    </div>);
   }
-});
-
-
-var PieChart_Attempt_Count = React.createClass({
-    getInitialState : function() {
-      /*  var pieData = [
-          {label: 'Correct', value: 55.0},
-          {label: 'Incorrect', value: 45.0}
-        ];
-
-        var colorFunction = function(d) {
-          if (d == 0) {
-            return "rgb(137, 203, 124)";
-          } else {
-            return "rgb(217, 90, 90)";
-          }
-        };
-
-        return {pieData: pieData,
-                colorFunction: colorFunction};*/
-        return null;
-    },
-    loadSubmissionDataFromServer: function(){
-      /*    $.ajax({
-            url: "/problem/470/metrics/submissions",
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-              var loaded_pieData = data;
-              this.setState({pieData: loaded_pieData});
-            }.bind(this),
-            // in the case ajax runs into an error
-            error: function(xhr, status, err) {
-              console.error(this.props.url, status, err.toString());
-            }.bind(this)
-          });*/
-    },
-    componentDidMount: function(){
-      this.loadSubmissionDataFromServer();
-      //introduces that we will need a pollInterval for the external element
-    //  setInterval(300);
-    },
-
-    render: function() {
-
-        return null;/*(<div className="graph-container col-md-4">
-                <div className="graphContainerList">
-                  <div className="pieChart_Attempt_Count">
-                    <div className="panel panel-default">
-                      <div className="panel-heading">
-                        <h3>
-                          Submissions
-                        </h3>
-                        <div className="graph-x" onClick={hide}>
-                          <i className="fa fa-times"></i>
-                        </div>
-                      </div>
-                			<PieChart
-                			  data={this.state.pieData}
-                			  width={graph_widths}
-                			  height={graph_heights}
-                			  radius={200}
-                			  colors={this.state.colorFunction}
-                			  innerRadius={60}
-                			  sectorBorderColor="white"
-                			  //title="Pie Chart"
-                			/>
-                    </div>
-                   </div>
-                 </div>
-               </div>);*/
-    }
 });
 
 var BarChart_Loop_Count = React.createClass({
@@ -553,7 +388,7 @@ var BarChart_Loop_Count = React.createClass({
                         <h3>
                           Nested Loop Count
                         </h3>
-                        <div className="graph-x" onClick={hide}>
+                        <div className="graph-x" >
                           <i className="fa fa-times"></i>
                         </div>
                       </div>
@@ -616,7 +451,7 @@ var BarChart_Space_Complexity = React.createClass({
                         <h3>
                           Space Complexity (Percentage of input)
                         </h3>
-                        <div className="graph-x" onClick={hide}>
+                        <div className="graph-x" >
                           <i className="fa fa-times"></i>
                         </div>
                       </div>
@@ -679,7 +514,7 @@ var BarChart_Loop_Percent = React.createClass({
                         <h3>
                           Loop Count (Percentage of input)
                         </h3>
-                        <div className="graph-x" onClick={hide}>
+                        <div className="graph-x" >
                           <i className="fa fa-times"></i>
                         </div>
                       </div>
@@ -806,7 +641,7 @@ var BarChart_DataStruct_Percent = React.createClass({
                       <h3>
                       Data Structures Used
                       </h3>
-                      <div className="graph-x" onClick={hide}>
+                      <div className="graph-x" >
                         <i className="fa fa-times"></i>
                       </div>
                     </div>
@@ -876,8 +711,6 @@ var BarChart_Size_Metric = React.createClass({
     },
     componentDidMount: function(){
       this.loadSizeMetricFromServer();
-      //introduces that we will need a pollInterval for the external element
-//      setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
         return (<div className="graph-container col-md-4">
@@ -888,7 +721,7 @@ var BarChart_Size_Metric = React.createClass({
                           <h3>
                             Size Metric
                           </h3>
-                          <div className="graph-x" onClick={hide}>
+                          <div className="graph-x" >
                             <i className="fa fa-times"></i>
                           </div>
                         </div>
@@ -909,45 +742,33 @@ var BarChart_Size_Metric = React.createClass({
 
 /****************** Chart Implementation End ******************/
 
-
-
-
-
-
 /****************** Assignment Directory Implementation Begin ******************/
 
 var Assignment = React.createClass({ //updateAssignment={this.props.updateAssignment(new_title, new_descrpt)}
-  updateAssignment: function(){
-    //this.props.updateAssignment().bind(null,this);
-    //window.alert(this.props.my_id + "hello");
-    this.props.userClicksAssignment();
-    //active_assignment = this.props.my_id;
-    //window.alert("active id:" + active_assignment);
+  setActiveAssignment: function(new_title = "Scoring for Oriented Dominoes", new_description = "The assignment description has been changed", new_id = "470"){
+    this.props.setActiveAssignment(this.props.prob_statement,this.props.description,this.props.my_id);
   },
   render: function(){
     return (
     <div className="assignment">
-      <button type="button" className="btn btn-primary" onClick={this.updateAssignment}>
+      <button type="button" className="btn btn-primary" onClick={this.setActiveAssignment}>
         <h5>
           {this.props.prob_statement + ":"}
         </h5>
       </button>
-      <span>{this.props.description_html}</span>
+      <span>{this.props.description}</span>
     </div>
     );
   }
 });
 
 var AssignmentList = React.createClass({
-  updateAssignment: function(){
-    this.props.userSelectAssignment();
-    //this.props.updateAssignment().bind(null,this);
-  //  yell();
-  //  window.alert("assignmentList");
+  setActiveAssignment: function(new_title = "Scoring for Oriented Dominoes", new_description = "The assignment description has been changed", new_id = "470"){
+    this.props.setActiveAssignment(new_title,new_description, new_id);
   },
   render: function(){
     // commentNodes gets the values of all the json data as a mapping for each data element
-    var UserClickEvent = this.updateAssignment;
+    var setActiveAssignment = this.setActiveAssignment;
     var assignmentNodes = this.props.data.map(function(assignment){
       var id = assignment.id;
       return (
@@ -956,10 +777,9 @@ var AssignmentList = React.createClass({
           key={id}
           my_id={id}
           description={assignment.description_html}
-          userClicksAssignment={UserClickEvent}
+          setActiveAssignment={setActiveAssignment}
         />);
-    },this); //<div className="assignmentList panel panel-default" style={{border:"yellow 30px solid"}} onClick={this.updateAssignment}>
-
+    },this);
     return (
         <div className="assignmentList panel panel-default">
           {assignmentNodes}
@@ -989,16 +809,11 @@ var AssignmentBox = React.createClass({
   },
   componentDidMount: function(){
     this.loadAssignmentsFromServer();
-    // introduces that we will need a pollInterval for the external element
-    // setInterval(this.loadAssignmentsFromServer, 3000); //this.props.pollInterval);
   },
-  updateAssignment: function(){
-    this.props.assignmentClick();
-
-    //this.props.updateAssignment();//().bind(null,this);
-//    window.alert("assignmentBox");
+  setActiveAssignment: function(new_title = "Scoring for Oriented Dominoes", new_description = "The assignment description has been changed", new_id = "470"){
+    this.props.setActiveAssignment(new_title,new_description,new_id);
   },
-  render: function(){ //<div className="assignmentBox" style={{border: "solid 30px black"}} onClick={this.updateAssignment}>
+  render: function(){
     var replac_tmp = (
         <div id="assignment_dir">
           <div>
@@ -1006,15 +821,13 @@ var AssignmentBox = React.createClass({
               <div>
                 <AssignmentList
                   data={this.state.data}
-                  updateAssignment={this.updateAssignment}
-                  userSelectAssignment={this.updateAssignment}
+                  setActiveAssignment={this.setActiveAssignment}
                 />
               </div>
             </div>
           </div>
         </div>
     );
-
     return replac_tmp;
   }
 });
@@ -1023,13 +836,10 @@ var AssignmentBox = React.createClass({
 
 
 /****************** Student Directory Implementation Begin ******************/
-//var student_container = new Trie();
-
 var Student = React.createClass({
   rawMarkup: function(){
     // Sanitizes input from the site as a security precaution
     var rawMarkup = marked(this.props.stud_name, {sanitize: true});
-  //  alert(rawMarkup);
     // Return the sanitized string
     return { __html: rawMarkup };
   },
@@ -1080,33 +890,14 @@ var StudentForm = React.createClass({
   getInitialState: function(){
       var this_loaded = new Trie();
       return ({prefix: [], data: [],trie: this_loaded}); // iniitially the user hasnt entered anything into the search box
-
   },
   // in the case the user clicks the search box
   onGo: function(){
     // Get elements of the same class results in multiple elements being grabbed, so need to specify the 0th
     var searched = document.getElementsByClassName("form-control")[0].value;
-    //yell();
     // this is just for string formatting since the "Student" component of the string isnt saved in the Trie - only the id_num is
     searched = searched.substring(8,searched.length);
     this.setState({prefix: this.state.trie.suggestions(searched)});
-
-    // if it isnt in the array, it should be deleted - Student clean up
-    /*var all_studs = document.getElementsByClassName("student");
-    for(var ii = 0; ii < all_studs.length; ii++){
-      cur_stud = all_studs[ii];
-      if(!($.inArray(cur_stud.value,set_arr))){
-          var parent = document.getElementsByClassName("div.studentList");
-          parent.removeChild(cur_stud);
-      }
-    }*/
-
-
-    //student_container = new Trie();
-    //clicked_go = true;
-    /*this.state.prefix.map(function(student){
-      student_container.add(student);
-    });*/
   },
   HandleEnter: function(event){
     if(event.charCode == 13){
@@ -1122,9 +913,7 @@ var StudentForm = React.createClass({
       dataType: 'json',
       cache: false,
       success: function(data) {
-    //    window.alert(JSON.stringify(data));
         this.setState({data: data});
-
         // initially load up the trie tree
         var temp_trie = new Trie();
         temp_trie.add(" ");
@@ -1133,14 +922,13 @@ var StudentForm = React.createClass({
           var student_name = student.player_id.toString(); /**HERE HERE**/
 
           // Only add it if it does not already exist. We do not want duplicates
-          //window.alert(JSON.stringify(temp_trie.find(student_name)) + " " + student_name);
           if(temp_trie.find(student_name) == null){
           //  window.alert(student_name);
             temp_trie.add(student_name);
             temp_arr.push(student_name);
           }
         });
-        this.setState({trie: temp_trie, prefix: temp_arr}); //temp_trie.suggestions("")
+        this.setState({trie: temp_trie, prefix: temp_arr});
       }.bind(this),
       // in the case ajax runs into an error
       error: function(xhr, status, err) {
@@ -1185,51 +973,18 @@ var StudentForm = React.createClass({
 
 /****************** Student Directory End ******************/
 
-var GraphContainerList = React.createClass({
-  getInitialState: function(){
-    return {current_graph: active_graph};
-  },
-  componentDidMount: function(){
-    //setInterval(1000);
-    //window.alert(active_graph);
-  },
-  senseClick: function(){
-  //  yell();
-    //this.setState({current_graph: active_graph}); //this.senseClick();
-  },
-  render: function(){
-    //yell();
-    var act_assignment = this.props.act_assign;
-    return (
-    <div>
-      <PieChart_Incorrect_Correct act_assign={act_assignment}/>
-      <BarChart_Space_Complexity/>
-      <BarChart_Lines_Code/>
-      <BarChart_Time_Complexity/>
-      <BarChart_Lines_Code/>
-      <BarChart_Loop_Percent/>
-      <PieChart_Attempt_Count/>
-      <BarChart_DataStruct_Percent/>
-      <BarChart_Comment_Percent/>
-      <BarChart_Size_Metric/>
-    </div>
-    );
-  }
-});
-
-
 var Activity_Panel = React.createClass({
   getInitialState: function(){
-    return {my_stub: ""};
+    return {active_graph: null,
+            active_assignment:{
+                          title: "",
+                          description: "",
+                          id: ""
+                        }
+          };
   },
-  componentDidMount: function(){
-    //setInterval(2000);
-    //window.alert(active_graph);
-    //yell();
-  },
-  senseClick: function(){
-    //yell();
-    //this.setState({current_graph: active_graph}); //this.senseClick();
+  componentWillMount: function(){
+    this.setState({active_assignment:this.props.active_assignment,active_graph:this.props.active_graph});
   },
   render: function(){
     return (
@@ -1244,9 +999,9 @@ var Activity_Panel = React.createClass({
               Selected Assignment:
             </h4>
             <h4>
-              <span>Stuff the Board</span>
+              <span>{this.props.active_assignment.title}</span>
             </h4>
-            <p> This is the stub for the assignment description</p>
+            <p>{this.props.active_assignment.description}</p>
           </div>
           <div className="assignment_Flags">
             <div className="alert alert-warning" role="alert">
@@ -1259,9 +1014,8 @@ var Activity_Panel = React.createClass({
                   <p>This assignment has no flags or outliers to report</p>
             </div>
           </div>
-
           <div className="all-graph">
-              <GraphContainerList act_assign={this.props.act_assign}/>
+              {this.props.active_graph}
           </div>
         </div>
       </div>
@@ -1276,88 +1030,62 @@ var Activity_Panel = React.createClass({
 /****************** Graph Selection Directory Begin ******************/
 var Graph = React.createClass({
   getInitialState: function(){
+    return {active_assignment_id: ""};
+  },
+  setActiveGraph: function(new_graph = null){
+    this.props.setActiveGraph(new_graph);
+  },
+  getInitialState: function(){
     // Takes control of the individual student's check boxes
     return {check: false};
   },
+  componentWillMount: function(){
+    this.setState({active_assignment_id: this.props.active_assignment_id});
+  },
   onChange: function(e){
-    //active_graph = this.props.stud_name;
+    var new_graph = null;
+    //window.alert(this.props.active_assignment_id);
 
-    //window.alert("active graph = " + active_graph);
-
-    switch(this.props.stud_name){
-      case("Space Complexity"):{
-          graph_tag = ".barChart_Space_Complexity";
+    switch(this.props.stud_name){ // act_assign={this.props.active_assignment_id}
+      case("Correct-Incorrect"):{
+        new_graph = <PieChart_Incorrect_Correct/>;
         break;
       }
-      case("Correct-Incorrect"):{
-          graph_tag = ".pieChart_Incorrect_Correct";
+      case("Space Complexity"):{
+        new_graph = <BarChart_Space_Complexity/>;
         break;
       }
       case("Time Complexity"):{
-          graph_tag = ".barChart_Time_Complexity";
+        new_graph = <BarChart_Time_Complexity/>;
         break;
       }
       case("Number of Lines"):{
-          graph_tag = ".barChart_Lines_Code";
+        new_graph = <BarChart_Lines_Code/>;
         break;
       }
       case("Class Rank"):{
-          graph_tag = "";
         break;
       }
       case("Loop Counter"):{
-          graph_tag = ".barChart_Loop_Percent";
-        break;
-      }
-      case("Attempt Count"):{
-          graph_tag = ".pieChart_Attempt_Count";
-        break;
-      }
-      case("Comment Count"):{
-          graph_tag = ".barChart_Comment_Percent"; // This needs to be re-set to another class in future
-        break;
-      }
-      case("Data Structures"):{
-          graph_tag = ".barChart_DataStruct_Percent";
+        new_graph = <BarChart_Loop_Percent/>;
         break;
       }
       case("Nested Loop Count"):{
-          graph_tag = "";
-        break;
-      }
-      case("Comment-Code Ratio"):{
-          graph_tag = ".barChart_Comment_Percent";
-        break;
-      }
-      case("Clusters"):{
-          graph_tag = "";
+        new_graph = <BarChart_Loop_Count/>;
         break;
       }
       case("Popular Functions"):{
-          graph_tag = "";
-        break;
-      }
-      case("Statistics"):{
-          graph_tag = "";
-        break;
-      }
-      case("Total Submissions"):{
-          graph_tag = "";
         break;
       }
       case("Size Metric"):{
-          graph_tag = ".barChart_Size_Metric";
+          new_graph = <BarChart_Size_Metric/>;
         break;
       }
-      default:{
-
-      }
+      default:{}
     }
-    show();
-    //React.render(,getElementsByClassName("graph-container"));
-    //ReactDOM.render(<GraphContainerList/>, document.getElementsByClassName('all-graph'));
-    //GraphContainerList.senseClick();
-    //window.alert(graph_tag);
+    //new_graph.props.act_assign = this.props.active_assignment.id;
+
+    this.setActiveGraph(new_graph);
   },
   render: function(){
     return (
@@ -1372,6 +1100,9 @@ var Graph = React.createClass({
 
 /* GraphList Begins*/
 var GraphList = React.createClass({
+  setActiveGraph: function(new_graph = null){
+    this.props.setActiveGraph(new_graph);
+  },
   render: function(){
   var graph_button_selectors = [{"innerHTMLs":"Correct-Incorrect","iconTYPEs":"th-large"},
                                {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
@@ -1383,10 +1114,15 @@ var GraphList = React.createClass({
                                {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
                                {"innerHTMLs":"Popular Functions","iconTYPEs":"sign-in"},
                                {"innerHTMLs":"Size Metric","iconTYPEs":"file-text"}];
-
+  var setActiveGraph = this.setActiveGraph;
+  var active_id = this.props.active_assignment_id;
   var graph_button_mapping = graph_button_selectors.map(function(graph_data){
     //window.alert(graph_data.innerHTMLs + " " + graph_data.iconTYPEs);
-    return (<Graph stud_name={graph_data.innerHTMLs} icon_type={graph_data.iconTYPEs}/>);
+    return (<Graph stud_name={graph_data.innerHTMLs}
+                   icon_type={graph_data.iconTYPEs}
+                   setActiveGraph={setActiveGraph}
+                   active_assignment_id={active_id}
+                 />);
   });
   var graph_select = (
           <ul className="graphList nav nav-second-level">
@@ -1397,25 +1133,6 @@ var GraphList = React.createClass({
   }
 });
 
-/*
-var GraphForm = React.createClass({
-  render: function(){
-    return (
-      <div className="graphForm">
-        <div id="assignment_dir">
-          <div className="panel-heading">
-            <h5 className="panel-title">Graphs</h5>
-          </div>
-          <form>
-            <GraphList/>
-          </form>
-        </div>
-      </div>
-    );
-  }
-});
-*/
-
 /****************** Graph Selection Directory End ******************/
 
 /****************** Main Begin ******************/
@@ -1423,17 +1140,30 @@ var MasterGraphContainer = React.createClass({
   getInitialState: function(){
     return {title: "Welcome",
             description: "Pick an assignment and then a graph to see your learning analytics!",
-            active_graph: "",
-            active_assignment: "556"};
+            active_graph: null,
+            active_assignment:{
+                                title: "Stuff the Board!",
+                                description: "This is only a temporary stub",
+                                id: "556"
+                              }
+          };
   },
-  /*assignmentChosen: function(){
-    //this.setState({title:new_title,description:new_descrpt});
-  },*/
   componentDidMount: function(){
   },
-  setActiveAssignment: function(){
-
-    this.setState({active_assignment: "470"});
+  componentWillMount: function(){
+    this.setState({active_graph: <PieChart_Incorrect_Correct act_assign={this.state.active_assignment.id}/>});
+  },
+  setActiveGraph: function(new_graph = null){
+    this.setState({active_graph: new_graph});
+  },
+  setActiveAssignment: function(new_title = "Scoring for Oriented Dominoes", new_description = "The assignment description has been changed", new_id = "470"){
+    this.setState({
+      active_assignment:{
+                          title: new_title,
+                          description: new_description,
+                          id: new_id
+                        }
+    });
   },
   render:function(){
     return (
@@ -1460,13 +1190,13 @@ var MasterGraphContainer = React.createClass({
                       <ul className="nav" id="side-menu">
                         <li className="col-md-12">
                             <a href="#"><i className="fa fa-bar-chart-o fa-fw"></i> Graphs<span className="fa arrow"></span></a>
-                            <GraphList/>
+                            <GraphList active_assignment_id={this.state.active_assignment.id} setActiveGraph={this.setActiveGraph}/>
                         </li>
                         <li className="col-md-12">
                             <a href="#"><i className="fa fa-book fa-fw"></i> Assignments<span className="fa arrow"></span></a>
                             <ul className="nav nav-second-level">
                                 <li>
-                                  <AssignmentBox url="/assignments" pollInterval={2000} assignmentClick={this.setActiveAssignment}/>
+                                  <AssignmentBox url="/assignments" pollInterval={2000} setActiveAssignment={this.setActiveAssignment}/>
                                 </li>
                             </ul>
                         </li>
@@ -1485,7 +1215,7 @@ var MasterGraphContainer = React.createClass({
               </div>
             </div>
           </div>
-          <Activity_Panel act_assign={this.state.active_assignment}/>
+          <Activity_Panel active_assignment={this.state.active_assignment} active_graph={this.state.active_graph}/>
         </div>
       </div>
     );
@@ -1495,14 +1225,3 @@ var MasterGraphContainer = React.createClass({
 /****************** Main End ******************/
 
 ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content'));
-
-// Intitially Set the Graph to be hidden so the user can pick one
-$(".graph-container").offset({top: 127});
-
-// this hides all graphs
-all_graphs.map(function(graph_type){
-  $("div" + graph_type).hide();
-});
-
-// initially show the active graph
-show();

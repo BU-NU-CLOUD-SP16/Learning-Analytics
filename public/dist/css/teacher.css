@@ -81,17 +81,22 @@ div.masterGraphContainer .content-body {
   margin-left: 8px;
   margin-top: 9px;
 }
-.col-md-10 .content-container div.assignment_Description span {
+.col-md-10 .content-container div.assignment_Description h4 span {
+  font-size: 16px;
   color: #0f5999;
   font-style: italic;
 }
 .col-md-10 .content-container div.assignment_Description h4 {
+  font-size: 16px;
   display: inline-block;
   margin-left: 10px;
   margin-top: 10px;
   color: black;
 }
 .col-md-10 .content-container div.assignment_Description p {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 20px;
   margin-left: 10px;
 }
 .col-md-10 .content-container div.assignment_Description div.submission_counter-container {
@@ -107,28 +112,26 @@ div.masterGraphContainer .content-body {
 .col-md-10 .content-container div.assignment_Description div.submission_counter-container h7 {
   position: absolute;
   color: white;
-  padding-left: 2px;
+  padding-left: 4px;
   padding-top: 2px;
 }
 .col-md-10 .content-container .all-graph {
   position: relative;
 }
 .col-md-10 .content-container .all-graph div.graph-container {
+  margin-left: -7px;
+  margin-top: -13px;
   background: transparent;
   height: 535px;
-  margin: 10px;
   width: 1000px;
-  /*box-shadow: 0px 3px 10px rgb(121,119,119);*/
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  margin-left: -7px;
 }
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default {
   width: 1000px;
   color: #797777;
   border: #3277b2 1px solid;
-  margin-top: 12px;
 }
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading {
   background: #3277b2;
@@ -282,11 +285,6 @@ input[type='checkbox'] {
 .bar_chart h3 {
   margin-top: 5px;
 }
-div.graph-container.col-md-4 {
-  /*border: red solid 3px;*/
-  background: #d4d4d4;
-  padding-top: 5px;
-}
 nav.navbar {
   border-bottom: solid 1px #ededed;
   box-shadow: none;
@@ -310,6 +308,7 @@ div.description-box h1 {
   text-decoration: underline;
 }
 div.description-box p {
+  text-decoration: none;
   color: #797777;
 }
 div.description-box div.fb-container {
