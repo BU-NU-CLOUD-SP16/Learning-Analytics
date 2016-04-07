@@ -316,8 +316,8 @@ div.description-box div.fb-container {
   top: 0px;
   position: absolute;
   right: 0px;
-  margin-right: -1px;
-  margin-top: -1px;
+  margin-right: 1px;
+  margin-top: 1px;
 }
 div#wrapper > * {
   background: #f8f8f8;
