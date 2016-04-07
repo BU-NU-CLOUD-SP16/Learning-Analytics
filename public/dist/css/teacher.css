@@ -80,6 +80,7 @@ div.masterGraphContainer .content-body {
   width: 495px;
   margin-left: 8px;
   margin-top: 9px;
+  max-height: 75px;
 }
 .col-md-10 .content-container div.assignment_Description h4 span {
   font-size: 16px;

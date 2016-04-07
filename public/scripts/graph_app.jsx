@@ -987,6 +987,11 @@ var Activity_Panel = React.createClass({
     this.setState({active_assignment:this.props.active_assignment,active_graph:this.props.active_graph});
   },
   render: function(){
+    //yell("assignment updated to " + this.props.active_assignment.id); 
+
+
+    // ensure the graph is up to date
+    var ActiveGraph = React.cloneElement(this.props.active_graph, {act_assign:this.props.active_assignment.id}, null);
     return (
     <div className=".activity_Panel">
       <div className="col-md-10">
@@ -1015,7 +1020,7 @@ var Activity_Panel = React.createClass({
             </div>
           </div>
           <div className="all-graph">
-              {this.props.active_graph}
+              {ActiveGraph}
           </div>
         </div>
       </div>

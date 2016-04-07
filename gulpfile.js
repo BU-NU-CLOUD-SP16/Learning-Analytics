@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-//var less = require('gulp-less');
+var less = require('gulp-less');
 var path = require('path');
 var browserify = require('browserify');
 var reactify = require('reactify');
@@ -12,7 +12,7 @@ var paths = {
     student_js: ['./public/scripts/graph_app-student.jsx'],
     index_less: ['./public/dist/css/index.less'],
     teacher_less: ['./public/dist/css/teacher.less'],
-    custom_less: ['./public/dist/css/custom.less']
+    custom_less: ['./public/dist/css/custom.less'] 
 };
 
 //Trasnform jsx files from jsx to js, then bundle them
