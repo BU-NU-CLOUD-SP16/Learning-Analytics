@@ -57652,6 +57652,7 @@ module.exports = React.createClass({
     var arcs = arcData.map(function(arc, idx)  {
       return (
         React.createElement(ArcContainer, {
+	  test_func: props.test_func,
           key: idx, 
           startAngle: arc.startAngle, 
           endAngle: arc.endAngle, 
@@ -58894,6 +58895,22 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function Stack(){
+ this.stac=new Array();
+ this.pop=function(){
+  return this.stac.pop();
+ }
+ this.push=function(item){
+  this.stac.push(item);
+ }
+ this.print=function(){
+   window.alert(this.stac);
+ }
+ this.size=function(){
+   return this.stac.length;
+ }
+}
+
 /* nvtaveras implemented this Trie Tree Implementation & this implementation is from his github */
 var Node = function(value, ends){
   return {
@@ -59153,6 +59170,10 @@ var BarChart_Time_Complexity = React.createClass({displayName: "BarChart_Time_Co
 });
 
 var PieChart_Incorrect_Correct = React.createClass({displayName: "PieChart_Incorrect_Correct",
+    test_func: function(new_label, new_value) {
+      this.setState({myLabel: new_label, myValue: new_value});
+      window.alert("last myLabel = " + this.state.myLabel + " last myValue = " + this.state.myValue);
+    },
     getInitialState : function() {
     var pieData = [
       {label: 'Correct', value: 55.0},
@@ -59167,7 +59188,7 @@ var PieChart_Incorrect_Correct = React.createClass({displayName: "PieChart_Incor
       }
     };
 
-    return {pieData: pieData, colorFunction: colorFunction, last_assign:"556"};
+    return {pieData: pieData, colorFunction: colorFunction, last_assign:"556",  myLabel: "unknown", myValue: -1};
     },
     loadSubmissionDataFromServer: function(){
       $.ajax({
@@ -59209,6 +59230,7 @@ var PieChart_Incorrect_Correct = React.createClass({displayName: "PieChart_Incor
                           )
                         ), 
                   			React.createElement(PieChart, {
+					  test_func: this.test_func, 
                   			  data: this.state.pieData, 
                   			  width: graph_widths, 
                   			  height: graph_heights, 
@@ -59543,6 +59565,10 @@ var BarChart_DataStruct_Percent = React.createClass({displayName: "BarChart_Data
 });
 
 var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric",
+    test_func: function(new_xx, new_yy) {
+      this.setState({xx: new_xx, yy: new_yy});
+      window.alert("last New_xx = " + this.state.xx + " last New_yy = " + this.state.yy);
+    },
     loadSizeMetricFromServer: function(){
       /*$.ajax({
         url: "",//"/student/metric/bins",
@@ -59588,7 +59614,7 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
         {"x": 'Y', "y": 4345},
         {"x": 'Z', "y": 5675}]}
       ];
-      return {data: barData};
+      return {data: barData, xx: -1, yy: -1};
     },
     componentDidMount: function(){
       this.loadSizeMetricFromServer();
@@ -59607,6 +59633,7 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
                           )
                         ), 
                         React.createElement(BarChart, {
+			  			  test_func: this.test_func, 
                           data: this.state.data, 
                           width: graph_widths, 
                           height: graph_heights, 
@@ -59868,7 +59895,7 @@ var Activity_Panel = React.createClass({displayName: "Activity_Panel",
     this.setState({active_assignment:this.props.active_assignment,active_graph:this.props.active_graph});
   },
   render: function(){
-    //yell("assignment updated to " + this.props.active_assignment.id); 
+    //yell("assignment updated to " + this.props.active_assignment.id);
 
 
     // ensure the graph is up to date
@@ -60031,27 +60058,62 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
                                 title: "Stuff the Board!",
                                 description: "This is only a temporary stub",
                                 id: "556"
-                              }
+                              },
+            forward_stack: new Stack(),
+            backward_stack: new Stack(),
+            activity_window: React.createElement(Activity_Panel, null)
           };
   },
   componentDidMount: function(){
   },
   componentWillMount: function(){
-    this.setState({active_graph: React.createElement(PieChart_Incorrect_Correct, {act_assign: this.state.active_assignment.id})});
+    var first_graph = React.createElement(PieChart_Incorrect_Correct, {act_assign: this.state.active_assignment.id});
+    this.setState({active_graph: first_graph,
+                  activity_window: React.createElement(Activity_Panel, {
+                                    active_assignment: this.state.active_assignment, 
+                                    active_graph: first_graph}
+                                   )
+    });
   },
+  clickedBack: function(old_window){
+    this.state.forward_stack.push(old_window);
+    yell("clicked back");
+  },
+  clickedForward: function(old_window){
+    this.state.backward_stack.push(old_window);
+    yell("clickedForward");
+  },
+  /*setActivityWindow: function(){
+    this.setState({activity_window: <Activity_Panel
+                                      active_assignment={this.state.active_assignment}
+                                      active_graph={this.state.active_graph}
+                                    />
+    });
+  },*/
   setActiveGraph: function(new_graph = null){
-    this.setState({active_graph: new_graph});
+    this.setState({active_graph: new_graph,
+                  activity_window: React.createElement(Activity_Panel, {
+                                    active_assignment: this.state.active_assignment, 
+                                    active_graph: new_graph}
+                                   )
+    });
   },
   setActiveAssignment: function(new_title = "Scoring for Oriented Dominoes", new_description = "The assignment description has been changed", new_id = "470"){
-    this.setState({
-      active_assignment:{
+    var new_assignment = {
                           title: new_title,
                           description: new_description,
                           id: new_id
-                        }
+    }
+    this.setState({
+      active_assignment: new_assignment,
+      activity_window: React.createElement(Activity_Panel, {
+                        active_assignment: new_assignment, 
+                        active_graph: this.state.active_graph}
+                       )
     });
   },
   render:function(){
+    var Activity_Window = React.createElement(Activity_Panel, {active_assignment: this.state.active_assignment, active_graph: this.state.active_graph});
     return (
       React.createElement("div", {className: "masterGraphContainer"}, 
         React.createElement("div", {className: "content-toolbar"}
@@ -60066,8 +60128,8 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
                     React.createElement("p", null, this.state.description), 
                     React.createElement("div", {className: "fb-container"}, 
                       React.createElement("div", {className: "btn-group", role: "group"}, 
-                        React.createElement("button", {type: "button", className: "btn btn-default btn-sm"}, React.createElement("i", {className: "fa fa-arrow-left"})), 
-                        React.createElement("button", {type: "button", className: "btn btn-default btn-sm"}, React.createElement("i", {className: "fa fa-arrow-right"}))
+                        React.createElement("button", {onClick: this.clickedBack.bind(this,Activity_Window), type: "button", className: "btn btn-default btn-sm"}, React.createElement("i", {className: "fa fa-arrow-left"})), 
+                        React.createElement("button", {onClick: this.clickedForward.bind(this,Activity_Window), type: "button", className: "btn btn-default btn-sm"}, React.createElement("i", {className: "fa fa-arrow-right"}))
                       )
                     )
                   ), 
@@ -60101,12 +60163,12 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
               )
             )
           ), 
-          React.createElement(Activity_Panel, {active_assignment: this.state.active_assignment, active_graph: this.state.active_graph})
+          this.state.activity_window
         )
       )
     );
   }
-});
+}); // {Activity_Window}
 
 /****************** Main End ******************/
 

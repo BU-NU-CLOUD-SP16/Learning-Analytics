@@ -13,6 +13,22 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function Stack(){
+ this.stac=new Array();
+ this.pop=function(){
+  return this.stac.pop();
+ }
+ this.push=function(item){
+  this.stac.push(item);
+ }
+ this.print=function(){
+   window.alert(this.stac);
+ }
+ this.size=function(){
+   return this.stac.length;
+ }
+}
+
 /* nvtaveras implemented this Trie Tree Implementation & this implementation is from his github */
 var Node = function(value, ends){
   return {
@@ -997,7 +1013,7 @@ var Activity_Panel = React.createClass({
     this.setState({active_assignment:this.props.active_assignment,active_graph:this.props.active_graph});
   },
   render: function(){
-    //yell("assignment updated to " + this.props.active_assignment.id); 
+    //yell("assignment updated to " + this.props.active_assignment.id);
 
 
     // ensure the graph is up to date
@@ -1160,27 +1176,62 @@ var MasterGraphContainer = React.createClass({
                                 title: "Stuff the Board!",
                                 description: "This is only a temporary stub",
                                 id: "556"
-                              }
+                              },
+            forward_stack: new Stack(),
+            backward_stack: new Stack(),
+            activity_window: <Activity_Panel/>
           };
   },
   componentDidMount: function(){
   },
   componentWillMount: function(){
-    this.setState({active_graph: <PieChart_Incorrect_Correct act_assign={this.state.active_assignment.id}/>});
+    var first_graph = <PieChart_Incorrect_Correct act_assign={this.state.active_assignment.id}/>;
+    this.setState({active_graph: first_graph,
+                  activity_window: <Activity_Panel
+                                    active_assignment={this.state.active_assignment}
+                                    active_graph={first_graph}
+                                   />
+    });
   },
+  clickedBack: function(old_window){
+    this.state.forward_stack.push(old_window);
+    yell("clicked back");
+  },
+  clickedForward: function(old_window){
+    this.state.backward_stack.push(old_window);
+    yell("clickedForward");
+  },
+  /*setActivityWindow: function(){
+    this.setState({activity_window: <Activity_Panel
+                                      active_assignment={this.state.active_assignment}
+                                      active_graph={this.state.active_graph}
+                                    />
+    });
+  },*/
   setActiveGraph: function(new_graph = null){
-    this.setState({active_graph: new_graph});
+    this.setState({active_graph: new_graph,
+                  activity_window: <Activity_Panel
+                                    active_assignment={this.state.active_assignment}
+                                    active_graph={new_graph}
+                                   />
+    });
   },
   setActiveAssignment: function(new_title = "Scoring for Oriented Dominoes", new_description = "The assignment description has been changed", new_id = "470"){
-    this.setState({
-      active_assignment:{
+    var new_assignment = {
                           title: new_title,
                           description: new_description,
                           id: new_id
-                        }
+    }
+    this.setState({
+      active_assignment: new_assignment,
+      activity_window: <Activity_Panel
+                        active_assignment={new_assignment}
+                        active_graph={this.state.active_graph}
+                       />
     });
   },
   render:function(){
+    var Activity_Window = <Activity_Panel active_assignment={this.state.active_assignment} active_graph={this.state.active_graph}/>;
     return (
       <div className="masterGraphContainer">
         <div className="content-toolbar">
@@ -1195,8 +1246,8 @@ var MasterGraphContainer = React.createClass({
                     <p>{this.state.description}</p>
                     <div className="fb-container">
                       <div className="btn-group" role="group">
-                        <button type="button" className="btn btn-default btn-sm"><i className="fa fa-arrow-left"></i></button>
-                        <button type="button" className="btn btn-default btn-sm"><i className="fa fa-arrow-right"></i></button>
+                        <button onClick={this.clickedBack.bind(this,Activity_Window)} type="button" className="btn btn-default btn-sm"><i className="fa fa-arrow-left"></i></button>
+                        <button onClick={this.clickedForward.bind(this,Activity_Window)} type="button" className="btn btn-default btn-sm"><i className="fa fa-arrow-right"></i></button>
                       </div>
                     </div>
                   </div>
@@ -1230,12 +1281,12 @@ var MasterGraphContainer = React.createClass({
               </div>
             </div>
           </div>
-          <Activity_Panel active_assignment={this.state.active_assignment} active_graph={this.state.active_graph}/>
+          {this.state.activity_window}
         </div>
       </div>
     );
   }
-});
+}); // {Activity_Window}
 
 /****************** Main End ******************/
 
