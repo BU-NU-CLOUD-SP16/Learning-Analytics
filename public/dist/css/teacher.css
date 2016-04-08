@@ -1,3 +1,6 @@
+.pop_brdr {
+  border: solid 2px red;
+}
 div.masterGraphContainer {
   background: #fcfcfc;
   /*  border:red solid 30px;*/
@@ -15,9 +18,6 @@ div.masterGraphContainer .content-toolbar {
 div.masterGraphContainer .content-body {
   height: calc(50vh);
   display: table;
-}
-.pop_brdr {
-  border: solid 2px red;
 }
 .graphList a {
   color: #797777;
@@ -318,6 +318,9 @@ div.description-box div.fb-container {
   right: 0px;
   margin-right: 1px;
   margin-top: 1px;
+}
+div.description-box div.fb-container button.btn {
+  border-radius: 0px;
 }
 div#wrapper > * {
   background: #f8f8f8;
