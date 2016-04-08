@@ -59084,9 +59084,6 @@ var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
                       React.createElement("div", {className: "panel-heading"}, 
                         React.createElement("h3", null, 
                         "Lines of Code"
-                        ), 
-                        React.createElement("div", {className: "graph-x"}, 
-                          React.createElement("i", {className: "fa fa-times"})
                         )
                       ), 
                   		React.createElement(BarTooltip, {
@@ -59153,9 +59150,6 @@ var BarChart_Time_Complexity = React.createClass({displayName: "BarChart_Time_Co
                       React.createElement("div", {className: "panel-heading"}, 
                         React.createElement("h3", null, 
                         "Time Complexity (ms)"
-                        ), 
-                        React.createElement("div", {className: "graph-x"}, 
-                          React.createElement("i", {className: "fa fa-times"})
                         )
                       ), 
                     React.createElement(BarChart, {
@@ -59228,9 +59222,6 @@ var PieChart_Incorrect_Correct = React.createClass({displayName: "PieChart_Incor
                         React.createElement("div", {className: "panel-heading"}, 
                           React.createElement("h3", null, 
                             "Correct-Incorrect"
-                          ), 
-                          React.createElement("div", {className: "graph-x"}, 
-                            React.createElement("i", {className: "fa fa-times"})
                           )
                         ), 
                   			React.createElement(PieChart, {
@@ -59294,9 +59285,6 @@ var BarChart_Loop_Count = React.createClass({displayName: "BarChart_Loop_Count",
                       React.createElement("div", {className: "panel-heading"}, 
                         React.createElement("h3", null, 
                           "Nested Loop Count"
-                        ), 
-                        React.createElement("div", {className: "graph-x"}, 
-                          React.createElement("i", {className: "fa fa-times"})
                         )
                       ), 
                       React.createElement(BarChart, {
@@ -59357,9 +59345,6 @@ var BarChart_Space_Complexity = React.createClass({displayName: "BarChart_Space_
                       React.createElement("div", {className: "panel-heading"}, 
                         React.createElement("h3", null, 
                           "Space Complexity (Percentage of input)"
-                        ), 
-                        React.createElement("div", {className: "graph-x"}, 
-                          React.createElement("i", {className: "fa fa-times"})
                         )
                       ), 
                       React.createElement(BarChart, {
@@ -59420,9 +59405,6 @@ var BarChart_Loop_Percent = React.createClass({displayName: "BarChart_Loop_Perce
                       React.createElement("div", {className: "panel-heading"}, 
                         React.createElement("h3", null, 
                           "Loop Count (Percentage of input)"
-                        ), 
-                        React.createElement("div", {className: "graph-x"}, 
-                          React.createElement("i", {className: "fa fa-times"})
                         )
                       ), 
                     React.createElement(BarChart, {
@@ -59543,24 +59525,21 @@ var BarChart_DataStruct_Percent = React.createClass({displayName: "BarChart_Data
         return (React.createElement("div", {className: "graph-container col-md-4"}, 
                 React.createElement("div", {className: "graphContainerList"}, 
                   React.createElement("div", {className: "barChart_DataStruct_Percent"}, 
-                    React.createElement("div", {className: "panel panel-default"}, 
+                      React.createElement("div", {className: "panel panel-default"}, 
                       React.createElement("div", {className: "panel-heading"}, 
-                      React.createElement("h3", null, 
-                      "Data Structures Used"
+                        React.createElement("h3", null, 
+                        "Data Structures Used"
+                        )
                       ), 
-                      React.createElement("div", {className: "graph-x"}, 
-                        React.createElement("i", {className: "fa fa-times"})
+                      React.createElement(BarChart, {
+            	          legend: true, 
+                        data: this.state.barData, 
+                        width: graph_widths, 
+                        height: graph_heights, 
+                        fill: '#3182bd', 
+                        title: "", 
+                        margins: {top: 20, right: 100, bottom: 30, left: 40}}
                       )
-                    ), 
-                    React.createElement(BarChart, {
-          	          legend: true, 
-                      data: this.state.barData, 
-                      width: graph_widths, 
-                      height: graph_heights, 
-                      fill: '#3182bd', 
-                      title: "", 
-                      margins: {top: 20, right: 100, bottom: 30, left: 40}}
-                    )
                     )
                   )
                 )
@@ -59631,9 +59610,6 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
                         React.createElement("div", {className: "panel-heading"}, 
                           React.createElement("h3", null, 
                             "Size Metric"
-                          ), 
-                          React.createElement("div", {className: "graph-x"}, 
-                            React.createElement("i", {className: "fa fa-times"})
                           )
                         ), 
                         React.createElement(BarChart, {
@@ -60029,11 +60005,11 @@ var GraphList = React.createClass({displayName: "GraphList",
                                {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
                                {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
                                {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
-                               {"innerHTMLs":"Class Rank","iconTYPEs":"bar-chart"},
+                               {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
                                {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
-                               {"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
+                               //{"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
                                {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
-                               {"innerHTMLs":"Popular Functions","iconTYPEs":"sign-in"},
+                               {"innerHTMLs":"Popular Functions (null)","iconTYPEs":"sign-in"},
                                {"innerHTMLs":"Size Metric","iconTYPEs":"file-text"}];
   var setActiveGraph = this.setActiveGraph;
   var active_id = this.props.active_assignment_id;
@@ -60088,16 +60064,16 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
                                    )
     });
   },
-  clickedBack: function(old_window){
-    global.forward_stack.push(old_window);
+  clickedBack: function(){
     if(global.backward_stack.size() > 0){
+      global.forward_stack.push(this.state.activity_window);//old_window);
       this.setState({activity_window: global.backward_stack.pop()});
     }
     // yell("clicked back");
   },
-  clickedForward: function(old_window){
-    global.backward_stack.push(old_window);
+  clickedForward: function(){
     if(global.forward_stack.size() > 0){
+      global.backward_stack.push(this.state.activity_window); //old_window);
       this.setState({activity_window: global.forward_stack.pop()});
     }
     // yell("clicked forward");
@@ -60132,8 +60108,9 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
     //yell("set window");
   },
   render:function(){
-    yell("backstack size: " + global.backward_stack.size() + " frontstack size: " + global.forward_stack.size());
-    var Activity_Window = React.createElement(Activity_Panel, {active_assignment: this.state.active_assignment, active_graph: this.state.active_graph});
+    //yell("backstack size: " + global.backward_stack.size() + " frontstack size: " + global.forward_stack.size());
+    //var Activity_Window = <Activity_Panel active_assignment={this.state.active_assignment} active_graph={this.state.active_graph}/>;
+    // .bind(this,Activity_Window) <- if you want to pass a parametere
     return (
       React.createElement("div", {className: "masterGraphContainer"}, 
         React.createElement("div", {className: "content-toolbar"}
@@ -60148,8 +60125,8 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
                     React.createElement("p", null, this.state.description), 
                     React.createElement("div", {className: "fb-container"}, 
                       React.createElement("div", {className: "btn-group", role: "group"}, 
-                        React.createElement("button", {onClick: this.clickedBack.bind(this,Activity_Window), type: "button", className: "btn btn-default btn-sm"}, React.createElement("i", {className: "fa fa-arrow-left"})), 
-                        React.createElement("button", {onClick: this.clickedForward.bind(this,Activity_Window), type: "button", className: "btn btn-default btn-sm"}, React.createElement("i", {className: "fa fa-arrow-right"}))
+                        React.createElement("button", {onClick: this.clickedBack, type: "button", className: "btn btn-default btn-sm"}, React.createElement("i", {className: "fa fa-arrow-left"})), 
+                        React.createElement("button", {onClick: this.clickedForward, type: "button", className: "btn btn-default btn-sm"}, React.createElement("i", {className: "fa fa-arrow-right"}))
                       )
                     )
                   ), 

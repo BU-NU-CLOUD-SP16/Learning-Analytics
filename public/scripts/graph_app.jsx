@@ -203,9 +203,6 @@ var BarChart_Lines_Code = React.createClass({
                         <h3>
                         Lines of Code
                         </h3>
-                        <div className="graph-x">
-                          <i className="fa fa-times"></i>
-                        </div>
                       </div>
                   		<BarTooltip
                         data={this.state.barData}
@@ -272,9 +269,6 @@ var BarChart_Time_Complexity = React.createClass({
                         <h3>
                         Time Complexity (ms)
                         </h3>
-                        <div className="graph-x" >
-                          <i className="fa fa-times"></i>
-                        </div>
                       </div>
                     <BarChart
                       data={this.state.barData}
@@ -347,9 +341,6 @@ var PieChart_Incorrect_Correct = React.createClass({
                           <h3>
                             Correct-Incorrect
                           </h3>
-                          <div className="graph-x" >
-                            <i className="fa fa-times"></i>
-                          </div>
                         </div>
                   			<PieChart
 					  test_func={this.test_func}
@@ -413,9 +404,6 @@ var BarChart_Loop_Count = React.createClass({
                         <h3>
                           Nested Loop Count
                         </h3>
-                        <div className="graph-x" >
-                          <i className="fa fa-times"></i>
-                        </div>
                       </div>
                       <BarChart
                         data={this.state.barData}
@@ -476,9 +464,6 @@ var BarChart_Space_Complexity = React.createClass({
                         <h3>
                           Space Complexity (Percentage of input)
                         </h3>
-                        <div className="graph-x" >
-                          <i className="fa fa-times"></i>
-                        </div>
                       </div>
                       <BarChart
                         data={this.state.barData}
@@ -539,9 +524,6 @@ var BarChart_Loop_Percent = React.createClass({
                         <h3>
                           Loop Count (Percentage of input)
                         </h3>
-                        <div className="graph-x" >
-                          <i className="fa fa-times"></i>
-                        </div>
                       </div>
                     <BarChart
                       data={this.state.barData}
@@ -661,24 +643,21 @@ var BarChart_DataStruct_Percent = React.createClass({
         return (<div className="graph-container col-md-4">
                 <div className="graphContainerList">
                   <div className="barChart_DataStruct_Percent">
-                    <div className="panel panel-default">
+                      <div className="panel panel-default">
                       <div className="panel-heading">
-                      <h3>
-                      Data Structures Used
-                      </h3>
-                      <div className="graph-x" >
-                        <i className="fa fa-times"></i>
+                        <h3>
+                        Data Structures Used
+                        </h3>
                       </div>
-                    </div>
-                    <BarChart
-          	          legend={true}
-                      data={this.state.barData}
-                      width={graph_widths}
-                      height={graph_heights}
-                      fill={'#3182bd'}
-                      title=''
-                      margins={{top: 20, right: 100, bottom: 30, left: 40}}
-                    />
+                      <BarChart
+            	          legend={true}
+                        data={this.state.barData}
+                        width={graph_widths}
+                        height={graph_heights}
+                        fill={'#3182bd'}
+                        title=''
+                        margins={{top: 20, right: 100, bottom: 30, left: 40}}
+                      />
                     </div>
                   </div>
                 </div>
@@ -750,9 +729,6 @@ var BarChart_Size_Metric = React.createClass({
                           <h3>
                             Size Metric
                           </h3>
-                          <div className="graph-x" >
-                            <i className="fa fa-times"></i>
-                          </div>
                         </div>
                         <BarChart
 			  			  test_func={this.test_func}
@@ -1147,11 +1123,11 @@ var GraphList = React.createClass({
                                {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
                                {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
                                {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
-                               {"innerHTMLs":"Class Rank","iconTYPEs":"bar-chart"},
+                               {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
                                {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
-                               {"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
+                               //{"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
                                {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
-                               {"innerHTMLs":"Popular Functions","iconTYPEs":"sign-in"},
+                               {"innerHTMLs":"Popular Functions (null)","iconTYPEs":"sign-in"},
                                {"innerHTMLs":"Size Metric","iconTYPEs":"file-text"}];
   var setActiveGraph = this.setActiveGraph;
   var active_id = this.props.active_assignment_id;
@@ -1206,16 +1182,16 @@ var MasterGraphContainer = React.createClass({
                                    />
     });
   },
-  clickedBack: function(old_window){
-    global.forward_stack.push(old_window);
+  clickedBack: function(){
     if(global.backward_stack.size() > 0){
+      global.forward_stack.push(this.state.activity_window);//old_window);
       this.setState({activity_window: global.backward_stack.pop()});
     }
     // yell("clicked back");
   },
-  clickedForward: function(old_window){
-    global.backward_stack.push(old_window);
+  clickedForward: function(){
     if(global.forward_stack.size() > 0){
+      global.backward_stack.push(this.state.activity_window); //old_window);
       this.setState({activity_window: global.forward_stack.pop()});
     }
     // yell("clicked forward");
@@ -1250,8 +1226,9 @@ var MasterGraphContainer = React.createClass({
     //yell("set window");
   },
   render:function(){
-    yell("backstack size: " + global.backward_stack.size() + " frontstack size: " + global.forward_stack.size());
-    var Activity_Window = <Activity_Panel active_assignment={this.state.active_assignment} active_graph={this.state.active_graph}/>;
+    //yell("backstack size: " + global.backward_stack.size() + " frontstack size: " + global.forward_stack.size());
+    //var Activity_Window = <Activity_Panel active_assignment={this.state.active_assignment} active_graph={this.state.active_graph}/>;
+    // .bind(this,Activity_Window) <- if you want to pass a parameter
     return (
       <div className="masterGraphContainer">
         <div className="content-toolbar">
@@ -1266,8 +1243,8 @@ var MasterGraphContainer = React.createClass({
                     <p>{this.state.description}</p>
                     <div className="fb-container">
                       <div className="btn-group" role="group">
-                        <button onClick={this.clickedBack.bind(this,Activity_Window)} type="button" className="btn btn-default btn-sm"><i className="fa fa-arrow-left"></i></button>
-                        <button onClick={this.clickedForward.bind(this,Activity_Window)} type="button" className="btn btn-default btn-sm"><i className="fa fa-arrow-right"></i></button>
+                        <button onClick={this.clickedBack} type="button" className="btn btn-default btn-sm"><i className="fa fa-arrow-left"></i></button>
+                        <button onClick={this.clickedForward} type="button" className="btn btn-default btn-sm"><i className="fa fa-arrow-right"></i></button>
                       </div>
                     </div>
                   </div>
