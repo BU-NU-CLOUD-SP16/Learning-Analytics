@@ -19,7 +19,11 @@ function Stack(){
   return this.stac.pop();
  }
  this.push=function(item){
+   if(this.stac.size() > 7){
+     this.stac.shift();
+   }
   this.stac.push(item);
+
  }
  this.print=function(){
    window.alert(this.stac);

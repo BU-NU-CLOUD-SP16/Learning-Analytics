@@ -59900,16 +59900,11 @@ var Activity_Panel = React.createClass({displayName: "Activity_Panel",
 
     // ensure the graph is up to date
     var ActiveGraph = React.cloneElement(this.props.active_graph, {act_assign:this.props.active_assignment.id}, null);
-
-
 /*
-
 <h4>
   Selected Assignment:
 </h4>
-
 */
-
     return (
     React.createElement("div", {className: ".activity_Panel"}, 
       React.createElement("div", {className: "col-md-10"}, 
