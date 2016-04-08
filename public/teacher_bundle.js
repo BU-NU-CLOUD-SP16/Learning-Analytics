@@ -58901,7 +58901,11 @@ function Stack(){
   return this.stac.pop();
  }
  this.push=function(item){
+   if(this.size() > 7){
+     this.stac.shift();
+   }
   this.stac.push(item);
+
  }
  this.print=function(){
    window.alert(this.stac);
@@ -60053,6 +60057,11 @@ var GraphList = React.createClass({displayName: "GraphList",
 /****************** Graph Selection Directory End ******************/
 
 /****************** Main Begin ******************/
+var global = {
+  forward_stack:new Stack(),
+  backward_stack:new Stack()
+};
+
 var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer",
   getInitialState: function(){
     return {title: "Welcome",
@@ -60063,8 +60072,8 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
                                 description: "This is only a temporary stub",
                                 id: "556"
                               },
-            forward_stack: new Stack(),
-            backward_stack: new Stack(),
+            //forward_stack: new Stack(),
+            //backward_stack: new Stack(),
             activity_window: React.createElement(Activity_Panel, null)
           };
   },
@@ -60080,16 +60089,16 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
     });
   },
   clickedBack: function(old_window){
-    this.state.forward_stack.push(old_window);
-    if(this.state.backward_stack.size() > 0){
-      this.setState({activity_window: this.state.backward_stack.pop()});
+    global.forward_stack.push(old_window);
+    if(global.backward_stack.size() > 0){
+      this.setState({activity_window: global.backward_stack.pop()});
     }
     // yell("clicked back");
   },
   clickedForward: function(old_window){
-    this.state.backward_stack.push(old_window);
-    if(this.state.forward_stack.size() > 0){
-      this.setState({activity_window: this.state.forward_stack.pop()});
+    global.backward_stack.push(old_window);
+    if(global.forward_stack.size() > 0){
+      this.setState({activity_window: global.forward_stack.pop()});
     }
     // yell("clicked forward");
   },
@@ -60101,7 +60110,8 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
     this.setState({active_graph: new_graph,
                   activity_window: new_active_window
     });
-    this.state.backward_stack.push(new_active_window);
+    //global.backward_stack.push(new_active_window);
+    global.backward_stack.push(this.state.activity_window);
   },
   setActiveAssignment: function(new_title = "Scoring for Oriented Dominoes", new_description = "The assignment description has been changed", new_id = "470"){
     var new_assignment = {
@@ -60117,9 +60127,12 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
       active_assignment: new_assignment,
       activity_window: new_active_window
     });
-    this.state.backward_stack.push(new_active_window);
+    //global.backward_stack.push(new_active_window);
+    global.backward_stack.push(this.state.activity_window);
+    //yell("set window");
   },
   render:function(){
+    yell("backstack size: " + global.backward_stack.size() + " frontstack size: " + global.forward_stack.size());
     var Activity_Window = React.createElement(Activity_Panel, {active_assignment: this.state.active_assignment, active_graph: this.state.active_graph});
     return (
       React.createElement("div", {className: "masterGraphContainer"}, 
