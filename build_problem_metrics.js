@@ -39,7 +39,7 @@ table_schema = "(id INT(11) NOT NULL PRIMARY KEY," +
                 "percent_correct FLOAT(6,3));";
 var errFunc = function(err){ if(err) console.log(err); };
 var fillProblemMetricsTable = function(problem_id){
-    query = 'SELECT COUNT(*) total, COUNT(CASE WHEN correct=1 THEN 1 END) correct FROM solution WHERE problem_id=' + problem_id + ' GROUP BY player_id;'
+    query = 'SELECT COUNT(*) total, COUNT(CASE WHEN correct=1 THEN 1 END) correct FROM solution WHERE problem_id=' + problem_id + ' GROUP BY player_id;';
     databaseConn.query(query,    
         function (err, rows){
         if(err) console.log(err);
@@ -84,7 +84,7 @@ databaseConn.query("SHOW TABLES LIKE 'problem_metrics'", function(err, rows){
                             fillProblemMetricsTable(ids[i]);
                         }
                     });
-                    console.log("Completed creating database.")
+                    console.log("Completed creating database.");
                 }
             });
         }
