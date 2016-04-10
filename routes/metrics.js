@@ -55,6 +55,31 @@ function submissionToBarChart(submissionArray){
     return submissionData;
 }
 
+function firstCorrect(solutionArray){
+
+    var flag = 0;
+    var attempts = 0;
+    var first_correct = 0;
+
+    for (attempts = 0; attempts < solutionArray.length; attempts++){
+        if (solutionArray[attempts].correct == 1){
+            flag = 1;
+            break;
+        }
+    }
+
+    if(flag)
+        first_correct = attempts + 1;
+    else
+        first_correct = -1;
+
+    var response = {
+        "attempts until correct": first_correct
+    };
+
+    return response;
+}
+
 
 module.exports = function(app, databaseConn){
     
@@ -98,5 +123,33 @@ module.exports = function(app, databaseConn){
         }
         else res.sendStatus(404);
     });
-};
 
+    app.get('/problem/:problem_id/student/:student_id/metrics/:metric', function(req, res) {
+
+        if (req.params.metric == "first_correct"){
+            databaseConn.query('SELECT player_id FROM solution WHERE ' + req.params.problem_id + ' GROUP BY player_id;', function (err, rows) {
+                if(err) {
+                    console.log(err);
+                    res.status(500).send({
+                        status:500,
+                        message: 'internal error',
+                        type: 'internal'
+                    });
+                } else {
+                    databaseConn.query('SELECT correct FROM solution WHERE player_id=' + req.params.student_id + ' AND problem_id=' + req.params.problem_id + ' ORDER BY created_at;', function (err, rows) {
+                        if(err) {
+                            console.log(err);
+                            res.status(500).send({
+                                status:500,
+                                message: 'internal error',
+                                type: 'internal'
+                            });
+                        } else {
+                            res.send(firstCorrect(rows));
+                        }
+                    });
+                }
+            }); 
+        } else res.sendStatus(404);
+    });
+}
