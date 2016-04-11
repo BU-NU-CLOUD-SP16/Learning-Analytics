@@ -28,6 +28,31 @@ module.exports = function(app, databaseConn) {
       });
     });
 
+    // Return all students that submitted to a problem
+    app.get('/problem/:problem_id/student_submissions', function(req, res) {
+      databaseConn.query('SELECT COUNT(*) AS count FROM solution WHERE problem_id = ' + req.params.problem_id, function (err, rows){
+        if(err) {
+          console.log(err);
+          res.status(500).send({status:500, message: 'internal error', type:'internal'});
+        } else {
+        console.log('Data received from DB');
+        res.send(rows);
+      }
+      });
+    });
+
+    // Return count of submissions to a problem
+    app.get('/problem/:problem_id/students', function(req, res) {
+      databaseConn.query('SELECT player_id FROM solution WHERE problem_id = ' + req.params.problem_id, function (err, rows){
+        if(err) {
+          console.log(err);
+          res.status(500).send({status:500, message: 'internal error', type:'internal'});
+        } else {
+        console.log('Data received from DB');
+        res.send(rows);
+      }
+      });
+    });
 
     
     // Return specific information related to the probelm
