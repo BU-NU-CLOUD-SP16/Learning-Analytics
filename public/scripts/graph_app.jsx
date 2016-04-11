@@ -171,10 +171,11 @@ var BarChart_Lines_Code = React.createClass({
               series: chartSeries,
               x: x,
               xScale: xScale,
-              yTicks: yTicks};
+              yTicks: yTicks,
+              last_assign:"0",};
     },loadLineCountMetricFromServer: function(){
       $.ajax({
-        url: "/problem/470/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        url: "/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
         dataType: 'json',
         cache: false,
         success: function(data) {
@@ -194,6 +195,9 @@ var BarChart_Lines_Code = React.createClass({
     //  setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
+      if(this.state.last_ass != this.props.act_assign){
+        this.loadLineCountMetricFromServer();
+      }
         return (
           <div className="graph-container col-md-4">
                 <div className="graphContainerList">
@@ -304,7 +308,7 @@ var PieChart_Incorrect_Correct = React.createClass({
       }
     };
 
-    return {pieData: pieData, colorFunction: colorFunction, last_assign:"556",  myLabel: "unknown", myValue: -1};
+    return {pieData: pieData, colorFunction: colorFunction, last_assign:"0",  myLabel: "unknown", myValue: -1};
     },
     loadSubmissionDataFromServer: function(){
       $.ajax({
@@ -895,7 +899,7 @@ var clicked_go = false;
 var StudentForm = React.createClass({
   getInitialState: function(){
       var this_loaded = new Trie();
-      return ({prefix: [], data: [],trie: this_loaded}); // iniitially the user hasnt entered anything into the search box
+      return ({prefix: [], data: [],trie: this_loaded, last_id:"556"}); // iniitially the user hasnt entered anything into the search box
   },
   // in the case the user clicks the search box
   onGo: function(){
@@ -915,7 +919,7 @@ var StudentForm = React.createClass({
   },
   loadStudentsFromServer: function(){
     $.ajax({
-      url: "/dbtest",
+      url: "/problem/" + this.props.active_assignment_id + "/students",  //    /problem/470/students
       dataType: 'json',
       cache: false,
       success: function(data) {
@@ -943,6 +947,14 @@ var StudentForm = React.createClass({
     });
   },
   render: function(){
+    // if the assignment_id is different, reload the students
+    if(this.props.active_assignment_id != this.state.last_id){
+      // This updating functionality needs to be implemented such that when a new problem id is selected
+
+      // this.loadStudentsFromServer();
+    }
+
+
   //initialized to hold everything
   var set_arr = this.state.prefix;
   var studentNodes = set_arr.map(function(student_name){
@@ -1267,7 +1279,7 @@ var MasterGraphContainer = React.createClass({
                           <a href="#"><i className="fa fa-user fa-fw"></i> Students<span className="fa arrow"></span></a>
                           <ul className="nav nav-second-level" style={{"minHeight": "250px"}}>
                             <li>
-                                <StudentForm/>
+                                <StudentForm active_assignment_id={this.state.active_assignment.id}/>
                             </li>
                           </ul>
                         </li>
