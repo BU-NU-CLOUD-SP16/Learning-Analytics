@@ -1,11 +1,7 @@
 var mysql = require("mysql");
+var sqlConfig = require("./sql_config");
 
-var databaseConn = mysql.createConnection({
-    host: "52.33.14.62",
-    user: "remote",
-    password: "learninganalytics",
-    database: "demo1"
-});
+var databaseConn = mysql.createConnection(sqlConfig.login_data);
 
 databaseConn.connect(function(err){
     if(err){
@@ -16,12 +12,11 @@ databaseConn.connect(function(err){
     return;
 });
 
-table_schema = "(id INT(11) NOT NULL PRIMARY KEY," +
-                "FOREIGN KEY (id) REFERENCES solution(id)," +
-                "linecount INT(5));";
+tableSchema = sqlConfig.solution_metrics_schema;
+
 var errFunc = function(err){ if(err) console.log(err); };
 var fillMetricsTable = function(){
-    databaseConn.query("SELECT id, body FROM solution;",
+    databaseConn.query("SELECT id, body, problem_id, metric FROM solution;",
         function(err, rows){
         if(err) console.log(err);
         else{
@@ -31,7 +26,9 @@ var fillMetricsTable = function(){
                 databaseConn.query("INSERT INTO solution_metrics " +
                                    "VALUES(" +
                                    rows[i].id.toString() + ", " +
-                                   lines.toString() + " );",
+                                   rows[i].problem_id.toString() + ", " +
+                                   lines.toString() + ", " +
+                                   rows[i].metric.toString() +" );",
                                    errFunc
                 );
             }
@@ -45,7 +42,7 @@ databaseConn.query("SHOW TABLES LIKE 'solution_metrics'", function(err, rows){
     else {
         console.log("solution_metrics table doesn't exists, now building it");
         if(rows.length === 0){
-            databaseConn.query("CREATE TABLE solution_metrics" + table_schema,
+            databaseConn.query("CREATE TABLE solution_metrics" + tableSchema,
                               function(err){
                 if(err) console.log(err);
                 else{
