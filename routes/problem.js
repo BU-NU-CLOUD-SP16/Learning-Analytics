@@ -53,8 +53,7 @@ module.exports = function(app, databaseConn) {
       }
       });
     });
-
-
+    
     // Return specific information related to the probelm
     /*app.get('/problem/:problem_id/:modifier', function(req, res) {
       var problem_id = req.params.problem_id;
