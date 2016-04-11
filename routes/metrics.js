@@ -33,22 +33,11 @@ function countToBarChart(lineArray){
 }
 
 function submissionToBarChart(submissionArray){
-    var correctCount = 0, incorrectCount = 0;
-    var correctPercent = 0.0, incorrectPercent = 0.0;
-
-    for (var i = 0; i < submissionArray.length; i++){
-        if (submissionArray[i].correct > 0) {
-            correctCount++;
-        } else {
-            incorrectCount++;
-        }
-    }
-
-    correctPercent = 100 * correctCount/(correctCount+incorrectCount);
-    incorrectPercent = 100 - correctPercent;
+    var correctPercent = submissionArray[0].percent_correct;
+    var incorrectPercent = 100 - correctPercent;
 
     var submissionData = [
-        {"label": 'correct', "value": (correctPercent).toFixed(2)},
+        {"label": 'correct', "value": (correctPercent).toString()},
         {"label": 'incorrect', "value": (incorrectPercent).toFixed(2)},
         ];
 
@@ -107,7 +96,7 @@ module.exports = function(app, databaseConn){
             //databaseConn.query('SELECT player_id, COUNT(correct) FROM solution WHERE correct=1 AND problem_id=' + req.params.problem_id + ' GROUP BY player_id;',
             //databaseConn.query('SELECT COUNT(*) count FROM solution WHERE correct=1 AND problem_id=' + req.params.problem_id + ';',
             //databaseConn.query('SELECT player_id, COUNT(correct) correct FROM solution WHERE problem_id=' + req.params.problem_id + ' GROUP BY player_id;',
-            databaseConn.query('SELECT COUNT(*) total, COUNT(CASE WHEN correct=1 THEN 1 END) correct FROM solution WHERE problem_id=' + req.params.problem_id + ' GROUP BY player_id;',    
+            databaseConn.query('SELECT id AS problem_id, percent_correct FROM problem_metrics WHERE id=' + req.params.problem_id,  
                 function (err, rows){
                 if(err) {
                     console.log(err);
