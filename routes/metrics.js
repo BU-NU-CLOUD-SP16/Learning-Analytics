@@ -75,7 +75,7 @@ module.exports = function(app, databaseConn){
     app.get('/problem/:problem_id/metrics/:metric', function(req, res) {
         
         if(req.params.metric == "linecount"){
-            databaseConn.query('SELECT linecount FROM solution_metrics;', //WHERE problem_id = ' + req.params.problem_id,
+            databaseConn.query('SELECT linecount FROM solution_metrics WHERE problem=' + req.params.problem_id, //WHERE problem_id = ' + req.params.problem_id,
                 function (err, rows){
                 if(err) {
                     console.log(err);
@@ -107,6 +107,20 @@ module.exports = function(app, databaseConn){
                     });
                 } else {
                     res.send(submissionToBarChart(rows));
+                }
+            });
+        } else if (req.params.metric == "size"){
+            databaseConn.query('SELECT id AS submission_id, size FROM solution_metrics WHERE problem=' + req.params.problem_id,  
+                function (err, rows){
+                if(err) {
+                    console.log(err);
+                    res.status(500).send({
+                        status:500,
+                        message: 'internal error',
+                        type: 'internal'
+                    });
+                } else {
+                    res.send(rows);
                 }
             });
         }
