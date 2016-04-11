@@ -44,31 +44,6 @@ function submissionToBarChart(submissionArray){
     return submissionData;
 }
 
-function firstCorrect(solutionArray){
-
-    var flag = 0;
-    var attempts = 0;
-    var first_correct = 0;
-
-    for (attempts = 0; attempts < solutionArray.length; attempts++){
-        if (solutionArray[attempts].correct == 1){
-            flag = 1;
-            break;
-        }
-    }
-
-    if(flag)
-        first_correct = attempts + 1;
-    else
-        first_correct = -1;
-
-    var response = {
-        "attempts until correct": first_correct
-    };
-
-    return response;
-}
-
 
 module.exports = function(app, databaseConn){
     
@@ -96,7 +71,7 @@ module.exports = function(app, databaseConn){
             //databaseConn.query('SELECT player_id, COUNT(correct) FROM solution WHERE correct=1 AND problem_id=' + req.params.problem_id + ' GROUP BY player_id;',
             //databaseConn.query('SELECT COUNT(*) count FROM solution WHERE correct=1 AND problem_id=' + req.params.problem_id + ';',
             //databaseConn.query('SELECT player_id, COUNT(correct) correct FROM solution WHERE problem_id=' + req.params.problem_id + ' GROUP BY player_id;',
-            databaseConn.query('SELECT id AS problem_id, percent_correct FROM problem_metrics WHERE id=' + req.params.problem_id,  
+            databaseConn.query('SELECT percent_correct FROM problem_metrics WHERE id=' + req.params.problem_id,  
                 function (err, rows){
                 if(err) {
                     console.log(err);
@@ -110,7 +85,7 @@ module.exports = function(app, databaseConn){
                 }
             });
         } else if (req.params.metric == "size"){
-            databaseConn.query('SELECT id AS submission_id, size FROM solution_metrics WHERE problem=' + req.params.problem_id,  
+            databaseConn.query('SELECT id AS player_id, size AS metric FROM solution_metrics WHERE problem=' + req.params.problem_id,  
                 function (err, rows){
                 if(err) {
                     console.log(err);
@@ -120,7 +95,11 @@ module.exports = function(app, databaseConn){
                         type: 'internal'
                     });
                 } else {
-                    res.send(rows);
+                    var size = new Array(rows.length);
+                    for(var i = 0; i < rows.length; i++){
+                        size[i] = rows[i].metric;
+                    }
+                    res.send(countToBarChart(size));
                 }
             });
         }
@@ -130,7 +109,7 @@ module.exports = function(app, databaseConn){
     app.get('/problem/:problem_id/student/:student_id/metrics/:metric', function(req, res) {
 
         if (req.params.metric == "first_correct"){
-            databaseConn.query('SELECT player_id FROM solution WHERE ' + req.params.problem_id + ' GROUP BY player_id;', function (err, rows) {
+            databaseConn.query('SELECT player_id, first_correct FROM player_assignment_metrics WHERE problem_id=' + req.params.problem_id, function (err, rows) {
                 if(err) {
                     console.log(err);
                     res.status(500).send({
@@ -139,18 +118,7 @@ module.exports = function(app, databaseConn){
                         type: 'internal'
                     });
                 } else {
-                    databaseConn.query('SELECT correct FROM solution WHERE player_id=' + req.params.student_id + ' AND problem_id=' + req.params.problem_id + ' ORDER BY created_at;', function (err, rows) {
-                        if(err) {
-                            console.log(err);
-                            res.status(500).send({
-                                status:500,
-                                message: 'internal error',
-                                type: 'internal'
-                            });
-                        } else {
-                            res.send(firstCorrect(rows));
-                        }
-                    });
+                    res.send(rows)
                 }
             }); 
         } else res.sendStatus(404);
