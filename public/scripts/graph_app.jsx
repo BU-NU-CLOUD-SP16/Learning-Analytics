@@ -675,8 +675,9 @@ var BarChart_Size_Metric = React.createClass({
       window.alert("last New_xx = " + this.state.xx + " last New_yy = " + this.state.yy);
     },
     loadSizeMetricFromServer: function(){
-      /*$.ajax({
-        url: "",//"/student/metric/bins",
+      //yell("hi");
+      $.ajax({
+        url: "/problem/" + this.props.act_assign + "/metrics/size",//"here here",//"/student/metric/bins",
         dataType: 'json',
         cache: false,
         success: function(data) {
@@ -687,7 +688,7 @@ var BarChart_Size_Metric = React.createClass({
         error: function(xhr, status, err) {
           //console.error(this.props.url, status, err.toString());
         }.bind(this)
-      });*/
+      });
     },
     getInitialState: function(){
       var barData = [{
@@ -719,12 +720,15 @@ var BarChart_Size_Metric = React.createClass({
         {"x": 'Y', "y": 4345},
         {"x": 'Z', "y": 5675}]}
       ];
-      return {data: barData, xx: -1, yy: -1};
+      return {data: barData, xx: -1, yy: -1, last_id:"0"};
     },
     componentDidMount: function(){
       this.loadSizeMetricFromServer();
     },
     render: function() {
+      if(this.state.last_id != this.props.act_assign){
+        this.loadSizeMetricFromServer();
+      }
         return (<div className="graph-container col-md-4">
                   <div className="graphContainerList">
                     <div className="barChart_Size_Metric">
@@ -899,7 +903,7 @@ var clicked_go = false;
 var StudentForm = React.createClass({
   getInitialState: function(){
       var this_loaded = new Trie();
-      return ({prefix: [], data: [],trie: this_loaded, last_id:"556"}); // iniitially the user hasnt entered anything into the search box
+      return ({prefix: [], data: [],trie: this_loaded, last_id:"0"}); // iniitially the user hasnt entered anything into the search box
   },
   // in the case the user clicks the search box
   onGo: function(){
