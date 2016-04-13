@@ -760,7 +760,7 @@ var BarChart_Size_Metric = React.createClass({
 
 var Assignment = React.createClass({ //updateAssignment={this.props.updateAssignment(new_title, new_descrpt)}
   setActiveAssignment: function(new_title = "Scoring for Oriented Dominoes", new_description = "The assignment description has been changed", new_id = "470"){
-    this.props.setActiveAssignment(this.props.prob_statement,this.props.description,this.props.my_id);
+    this.props.setActiveAssignment(this.props.prob_statement,$(this.props.description).html(),this.props.my_id);
   },
   render: function(){
     return (
@@ -770,9 +770,8 @@ var Assignment = React.createClass({ //updateAssignment={this.props.updateAssign
           {this.props.prob_statement + ":"}
         </h5>
       </button>
-      <span>{this.props.description}</span>
     </div>
-    );
+  );
   }
 });
 
@@ -1165,6 +1164,30 @@ var GraphList = React.createClass({
 });
 
 /****************** Graph Selection Directory End ******************/
+
+/* Upon clicking the correct or incorrect portion of the splash graph,
+   This is the filtered section that will be loaded.
+*/
+var L1FilterContainer = React.createClass({
+  getInitialState: function(){
+    return null;
+  },
+  componentDidMount: function(){
+
+  },
+  onClickTab: function(){
+
+  },
+  render: function(){
+    return null;
+  }
+});
+
+
+
+
+
+
 
 /****************** Main Begin ******************/
 var global = {
