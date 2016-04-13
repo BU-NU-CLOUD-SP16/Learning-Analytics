@@ -2,6 +2,11 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var rd3 = require('react-d3');
+var ReactBootstrap = require('react-bootstrap');
+var TabbedArea = ReactBootstrap.TabbedArea;
+var TabPane = ReactBootstrap.TabbedPane;
+var Tabs = ReactBootstrap.Tabs;
+var Tab = ReactBootstrap.Tab;
 var Tooltip = require('react-d3-tooltip');
 var BarTooltip = Tooltip.BarTooltip;
 var BarChart = rd3.BarChart;
@@ -11,6 +16,14 @@ var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function range(start, end) {
+    var foo = [];
+    for (var i = start; i <= end; i++) {
+        foo.push(i);
+    }
+    return foo;
 }
 
 function Stack(){
@@ -292,7 +305,8 @@ var BarChart_Time_Complexity = React.createClass({
 var PieChart_Incorrect_Correct = React.createClass({
     test_func: function(new_label, new_value) {
       this.setState({myLabel: new_label, myValue: new_value});
-      window.alert("last myLabel = " + new_label + " last myValue = " + new_value);
+      var is_correct = (new_value == "correct")?(1):(0); // true or false
+      this.props.setActiveGraph(<L1FilterContainer is_correct={is_correct}/>);
     },
     getInitialState : function() {
     var pieData = [
@@ -668,98 +682,6 @@ var BarChart_DataStruct_Percent = React.createClass({
               </div>);
     }
 });
-/*
-var BarChart_Size_Metric = React.createClass({
-    test_func: function(new_xx, new_yy) {
-      this.setState({xx: new_xx, yy: new_yy});
-      window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
-    },
-    loadSizeMetricFromServer: function(){
-      $.ajax({
-        url: "/problem/" + this.props.act_assign + "/metrics/size",//"here here",//"/student/metric/bins",
-        dataType: 'json',
-        cache: false,
-        success: function(data) {
-      	  /*var barData = {
-            "name":"Class A",
-            "values": data
-          };
-
-
-          this.setState({data: barData});
-        }.bind(this),
-        // in the case ajax runs into an error
-        error: function(xhr, status, err) {
-        }.bind(this)
-      });
-    },
-    getInitialState: function(){
-      var barData = {
-        "name":"Class A",
-        "values":[{"x": 'A', "y": 2345},
-        {"x": 'B', "y": 5463},
-        {"x": 'C', "y": 102},
-        {"x": 'D', "y": 5643},
-        {"x": 'E', "y": 3657},
-        {"x": 'F', "y": 7854},
-        {"x": 'G', "y": 6845},
-        {"x": 'H', "y": 2435},
-        {"x": 'I', "y": 1243},
-        {"x": 'J', "y": 5544},
-        {"x": 'K', "y": 7869},
-        {"x": 'L', "y": 3343},
-        {"x": 'M', "y": 4433},
-        {"x": 'N', "y": 3354},
-        {"x": 'O', "y": 3654},
-        {"x": 'P', "y": 7887},
-        {"x": 'Q', "y": 6657},
-        {"x": 'R', "y": 6587},
-        {"x": 'S', "y": 6645},
-        {"x": 'T', "y": 2343},
-        {"x": 'U', "y": 4565},
-        {"x": 'V', "y": 6645},
-        {"x": 'W', "y": 9786},
-        {"x": 'X', "y": 2302},
-        {"x": 'Y', "y": 4345},
-        {"x": 'Z', "y": 5675}]
-      };
-
-      //yell(barData[0].values);
-
-      return {data: barData, xx: -1, yy: -1, last_id:"0"};
-    },
-    componentDidMount: function(){
-      this.loadSizeMetricFromServer();
-    },
-    render: function() {
-      if(this.state.last_id != this.props.act_assign){
-        yell("in size! " + this.props.act_assign);
-        this.loadSizeMetricFromServer();
-      }
-        return (<div className="graph-container col-md-4">
-                  <div className="graphContainerList">
-                    <div className="barChart_Size_Metric">
-                      <div className="panel panel-default">
-                        <div className="panel-heading">
-                          <h3>
-                            Size Metric
-                          </h3>
-                        </div>
-                        <BarChart
-          			  			  test_func={this.test_func}
-                          data={this.state.data}
-                          width={graph_widths}
-                          height={graph_heights}
-                          fill={'#8a5715'}
-                          title=''
-                          margins={{top: 20, right: 30, bottom: 30, left: 40}}
-                        />
-                      </div>
-                     </div>
-                   </div>
-                 </div>);
-    }
-});*/
 
 var BarChart_Size_Metric = React.createClass({
     getInitialState : function() {
@@ -802,7 +724,7 @@ var BarChart_Size_Metric = React.createClass({
         {"x": 'P', "y": 7887},
         {"x": 'Q', "y": 6657},
         {"x": 'R', "y": 6587},
-        {"x": 'S', "y": 6645}, 
+        {"x": 'S', "y": 6645},
         {"x": 'T', "y": 2343},
         {"x": 'U', "y": 4565},
         {"x": 'V', "y": 6645},
@@ -878,6 +800,52 @@ var BarChart_Size_Metric = React.createClass({
 });
 
 /****************** Chart Implementation End ******************/
+
+/* Upon clicking the correct or incorrect portion of the splash graph,
+   This is the filtered section that will be loaded.
+*/
+const L1FilterContainer = React.createClass({
+  getInitialState() {
+    return {
+      key: 1
+    };
+  },
+  setActiveGraph: function(new_graph = null){
+    this.props.setActiveGraph(new_graph);
+  },
+  handleSelect(key) {
+    this.setState({key});
+  },
+
+  render() {
+    var metrics = [{"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
+       {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
+       {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
+    //   {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
+       {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
+       //{"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
+       {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
+    //   {"innerHTMLs":"Popular Functions (null)","iconTYPEs":"sign-in"},
+       {"innerHTMLs":"Size Metric","iconTYPEs":"file-text"}];
+
+    var allTabs = function(tt){
+      var createTabs = [];
+      for(var ii = 1; ii < tt; ii++){ //{}"Tab " + ii}
+        createTabs.push(<Tab eventKey={ii} title={metrics[ii - 1].innerHTMLs}>Tab {ii} content</Tab>);
+      }
+      return createTabs;
+    }
+
+    return (
+      <div className="l1FilterContainer">
+        <Tabs activeKey={this.state.key} onSelect={this.handleSelect}>
+          {allTabs(7)}
+        </Tabs>
+      </div>
+
+    );
+  }
+});
 
 /****************** Assignment Directory Implementation Begin ******************/
 
@@ -1135,12 +1103,11 @@ var Activity_Panel = React.createClass({
 
 
     // ensure the graph is up to date
-    var ActiveGraph = React.cloneElement(this.props.active_graph, {act_assign:this.props.active_assignment.id}, null);
-/*
-<h4>
-  Selected Assignment:
-</h4>
-*/
+    var ActiveGraph = React.cloneElement(this.props.active_graph,
+      {act_assign:this.props.active_assignment.id,
+        setActiveGraph:this.props.setActiveGraph},
+      null);
+
     return (
     <div className=".activity_Panel">
       <div className="col-md-10">
@@ -1288,23 +1255,7 @@ var GraphList = React.createClass({
 
 /****************** Graph Selection Directory End ******************/
 
-/* Upon clicking the correct or incorrect portion of the splash graph,
-   This is the filtered section that will be loaded.
-*/
-var L1FilterContainer = React.createClass({
-  getInitialState: function(){
-    return null;
-  },
-  componentDidMount: function(){
 
-  },
-  onClickTab: function(){
-
-  },
-  render: function(){
-    return null;
-  }
-});
 
 
 
@@ -1341,6 +1292,7 @@ var MasterGraphContainer = React.createClass({
                   activity_window: <Activity_Panel
                                     active_assignment={this.state.active_assignment}
                                     active_graph={first_graph}
+                                    setActiveGraph={this.setActiveGraph}
                                    />
     });
   },
