@@ -59174,7 +59174,7 @@ var BarChart_Time_Complexity = React.createClass({displayName: "BarChart_Time_Co
 var PieChart_Incorrect_Correct = React.createClass({displayName: "PieChart_Incorrect_Correct",
     test_func: function(new_label, new_value) {
       this.setState({myLabel: new_label, myValue: new_value});
-      window.alert("last myLabel = " + this.state.myLabel + " last myValue = " + this.state.myValue);
+      window.alert("last myLabel = " + new_label + " last myValue = " + new_value);
     },
     getInitialState : function() {
     var pieData = [
@@ -59550,30 +59550,33 @@ var BarChart_DataStruct_Percent = React.createClass({displayName: "BarChart_Data
               ));
     }
 });
-
-var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric",
+/*
+var BarChart_Size_Metric = React.createClass({
     test_func: function(new_xx, new_yy) {
       this.setState({xx: new_xx, yy: new_yy});
-      window.alert("last New_xx = " + this.state.xx + " last New_yy = " + this.state.yy);
+      window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
     },
     loadSizeMetricFromServer: function(){
-      //yell("hi");
       $.ajax({
         url: "/problem/" + this.props.act_assign + "/metrics/size",//"here here",//"/student/metric/bins",
         dataType: 'json',
         cache: false,
         success: function(data) {
-      	  var barData = data;
+      	  /*var barData = {
+            "name":"Class A",
+            "values": data
+          };
+
+
           this.setState({data: barData});
         }.bind(this),
         // in the case ajax runs into an error
         error: function(xhr, status, err) {
-          //console.error(this.props.url, status, err.toString());
         }.bind(this)
       });
     },
     getInitialState: function(){
-      var barData = [{
+      var barData = {
         "name":"Class A",
         "values":[{"x": 'A', "y": 2345},
         {"x": 'B', "y": 5463},
@@ -59600,8 +59603,11 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
         {"x": 'W', "y": 9786},
         {"x": 'X', "y": 2302},
         {"x": 'Y', "y": 4345},
-        {"x": 'Z', "y": 5675}]}
-      ];
+        {"x": 'Z', "y": 5675}]
+      };
+
+      //yell(barData[0].values);
+
       return {data: barData, xx: -1, yy: -1, last_id:"0"};
     },
     componentDidMount: function(){
@@ -59609,30 +59615,147 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
     },
     render: function() {
       if(this.state.last_id != this.props.act_assign){
+        yell("in size! " + this.props.act_assign);
         this.loadSizeMetricFromServer();
       }
-        return (React.createElement("div", {className: "graph-container col-md-4"}, 
-                  React.createElement("div", {className: "graphContainerList"}, 
-                    React.createElement("div", {className: "barChart_Size_Metric"}, 
-                      React.createElement("div", {className: "panel panel-default"}, 
-                        React.createElement("div", {className: "panel-heading"}, 
-                          React.createElement("h3", null, 
-                            "Size Metric"
-                          )
-                        ), 
-                        React.createElement(BarChart, {
-			  			  test_func: this.test_func, 
-                          data: this.state.data, 
-                          width: graph_widths, 
-                          height: graph_heights, 
-                          fill: '#8a5715', 
-                          title: "", 
-                          margins: {top: 20, right: 30, bottom: 30, left: 40}}
+        return (<div className="graph-container col-md-4">
+                  <div className="graphContainerList">
+                    <div className="barChart_Size_Metric">
+                      <div className="panel panel-default">
+                        <div className="panel-heading">
+                          <h3>
+                            Size Metric
+                          </h3>
+                        </div>
+                        <BarChart
+          			  			  test_func={this.test_func}
+                          data={this.state.data}
+                          width={graph_widths}
+                          height={graph_heights}
+                          fill={'#8a5715'}
+                          title=''
+                          margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                        />
+                      </div>
+                     </div>
+                   </div>
+                 </div>);
+    }
+});*/
+
+var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric",
+    getInitialState : function() {
+    	var chartSeries = [
+    	      {
+    	        field: 'y',
+    	        name: 'Submissions.Lines of Code'
+    	      }
+    	    ];
+
+    	var x = function(d) {
+    	      return d.x;
+    	    };
+
+      var temp = {
+                color: 'black',
+                fontWeight: 'bold',
+                marginBottom: '5px'
+              };
+
+    	var xScale = 'ordinal';
+    	var yTicks = [10, "c"];
+
+      var barData = [
+        {"x": 'A', "y": 2345},
+        {"x": 'B', "y": 5463},
+        {"x": 'C', "y": 10293},
+        {"x": 'D', "y": 5643},
+        {"x": 'E', "y": 3657},
+        {"x": 'F', "y": 7854},
+        {"x": 'G', "y": 6845},
+        {"x": 'H', "y": 2435},
+        {"x": 'I', "y": 1243},
+        {"x": 'J', "y": 5544},
+        {"x": 'K', "y": 7869},
+        {"x": 'L', "y": 3343},
+        {"x": 'M', "y": 4433},
+        {"x": 'N', "y": 3354},
+        {"x": 'O', "y": 3654},
+        {"x": 'P', "y": 7887},
+        {"x": 'Q', "y": 6657},
+        {"x": 'R', "y": 6587},
+        {"x": 'S', "y": 6645}, 
+        {"x": 'T', "y": 2343},
+        {"x": 'U', "y": 4565},
+        {"x": 'V', "y": 6645},
+        {"x": 'W', "y": 9786},
+        {"x": 'X', "y": 2302},
+        {"x": 'Y', "y": 4345},
+        {"x": 'Z', "y": 5675}
+      ];
+      return {barData: barData,
+              series: chartSeries,
+              x: x,
+              xScale: xScale,
+              yTicks: yTicks,
+              last_assign:"0",};
+    },loadSizeMetricFromServer: function(){
+      $.ajax({
+        url: "/problem/" + this.props.act_assign + "/metrics/size", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+      	  var loaded_barData = data;
+          this.setState({barData: loaded_barData});
+          //window.alert(barData);
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.loadSizeMetricFromServer();
+      //introduces that we will need a pollInterval for the external element
+    //  setInterval(this.loadSizeMetricFromServer);
+    },
+    test_func: function(new_xx, new_yy) {
+      this.setState({xx: new_xx, yy: new_yy});
+      window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
+    },
+    render: function() {
+      if(this.state.last_ass != this.props.act_assign){
+        this.loadSizeMetricFromServer();
+      }
+        return (
+          React.createElement("div", {className: "graph-container col-md-4"}, 
+                React.createElement("div", {className: "graphContainerList"}, 
+                  React.createElement("div", {className: "barChart_Size_Metric"}, 
+                    React.createElement("div", {className: "panel panel-default"}, 
+                      React.createElement("div", {className: "panel-heading"}, 
+                        React.createElement("h3", null, 
+                        "Lines of Code"
                         )
-                      )
-                     )
+                      ), 
+                  		React.createElement(BarTooltip, {
+                        data: this.state.barData, 
+                  		  legend: false, 
+                        width: graph_widths, 
+                        height: graph_heights, 
+                        fill: '#3182bd', 
+                        title: "", 
+                  		  chartSeries: this.state.series, 
+                        x: this.state.x, 
+            	          xScale: this.state.xScale, 
+                        yTicks: this.state.yTicks, 
+                        margins: {top: 20, right: 30, bottom: 30, left: 40}}, 
+                    		React.createElement(SimpleTooltipStyle, {tooltip_title: this.state.temp})
+                    	)
+                    )
                    )
-                 ));
+                 )
+               ));
     }
 });
 
