@@ -305,8 +305,8 @@ var BarChart_Time_Complexity = React.createClass({
 var PieChart_Incorrect_Correct = React.createClass({
     test_func: function(new_label, new_value) {
       this.setState({myLabel: new_label, myValue: new_value});
-      var is_correct = (new_value == "correct")?(1):(0); // true or false
-      this.props.setActiveGraph(<L1FilterContainer is_correct={is_correct}/>);
+      var is_correct = (new_value == "correct")?(1):(0); // true or false //is_correct={is_correct}
+      this.props.setActiveGraph(<L1FilterContainer/>);
     },
     getInitialState : function() {
     var pieData = [
