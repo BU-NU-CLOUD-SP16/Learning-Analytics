@@ -76718,7 +76718,7 @@ var Activity_Panel = React.createClass({displayName: "Activity_Panel",
         React.createElement("div", {className: "content-container"}, 
           React.createElement("div", {className: "assignment_Description"}, 
             React.createElement("div", {className: "submission_counter-container"}, 
-              React.createElement("h7", null, "Submissions: 2342")
+              React.createElement("h7", null, "Submissions: ", this.props.sub_count)
             ), 
             React.createElement("div", {className: "h4-container"}, 
               React.createElement("h4", null, 
@@ -76881,8 +76881,9 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
             active_assignment:{
                                 title: "Stuff the Board!",
                                 description: "This is only a temporary stub",
-                                id: "556"
+                                id: "556",
                               },
+            submission_num: "0",
             //forward_stack: new Stack(),
             //backward_stack: new Stack(),
             activity_window: React.createElement(Activity_Panel, null)
@@ -76929,11 +76930,12 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
     var new_assignment = {
                           title: new_title,
                           description: new_description,
-                          id: new_id
+                          id: new_id,
     }
     var new_active_window = (React.createElement(Activity_Panel, {
                               active_assignment: new_assignment, 
-                              active_graph: this.state.active_graph}
+                              active_graph: this.state.active_graph, 
+                              sub_count: this.state.submission_num}
                              ));
     this.setState({
       active_assignment: new_assignment,
@@ -76941,7 +76943,20 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
     });
     //global.backward_stack.push(new_active_window);
     global.backward_stack.push(this.state.activity_window);
-    //yell("set window");
+
+    $.ajax({
+      url: "/problem/" + new_id + "/student_submissions", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        var the_count = JSON.stringify(data[0].count);
+        this.setState({submission_num: the_count});
+      }.bind(this),
+      // in the case ajax runs into an error
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   },
   render:function(){
     //yell("backstack size: " + global.backward_stack.size() + " frontstack size: " + global.forward_stack.size());

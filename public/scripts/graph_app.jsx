@@ -1114,7 +1114,7 @@ var Activity_Panel = React.createClass({
         <div className="content-container">
           <div className="assignment_Description">
             <div className="submission_counter-container">
-              <h7>Submissions: 2342</h7>
+              <h7>Submissions: {this.props.sub_count}</h7>
             </div>
             <div className="h4-container">
               <h4>
@@ -1277,8 +1277,9 @@ var MasterGraphContainer = React.createClass({
             active_assignment:{
                                 title: "Stuff the Board!",
                                 description: "This is only a temporary stub",
-                                id: "556"
+                                id: "556",
                               },
+            submission_num: "0",
             //forward_stack: new Stack(),
             //backward_stack: new Stack(),
             activity_window: <Activity_Panel/>
@@ -1325,11 +1326,12 @@ var MasterGraphContainer = React.createClass({
     var new_assignment = {
                           title: new_title,
                           description: new_description,
-                          id: new_id
+                          id: new_id,
     }
     var new_active_window = (<Activity_Panel
                               active_assignment={new_assignment}
                               active_graph={this.state.active_graph}
+                              sub_count={this.state.submission_num}
                              />);
     this.setState({
       active_assignment: new_assignment,
@@ -1337,7 +1339,20 @@ var MasterGraphContainer = React.createClass({
     });
     //global.backward_stack.push(new_active_window);
     global.backward_stack.push(this.state.activity_window);
-    //yell("set window");
+
+    $.ajax({
+      url: "/problem/" + new_id + "/student_submissions", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        var the_count = JSON.stringify(data[0].count);
+        this.setState({submission_num: the_count});
+      }.bind(this),
+      // in the case ajax runs into an error
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   },
   render:function(){
     //yell("backstack size: " + global.backward_stack.size() + " frontstack size: " + global.forward_stack.size());
