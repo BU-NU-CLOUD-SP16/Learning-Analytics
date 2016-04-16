@@ -242,6 +242,118 @@ var BarChart_Lines_Code = React.createClass({
     }
 });
 
+var BarChart_Attempts_Til_Correct = React.createClass({
+    getInitialState : function() {
+    	var chartSeries = [
+    	      {
+    	        field: 'y',
+    	        name: 'Submissions.Attempts Until Correct'
+    	      }
+    	    ];
+
+    	var x = function(d) {
+    	      return d.x;
+    	    };
+
+      var temp = {
+                color: 'black',
+                fontWeight: 'bold',
+                marginBottom: '5px'
+              };
+
+    	var xScale = 'ordinal';
+    	var yTicks = [10, "c"];
+
+      var barData = [
+        {"x": 'A', "y": 2345},
+        {"x": 'B', "y": 5463},
+        {"x": 'C', "y": 10293},
+        {"x": 'D', "y": 5643},
+        {"x": 'E', "y": 3657},
+        {"x": 'F', "y": 7854},
+        {"x": 'G', "y": 6845},
+        {"x": 'H', "y": 2435},
+        {"x": 'I', "y": 1243},
+        {"x": 'J', "y": 5544},
+        {"x": 'K', "y": 7869},
+        {"x": 'L', "y": 3343},
+        {"x": 'M', "y": 4433},
+        {"x": 'N', "y": 3354},
+        {"x": 'O', "y": 3654},
+        {"x": 'P', "y": 7887},
+        {"x": 'Q', "y": 6657},
+        {"x": 'R', "y": 6587},
+        {"x": 'S', "y": 6645},
+        {"x": 'T', "y": 2343},
+        {"x": 'U', "y": 4565},
+        {"x": 'V', "y": 6645},
+        {"x": 'W', "y": 9786},
+        {"x": 'X', "y": 2302},
+        {"x": 'Y', "y": 4345},
+        {"x": 'Z', "y": 5675}
+      ];
+      return {barData: barData,
+              series: chartSeries,
+              x: x,
+              xScale: xScale,
+              yTicks: yTicks,
+              last_assign:"0",};
+    },loadLineCountMetricFromServer: function(){
+      $.ajax({
+        url: "/problem/" + this.props.act_assign + "/metrics/First_correct", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+      	  var loaded_barData = data;
+          this.setState({barData: loaded_barData});
+          //window.alert(barData);
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.loadLineCountMetricFromServer();
+      //introduces that we will need a pollInterval for the external element
+    //  setInterval(this.loadSizeMetricFromServer);
+    },
+    render: function() {
+      if(this.state.last_ass != this.props.act_assign){
+        this.loadLineCountMetricFromServer();
+      }
+        return (
+          <div className="graph-container col-md-4">
+                <div className="graphContainerList">
+                  <div className="barChart_Attempts_Til_Correct">
+                    <div className="panel panel-default">
+                      <div className="panel-heading">
+                        <h3>
+                        Attempts Until Correct
+                        </h3>
+                      </div>
+                  		<BarTooltip
+                        data={this.state.barData}
+                  		  legend={false}
+                        width={graph_widths}
+                        height={graph_heights}
+                        fill={'#3182bd'}
+                        title=''
+                  		  chartSeries = {this.state.series}
+                        x= {this.state.x}
+            	          xScale= {this.state.xScale}
+                        yTicks= {this.state.yTicks}
+                        margins={{top: 20, right: 30, bottom: 30, left: 40}}>
+                    		<SimpleTooltipStyle tooltip_title={this.state.temp}/>
+                    	</BarTooltip>
+                    </div>
+                   </div>
+                 </div>
+               </div>);
+    }
+});
+
 var BarChart_Time_Complexity = React.createClass({
     getInitialState : function() {
         var barData = [{
@@ -821,6 +933,7 @@ const L1FilterContainer = React.createClass({
     var metrics = [{"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
        {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
        {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
+       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
     //   {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
        {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
        //{"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
@@ -1183,6 +1296,10 @@ var Graph = React.createClass({
         new_graph = <BarChart_Lines_Code/>;
         break;
       }
+      case("Attempts Until Correct"):{
+        new_graph = <BarChart_Attempts_Til_Correct/>;
+        break;
+      }
       case("Class Rank"):{
         break;
       }
@@ -1228,6 +1345,7 @@ var GraphList = React.createClass({
                                {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
                                {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
                                {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
+			       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
                                {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
                                {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
                                //{"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
