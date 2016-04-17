@@ -300,7 +300,7 @@ var BarChart_Attempts_Til_Correct = React.createClass({
               last_assign:"0",};
     },loadLineCountMetricFromServer: function(){
       $.ajax({
-        url: "/problem/" + this.props.act_assign + "/metrics/First_correct", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        url: "/problem/" + this.props.act_assign + "/metrics/first_correct", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
         dataType: 'json',
         cache: false,
         success: function(data) {
