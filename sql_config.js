@@ -36,6 +36,14 @@ module.exports = {
         "(id INT(11) NOT NULL PRIMARY KEY," +
         "FOREIGN KEY (id) REFERENCES problem(id)," +
         "percent_correct FLOAT(6,3))",
+    
+    solution_metrics_schema:
+        "(id INT(11) NOT NULL PRIMARY KEY," +
+        "FOREIGN KEY (id) REFERENCES solution(id)," +
+        "problem INT(5)," +
+        "FOREIGN KEY (id) REFERENCES solution(id)," +
+        "linecount INT(5)," +
+        "size INT(5));",
 
     player_assignment_metrics_schema:
         "(id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT," +
