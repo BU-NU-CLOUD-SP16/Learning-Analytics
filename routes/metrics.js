@@ -1,4 +1,3 @@
-
 function countToBarChart(lineArray){
     lineArray.sort(function(a, b){
         return a -b;
@@ -14,7 +13,7 @@ function countToBarChart(lineArray){
 
     var histogram = Array.apply(null, Array(numOfBins))
                          .map(Number.prototype.valueOf, 0);
-
+    
     var binIndex = 0;
     for(var i = 0; i < lineArray.length; i++){
         // Check to see if the code length is too big for the bin
@@ -23,7 +22,7 @@ function countToBarChart(lineArray){
     }
 
     // Create associative array to send back
-    var barData = [];
+    var barData = [];       
     for(binIndex = 0; binIndex < numOfBins; binIndex++){
         var lowerLabel = binWidth * binIndex;
         var upperLabel = lowerLabel + (binWidth - 1);
@@ -45,13 +44,24 @@ function submissionToBarChart(submissionArray){
     return submissionData;
 }
 
+function getCorrectFilter(req){
+    var param_query_filter = ''
+    
+    if (req.params.filter == 'correct')
+        param_query_string = ' AND correct='
+    else if (req.params.filter == 'incorrect')
+        param_query_string = ' AND correct='
+
+    return param_query_filter
+}
+
 
 module.exports = function(app, databaseConn){
 
     app.get('/problem/:problem_id/metrics/:metric', function(req, res) {
 
         if(req.params.metric == "linecount"){
-            databaseConn.query('SELECT linecount FROM solution_metrics WHERE problem=' + req.params.problem_id, //WHERE problem_id = ' + req.params.problem_id,
+            databaseConn.query('SELECT linecount FROM solution_metrics WHERE problem=' + req.params.problem_id + getCorrectFilter(req), //WHERE problem_id = ' + req.params.problem_id,
                 function (err, rows){
                 if(err) {
                     console.log(err);
@@ -72,7 +82,7 @@ module.exports = function(app, databaseConn){
             //databaseConn.query('SELECT player_id, COUNT(correct) FROM solution WHERE correct=1 AND problem_id=' + req.params.problem_id + ' GROUP BY player_id;',
             //databaseConn.query('SELECT COUNT(*) count FROM solution WHERE correct=1 AND problem_id=' + req.params.problem_id + ';',
             //databaseConn.query('SELECT player_id, COUNT(correct) correct FROM solution WHERE problem_id=' + req.params.problem_id + ' GROUP BY player_id;',
-            databaseConn.query('SELECT percent_correct FROM problem_metrics WHERE id=' + req.params.problem_id,
+            databaseConn.query('SELECT percent_correct FROM problem_metrics WHERE id=' + req.params.problem_id,  
                 function (err, rows){
                 if(err) {
                     console.log(err);
@@ -86,7 +96,7 @@ module.exports = function(app, databaseConn){
                 }
             });
         } else if (req.params.metric == "size"){
-            databaseConn.query('SELECT id AS player_id, size AS metric FROM solution_metrics WHERE problem=' + req.params.problem_id,
+            databaseConn.query('SELECT id AS player_id, size AS metric FROM solution_metrics WHERE problem=' + req.params.problem_id,  
                 function (err, rows){
                 if(err) {
                     console.log(err);
@@ -103,14 +113,8 @@ module.exports = function(app, databaseConn){
                     res.send(countToBarChart(size));
                 }
             });
-        }
-        else res.sendStatus(404);
-    });
-
-    app.get('/problem/:problem_id/student/:student_id/metrics/:metric', function(req, res) {
-
-        if (req.params.metric == "first_correct"){
-            databaseConn.query('SELECT player_id, first_correct FROM player_assignment_metrics WHERE problem_id=' + req.params.problem_id, function (err, rows) {
+        } else if (req.params.metric == "first_correct"){
+            databaseConn.query('SELECT player_id AS x, first_correct AS y FROM player_assignment_metrics WHERE problem_id=' + req.params.problem_id, function (err, rows) {
                 if(err) {
                     console.log(err);
                     res.status(500).send({
@@ -121,7 +125,26 @@ module.exports = function(app, databaseConn){
                 } else {
                     res.send(rows)
                 }
-            });
+            }); 
+        }
+        else res.sendStatus(404);
+    });
+
+    app.get('/problem/:problem_id/student/:student_id/metrics/:metric', function(req, res) {
+
+        if (req.params.metric == "first_correct"){
+            databaseConn.query('SELECT player_id, first_correct FROM player_assignment_metrics WHERE problem_id=' + req.params.problem_id + ' AND player_id=' + req.params.student_id, function (err, rows) {
+                if(err) {
+                    console.log(err);
+                    res.status(500).send({
+                        status:500,
+                        message: 'internal error',
+                        type: 'internal'
+                    });
+                } else {
+                    res.send(rows)
+                }
+            }); 
         } else res.sendStatus(404);
     });
 }
