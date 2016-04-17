@@ -417,8 +417,8 @@ var BarChart_Time_Complexity = React.createClass({
 var PieChart_Incorrect_Correct = React.createClass({
     test_func: function(new_label, new_value) {
       this.setState({myLabel: new_label, myValue: new_value});
-      var is_correct = (new_value == "correct")?(1):(0); // true or false //is_correct={is_correct}
-      this.props.setActiveGraph(<L1FilterContainer/>);
+      var is_correct = (new_value == "correct")?(true):(false); // true or false //is_correct={is_correct}
+      this.props.setActiveGraph(<L1FilterContainer correct_sub={is_correct}/>);
     },
     getInitialState : function() {
     var pieData = [
@@ -936,7 +936,7 @@ const L1FilterContainer = React.createClass({
        {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
     //   {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
        {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
-       //{"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
+       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"repeat"},
        {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
     //   {"innerHTMLs":"Popular Functions (null)","iconTYPEs":"sign-in"},
        {"innerHTMLs":"Size Metric","iconTYPEs":"file-text"}];
@@ -949,10 +949,15 @@ const L1FilterContainer = React.createClass({
       return createTabs;
     }
 
+    var sub_type = (this.props.correct_sub)?(
+      <h3 style={{color:"rgb(137, 203, 124)"}}>Correct</h3>
+      ):(<h3 style={{color:"rgb(217, 90, 90)"}}>Incorrect</h3>);
+
     return (
       <div className="l1FilterContainer">
         <Tabs activeKey={this.state.key} onSelect={this.handleSelect}>
           {allTabs(7)}
+          {sub_type}
         </Tabs>
       </div>
 
@@ -1393,8 +1398,8 @@ var MasterGraphContainer = React.createClass({
             description: "Pick an assignment and then a graph to see your learning analytics!",
             active_graph: null,
             active_assignment:{
-                                title: "Stuff the Board!",
-                                description: "This is only a temporary stub",
+                                title: "Your Active Assignment Will Appear Here",
+                                description: "The assignment description will appear here.",
                                 id: "556",
                               },
             submission_num: "0",
@@ -1412,6 +1417,7 @@ var MasterGraphContainer = React.createClass({
                                     active_assignment={this.state.active_assignment}
                                     active_graph={first_graph}
                                     setActiveGraph={this.setActiveGraph}
+                                    sub_count={"0"}
                                    />
     });
   },
@@ -1455,7 +1461,7 @@ var MasterGraphContainer = React.createClass({
       active_assignment: new_assignment,
       activity_window: new_active_window
     });
-    //global.backward_stack.push(new_active_window);
+
     global.backward_stack.push(this.state.activity_window);
 
     $.ajax({

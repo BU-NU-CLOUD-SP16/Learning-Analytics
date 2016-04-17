@@ -75846,6 +75846,118 @@ var BarChart_Lines_Code = React.createClass({displayName: "BarChart_Lines_Code",
     }
 });
 
+var BarChart_Attempts_Til_Correct = React.createClass({displayName: "BarChart_Attempts_Til_Correct",
+    getInitialState : function() {
+    	var chartSeries = [
+    	      {
+    	        field: 'y',
+    	        name: 'Submissions.Attempts Until Correct'
+    	      }
+    	    ];
+
+    	var x = function(d) {
+    	      return d.x;
+    	    };
+
+      var temp = {
+                color: 'black',
+                fontWeight: 'bold',
+                marginBottom: '5px'
+              };
+
+    	var xScale = 'ordinal';
+    	var yTicks = [10, "c"];
+
+      var barData = [
+        {"x": 'A', "y": 2345},
+        {"x": 'B', "y": 5463},
+        {"x": 'C', "y": 10293},
+        {"x": 'D', "y": 5643},
+        {"x": 'E', "y": 3657},
+        {"x": 'F', "y": 7854},
+        {"x": 'G', "y": 6845},
+        {"x": 'H', "y": 2435},
+        {"x": 'I', "y": 1243},
+        {"x": 'J', "y": 5544},
+        {"x": 'K', "y": 7869},
+        {"x": 'L', "y": 3343},
+        {"x": 'M', "y": 4433},
+        {"x": 'N', "y": 3354},
+        {"x": 'O', "y": 3654},
+        {"x": 'P', "y": 7887},
+        {"x": 'Q', "y": 6657},
+        {"x": 'R', "y": 6587},
+        {"x": 'S', "y": 6645},
+        {"x": 'T', "y": 2343},
+        {"x": 'U', "y": 4565},
+        {"x": 'V', "y": 6645},
+        {"x": 'W', "y": 9786},
+        {"x": 'X', "y": 2302},
+        {"x": 'Y', "y": 4345},
+        {"x": 'Z', "y": 5675}
+      ];
+      return {barData: barData,
+              series: chartSeries,
+              x: x,
+              xScale: xScale,
+              yTicks: yTicks,
+              last_assign:"0",};
+    },loadLineCountMetricFromServer: function(){
+      $.ajax({
+        url: "/problem/" + this.props.act_assign + "/metrics/First_correct", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+      	  var loaded_barData = data;
+          this.setState({barData: loaded_barData});
+          //window.alert(barData);
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.loadLineCountMetricFromServer();
+      //introduces that we will need a pollInterval for the external element
+    //  setInterval(this.loadSizeMetricFromServer);
+    },
+    render: function() {
+      if(this.state.last_ass != this.props.act_assign){
+        this.loadLineCountMetricFromServer();
+      }
+        return (
+          React.createElement("div", {className: "graph-container col-md-4"}, 
+                React.createElement("div", {className: "graphContainerList"}, 
+                  React.createElement("div", {className: "barChart_Attempts_Til_Correct"}, 
+                    React.createElement("div", {className: "panel panel-default"}, 
+                      React.createElement("div", {className: "panel-heading"}, 
+                        React.createElement("h3", null, 
+                        "Attempts Until Correct"
+                        )
+                      ), 
+                  		React.createElement(BarTooltip, {
+                        data: this.state.barData, 
+                  		  legend: false, 
+                        width: graph_widths, 
+                        height: graph_heights, 
+                        fill: '#3182bd', 
+                        title: "", 
+                  		  chartSeries: this.state.series, 
+                        x: this.state.x, 
+            	          xScale: this.state.xScale, 
+                        yTicks: this.state.yTicks, 
+                        margins: {top: 20, right: 30, bottom: 30, left: 40}}, 
+                    		React.createElement(SimpleTooltipStyle, {tooltip_title: this.state.temp})
+                    	)
+                    )
+                   )
+                 )
+               ));
+    }
+});
+
 var BarChart_Time_Complexity = React.createClass({displayName: "BarChart_Time_Complexity",
     getInitialState : function() {
         var barData = [{
@@ -75909,8 +76021,8 @@ var BarChart_Time_Complexity = React.createClass({displayName: "BarChart_Time_Co
 var PieChart_Incorrect_Correct = React.createClass({displayName: "PieChart_Incorrect_Correct",
     test_func: function(new_label, new_value) {
       this.setState({myLabel: new_label, myValue: new_value});
-      var is_correct = (new_value == "correct")?(1):(0); // true or false //is_correct={is_correct}
-      this.props.setActiveGraph(React.createElement(L1FilterContainer, null));
+      var is_correct = (new_value == "correct")?(true):(false); // true or false //is_correct={is_correct}
+      this.props.setActiveGraph(React.createElement(L1FilterContainer, {correct_sub: is_correct}));
     },
     getInitialState : function() {
     var pieData = [
@@ -76425,9 +76537,10 @@ const L1FilterContainer = React.createClass({displayName: "L1FilterContainer",
     var metrics = [{"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
        {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
        {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
+       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
     //   {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
        {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
-       //{"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
+       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"repeat"},
        {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
     //   {"innerHTMLs":"Popular Functions (null)","iconTYPEs":"sign-in"},
        {"innerHTMLs":"Size Metric","iconTYPEs":"file-text"}];
@@ -76440,10 +76553,15 @@ const L1FilterContainer = React.createClass({displayName: "L1FilterContainer",
       return createTabs;
     }
 
+    var sub_type = (this.props.correct_sub)?(
+      React.createElement("h3", {style: {color:"rgb(137, 203, 124)"}}, "Correct")
+      ):(React.createElement("h3", {style: {color:"rgb(217, 90, 90)"}}, "Incorrect"));
+
     return (
       React.createElement("div", {className: "l1FilterContainer"}, 
         React.createElement(Tabs, {activeKey: this.state.key, onSelect: this.handleSelect}, 
-          allTabs(7)
+          allTabs(7), 
+          sub_type
         )
       )
 
@@ -76787,6 +76905,10 @@ var Graph = React.createClass({displayName: "Graph",
         new_graph = React.createElement(BarChart_Lines_Code, null);
         break;
       }
+      case("Attempts Until Correct"):{
+        new_graph = React.createElement(BarChart_Attempts_Til_Correct, null);
+        break;
+      }
       case("Class Rank"):{
         break;
       }
@@ -76832,6 +76954,7 @@ var GraphList = React.createClass({displayName: "GraphList",
                                {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
                                {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
                                {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
+			       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
                                {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
                                {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
                                //{"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
@@ -76879,8 +77002,8 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
             description: "Pick an assignment and then a graph to see your learning analytics!",
             active_graph: null,
             active_assignment:{
-                                title: "Stuff the Board!",
-                                description: "This is only a temporary stub",
+                                title: "Your Active Assignment Will Appear Here",
+                                description: "The assignment description will appear here.",
                                 id: "556",
                               },
             submission_num: "0",
@@ -76897,7 +77020,8 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
                   activity_window: React.createElement(Activity_Panel, {
                                     active_assignment: this.state.active_assignment, 
                                     active_graph: first_graph, 
-                                    setActiveGraph: this.setActiveGraph}
+                                    setActiveGraph: this.setActiveGraph, 
+                                    sub_count: "0"}
                                    )
     });
   },
@@ -76941,7 +77065,7 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
       active_assignment: new_assignment,
       activity_window: new_active_window
     });
-    //global.backward_stack.push(new_active_window);
+
     global.backward_stack.push(this.state.activity_window);
 
     $.ajax({

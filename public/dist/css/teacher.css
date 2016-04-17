@@ -127,6 +127,9 @@ div.masterGraphContainer .content-body {
   height: 535px;
   width: 1000px;
 }
+.col-md-10 .content-container .all-graph div.l1FilterContainer h3.sub_type_label {
+  border: blue solid 2px;
+}
 .col-md-10 .content-container .all-graph div.graph-container {
   margin-left: -7px;
   margin-top: -13px;
