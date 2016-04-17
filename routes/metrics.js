@@ -44,13 +44,24 @@ function submissionToBarChart(submissionArray){
     return submissionData;
 }
 
+function getCorrectFilter(req){
+    var param_query_filter = ''
+    
+    if (req.params.filter == 'correct')
+        param_query_string = ' AND correct='
+    else if (req.params.filter == 'incorrect')
+        param_query_string = ' AND correct='
+
+    return param_query_filter
+}
+
 
 module.exports = function(app, databaseConn){
-    
+
     app.get('/problem/:problem_id/metrics/:metric', function(req, res) {
-        
+
         if(req.params.metric == "linecount"){
-            databaseConn.query('SELECT linecount FROM solution_metrics WHERE problem=' + req.params.problem_id, //WHERE problem_id = ' + req.params.problem_id,
+            databaseConn.query('SELECT linecount FROM solution_metrics WHERE problem=' + req.params.problem_id + getCorrectFilter(req), //WHERE problem_id = ' + req.params.problem_id,
                 function (err, rows){
                 if(err) {
                     console.log(err);
@@ -103,7 +114,7 @@ module.exports = function(app, databaseConn){
                 }
             });
         } else if (req.params.metric == "first_correct"){
-            databaseConn.query('SELECT player_id, first_correct FROM player_assignment_metrics WHERE problem_id=' + req.params.problem_id, function (err, rows) {
+            databaseConn.query('SELECT player_id AS x, first_correct AS y FROM player_assignment_metrics WHERE problem_id=' + req.params.problem_id, function (err, rows) {
                 if(err) {
                     console.log(err);
                     res.status(500).send({
