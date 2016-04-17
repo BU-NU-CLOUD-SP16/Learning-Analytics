@@ -862,14 +862,14 @@ const L1FilterContainer = React.createClass({
 
   render() {
     var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text"},
-    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
-    {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
-    {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
-    {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
+    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"}];
+  //  {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
+  //  {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
+  //  {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
     //   {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
     //   {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
     //   {"innerHTMLs":"Popular Functions (null)","iconTYPEs":"sign-in"},
-    {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"}];
+  //  {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"}];
 
     var allTabs = function(tt){
       var createTabs = [];
@@ -887,7 +887,7 @@ const L1FilterContainer = React.createClass({
       <div className="l1FilterContainer">
         {sub_type}
         <Tabs activeKey={this.state.key} onSelect={this.handleSelect}>
-          {allTabs(7)}
+          {allTabs(metrics.length + 1)}
         </Tabs>
       </div>
 
@@ -1277,15 +1277,15 @@ var GraphList = React.createClass({
   },
   render: function(){
   var graph_button_selectors = [{"innerHTMLs":"Correct-Incorrect","iconTYPEs":"th-large"},
-                               {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
-                               {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
+                          //     {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
+                          //     {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
                                {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
-			       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"check"},
-                               {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
-                               {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
+                  			       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"check"},
+                          //     {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
+                          //     {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
                                //{"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
-                               {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
-                               {"innerHTMLs":"Popular Functions (null)","iconTYPEs":"sign-in"},
+                          //     {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
+                          //     {"innerHTMLs":"Popular Functions (null)","iconTYPEs":"sign-in"},
                                {"innerHTMLs":"Size Metric","iconTYPEs":"file-text"}];
   var setActiveGraph = this.setActiveGraph;
   var active_id = this.props.active_assignment_id;
