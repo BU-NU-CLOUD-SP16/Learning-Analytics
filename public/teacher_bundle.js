@@ -75602,7 +75602,6 @@ arguments[4][538][0].apply(exports,arguments)
 },{"./emptyFunction":692,"_process":1,"dup":538}],712:[function(require,module,exports){
 arguments[4][539][0].apply(exports,arguments)
 },{"./lib/React":580,"dup":539}],713:[function(require,module,exports){
-//var assn_box = require("./home_content.jsx");
 var React = require('react');
 var ReactDOM = require('react-dom');
 var rd3 = require('react-d3');
@@ -75617,6 +75616,7 @@ var BarChart = rd3.BarChart;
 var PieChart = rd3.PieChart;
 var PieTooltip = Tooltip.PieTooltip;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
+var Trie = require('./trie').Trie;
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -75649,75 +75649,6 @@ function Stack(){
    return this.stac.length;
  }
 }
-
-/* nvtaveras implemented this Trie Tree Implementation & this implementation is from his github */
-var Node = function(value, ends){
-  return {
-    v : value,
-    e : ends,
-    childs : {
-    }
-  };
-};
-
-var Trie = function(){
-  this.cnt = 0;
-  this.rootObj = {
-    childs : {
-    }
-  };
-};
-
-Trie.prototype.add = function(str){
-  var cur = this.rootObj;
-  for(var i = 0; i < str.length; ++i){
-    var c = str[i];
-    if(cur.childs.hasOwnProperty(c)){
-      cur = cur.childs[c];
-    }else{
-      cur = cur.childs[c] = new Node(c, (i == str.length - 1));
-    }
-  }
-  this.cnt++;
-  return true;
-};
-
-Trie.prototype.find = function(str){
-  var cur = this.rootObj;
-  var exists = true;
-  for(var i = 0; i < str.length && exists; ++i){
-    var c = str[i];
-    if(!cur.childs.hasOwnProperty(c)){
-      exists = false;
-    }
-    cur = cur.childs[c];
-  }
-  if(!exists) cur = null;
-  return cur;
-};
-
-
-Trie.prototype.explore = function(cur, str, arr){
-  var keys = Object.keys(cur.childs);
-  for(var i = 0; i < keys.length; ++i){
-    var k = keys[i];
-    var next = cur.childs[k];
-    var nstr = str + k;
-    if(next.e) arr.push(nstr);
-    arr.concat(this.explore(next, nstr, arr));
-  }
-  return arr;
-};
-
-Trie.prototype.suggestions = function(str){
-  var cur = this.find(str);
-  if(!cur) return [];
-  return this.explore(cur, str, []);
-};
-
-Trie.prototype.count = function(){
-  return this.cnt;
-};
 
 /**** End of Trie Implementation ****/
 
@@ -76534,34 +76465,33 @@ const L1FilterContainer = React.createClass({displayName: "L1FilterContainer",
   },
 
   render() {
-    var metrics = [{"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
-       {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
-       {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
-       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
+    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text"},
+    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
+    {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
+    {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
+    {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
     //   {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
-       {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
-       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"repeat"},
-       {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
+    //   {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
     //   {"innerHTMLs":"Popular Functions (null)","iconTYPEs":"sign-in"},
-       {"innerHTMLs":"Size Metric","iconTYPEs":"file-text"}];
+    {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"}];
 
     var allTabs = function(tt){
       var createTabs = [];
       for(var ii = 1; ii < tt; ii++){ //{}"Tab " + ii}
-        createTabs.push(React.createElement(Tab, {eventKey: ii, title: metrics[ii - 1].innerHTMLs}, "Tab ", ii, " content"));
+        createTabs.push(React.createElement(Tab, {className: "tab", eventKey: ii, title: metrics[ii - 1].innerHTMLs}, "Tab ", ii, " content"));
       }
       return createTabs;
     }
 
     var sub_type = (this.props.correct_sub)?(
-      React.createElement("h3", {style: {color:"rgb(137, 203, 124)"}}, "Correct")
-      ):(React.createElement("h3", {style: {color:"rgb(217, 90, 90)"}}, "Incorrect"));
+      React.createElement("h4", {style: {color:"rgb(183, 209, 178)"}}, "Correct")
+      ):(React.createElement("h4", {style: {color:"rgb(215, 136, 136)"}}, "Incorrect"));
 
     return (
       React.createElement("div", {className: "l1FilterContainer"}, 
+        sub_type, 
         React.createElement(Tabs, {activeKey: this.state.key, onSelect: this.handleSelect}, 
-          allTabs(7), 
-          sub_type
+          allTabs(7)
         )
       )
 
@@ -77056,25 +76986,26 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
                           description: new_description,
                           id: new_id,
     }
-    var new_active_window = (React.createElement(Activity_Panel, {
-                              active_assignment: new_assignment, 
-                              active_graph: this.state.active_graph, 
-                              sub_count: this.state.submission_num}
-                             ));
-    this.setState({
-      active_assignment: new_assignment,
-      activity_window: new_active_window
-    });
 
     global.backward_stack.push(this.state.activity_window);
 
     $.ajax({
-      url: "/problem/" + new_id + "/student_submissions", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+      url: "/problem/" + new_id + "/student_submissions",
       dataType: 'json',
       cache: false,
       success: function(data) {
         var the_count = JSON.stringify(data[0].count);
-        this.setState({submission_num: the_count});
+
+        var new_active_window = (React.createElement(Activity_Panel, {
+                                  active_assignment: new_assignment, 
+                                  active_graph: this.state.active_graph, 
+                                  sub_count: the_count}
+                                 ));
+
+        this.setState({active_assignment: new_assignment,
+          activity_window: new_active_window,
+          submission_num: the_count
+        });
       }.bind(this),
       // in the case ajax runs into an error
       error: function(xhr, status, err) {
@@ -77146,4 +77077,78 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
 
 ReactDOM.render(React.createElement(MasterGraphContainer, null), document.getElementById('content'));
 
-},{"react":712,"react-bootstrap":82,"react-d3":373,"react-d3-tooltip":266,"react-dom":556}]},{},[713]);
+},{"./trie":714,"react":712,"react-bootstrap":82,"react-d3":373,"react-d3-tooltip":266,"react-dom":556}],714:[function(require,module,exports){
+var Node = function(value, ends){
+  return {
+    v : value,
+    e : ends,
+    childs : {
+    }
+  };
+};
+
+var Trie = function(){
+  this.cnt = 0;
+  this.rootObj = {
+    childs : {
+    }
+  };
+};
+
+Trie.prototype.add = function(str){
+  var cur = this.rootObj;
+  for(var i = 0; i < str.length; ++i){
+    var c = str[i];
+    if(cur.childs.hasOwnProperty(c)){
+      cur = cur.childs[c];
+    }else{
+      cur = cur.childs[c] = new Node(c, (i == str.length - 1));
+    }
+  }
+  this.cnt++;
+  return true;
+};
+
+Trie.prototype.find = function(str){
+  var cur = this.rootObj;
+  var exists = true;
+  for(var i = 0; i < str.length && exists; ++i){
+    var c = str[i];
+    if(!cur.childs.hasOwnProperty(c)){
+      exists = false;
+    }
+    cur = cur.childs[c];
+  }
+  if(!exists) cur = null;
+  return cur;
+};
+
+
+Trie.prototype.explore = function(cur, str, arr){
+  var keys = Object.keys(cur.childs);
+  for(var i = 0; i < keys.length; ++i){
+    var k = keys[i];
+    var next = cur.childs[k];
+    var nstr = str + k;
+    if(next.e) arr.push(nstr);
+    arr.concat(this.explore(next, nstr, arr));
+  }
+  return arr;
+};
+
+Trie.prototype.suggestions = function(str){
+  var cur = this.find(str);
+  if(!cur) return [];
+  return this.explore(cur, str, []);
+};
+
+Trie.prototype.count = function(){
+  return this.cnt;
+};
+
+module.exports = {
+  /* nvtaveras implemented this Trie Tree Implementation & this implementation is from his github */
+  Trie: Trie
+};
+
+},{}]},{},[713]);
