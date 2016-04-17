@@ -44,7 +44,14 @@ function submissionToBarChart(submissionArray){
     return submissionData;
 }
 
-
+function error500(res){
+    console.error(err);
+    res.status(500).send({
+        status: 500,
+        message: 'internal error',
+        type: 'internal'
+    });
+}
 module.exports = function(app, databaseConn){
     
     app.get('/problem/:problem_id/metrics/:metric', function(req, res) {
@@ -112,7 +119,7 @@ module.exports = function(app, databaseConn){
                         type: 'internal'
                     });
                 } else {
-                    res.send(rows)
+                    res.send(rows);
                 }
             }); 
         }
@@ -131,9 +138,9 @@ module.exports = function(app, databaseConn){
                         type: 'internal'
                     });
                 } else {
-                    res.send(rows)
+                    res.send(rows);
                 }
             }); 
         } else res.sendStatus(404);
     });
-}
+};
