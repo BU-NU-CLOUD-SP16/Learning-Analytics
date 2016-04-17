@@ -1280,7 +1280,7 @@ var GraphList = React.createClass({
                                {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
                                {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
                                {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
-			       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
+			       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"check"},
                                {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
                                {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
                                //{"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
