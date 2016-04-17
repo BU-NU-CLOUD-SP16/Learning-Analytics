@@ -122,7 +122,7 @@ module.exports = function(app, databaseConn){
                     res.send(rows);
                 }
             }); 
-        }
+        } 
         else res.sendStatus(404);
     });
 
@@ -141,6 +141,32 @@ module.exports = function(app, databaseConn){
                     res.send(rows);
                 }
             }); 
-        } else res.sendStatus(404);
+        } else if (req.params.metric == "code"){
+            var query = 'SELECT player_id, body, correct FROM solution WHERE' +
+                        ' problem_id=' + req.params.problem_id +
+                        ' AND player_id=' + req.params.student_id +
+                        ' AND correct=1 ORDER BY created_at DESC LIMIT 1';
+
+            databaseConn.query(query, function (err, rows) {
+                if(err) 
+                    error500(res);
+                else if(rows.length > 0) 
+                    res.send(rows);
+                else if(rows.length === 0){
+                    query = 'SELECT player_id, body, correct FROM solution ' + 
+                            ' WHERE' +
+                            ' problem_id=' + req.params.problem_id +
+                            ' AND player_id=' + req.params.student_id +
+                            ' ORDER BY created_at DESC LIMIT 1';
+
+                    databaseConn.query(query, function (err, rows){
+                        if(err)
+                            error500(res);
+                        else
+                            res.send(rows);
+                    });
+                }
+            });
+        }else res.sendStatus(404);
     });
 };
