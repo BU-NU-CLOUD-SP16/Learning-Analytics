@@ -102,6 +102,19 @@ module.exports = function(app, databaseConn){
                     res.send(countToBarChart(size));
                 }
             });
+        } else if (req.params.metric == "first_correct"){
+            databaseConn.query('SELECT player_id, first_correct FROM player_assignment_metrics WHERE problem_id=' + req.params.problem_id, function (err, rows) {
+                if(err) {
+                    console.log(err);
+                    res.status(500).send({
+                        status:500,
+                        message: 'internal error',
+                        type: 'internal'
+                    });
+                } else {
+                    res.send(rows)
+                }
+            }); 
         }
         else res.sendStatus(404);
     });
@@ -109,7 +122,7 @@ module.exports = function(app, databaseConn){
     app.get('/problem/:problem_id/student/:student_id/metrics/:metric', function(req, res) {
 
         if (req.params.metric == "first_correct"){
-            databaseConn.query('SELECT player_id, first_correct FROM player_assignment_metrics WHERE problem_id=' + req.params.problem_id, function (err, rows) {
+            databaseConn.query('SELECT player_id, first_correct FROM player_assignment_metrics WHERE problem_id=' + req.params.problem_id + ' AND player_id=' + req.params.student_id, function (err, rows) {
                 if(err) {
                     console.log(err);
                     res.status(500).send({
