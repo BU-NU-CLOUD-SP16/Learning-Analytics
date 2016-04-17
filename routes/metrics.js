@@ -109,6 +109,24 @@ module.exports = function(app, databaseConn){
                     res.send(submissionToBarChart(rows));
                 }
             });
+        } else if (req.params.metric == "size"){
+            databaseConn.query('SELECT id AS player_id, size AS metric FROM solution_metrics WHERE problem=' + req.params.problem_id,  
+                function (err, rows){
+                if(err) {
+                    console.log(err);
+                    res.status(500).send({
+                        status:500,
+                        message: 'internal error',
+                        type: 'internal'
+                    });
+                } else {
+                    var size = new Array(rows.length);
+                    for(var i = 0; i < rows.length; i++){
+                        size[i] = rows[i].metric;
+                    }
+                    res.send(countToBarChart(size));
+                }
+            });
         }
         else res.sendStatus(404);
     });
