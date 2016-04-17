@@ -1,4 +1,3 @@
-
 function countToBarChart(lineArray){
     lineArray.sort(function(a, b){
         return a -b;
@@ -45,11 +44,36 @@ function submissionToBarChart(submissionArray){
     return submissionData;
 }
 
+function firstCorrect(solutionArray){
+
+    var flag = 0;
+    var attempts = 0;
+    var first_correct = 0;
+
+    for (attempts = 0; attempts < solutionArray.length; attempts++){
+        if (solutionArray[attempts].correct == 1){
+            flag = 1;
+            break;
+        }
+    }
+
+    if(flag)
+        first_correct = attempts + 1;
+    else
+        first_correct = -1;
+
+    var response = {
+        "attempts until correct": first_correct
+    };
+
+    return response;
+}
+
 
 module.exports = function(app, databaseConn){
-
+    
     app.get('/problem/:problem_id/metrics/:metric', function(req, res) {
-
+        
         if(req.params.metric == "linecount"){
             databaseConn.query('SELECT linecount FROM solution_metrics WHERE problem=' + req.params.problem_id, //WHERE problem_id = ' + req.params.problem_id,
                 function (err, rows){
@@ -83,24 +107,6 @@ module.exports = function(app, databaseConn){
                     });
                 } else {
                     res.send(submissionToBarChart(rows));
-                }
-            });
-        } else if (req.params.metric == "size"){
-            databaseConn.query('SELECT id AS player_id, size AS metric FROM solution_metrics WHERE problem=' + req.params.problem_id,
-                function (err, rows){
-                if(err) {
-                    console.log(err);
-                    res.status(500).send({
-                        status:500,
-                        message: 'internal error',
-                        type: 'internal'
-                    });
-                } else {
-                    var size = new Array(rows.length);
-                    for(var i = 0; i < rows.length; i++){
-                        size[i] = rows[i].metric;
-                    }
-                    res.send(countToBarChart(size));
                 }
             });
         }
