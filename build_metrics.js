@@ -16,18 +16,20 @@ tableSchema = sqlConfig.solution_metrics_schema;
 
 var errFunc = function(err){ if(err) console.log(err); };
 var fillMetricsTable = function(){
-    databaseConn.query("SELECT id, body, problem_id, metric FROM solution;",
+    databaseConn.query("SELECT id, body, problem_id, correct, metric FROM solution;",
         function(err, rows){
         if(err) console.log(err);
         else{
             console.log(rows[0]);
             for(var i = 0; i < rows.length; i++){
                 var lines = rows[i].body.split(/\r\n|\r|\n/).length;
+                if(rows[i].correct === null) rows[i].correct = -1;
                 databaseConn.query("INSERT INTO solution_metrics " +
                                    "VALUES(" +
                                    rows[i].id.toString() + ", " +
                                    rows[i].problem_id.toString() + ", " +
                                    lines.toString() + ", " +
+                                   rows[i].correct.toString() + ", " +
                                    rows[i].metric.toString() +" );",
                                    errFunc
                 );
