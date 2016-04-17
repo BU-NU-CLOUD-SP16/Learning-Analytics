@@ -844,6 +844,223 @@ var BarChart_Size_Metric = React.createClass({
 
 /****************** Chart Implementation End ******************/
 
+/** Filtered Graphs Start**/
+
+var F1_BarChart_Lines_Code = React.createClass({
+    getInitialState : function() {
+    	var chartSeries = [
+    	      {
+    	        field: 'y',
+    	        name: 'Submissions.Lines of Code'
+    	      }
+    	    ];
+
+    	var x = function(d) {
+    	      return d.x;
+    	    };
+
+      var temp = {
+                color: 'black',
+                fontWeight: 'bold',
+                marginBottom: '5px'
+              };
+
+    	var xScale = 'ordinal';
+    	var yTicks = [10, "c"];
+
+      var barData = [
+        {"x": 'A', "y": 245},
+        {"x": 'B', "y": 543},
+        {"x": 'C', "y": 1093},
+        {"x": 'D', "y": 5643},
+        {"x": 'E', "y": 37},
+        {"x": 'F', "y": 7854},
+        {"x": 'G', "y": 645},
+        {"x": 'H', "y": 2443},
+        {"x": 'J', "y": 5544},
+        {"x": 'K', "y": 769},
+        {"x": 'L', "y": 343},
+        {"x": 'M', "y": 4433},
+        {"x": 'N', "y": 354},
+        {"x": 'O', "y": 3654},
+        {"x": 'P', "y": 788},
+        {"x": 'Q', "y": 667},
+        {"x": 'R', "y": 6587},
+        {"x": 'S', "y": 665},
+        {"x": 'T', "y": 2343},
+        {"x": 'U', "y": 45},
+        {"x": 'V', "y": 6645},
+        {"x": 'W', "y": 9786},
+        {"x": 'X', "y": 232},
+        {"x": 'Y', "y": 4345},
+        {"x": 'Z', "y": 5675}
+      ];
+      return {barData: barData,
+              series: chartSeries,
+              x: x,
+              xScale: xScale,
+              yTicks: yTicks,
+              last_assign:"0",};
+    },loadLineCountMetricFromServer: function(){
+      $.ajax({
+        url: "/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+      	  var loaded_barData = data;
+          this.setState({barData: loaded_barData});
+          //window.alert(barData);
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.loadLineCountMetricFromServer();
+      //introduces that we will need a pollInterval for the external element
+    //  setInterval(this.loadSizeMetricFromServer);
+    },
+    render: function() {
+      if(this.state.last_ass != this.props.act_assign){
+        this.loadLineCountMetricFromServer();
+      }
+
+      var new_width = (graph_widths * 0.9);
+      var new_height = (graph_heights * 0.9);
+
+        return (
+          <div className="graph-container col-md-4">
+                  		<BarTooltip
+                        data={this.state.barData}
+                  		  legend={false}
+                        width={new_width}
+                        height={new_height}
+                        fill={'#3182bd'}
+                        title=''
+                  		  chartSeries = {this.state.series}
+                        x= {this.state.x}
+            	          xScale= {this.state.xScale}
+                        yTicks= {this.state.yTicks}
+                        margins={{top: 20, right: 30, bottom: 30, left: 40}}>
+                    		<SimpleTooltipStyle tooltip_title={this.state.temp}/>
+                    	</BarTooltip>
+               </div>);
+    }
+});
+
+var F1_BarChart_Size_Metric = React.createClass({
+    getInitialState : function() {
+    	var chartSeries = [
+    	      {
+    	        field: 'y',
+    	        name: 'Submissions.Lines of Code'
+    	      }
+    	    ];
+
+    	var x = function(d) {
+    	      return d.x;
+    	    };
+
+      var temp = {
+                color: 'black',
+                fontWeight: 'bold',
+                marginBottom: '5px'
+              };
+
+    	var xScale = 'ordinal';
+    	var yTicks = [10, "c"];
+
+      var barData = [
+        {"x": 'A', "y": 2345},
+        {"x": 'B', "y": 5463},
+        {"x": 'C', "y": 10293},
+        {"x": 'D', "y": 5643},
+        {"x": 'E', "y": 3657},
+        {"x": 'F', "y": 7854},
+        {"x": 'G', "y": 6845},
+        {"x": 'H', "y": 2435},
+        {"x": 'I', "y": 1243},
+        {"x": 'J', "y": 5544},
+        {"x": 'K', "y": 7869},
+        {"x": 'L', "y": 3343},
+        {"x": 'M', "y": 4433},
+        {"x": 'N', "y": 3354},
+        {"x": 'O', "y": 3654},
+        {"x": 'P', "y": 7887},
+        {"x": 'Q', "y": 6657},
+        {"x": 'R', "y": 6587},
+        {"x": 'S', "y": 6645},
+        {"x": 'T', "y": 2343},
+        {"x": 'U', "y": 4565},
+        {"x": 'V', "y": 6645},
+        {"x": 'W', "y": 9786},
+        {"x": 'X', "y": 2302},
+        {"x": 'Y', "y": 4345},
+        {"x": 'Z', "y": 5675}
+      ];
+      return {barData: barData,
+              series: chartSeries,
+              x: x,
+              xScale: xScale,
+              yTicks: yTicks,
+              last_assign:"0",};
+    },loadSizeMetricFromServer: function(){
+      $.ajax({
+        url: "/problem/" + this.props.act_assign + "/metrics/size", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+      	  var loaded_barData = data;
+          this.setState({barData: loaded_barData});
+          //window.alert(barData);
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.loadSizeMetricFromServer();
+      //introduces that we will need a pollInterval for the external element
+    //  setInterval(this.loadSizeMetricFromServer);
+    },
+    test_func: function(new_xx, new_yy) {
+      this.setState({xx: new_xx, yy: new_yy});
+      window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
+    },
+    render: function() {
+      if(this.state.last_ass != this.props.act_assign){
+        this.loadSizeMetricFromServer();
+      }
+      var new_width = (graph_widths * 0.9);
+      var new_height = (graph_heights * 0.9);
+        return (
+          <div className="graph-container col-md-4">
+                  		<BarTooltip
+                        data={this.state.barData}
+                  		  legend={false}
+                        width={new_width}
+                        height={new_height}
+                        fill={'#3182bd'}
+                        title=''
+                  		  chartSeries = {this.state.series}
+                        x= {this.state.x}
+            	          xScale= {this.state.xScale}
+                        yTicks= {this.state.yTicks}
+                        margins={{top: 20, right: 30, bottom: 30, left: 40}}>
+                    		<SimpleTooltipStyle tooltip_title={this.state.temp}/>
+                    	</BarTooltip>
+               </div>);
+    }
+});
+
+
+
+/** Filtered Graphs End **/
+
 /* Upon clicking the correct or incorrect portion of the splash graph,
    This is the filtered section that will be loaded.
 */
@@ -861,8 +1078,8 @@ const L1FilterContainer = React.createClass({
   },
 
   render() {
-    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text"},
-    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"}];
+    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text","sub_graph":(<F1_BarChart_Size_Metric/>)},
+    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify","sub_graph":(<F1_BarChart_Lines_Code/>)}];
   //  {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
   //  {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
   //  {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
@@ -874,13 +1091,17 @@ const L1FilterContainer = React.createClass({
     var allTabs = function(tt){
       var createTabs = [];
       for(var ii = 1; ii < tt; ii++){ //{}"Tab " + ii}
-        createTabs.push(<Tab className="tab" eventKey={ii} title={metrics[ii - 1].innerHTMLs}>Tab {ii} content</Tab>);
+        createTabs.push(<Tab className="tab" eventKey={ii} title={metrics[ii - 1].innerHTMLs}>
+            Tab {ii} content
+            {metrics[ii - 1].sub_graph}
+          </Tab>
+        );
       }
       return createTabs;
     }
 
     var sub_type = (this.props.correct_sub)?(
-      <h4 style={{color:"rgb(183, 209, 178)"}}>Correct</h4>
+      <h4 style={{color:"rgb(137, 203, 124)"}}>Correct</h4>
       ):(<h4 style={{color:"rgb(215, 136, 136)"}}>Incorrect</h4>);
 
     return (
