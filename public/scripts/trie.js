@@ -8,6 +8,7 @@ var Node = function(value, ends){
 };
 
 var Trie = function(){
+  //window.alert("initiated"); 
   this.cnt = 0;
   this.rootObj = {
     childs : {

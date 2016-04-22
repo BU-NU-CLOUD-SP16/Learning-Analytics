@@ -1092,7 +1092,6 @@ const L1FilterContainer = React.createClass({
       var createTabs = [];
       for(var ii = 1; ii < tt; ii++){ //{}"Tab " + ii}
         createTabs.push(<Tab className="tab" eventKey={ii} title={metrics[ii - 1].innerHTMLs}>
-            Tab {ii} content
             {metrics[ii - 1].sub_graph}
           </Tab>
         );
@@ -1301,7 +1300,7 @@ var StudentForm = React.createClass({
             temp_arr.push(student_name);
           }
         });
-        this.setState({trie: temp_trie, prefix: temp_arr});
+        this.setState({trie: temp_trie, prefix: temp_arr, last_id:this.props.active_assignment_id});
       }.bind(this),
       // in the case ajax runs into an error
       error: function(xhr, status, err) {
@@ -1313,8 +1312,7 @@ var StudentForm = React.createClass({
     // if the assignment_id is different, reload the students
     if(this.props.active_assignment_id != this.state.last_id){
       // This updating functionality needs to be implemented such that when a new problem id is selected
-
-      // this.loadStudentsFromServer();
+       this.loadStudentsFromServer();
     }
 
 
@@ -1590,6 +1588,8 @@ var MasterGraphContainer = React.createClass({
     var new_active_window = (<Activity_Panel
                               active_assignment={this.state.active_assignment}
                               active_graph={new_graph}
+                              setActiveGraph={this.setActiveGraph}
+                              sub_count={this.state.submission_num}
                              />);
     this.setState({active_graph: new_graph,
                   activity_window: new_active_window
@@ -1616,6 +1616,7 @@ var MasterGraphContainer = React.createClass({
         var new_active_window = (<Activity_Panel
                                   active_assignment={new_assignment}
                                   active_graph={this.state.active_graph}
+                                  setActiveGraph={this.setActiveGraph}
                                   sub_count={the_count}
                                  />);
 

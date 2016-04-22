@@ -75835,7 +75835,7 @@ var BarChart_Attempts_Til_Correct = React.createClass({displayName: "BarChart_At
               last_assign:"0",};
     },loadLineCountMetricFromServer: function(){
       $.ajax({
-        url: "/problem/" + this.props.act_assign + "/metrics/First_correct", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        url: "/problem/" + this.props.act_assign + "/metrics/first_correct", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
         dataType: 'json',
         cache: false,
         success: function(data) {
@@ -76448,6 +76448,223 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
 
 /****************** Chart Implementation End ******************/
 
+/** Filtered Graphs Start**/
+
+var F1_BarChart_Lines_Code = React.createClass({displayName: "F1_BarChart_Lines_Code",
+    getInitialState : function() {
+    	var chartSeries = [
+    	      {
+    	        field: 'y',
+    	        name: 'Submissions.Lines of Code'
+    	      }
+    	    ];
+
+    	var x = function(d) {
+    	      return d.x;
+    	    };
+
+      var temp = {
+                color: 'black',
+                fontWeight: 'bold',
+                marginBottom: '5px'
+              };
+
+    	var xScale = 'ordinal';
+    	var yTicks = [10, "c"];
+
+      var barData = [
+        {"x": 'A', "y": 245},
+        {"x": 'B', "y": 543},
+        {"x": 'C', "y": 1093},
+        {"x": 'D', "y": 5643},
+        {"x": 'E', "y": 37},
+        {"x": 'F', "y": 7854},
+        {"x": 'G', "y": 645},
+        {"x": 'H', "y": 2443},
+        {"x": 'J', "y": 5544},
+        {"x": 'K', "y": 769},
+        {"x": 'L', "y": 343},
+        {"x": 'M', "y": 4433},
+        {"x": 'N', "y": 354},
+        {"x": 'O', "y": 3654},
+        {"x": 'P', "y": 788},
+        {"x": 'Q', "y": 667},
+        {"x": 'R', "y": 6587},
+        {"x": 'S', "y": 665},
+        {"x": 'T', "y": 2343},
+        {"x": 'U', "y": 45},
+        {"x": 'V', "y": 6645},
+        {"x": 'W', "y": 9786},
+        {"x": 'X', "y": 232},
+        {"x": 'Y', "y": 4345},
+        {"x": 'Z', "y": 5675}
+      ];
+      return {barData: barData,
+              series: chartSeries,
+              x: x,
+              xScale: xScale,
+              yTicks: yTicks,
+              last_assign:"0",};
+    },loadLineCountMetricFromServer: function(){
+      $.ajax({
+        url: "/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+      	  var loaded_barData = data;
+          this.setState({barData: loaded_barData});
+          //window.alert(barData);
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.loadLineCountMetricFromServer();
+      //introduces that we will need a pollInterval for the external element
+    //  setInterval(this.loadSizeMetricFromServer);
+    },
+    render: function() {
+      if(this.state.last_ass != this.props.act_assign){
+        this.loadLineCountMetricFromServer();
+      }
+
+      var new_width = (graph_widths * 0.9);
+      var new_height = (graph_heights * 0.9);
+
+        return (
+          React.createElement("div", {className: "graph-container col-md-4"}, 
+                  		React.createElement(BarTooltip, {
+                        data: this.state.barData, 
+                  		  legend: false, 
+                        width: new_width, 
+                        height: new_height, 
+                        fill: '#3182bd', 
+                        title: "", 
+                  		  chartSeries: this.state.series, 
+                        x: this.state.x, 
+            	          xScale: this.state.xScale, 
+                        yTicks: this.state.yTicks, 
+                        margins: {top: 20, right: 30, bottom: 30, left: 40}}, 
+                    		React.createElement(SimpleTooltipStyle, {tooltip_title: this.state.temp})
+                    	)
+               ));
+    }
+});
+
+var F1_BarChart_Size_Metric = React.createClass({displayName: "F1_BarChart_Size_Metric",
+    getInitialState : function() {
+    	var chartSeries = [
+    	      {
+    	        field: 'y',
+    	        name: 'Submissions.Lines of Code'
+    	      }
+    	    ];
+
+    	var x = function(d) {
+    	      return d.x;
+    	    };
+
+      var temp = {
+                color: 'black',
+                fontWeight: 'bold',
+                marginBottom: '5px'
+              };
+
+    	var xScale = 'ordinal';
+    	var yTicks = [10, "c"];
+
+      var barData = [
+        {"x": 'A', "y": 2345},
+        {"x": 'B', "y": 5463},
+        {"x": 'C', "y": 10293},
+        {"x": 'D', "y": 5643},
+        {"x": 'E', "y": 3657},
+        {"x": 'F', "y": 7854},
+        {"x": 'G', "y": 6845},
+        {"x": 'H', "y": 2435},
+        {"x": 'I', "y": 1243},
+        {"x": 'J', "y": 5544},
+        {"x": 'K', "y": 7869},
+        {"x": 'L', "y": 3343},
+        {"x": 'M', "y": 4433},
+        {"x": 'N', "y": 3354},
+        {"x": 'O', "y": 3654},
+        {"x": 'P', "y": 7887},
+        {"x": 'Q', "y": 6657},
+        {"x": 'R', "y": 6587},
+        {"x": 'S', "y": 6645},
+        {"x": 'T', "y": 2343},
+        {"x": 'U', "y": 4565},
+        {"x": 'V', "y": 6645},
+        {"x": 'W', "y": 9786},
+        {"x": 'X', "y": 2302},
+        {"x": 'Y', "y": 4345},
+        {"x": 'Z', "y": 5675}
+      ];
+      return {barData: barData,
+              series: chartSeries,
+              x: x,
+              xScale: xScale,
+              yTicks: yTicks,
+              last_assign:"0",};
+    },loadSizeMetricFromServer: function(){
+      $.ajax({
+        url: "/problem/" + this.props.act_assign + "/metrics/size", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+      	  var loaded_barData = data;
+          this.setState({barData: loaded_barData});
+          //window.alert(barData);
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.loadSizeMetricFromServer();
+      //introduces that we will need a pollInterval for the external element
+    //  setInterval(this.loadSizeMetricFromServer);
+    },
+    test_func: function(new_xx, new_yy) {
+      this.setState({xx: new_xx, yy: new_yy});
+      window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
+    },
+    render: function() {
+      if(this.state.last_ass != this.props.act_assign){
+        this.loadSizeMetricFromServer();
+      }
+      var new_width = (graph_widths * 0.9);
+      var new_height = (graph_heights * 0.9);
+        return (
+          React.createElement("div", {className: "graph-container col-md-4"}, 
+                  		React.createElement(BarTooltip, {
+                        data: this.state.barData, 
+                  		  legend: false, 
+                        width: new_width, 
+                        height: new_height, 
+                        fill: '#3182bd', 
+                        title: "", 
+                  		  chartSeries: this.state.series, 
+                        x: this.state.x, 
+            	          xScale: this.state.xScale, 
+                        yTicks: this.state.yTicks, 
+                        margins: {top: 20, right: 30, bottom: 30, left: 40}}, 
+                    		React.createElement(SimpleTooltipStyle, {tooltip_title: this.state.temp})
+                    	)
+               ));
+    }
+});
+
+
+
+/** Filtered Graphs End **/
+
 /* Upon clicking the correct or incorrect portion of the splash graph,
    This is the filtered section that will be loaded.
 */
@@ -76465,33 +76682,36 @@ const L1FilterContainer = React.createClass({displayName: "L1FilterContainer",
   },
 
   render() {
-    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text"},
-    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
-    {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
-    {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
-    {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
+    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text","sub_graph":(React.createElement(F1_BarChart_Size_Metric, null))},
+    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify","sub_graph":(React.createElement(F1_BarChart_Lines_Code, null))}];
+  //  {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
+  //  {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
+  //  {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
     //   {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
     //   {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
     //   {"innerHTMLs":"Popular Functions (null)","iconTYPEs":"sign-in"},
-    {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"}];
+  //  {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"}];
 
     var allTabs = function(tt){
       var createTabs = [];
       for(var ii = 1; ii < tt; ii++){ //{}"Tab " + ii}
-        createTabs.push(React.createElement(Tab, {className: "tab", eventKey: ii, title: metrics[ii - 1].innerHTMLs}, "Tab ", ii, " content"));
+        createTabs.push(React.createElement(Tab, {className: "tab", eventKey: ii, title: metrics[ii - 1].innerHTMLs}, 
+            metrics[ii - 1].sub_graph
+          )
+        );
       }
       return createTabs;
     }
 
     var sub_type = (this.props.correct_sub)?(
-      React.createElement("h4", {style: {color:"rgb(183, 209, 178)"}}, "Correct")
+      React.createElement("h4", {style: {color:"rgb(137, 203, 124)"}}, "Correct")
       ):(React.createElement("h4", {style: {color:"rgb(215, 136, 136)"}}, "Incorrect"));
 
     return (
       React.createElement("div", {className: "l1FilterContainer"}, 
         sub_type, 
         React.createElement(Tabs, {activeKey: this.state.key, onSelect: this.handleSelect}, 
-          allTabs(7)
+          allTabs(metrics.length + 1)
         )
       )
 
@@ -76684,7 +76904,7 @@ var StudentForm = React.createClass({displayName: "StudentForm",
             temp_arr.push(student_name);
           }
         });
-        this.setState({trie: temp_trie, prefix: temp_arr});
+        this.setState({trie: temp_trie, prefix: temp_arr, last_id:this.props.active_assignment_id});
       }.bind(this),
       // in the case ajax runs into an error
       error: function(xhr, status, err) {
@@ -76696,8 +76916,7 @@ var StudentForm = React.createClass({displayName: "StudentForm",
     // if the assignment_id is different, reload the students
     if(this.props.active_assignment_id != this.state.last_id){
       // This updating functionality needs to be implemented such that when a new problem id is selected
-
-      // this.loadStudentsFromServer();
+       this.loadStudentsFromServer();
     }
 
 
@@ -76881,15 +77100,15 @@ var GraphList = React.createClass({displayName: "GraphList",
   },
   render: function(){
   var graph_button_selectors = [{"innerHTMLs":"Correct-Incorrect","iconTYPEs":"th-large"},
-                               {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
-                               {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
+                          //     {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
+                          //     {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
                                {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify"},
-			       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
-                               {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
-                               {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
+                  			       {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"check"},
+                          //     {"innerHTMLs":"Class Rank (null)","iconTYPEs":"bar-chart"},
+                          //     {"innerHTMLs":"Loop Counter","iconTYPEs":"circle-o-notch"},
                                //{"innerHTMLs":"Attempt Count","iconTYPEs":"repeat"},
-                               {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
-                               {"innerHTMLs":"Popular Functions (null)","iconTYPEs":"sign-in"},
+                          //     {"innerHTMLs":"Nested Loop Count","iconTYPEs":"align-left"},
+                          //     {"innerHTMLs":"Popular Functions (null)","iconTYPEs":"sign-in"},
                                {"innerHTMLs":"Size Metric","iconTYPEs":"file-text"}];
   var setActiveGraph = this.setActiveGraph;
   var active_id = this.props.active_assignment_id;
@@ -76972,7 +77191,9 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
   setActiveGraph: function(new_graph = null){
     var new_active_window = (React.createElement(Activity_Panel, {
                               active_assignment: this.state.active_assignment, 
-                              active_graph: new_graph}
+                              active_graph: new_graph, 
+                              setActiveGraph: this.setActiveGraph, 
+                              sub_count: this.state.submission_num}
                              ));
     this.setState({active_graph: new_graph,
                   activity_window: new_active_window
@@ -76999,6 +77220,7 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
         var new_active_window = (React.createElement(Activity_Panel, {
                                   active_assignment: new_assignment, 
                                   active_graph: this.state.active_graph, 
+                                  setActiveGraph: this.setActiveGraph, 
                                   sub_count: the_count}
                                  ));
 
@@ -77088,6 +77310,7 @@ var Node = function(value, ends){
 };
 
 var Trie = function(){
+  //window.alert("initiated"); 
   this.cnt = 0;
   this.rootObj = {
     childs : {
