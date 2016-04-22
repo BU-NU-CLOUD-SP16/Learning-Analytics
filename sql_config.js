@@ -41,8 +41,9 @@ module.exports = {
         "(id INT(11) NOT NULL PRIMARY KEY," +
         "FOREIGN KEY (id) REFERENCES solution(id)," +
         "problem INT(5)," +
-        "FOREIGN KEY (id) REFERENCES solution(id)," +
+        "FOREIGN KEY (problem) REFERENCES problem(id)," +
         "linecount INT(5)," +
+        "correct INT(3)," +
         "size INT(5));",
 
     player_assignment_metrics_schema:
