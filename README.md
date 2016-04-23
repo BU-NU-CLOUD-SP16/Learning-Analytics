@@ -55,12 +55,12 @@ To run:
 To run locally:   
 1. Change directory to the project root
 
-2. In a terminal type
+2. In a terminal type   
 $ gulp
 
-3. In a separate terminal type
+3. In a separate terminal type   
 $ nodejs app.js
 
-4. In a browser, type:
+4. In a browser, type:   
 localhost:3000
 
