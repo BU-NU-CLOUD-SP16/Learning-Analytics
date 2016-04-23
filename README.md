@@ -12,22 +12,22 @@ High level goals of this project include:
 
 TODO: fill out
 
-app.js:
-assignments.json:
-Brewfile:
-build*.js:
-chart-examples:
-gulpfile.js:
-node_modules: Contains external react-d3 files and classes 
-package.json:
-ProjectProposal.pdf:
-public:
-README.md:
-routes:
-sample_data:
-sql_config.js:
-SQL_Queries:
-ubuntu-requirements.txt:
+app.js:   
+assignments.json:   
+Brewfile:   
+build*.js:   
+chart-examples:   
+gulpfile.js:   
+node_modules: Contains external react-d3 files and classes    
+package.json:    
+ProjectProposal.pdf:   
+public:   
+README.md:   
+routes:    
+sample_data:   
+sql_config.js:   
+SQL_Queries:   
+ubuntu-requirements.txt:   
 
 ## SETUP ENVIRONMENT
 
