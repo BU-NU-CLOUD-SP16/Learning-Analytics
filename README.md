@@ -40,11 +40,11 @@ $ npm install gulp-less
 Note 2: You might need to install react-bootstrap, if not detected by npm and automatically installed.
 $ npm install react-bootstrap   
 
-3. Install gulp
-TODO
+3. Install nodejs   
+http://nodejs.org 
 
-4. Install nodejs
-TODO
+4. Install gulp   
+$ npm install -g gulp
 
 ## TO RUN 
 
