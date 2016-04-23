@@ -16965,6 +16965,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var BarTooltip = function (_BarEvt) {
   _inherits(BarTooltip, _BarEvt);
 
+  function onClick(){
+    window.alert("You are inside the BarEvt");
+  };
+
   function BarTooltip(props) {
     _classCallCheck(this, BarTooltip);
 
@@ -16977,8 +16981,6 @@ var BarTooltip = function (_BarEvt) {
       var _props = this.props;
       var width = _props.width;
       var height = _props.height;
-
-
       return _react2.default.createElement(
         'div',
         null,
@@ -16993,7 +16995,8 @@ var BarTooltip = function (_BarEvt) {
           _extends({}, this.props, this.state),
           _react2.default.createElement(_bar2.default, _extends({}, this.props, this.state, {
             onMouseOver: this.mouseOver.bind(this),
-            onMouseOut: this.mouseOut.bind(this)
+            onMouseOut: this.mouseOut.bind(this),
+            onClick: this.onClick.bind(this)
           }))
         )
       );
@@ -17006,6 +17009,7 @@ var BarTooltip = function (_BarEvt) {
 BarTooltip.defaultProps = _commonProps2.default;
 exports.default = BarTooltip;
 module.exports = exports['default'];
+
 },{"./charts/bar":260,"./commonProps":265,"./inherit/barEvt":267,"./utils/focus":274,"./utils/tooltip":275,"react":712,"react-d3-core":294,"react-d3-shape":320}],257:[function(require,module,exports){
 "use strict";
 
@@ -17876,8 +17880,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var BarEvt = function (_Component) {
-  _inherits(BarEvt, _Component);
+var BarEvt = function (_Component) {  _inherits(BarEvt, _Component);
+  function onClick(){
+    window.alert("You are inside the BarEvt");
+  };
 
   function BarEvt(props) {
     _classCallCheck(this, BarEvt);
@@ -17895,17 +17901,23 @@ var BarEvt = function (_Component) {
   _createClass(BarEvt, [{
     key: "mouseOut",
     value: function mouseOut(e, d) {
-
       this.setState({
         xTooltip: null,
         yTooltip: null,
         contentTooltip: null
       });
-    }
-  }, {
+      }
+    },
+    {
+    key: "onClick",
+    value: function onClick() {
+      window.alert("Clicked!!");
+     }
+    },
+    {
     key: "mouseOver",
     value: function mouseOver(e, d) {
-
+      //window.alert("You are hovering");
       var contentTooltip = { title: d.name, value: d.y, fieldTitle: d.x, color: d.color };
       this.setState({
         xTooltip: e.clientX,
@@ -17976,7 +17988,7 @@ var VoronoiEvt = function (_Component) {
     value: function voronoiMouseOver(e, d, xScaleSet, yScaleSet, stack) {
       var newY = stack ? yScaleSet(d.y + d.y0) : yScaleSet(d.y);
       var contentTooltip = { title: d.x.toString(), fieldTitle: d.name.toString(), value: d.y.toString(), color: d.color };
-
+      window.alert("in voronoi");
       this.setState({
         focusX: xScaleSet(d.x),
         focusY: newY,
@@ -75616,7 +75628,7 @@ var BarChart = rd3.BarChart;
 var PieChart = rd3.PieChart;
 var PieTooltip = Tooltip.PieTooltip;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
-var Trie = require('./trie').Trie;
+var Trie = require('./trie').Trie; 
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;

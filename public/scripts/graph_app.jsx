@@ -12,7 +12,7 @@ var BarChart = rd3.BarChart;
 var PieChart = rd3.PieChart;
 var PieTooltip = Tooltip.PieTooltip;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
-var Trie = require('./trie').Trie;
+var Trie = require('./trie').Trie; 
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
