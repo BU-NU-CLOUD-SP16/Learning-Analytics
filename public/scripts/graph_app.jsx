@@ -401,7 +401,8 @@ var PieChart_Incorrect_Correct = React.createClass({
     test_func: function(new_label, new_value) {
       this.setState({myLabel: new_label, myValue: new_value});
       var is_correct = (new_value == "correct")?(true):(false); // true or false //is_correct={is_correct}
-      this.props.setActiveGraph(<L1FilterContainer correct_sub={is_correct}/>);
+      this.props.setActiveGraph(<L1FilterContainer correct_sub={is_correct} act_assign={this.props.act_assign}/>);
+      this.props.setFilteredMode(1); //indicating that you are transitioning to the L1 mode
     },
     getInitialState : function() {
     var pieData = [
@@ -937,7 +938,7 @@ var F1_BarChart_Size_Metric = React.createClass({
       return {barData: barData, xx: -1, yy: -1};
     },loadLineCountMetricFromServer: function(){
       $.ajax({
-        url: "/solutions/fromhistogram?lowerbound=1&upperbound=100&problemid=470&correct=1&submetric=size", //"/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        url: "/solutions/fromhistogram?lowerbound=1&upperbound=1000&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=size", //"/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
         dataType: 'json',
         cache: false,
         success: function(data) {
@@ -1036,7 +1037,7 @@ var F1_BarChart_Lines_Code = React.createClass({
       return {barData: barData, xx: -1, yy: -1};
     },loadLineCountMetricFromServer: function(){
       $.ajax({
-        url: "/solutions/fromhistogram?lowerbound=1&upperbound=100&problemid=470&correct=1&submetric=linecount", //"/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        url: "/solutions/fromhistogram?lowerbound=1&upperbound=1000&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=linecount", //"/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
         dataType: 'json',
         cache: false,
         success: function(data) {
@@ -1120,8 +1121,8 @@ const L1FilterContainer = React.createClass({
   },
 
   render() {
-    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text","sub_graph":(<F1_BarChart_Size_Metric/>)},
-    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify","sub_graph":(<F1_BarChart_Lines_Code/>)}];
+    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text","sub_graph":(<F1_BarChart_Size_Metric act_assign={this.props.act_assign} is_correct={this.props.correct_sub}/>)},
+    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify","sub_graph":(<F1_BarChart_Lines_Code act_assign={this.props.act_assign} is_correct={this.props.correct_sub}/>)}];
   //  {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
   //  {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
   //  {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
@@ -1414,7 +1415,8 @@ var Activity_Panel = React.createClass({
     // ensure the graph is up to date
     var ActiveGraph = React.cloneElement(this.props.active_graph,
       {act_assign:this.props.active_assignment.id,
-        setActiveGraph:this.props.setActiveGraph},
+        setActiveGraph:this.props.setActiveGraph,
+        setFilteredMode:this.props.setFilteredMode},
       null);
 
     return (
@@ -1589,14 +1591,13 @@ var MasterGraphContainer = React.createClass({
             description: "Pick an assignment and then a graph to see your learning analytics!",
             active_graph: null,
             active_assignment:{
-                                title: "Your Active Assignment Will Appear Here",
-                                description: "The assignment description will appear here.",
+                                title: "Stuff the Board",
+                                description: "You have a stack of tiles to put onto an array-like playing board. Each tile has a number (always an integer), and the board varies in size (you are given dimensions nRows and nCols). You need to put the high-value tiles on the table in any order.",
                                 id: "556",
                               },
-            submission_num: "0",
-            //forward_stack: new Stack(),
-            //backward_stack: new Stack(),
-            activity_window: <Activity_Panel/>
+            submission_num: "652",
+            activity_window: <Activity_Panel/>,
+            filtered_mode: 0 //indicates if the user has drilled down, if so, they cannot select a different assignment
           };
   },
   componentDidMount: function(){
@@ -1608,23 +1609,49 @@ var MasterGraphContainer = React.createClass({
                                     active_assignment={this.state.active_assignment}
                                     active_graph={first_graph}
                                     setActiveGraph={this.setActiveGraph}
-                                    sub_count={"0"}
+                                    sub_count={this.state.submission_num}
+                                    setFilteredMode={this.setFilteredMode}
                                    />
     });
   },
   clickedBack: function(){
     if(global.backward_stack.size() > 0){
-      global.forward_stack.push(this.state.activity_window);//old_window);
-      this.setState({activity_window: global.backward_stack.pop()});
+      global.forward_stack.push(this.state.activity_window);
     }
-    // yell("clicked back");
+    //var new_filter_mode = (this.state.filtered_mode != 0)?(0):(1);
+    var new_filter_mode;
+    var new_active_window;
+    var new_act_graph;
+    // if you are in the filtered view, you will need to pop twice
+    if(this.state.filtered_mode != 0){
+        new_filter_mode = 0;
+        if(global.backward_stack.size() > 1)
+          global.backward_stack.pop();
+        new_active_window = global.backward_stack.pop();
+        new_act_graph = (<PieChart_Incorrect_Correct
+                          act_assign={this.state.active_assignment.id}
+                          setActiveGraph={this.setActiveGraph}
+                          setFilteredMode={this.setFilteredMode}
+                        />);
+    }
+    else{
+        new_active_window = global.backward_stack.pop();
+        new_act_graph = this.state.active_graph;
+    }
+
+
+
+    this.setState({activity_window: new_active_window, filtered_mode: new_filter_mode, active_graph:new_act_graph});
   },
   clickedForward: function(){
     if(global.forward_stack.size() > 0){
-      global.backward_stack.push(this.state.activity_window); //old_window);
+      global.backward_stack.push(this.state.activity_window);
       this.setState({activity_window: global.forward_stack.pop()});
     }
-    // yell("clicked forward");
+  },
+  setFilteredMode: function(new_mode){
+    //window.alert("filter set");
+    this.setState({filtered_mode: new_mode});
   },
   setActiveGraph: function(new_graph = null){
     var new_active_window = (<Activity_Panel
@@ -1632,46 +1659,57 @@ var MasterGraphContainer = React.createClass({
                               active_graph={new_graph}
                               setActiveGraph={this.setActiveGraph}
                               sub_count={this.state.submission_num}
+                              setFilteredMode={this.setFilteredMode}
                              />);
     this.setState({active_graph: new_graph,
-                  activity_window: new_active_window
+                  activity_window: new_active_window,
+                  filtered_mode: 0
     });
     //global.backward_stack.push(new_active_window);
     global.backward_stack.push(this.state.activity_window);
   },
   setActiveAssignment: function(new_title = "Scoring for Oriented Dominoes", new_description = "The assignment description has been changed", new_id = "470"){
-    var new_assignment = {
-                          title: new_title,
-                          description: new_description,
-                          id: new_id,
-    }
+    // The user can only select a different graph if they are not drilled down
+    if(this.state.filtered_mode == 0){
+      var new_assignment = {
+                            title: new_title,
+                            description: new_description,
+                            id: new_id,
+      }
 
-    global.backward_stack.push(this.state.activity_window);
+      global.backward_stack.push(this.state.activity_window);
 
-    $.ajax({
-      url: "/problem/" + new_id + "/student_submissions",
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        var the_count = JSON.stringify(data[0].count);
+      $.ajax({
+        url: "/problem/" + new_id + "/student_submissions",
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          var the_count = JSON.stringify(data[0].count);
 
-        var new_active_window = (<Activity_Panel
-                                  active_assignment={new_assignment}
-                                  active_graph={this.state.active_graph}
-                                  setActiveGraph={this.setActiveGraph}
-                                  sub_count={the_count}
-                                 />);
+          var new_active_window = (<Activity_Panel
+                                    active_assignment={new_assignment}
+                                    active_graph={this.state.active_graph}
+                                    setActiveGraph={this.setActiveGraph}
+                                    sub_count={the_count}
+                                    setFilteredMode={this.setFilteredMode}
+                                   />);
+//
 
-        this.setState({active_assignment: new_assignment,
-          activity_window: new_active_window,
-          submission_num: the_count
-        });
+          this.setState({active_assignment: new_assignment,
+            activity_window: new_active_window,
+            submission_num: the_count
+          });
       }.bind(this),
       // in the case ajax runs into an error
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+   }
+   // In the case that you are drilled down in some capacity
+   else{
+     window.alert("Cannot select different assignment while drilling down. You can however select a different graph from the dropdown.");
+   }
   },
   render:function(){
     //yell("backstack size: " + global.backward_stack.size() + " frontstack size: " + global.forward_stack.size());
