@@ -29,7 +29,7 @@ sql_config.js:
 SQL_Queries:
 ubuntu-requirements.txt:
 
-## SETUP ENVIRONMENT 
+## SETUP ENVIRONMENT    
 
 0. Change directory to the project root
 
@@ -52,7 +52,7 @@ To run:
 1. In a browser type:
 52.33.14.62:3000
 
-To run locally:
+To run locally:   
 0. Change directory to the project root
 
 1. In a terminal type
