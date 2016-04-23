@@ -29,21 +29,21 @@ sql_config.js:
 SQL_Queries:
 ubuntu-requirements.txt:
 
-## SETUP ENVIRONMENT    
+## SETUP ENVIRONMENT
 
-0. Change directory to the project root
+1. Change directory to the project root
 
-1. Run npm install
-$ npm install
+2. Run npm install
+$ npm install   
 Note 1: You might need to install gulp-less, if not detected by npm and automatically installed.
-$ npm install gulp-less
+$ npm install gulp-less   
 Note 2: You might need to install react-bootstrap, if not detected by npm and automatically installed.
-$ npm install react-bootstrap
+$ npm install react-bootstrap   
 
-2. Install gulp
+3. Install gulp
 TODO
 
-3. Install nodejs
+4. Install nodejs
 TODO
 
 ## TO RUN 
@@ -52,15 +52,15 @@ To run:
 1. In a browser type:
 52.33.14.62:3000
 
-To run locally:   
-0. Change directory to the project root
+To run locally:
+1. Change directory to the project root
 
-1. In a terminal type
+2. In a terminal type
 $ gulp
 
-2. In a separate terminal type
+3. In a separate terminal type
 $ nodejs app.js
 
-3. In a browser, type:
+4. In a browser, type:
 localhost:3000
 
