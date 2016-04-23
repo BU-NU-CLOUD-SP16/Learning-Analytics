@@ -146,6 +146,32 @@ div.masterGraphContainer .content-body {
   background-size: contain;
   background-position: center;
 }
+.col-md-10 .content-container .all-graph div.graph-container div.legend-container {
+  background: #3277b2;
+  border-radius: 6px;
+  height: 75px;
+  width: 200px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.legend-container h4.legend {
+  background: transparent;
+  color: white;
+  position: absolute;
+  left: 0px;
+  margin-bottom: 20px;
+  margin-left: 5px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.legend-container div.axis-label-container {
+  margin-top: 28px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.legend-container div.axis-label-container h5 {
+  position: relative;
+  color: white;
+  margin-left: 8px;
+  margin-top: 10px;
+}
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default {
   width: 1000px;
   color: #797777;

@@ -12,7 +12,59 @@ var BarChart = rd3.BarChart;
 var PieChart = rd3.PieChart;
 var PieTooltip = Tooltip.PieTooltip;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
-var Trie = require('./trie').Trie; 
+var Trie = require('./trie').Trie;
+
+//generate custom legend for a graph
+genLegend = function(xxlabel, yylabel){
+//Size Range
+//Number of Submissions
+  return (<div className="legend-container">
+            <h4 className="legend">Legend:</h4>
+            <div className="axis-label-container">
+              <h5>X: {xxlabel}</h5>
+              <h5>Y: {yylabel}</h5>
+            </div>
+          </div>);
+}
+
+
+// binning code
+function countToBarChart(lineArray, binWidth){
+    lineArray.sort(function(a, b){
+        return a -b;
+    });
+    var maximum = lineArray[lineArray.length - 1];
+
+    // Do the histogram in increments of 50
+    var blockSize = binWidth * 5
+    var upperBound = (Math.floor(maximum / blockSize) + 1)*blockSize;
+    var lowerBound = 0;
+
+    //var binWidth = 10;
+    var numOfBins = (upperBound - lowerBound) / binWidth;
+
+    var histogram = Array.apply(null, Array(numOfBins)).map(Number.prototype.valueOf, 0);
+
+    var binIndex = 0;
+    for(var i = 0; i < lineArray.length; i++){
+        // Check to see if the code length is too big for the bin
+        while(lineArray[i] >= (binIndex + 1)*binWidth) binIndex += 1;
+        histogram[binIndex] += 1;
+    }
+
+    // Create associative array to send back
+    var barData = [];
+    for(binIndex = 0; binIndex < numOfBins; binIndex++){
+        var lowerLabel = binWidth * binIndex;
+        var upperLabel = lowerLabel + (binWidth - 1);
+        if (binWidth > 1)
+            var label = lowerLabel.toString() + "-" + upperLabel.toString();
+        else
+            var label = lowerLabel.toString()
+        barData.push({"x": label, "y": histogram[binIndex]});
+    }
+    return barData;
+}
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -846,29 +898,15 @@ var BarChart_Size_Metric = React.createClass({
 
 /** Filtered Graphs Start**/
 
-var F1_BarChart_Lines_Code = React.createClass({
+var F1_BarChart_Size_Metric = React.createClass({
+    test_func: function(new_xx, new_yy) {
+      this.setState({xx: new_xx, yy: new_yy});
+      window.alert("xx = " + new_xx + " yy = " + new_yy);
+    },
     getInitialState : function() {
-    	var chartSeries = [
-    	      {
-    	        field: 'y',
-    	        name: 'Submissions.Lines of Code'
-    	      }
-    	    ];
-
-    	var x = function(d) {
-    	      return d.x;
-    	    };
-
-      var temp = {
-                color: 'black',
-                fontWeight: 'bold',
-                marginBottom: '5px'
-              };
-
-    	var xScale = 'ordinal';
-    	var yTicks = [10, "c"];
-
-      var barData = [
+      var barData = [{
+          "name":"Class A",
+          "values":[
         {"x": 'A', "y": 245},
         {"x": 'B', "y": 543},
         {"x": 'C', "y": 1093},
@@ -894,21 +932,32 @@ var F1_BarChart_Lines_Code = React.createClass({
         {"x": 'X', "y": 232},
         {"x": 'Y', "y": 4345},
         {"x": 'Z', "y": 5675}
+       ]}
       ];
-      return {barData: barData,
-              series: chartSeries,
-              x: x,
-              xScale: xScale,
-              yTicks: yTicks,
-              last_assign:"0",};
+      return {barData: barData, xx: -1, yy: -1};
     },loadLineCountMetricFromServer: function(){
       $.ajax({
-        url: "/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        url: "/solutions/fromhistogram?lowerbound=1&upperbound=100&problemid=470&correct=1&submetric=size", //"/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
         dataType: 'json',
         cache: false,
         success: function(data) {
-      	  var loaded_barData = data;
-          this.setState({barData: loaded_barData});
+          json_size = 0;
+          //get how many submission/datapoints there are
+          while(data[json_size]){
+            json_size++;
+          }
+          var lineArray = [];
+          for(var ii = 0; ii < json_size; ii++){
+              lineArray.push(data[ii].size);
+          }
+          var loaded_barData = countToBarChart(lineArray, 5);
+
+          var barData = [{
+          	"name":"Class A",
+          	"values":loaded_barData}
+          ];
+
+          this.setState({barData: barData});
           //window.alert(barData);
         }.bind(this),
         // in the case ajax runs into an error
@@ -923,97 +972,91 @@ var F1_BarChart_Lines_Code = React.createClass({
     //  setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-      if(this.state.last_ass != this.props.act_assign){
+      /*if(this.state.last_ass != this.props.act_assign){
         this.loadLineCountMetricFromServer();
-      }
+      }*/
 
       var new_width = (graph_widths * 0.9);
       var new_height = (graph_heights * 0.9);
 
         return (
           <div className="graph-container col-md-4">
-                  		<BarTooltip
-                        data={this.state.barData}
-                  		  legend={false}
-                        width={new_width}
-                        height={new_height}
-                        fill={'#3182bd'}
-                        title=''
-                  		  chartSeries = {this.state.series}
-                        x= {this.state.x}
-            	          xScale= {this.state.xScale}
-                        yTicks= {this.state.yTicks}
-                        margins={{top: 20, right: 30, bottom: 30, left: 40}}>
-                    		<SimpleTooltipStyle tooltip_title={this.state.temp}/>
-                    	</BarTooltip>
+                <BarChart
+                  test_func={this.test_func}
+                  data={this.state.barData}
+                  width={1000}
+                  height={490}
+                  fill={'#8a5715'}
+                  title=''
+                  margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                />
+
+              {genLegend("Size Range","Number of Submissions")}
+
                </div>);
     }
 });
 
-var F1_BarChart_Size_Metric = React.createClass({
+var F1_BarChart_Lines_Code = React.createClass({
+    test_func: function(new_xx, new_yy) {
+      this.setState({xx: new_xx, yy: new_yy});
+      window.alert("xx = " + new_xx + " yy = " + new_yy);
+    },
     getInitialState : function() {
-    	var chartSeries = [
-    	      {
-    	        field: 'y',
-    	        name: 'Submissions.Lines of Code'
-    	      }
-    	    ];
-
-    	var x = function(d) {
-    	      return d.x;
-    	    };
-
-      var temp = {
-                color: 'black',
-                fontWeight: 'bold',
-                marginBottom: '5px'
-              };
-
-    	var xScale = 'ordinal';
-    	var yTicks = [10, "c"];
-
-      var barData = [
-        {"x": 'A', "y": 2345},
-        {"x": 'B', "y": 5463},
-        {"x": 'C', "y": 10293},
+      var barData = [{
+          "name":"Class A",
+          "values":[
+        {"x": 'A', "y": 245},
+        {"x": 'B', "y": 543},
+        {"x": 'C', "y": 1093},
         {"x": 'D', "y": 5643},
-        {"x": 'E', "y": 3657},
+        {"x": 'E', "y": 37},
         {"x": 'F', "y": 7854},
-        {"x": 'G', "y": 6845},
-        {"x": 'H', "y": 2435},
-        {"x": 'I', "y": 1243},
+        {"x": 'G', "y": 645},
+        {"x": 'H', "y": 2443},
         {"x": 'J', "y": 5544},
-        {"x": 'K', "y": 7869},
-        {"x": 'L', "y": 3343},
+        {"x": 'K', "y": 769},
+        {"x": 'L', "y": 343},
         {"x": 'M', "y": 4433},
-        {"x": 'N', "y": 3354},
+        {"x": 'N', "y": 354},
         {"x": 'O', "y": 3654},
-        {"x": 'P', "y": 7887},
-        {"x": 'Q', "y": 6657},
+        {"x": 'P', "y": 788},
+        {"x": 'Q', "y": 667},
         {"x": 'R', "y": 6587},
-        {"x": 'S', "y": 6645},
+        {"x": 'S', "y": 665},
         {"x": 'T', "y": 2343},
-        {"x": 'U', "y": 4565},
+        {"x": 'U', "y": 45},
         {"x": 'V', "y": 6645},
         {"x": 'W', "y": 9786},
-        {"x": 'X', "y": 2302},
+        {"x": 'X', "y": 232},
         {"x": 'Y', "y": 4345},
         {"x": 'Z', "y": 5675}
+       ]}
       ];
-      return {barData: barData,
-              series: chartSeries,
-              x: x,
-              xScale: xScale,
-              yTicks: yTicks,
-              last_assign:"0",};
-    },loadSizeMetricFromServer: function(){
+      return {barData: barData, xx: -1, yy: -1};
+    },loadLineCountMetricFromServer: function(){
       $.ajax({
-        url: "/problem/" + this.props.act_assign + "/metrics/size", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        url: "/solutions/fromhistogram?lowerbound=1&upperbound=100&problemid=470&correct=1&submetric=linecount", //"/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
         dataType: 'json',
         cache: false,
         success: function(data) {
-      	  var loaded_barData = data;
-          this.setState({barData: loaded_barData});
+          json_size = 0;
+          //get how many submission/datapoints there are
+          while(data[json_size]){
+            json_size++;
+          }
+          var lineArray = [];
+          for(var ii = 0; ii < json_size; ii++){
+              lineArray.push(data[ii].linecount);
+          }
+          var loaded_barData = countToBarChart(lineArray, 5);
+
+          var barData = [{
+          	"name":"Class A",
+          	"values":loaded_barData}
+          ];
+
+          this.setState({barData: barData});
           //window.alert(barData);
         }.bind(this),
         // in the case ajax runs into an error
@@ -1023,39 +1066,38 @@ var F1_BarChart_Size_Metric = React.createClass({
       });
     },
     componentDidMount: function(){
-      this.loadSizeMetricFromServer();
+      this.loadLineCountMetricFromServer();
       //introduces that we will need a pollInterval for the external element
     //  setInterval(this.loadSizeMetricFromServer);
     },
-    test_func: function(new_xx, new_yy) {
-      this.setState({xx: new_xx, yy: new_yy});
-      window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
-    },
     render: function() {
-      if(this.state.last_ass != this.props.act_assign){
-        this.loadSizeMetricFromServer();
-      }
+      /*if(this.state.last_ass != this.props.act_assign){
+        this.loadLineCountMetricFromServer();
+      }*/
+
       var new_width = (graph_widths * 0.9);
       var new_height = (graph_heights * 0.9);
+
         return (
           <div className="graph-container col-md-4">
-                  		<BarTooltip
-                        data={this.state.barData}
-                  		  legend={false}
-                        width={new_width}
-                        height={new_height}
-                        fill={'#3182bd'}
-                        title=''
-                  		  chartSeries = {this.state.series}
-                        x= {this.state.x}
-            	          xScale= {this.state.xScale}
-                        yTicks= {this.state.yTicks}
-                        margins={{top: 20, right: 30, bottom: 30, left: 40}}>
-                    		<SimpleTooltipStyle tooltip_title={this.state.temp}/>
-                    	</BarTooltip>
-               </div>);
+                <BarChart
+                  test_func={this.test_func}
+                  data={this.state.barData}
+                  width={1000}
+                  height={490}
+                  fill={'#8a5715'}
+                  title=''
+                  margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                />
+              {genLegend("Line Count Range","Number of Submissions")}
+           </div>);
+
     }
 });
+
+
+
+
 
 
 
