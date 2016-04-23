@@ -48,11 +48,11 @@ TODO
 
 ## TO RUN 
 
-To run:
+To run:   
 1. In a browser type:
 52.33.14.62:3000
 
-To run locally:
+To run locally:   
 1. Change directory to the project root
 
 2. In a terminal type
