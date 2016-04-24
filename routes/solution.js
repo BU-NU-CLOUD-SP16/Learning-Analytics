@@ -58,8 +58,8 @@ module.exports = function(app, databaseConn){
                     "FROM solution_metrics " +
                     "INNER JOIN solution " +
                     "ON solution_metrics.id=solution.id " +
-                    "AND solution_metrics.size >= " + lowerBound +
-                    " AND solution_metrics.size <= " + upperBound +
+                    "AND solution_metrics." + metric + " >= " + lowerBound +
+                    " AND solution_metrics." + metric + " <= " + upperBound +
                     " AND solution_metrics.correct = " + correct +
                     " AND solution.problem_id = " + problemId +
                     ";";
