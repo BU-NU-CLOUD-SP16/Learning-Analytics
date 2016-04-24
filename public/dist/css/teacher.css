@@ -1,3 +1,7 @@
+@font-face {
+  font-family: Consolas;
+  src: url('/Consolas.ttf');
+}
 .pop_brdr {
   border: solid 2px red;
 }
@@ -40,6 +44,7 @@ div.masterGraphContainer dialog#window h3 {
 }
 div.masterGraphContainer dialog#window p {
   color: #797777;
+  font-family: Consolas;
 }
 .graphList a {
   color: #797777;
