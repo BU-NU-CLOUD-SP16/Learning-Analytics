@@ -147,17 +147,17 @@ div.masterGraphContainer .content-body {
   background-position: center;
 }
 .col-md-10 .content-container .all-graph div.graph-container div.legend-container {
-  background: #3277b2;
+  background: #f8f8f8;
   border-radius: 6px;
   height: 75px;
   width: 200px;
   position: absolute;
   top: 12px;
   right: 12px;
+  color: #797777;
 }
 .col-md-10 .content-container .all-graph div.graph-container div.legend-container h4.legend {
   background: transparent;
-  color: white;
   position: absolute;
   left: 0px;
   margin-bottom: 20px;
@@ -168,7 +168,6 @@ div.masterGraphContainer .content-body {
 }
 .col-md-10 .content-container .all-graph div.graph-container div.legend-container div.axis-label-container h5 {
   position: relative;
-  color: white;
   margin-left: 8px;
   margin-top: 10px;
 }

@@ -897,12 +897,78 @@ var BarChart_Size_Metric = React.createClass({
 
 /****************** Chart Implementation End ******************/
 
+var strToUpperLower = function(clickedRange){
+  var length = clickedRange.length;
+  var whereHyph = clickedRange.indexOf("-");
+  var lower = function(){
+    temp = "";
+    for(var ii = 0; ii < whereHyph; ii++){
+      temp += clickedRange[ii];
+    }
+    return temp;
+  };
+  var higher = function(){
+    temp = "";
+    for(var ii = whereHyph + 1; ii < length; ii++){
+      temp += clickedRange[ii];
+    }
+    return temp;
+  };
+
+  var low = lower();
+  var high = higher();
+
+  couple = {"lowBound": low, "highBound": high};
+  //window.alert(JSON.stringify(couple));
+  return couple;
+}
+
 /** Filtered Graphs Start**/
 
+var active_code_size = {};
 var F1_BarChart_Size_Metric = React.createClass({
     test_func: function(new_xx, new_yy) {
-      this.setState({xx: new_xx, yy: new_yy});
-      window.alert("xx = " + new_xx + " yy = " + new_yy);
+      this.setState({xx: new_xx, yy: new_yy}); // This purpose is not clear yet
+      if(new_xx.indexOf("student") == -1){
+        var pair = strToUpperLower(new_xx);
+        //pair.lowBound pair.highBound
+          $.ajax({
+            url: "/solutions/fromhistogram?lowerbound=" + pair.lowBound + "&upperbound=" + pair.highBound + "&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=size",
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              json_size = 0;
+              //get how many submission/datapoints there are
+              while(data[json_size]){
+                json_size++;
+              }
+              var lineArray = [];
+              for(var ii = 0; ii < json_size; ii++){
+                  lineArray.push({"x":("student " + data[ii].player_id),"y":data[ii].size});
+                  active_code_size[("student " + data[ii].player_id)] = data[ii].body; //HERE HERE
+              }
+              var loaded_barData = lineArray; //[{},{}]//countToBarChart(lineArray, 5);
+
+              var barData = [{
+              	"name":"Class A",
+              	"values":loaded_barData}
+              ];
+
+              this.setState({barData: barData});
+              //window.alert(barData);
+            }.bind(this),
+            // in the case ajax runs into an error
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+      }
+      // this case is when you are clicking a specific student xx & yy take on a new meaning
+      else{
+        //window.alert(new_xx + " " + new_yy);
+        window.alert(new_xx + "'s solution: " + '\n' + '\n' + active_code_size[new_xx]);
+      }
+
     },
     getInitialState : function() {
       var barData = [{
@@ -998,10 +1064,47 @@ var F1_BarChart_Size_Metric = React.createClass({
     }
 });
 
+var active_code_linecount = {};
 var F1_BarChart_Lines_Code = React.createClass({
     test_func: function(new_xx, new_yy) {
-      this.setState({xx: new_xx, yy: new_yy});
-      window.alert("xx = " + new_xx + " yy = " + new_yy);
+      this.setState({xx: new_xx, yy: new_yy}); // This purpose is not clear yet
+      if(new_xx.indexOf("student") == -1){
+        var pair = strToUpperLower(new_xx);
+        //pair.lowBound pair.highBound
+          $.ajax({
+            url: "/solutions/fromhistogram?lowerbound=" + pair.lowBound + "&upperbound=" + pair.highBound + "&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=linecount",
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              json_size = 0;
+              //get how many submission/datapoints there are
+              while(data[json_size]){
+                json_size++;
+              }
+              var lineArray = [];
+              for(var ii = 0; ii < json_size; ii++){
+                  lineArray.push({"x":("student " + data[ii].player_id),"y":data[ii].linecount});
+                  active_code_linecount[("student " + data[ii].player_id)] = data[ii].body; //HERE HERE
+              }
+              var loaded_barData = lineArray; //[{},{}]//countToBarChart(lineArray, 5);
+
+              var barData = [{
+                "name":"Class A",
+                "values":loaded_barData}
+              ];
+              this.setState({barData: barData});
+            }.bind(this),
+            // in the case ajax runs into an error
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+      }
+      // this case is when you are clicking a specific student xx & yy take on a new meaning
+      else{
+        //window.alert(new_xx + " " + new_yy);
+        window.alert(new_xx + "'s solution: " + '\n' + '\n' + active_code_linecount[new_xx]);
+      }
     },
     getInitialState : function() {
       var barData = [{
