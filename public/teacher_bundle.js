@@ -43619,7 +43619,7 @@ module.exports = React.createClass({
             tickFormatting: props.yAxisFormatter,
             width: innerWidth,
             height: innerHeight,
-            xOrient: props.xOrient, 
+            xOrient: props.xOrient,
             yOrient: props.yOrient,
             gridHorizontal: props.gridHorizontal,
             gridHorizontalStroke: props.gridHorizontalStroke,
@@ -44578,7 +44578,7 @@ module.exports = React.createClass({
         )
       }
     }
-    transform = "rotate(45)";
+    transform = "{rotate: 45, translateX:20}";
     return (
     React.createElement("g", null,
       ticks.map( function(tick, idx)  {
@@ -44589,7 +44589,7 @@ module.exports = React.createClass({
             ),
             React.createElement("text", {
               strokeWidth: "0.01",
-              dy: dy, x: (x1 + 100), y: (y1 + 20),
+              dy: dy, x: x1, y: y1,
               style: {stroke:props.tickTextStroke, fill:props.tickTextStroke},
                   textAnchor: textAnchor,
                   transform: transform
@@ -44755,7 +44755,7 @@ module.exports = React.createClass({
     if (typeof props.xAxisTickInterval !== 'undefined') {
       tickArguments = [d3.time[props.xAxisTickInterval.unit], props.xAxisTickInterval.interval];
     }
-
+    
     return (
       React.createElement("g", {
         className: props.xAxisClassName,

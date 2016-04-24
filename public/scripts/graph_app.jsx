@@ -1860,7 +1860,7 @@ var MasterGraphContainer = React.createClass({
                 </nav>
               </div>
             </div>
-          </div>
+          </div>  
           {this.state.activity_window}
         </div>
       </div>
