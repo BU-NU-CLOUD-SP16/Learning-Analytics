@@ -1,3 +1,7 @@
+@font-face {
+  font-family: Consolas;
+  src: url('/Consolas.ttf');
+}
 .pop_brdr {
   border: solid 2px red;
 }
@@ -18,6 +22,31 @@ div.masterGraphContainer .content-toolbar {
 div.masterGraphContainer .content-body {
   height: calc(50vh);
   display: table;
+}
+div.masterGraphContainer dialog#window {
+  position: absolute;
+  border: solid #0f5999 1px;
+  border-radius: 6px;
+  top: 300px;
+  z-index: 100;
+  max-width: 400px;
+  overflow: auto;
+}
+div.masterGraphContainer dialog#window button#exit {
+  float: right;
+  right: 0;
+  color: black;
+  margin-top: -10px;
+  margin-right: -10px;
+}
+div.masterGraphContainer dialog#window h3 {
+  color: #0f5999;
+}
+div.masterGraphContainer dialog#window p {
+  max-width: 380px;
+  word-wrap: normal;
+  color: #797777;
+  font-family: Consolas;
 }
 .graphList a {
   color: #797777;
@@ -116,8 +145,14 @@ div.masterGraphContainer .content-body {
   padding-left: 4px;
   padding-top: 2px;
 }
+.col-md-10 .content-container text {
+  transform: rotate(30, 20, 40);
+}
 .col-md-10 .content-container .all-graph {
   position: relative;
+  /*div.graph-container div.rd3-basic-chart svg.rd3-chart > text{
+      border:solid 3px red;
+    }*/
 }
 .col-md-10 .content-container .all-graph .tab {
   height: 492px;
@@ -128,7 +163,7 @@ div.masterGraphContainer .content-body {
   border-radius: 3px;
   margin-left: 7px;
   margin-top: -13px;
-  height: 535px;
+  height: 550px;
   width: 1000px;
 }
 .col-md-10 .content-container .all-graph div.l1FilterContainer h4 {
@@ -145,6 +180,35 @@ div.masterGraphContainer .content-body {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.rd3-basic-chart svg.rd3-chart {
+  height: 535px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.legend-container {
+  background: #f8f8f8;
+  border-radius: 6px;
+  height: 75px;
+  width: 200px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: #797777;
+  border: #797777 solid 1px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.legend-container h4.legend {
+  background: transparent;
+  position: absolute;
+  left: 0px;
+  margin-bottom: 20px;
+  margin-left: 5px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.legend-container div.axis-label-container {
+  margin-top: 28px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.legend-container div.axis-label-container h5 {
+  position: relative;
+  margin-left: 8px;
+  margin-top: 10px;
 }
 .col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default {
   width: 1000px;

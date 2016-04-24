@@ -16965,6 +16965,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var BarTooltip = function (_BarEvt) {
   _inherits(BarTooltip, _BarEvt);
 
+  function onClick(){
+    window.alert("You are inside the BarEvt");
+  };
+
   function BarTooltip(props) {
     _classCallCheck(this, BarTooltip);
 
@@ -16977,8 +16981,6 @@ var BarTooltip = function (_BarEvt) {
       var _props = this.props;
       var width = _props.width;
       var height = _props.height;
-
-
       return _react2.default.createElement(
         'div',
         null,
@@ -16991,9 +16993,15 @@ var BarTooltip = function (_BarEvt) {
         _react2.default.createElement(
           _reactD3Shape.Chart,
           _extends({}, this.props, this.state),
-          _react2.default.createElement(_bar2.default, _extends({}, this.props, this.state, {
+          _react2.default.createElement(
+            _bar2.default,
+             _extends({},
+            this.props,
+            this.state,
+            {
             onMouseOver: this.mouseOver.bind(this),
-            onMouseOut: this.mouseOut.bind(this)
+            onMouseOut: this.mouseOut.bind(this),
+            onClick: this.onClick.bind(this)
           }))
         )
       );
@@ -17006,6 +17014,7 @@ var BarTooltip = function (_BarEvt) {
 BarTooltip.defaultProps = _commonProps2.default;
 exports.default = BarTooltip;
 module.exports = exports['default'];
+
 },{"./charts/bar":260,"./commonProps":265,"./inherit/barEvt":267,"./utils/focus":274,"./utils/tooltip":275,"react":712,"react-d3-core":294,"react-d3-shape":320}],257:[function(require,module,exports){
 "use strict";
 
@@ -17876,8 +17885,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var BarEvt = function (_Component) {
-  _inherits(BarEvt, _Component);
+var BarEvt = function (_Component) {  _inherits(BarEvt, _Component);
+  function onClick(){
+    window.alert("You are inside the BarEvt");
+  };
 
   function BarEvt(props) {
     _classCallCheck(this, BarEvt);
@@ -17895,17 +17906,23 @@ var BarEvt = function (_Component) {
   _createClass(BarEvt, [{
     key: "mouseOut",
     value: function mouseOut(e, d) {
-
       this.setState({
         xTooltip: null,
         yTooltip: null,
         contentTooltip: null
       });
-    }
-  }, {
+      }
+    },
+    {
+    key: "onClick",
+    value: function onClick() {
+      window.alert("Clicked!!");
+     }
+    },
+    {
     key: "mouseOver",
     value: function mouseOver(e, d) {
-
+      //window.alert("You are hovering");
       var contentTooltip = { title: d.name, value: d.y, fieldTitle: d.x, color: d.color };
       this.setState({
         xTooltip: e.clientX,
@@ -17976,7 +17993,7 @@ var VoronoiEvt = function (_Component) {
     value: function voronoiMouseOver(e, d, xScaleSet, yScaleSet, stack) {
       var newY = stack ? yScaleSet(d.y + d.y0) : yScaleSet(d.y);
       var contentTooltip = { title: d.x.toString(), fieldTitle: d.name.toString(), value: d.y.toString(), color: d.color };
-
+      window.alert("in voronoi");
       this.setState({
         focusX: xScaleSet(d.x),
         focusY: newY,
@@ -43531,7 +43548,7 @@ module.exports = React.createClass({
   },
 
   _getStackedValuesMaxY:function(_data) {
-    // in stacked bar chart, the maximum height we need for 
+    // in stacked bar chart, the maximum height we need for
     // yScale domain is the sum of y0 + y
     var $__0=    this.props,valuesAccessor=$__0.valuesAccessor;
     return d3.max(_data, function(d) {
@@ -43580,63 +43597,64 @@ module.exports = React.createClass({
 
     return (
       React.createElement(Chart, {
-        viewBox: props.viewBox, 
-        legend: props.legend, 
-        data: props.data, 
-        margins: props.margins, 
-        colors: props.colors, 
-        colorAccessor: props.colorAccessor, 
-        width: props.width, 
-        height: props.height, 
+        viewBox: props.viewBox,
+        legend: props.legend,
+        data: props.data,
+        margins: props.margins,
+        colors: props.colors,
+        colorAccessor: props.colorAccessor,
+        width: props.width,
+        height: props.height,
         title: props.title
-      }, 
-        React.createElement("g", {transform: trans, className: props.chartClassName}, 
+      },
+        React.createElement("g", {transform: trans, className: props.chartClassName},
           React.createElement(YAxis, {
-            yAxisClassName: props.yAxisClassName, 
-            yAxisTickValues: props.yAxisTickValues, 
-            yAxisLabel: props.yAxisLabel, 
-            yAxisLabelOffset: props.yAxisLabelOffset, 
-            yScale: yScale, 
-            margins: margins, 
-            yAxisTickCount: props.yAxisTickCount, 
-            tickFormatting: props.yAxisFormatter, 
-            width: innerWidth, 
-            height: innerHeight, 
-            xOrient: props.xOrient, 
-            yOrient: props.yOrient, 
-            gridHorizontal: props.gridHorizontal, 
-            gridHorizontalStroke: props.gridHorizontalStroke, 
-            gridHorizontalStrokeWidth: props.gridHorizontalStrokeWidth, 
+            yAxisClassName: props.yAxisClassName,
+            yAxisTickValues: props.yAxisTickValues,
+            yAxisLabel: props.yAxisLabel,
+            yAxisLabelOffset: props.yAxisLabelOffset,
+            yScale: yScale,
+            margins: margins,
+            yAxisTickCount: props.yAxisTickCount,
+            tickFormatting: props.yAxisFormatter,
+            width: innerWidth,
+            height: innerHeight,
+            xOrient: props.xOrient,
+            yOrient: props.yOrient,
+            gridHorizontal: props.gridHorizontal,
+            gridHorizontalStroke: props.gridHorizontalStroke,
+            gridHorizontalStrokeWidth: props.gridHorizontalStrokeWidth,
             gridHorizontalStrokeDash: props.gridHorizontalStrokeDash}
-          ), 
+          ),
           React.createElement(XAxis, {
-            xAxisClassName: props.xAxisClassName, 
-            xAxisTickValues: props.xAxisTickValues, 
-            xAxisLabel: props.xAxisLabel, 
-            xAxisLabelOffset: props.xAxisLabelOffset, 
-            xScale: xScale, 
-            margins: margins, 
-            tickFormatting: props.xAxisFormatter, 
-            width: innerWidth, 
-            height: innerHeight, 
-            xOrient: props.xOrient, 
-            yOrient: props.yOrient, 
-            gridVertical: props.gridVertical, 
-            gridVerticalStroke: props.gridVerticalStroke, 
-            gridVerticalStrokeWidth: props.gridVerticalStrokeWidth, 
+            xAxisClassName: props.xAxisClassName,
+            xAxisTickValues: props.xAxisTickValues,
+            xAxisLabel: props.xAxisLabel,
+            xAxisLabelOffset: props.xAxisLabelOffset,
+            xScale: xScale,
+            margins: margins,
+            tickFormatting: props.xAxisFormatter,
+            width: innerWidth,
+            height: innerHeight,
+            xOrient: props.xOrient,
+            yOrient: props.yOrient,
+            gridVertical: props.gridVertical,
+            gridVerticalStroke: props.gridVerticalStroke,
+            gridVerticalStrokeWidth: props.gridVerticalStrokeWidth,
             gridVerticalStrokeDash: props.gridVerticalStrokeDash}
-          ), 
+          ),
           React.createElement(DataSeries, {
 	    test_func: props.test_func,
-            yScale: yScale, 
-            xScale: xScale, 
-            margins: margins, 
-            _data: _data, 
-            width: innerWidth, 
-            height: innerHeight, 
-            colors: props.colors, 
-            colorAccessor: props.colorAccessor, 
-            hoverAnimation: props.hoverAnimation, 
+	    correctIfTrue: props.correctIfTrue,
+            yScale: yScale,
+            xScale: xScale,
+            margins: margins,
+            _data: _data,
+            width: innerWidth,
+            height: innerHeight,
+            colors: props.colors,
+            colorAccessor: props.colorAccessor,
+            hoverAnimation: props.hoverAnimation,
             valuesAccessor: props.valuesAccessor}
             )
         )
@@ -43675,12 +43693,21 @@ module.exports = React.createClass({displayName: "exports",
   render:function() {
 
     var props = this.props;
- 
+
+    var correctIfTrue = this.props.correctIfTrue;
+    var newColor = '#3182BD';
+    if (correctIfTrue) {
+      newColor = 'rgb(137, 203, 124)';
+    } else {
+      newColor = 'rgb(215, 136, 136)';
+    }
+
     return (
-      React.createElement(Bar, React.__spread({}, 
-        props, 
-        {fill: this.state.fill, 
-        handleMouseOver: props.hoverAnimation ? this._animateBar : null, 
+      React.createElement(Bar, React.__spread({},
+	  props,
+//        {fill: this.state.fill,
+	{fill: newColor,
+        handleMouseOver: props.hoverAnimation ? this._animateBar : null,
         handleMouseLeave: props.hoverAnimation ? this._restoreBar : null,
 	}
 	)
@@ -43689,13 +43716,13 @@ module.exports = React.createClass({displayName: "exports",
   },
 
   _animateBar:function() {
-    this.setState({ 
+    this.setState({
       fill: shade(this.props.fill, 0.2)
     });
   },
 
   _restoreBar:function() {
-    this.setState({ 
+    this.setState({
       fill: this.props.fill
     });
   },
@@ -43740,6 +43767,7 @@ module.exports = React.createClass({
     return (
       React.createElement(BarContainer, {
 	test_func: this.props.test_func,
+	correctIfTrue: this.props.correctIfTrue,
 	xVal: segment.x,
 	yVal: segment.y,
         height: height - yScale(segment.y), 
@@ -44444,6 +44472,7 @@ module.exports = React.createClass({
         scale,
         adjustedScale,
         textAnchor,
+    //    transform,
         tickFormat,
         y0, y1, y2, dy, x0, x1, x2, dx;
 
@@ -44549,27 +44578,28 @@ module.exports = React.createClass({
         )
       }
     }
-
+  //  transform = "{rotate: 45, translateX:20}";
     return (
-    React.createElement("g", null, 
+    React.createElement("g", null,
       ticks.map( function(tick, idx)  {
         return (
-          React.createElement("g", {key: idx, className: "tick", transform: tr(tick)}, 
-            gridLine(adjustedScale(tick)), 
+          React.createElement("g", {key: idx, className: "tick", transform: tr(tick)},
+            gridLine(adjustedScale(tick)),
             React.createElement("line", {style: {shapeRendering:'crispEdges',opacity:'1',stroke:props.tickStroke}, x2: x2, y2: y2}
-            ), 
+            ),
             React.createElement("text", {
-              strokeWidth: "0.01", 
-              dy: dy, x: x1, y: y1, 
-              style: {stroke:props.tickTextStroke, fill:props.tickTextStroke}, 
-              textAnchor: textAnchor
-            }, 
+              strokeWidth: "0.01",
+              dy: dy, x: x1, y: y1,
+              style: {stroke:props.tickTextStroke, fill:props.tickTextStroke},
+                  textAnchor: textAnchor,
+    //              transform: transform
+              },
               tickFormat(tick)
             )
           )
         );
         })
-      
+
     )
     );
   }
@@ -44614,48 +44644,48 @@ module.exports = React.createClass({
         case 'top':
           return (
             React.createElement("text", {
-              strokeWidth: props.strokeWidth.toString(), 
-              textAnchor: props.textAnchor, 
-              transform: props.verticalTransform, 
-              x: props.width / 2, 
+              strokeWidth: props.strokeWidth.toString(),
+              textAnchor: props.textAnchor,
+              transform: props.verticalTransform,
+              x: props.width / 2,
               y: props.offset
-            }, 
+            },
               props.label
             )
           );
         case 'bottom':
           return (
             React.createElement("text", {
-              strokeWidth: props.strokeWidth.toString(), 
-              textAnchor: props.textAnchor, 
-              transform: props.verticalTransform, 
-              x: props.width / 2, 
+              strokeWidth: props.strokeWidth.toString(),
+              textAnchor: props.textAnchor,
+              transform: props.verticalTransform,
+              x: props.width / 2,
               y: props.offset
-            }, 
+            },
               props.label
             )
           );
         case 'left':
           return (
             React.createElement("text", {
-              strokeWidth: props.strokeWidth.toString(), 
-              textAnchor: props.textAnchor, 
-              transform: props.horizontalTransform, 
-              y: -props.offset, 
+              strokeWidth: props.strokeWidth.toString(),
+              textAnchor: props.textAnchor,
+              transform: props.horizontalTransform,
+              y: -props.offset,
               x: -props.height / 2
-            }, 
+            },
               props.label
             )
           );
         case 'right':
           return (
             React.createElement("text", {
-              strokeWidth: props.strokeWidth.toString(), 
-              textAnchor: props.textAnchor, 
-              transform: props.horizontalTransform, 
-              y: props.offset, 
+              strokeWidth: props.strokeWidth.toString(),
+              textAnchor: props.textAnchor,
+              transform: props.horizontalTransform,
+              y: props.offset,
               x: -props.height / 2
-            }, 
+            },
               props.label
             )
           );
@@ -44716,9 +44746,7 @@ module.exports = React.createClass({
 
   render:function() {
     var props = this.props;
-
     var t = ("translate(0 ," + (props.xAxisOffset + props.height) + ")");
-
     var tickArguments;
     if (typeof props.xAxisTickCount !== 'undefined') {
       tickArguments = [props.xAxisTickCount];
@@ -44727,41 +44755,41 @@ module.exports = React.createClass({
     if (typeof props.xAxisTickInterval !== 'undefined') {
       tickArguments = [d3.time[props.xAxisTickInterval.unit], props.xAxisTickInterval.interval];
     }
-
+    
     return (
       React.createElement("g", {
-        className: props.xAxisClassName, 
+        className: props.xAxisClassName,
         transform: t
-      }, 
+      },
         React.createElement(AxisTicks, {
-          tickValues: props.xAxisTickValues, 
-          tickFormatting: props.tickFormatting, 
-          tickArguments: tickArguments, 
-          tickStroke: props.tickStroke, 
-          tickTextStroke: props.tickTextStroke, 
-          innerTickSize: props.tickSize, 
-          scale: props.xScale, 
-          orient: props.xOrient, 
-          orient2nd: props.yOrient, 
-          height: props.height, 
-          width: props.width, 
-          gridVertical: props.gridVertical, 
-          gridVerticalStroke: props.gridVerticalStroke, 
-          gridVerticalStrokeWidth: props.gridVerticalStrokeWidth, 
+          tickValues: props.xAxisTickValues,
+          tickFormatting: props.tickFormatting,
+          tickArguments: tickArguments,
+          tickStroke: props.tickStroke,
+          tickTextStroke: props.tickTextStroke,
+          innerTickSize: props.tickSize,
+          scale: props.xScale,
+          orient: props.xOrient,
+          orient2nd: props.yOrient,
+          height: props.height,
+          width: props.width,
+          gridVertical: props.gridVertical,
+          gridVerticalStroke: props.gridVerticalStroke,
+          gridVerticalStrokeWidth: props.gridVerticalStrokeWidth,
           gridVerticalStrokeDash: props.gridVerticalStrokeDash}
-        ), 
+        ),
         React.createElement(AxisLine, React.__spread({
-          scale: props.xScale, 
-          stroke: props.stroke, 
-          orient: props.xOrient, 
-          outerTickSize: props.tickSize}, 
+          scale: props.xScale,
+          stroke: props.stroke,
+          orient: props.xOrient,
+          outerTickSize: props.tickSize},
           props)
-        ), 
+        ),
         React.createElement(Label, {
-          label: props.xAxisLabel, 
-          offset: props.xAxisLabelOffset, 
-          orient: props.xOrient, 
-          margins: props.margins, 
+          label: props.xAxisLabel,
+          offset: props.xAxisLabelOffset,
+          orient: props.xOrient,
+          margins: props.margins,
           width: props.width}
           )
       )
@@ -75618,6 +75646,57 @@ var PieTooltip = Tooltip.PieTooltip;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
 var Trie = require('./trie').Trie;
 
+//generate custom legend for a graph
+genLegend = function(xxlabel, yylabel){
+//Size Range
+//Number of Submissions
+  return (React.createElement("div", {className: "legend-container"}, 
+            React.createElement("h4", {className: "legend"}, "Legend:"), 
+            React.createElement("div", {className: "axis-label-container"}, 
+              React.createElement("h5", null, "X: ", xxlabel), 
+              React.createElement("h5", null, "Y: ", yylabel)
+            )
+          ));
+}
+
+// binning code
+function countToBarChart(lineArray, binWidth){
+    lineArray.sort(function(a, b){
+        return a -b;
+    });
+    var maximum = lineArray[lineArray.length - 1];
+
+    // Do the histogram in increments of 50
+    var blockSize = binWidth * 5
+    var upperBound = (Math.floor(maximum / blockSize) + 1)*blockSize;
+    var lowerBound = 0;
+
+    //var binWidth = 10;
+    var numOfBins = (upperBound - lowerBound) / binWidth;
+
+    var histogram = Array.apply(null, Array(numOfBins)).map(Number.prototype.valueOf, 0);
+
+    var binIndex = 0;
+    for(var i = 0; i < lineArray.length; i++){
+        // Check to see if the code length is too big for the bin
+        while(lineArray[i] >= (binIndex + 1)*binWidth) binIndex += 1;
+        histogram[binIndex] += 1;
+    }
+
+    // Create associative array to send back
+    var barData = [];
+    for(binIndex = 0; binIndex < numOfBins; binIndex++){
+        var lowerLabel = binWidth * binIndex;
+        var upperLabel = lowerLabel + (binWidth - 1);
+        if (binWidth > 1)
+            var label = lowerLabel.toString() + "-" + upperLabel.toString();
+        else
+            var label = lowerLabel.toString()
+        barData.push({"x": label, "y": histogram[binIndex]});
+    }
+    return barData;
+}
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -75657,6 +75736,14 @@ var graph_widths = 1000; //250; //500;  // 1000;
 var graph_heights = 480; //123; //245; // 490;
 var graph_R = Math.round(graph_heights/3);
 var graph_r = 20;
+var clicked_player = "";
+var clicked_player_code = "";
+
+var setClickedPlayer = function(new_player, new_code){
+  //window.alert(new_player + " and " + new_code);
+  clicked_player = new_player;
+  clicked_player_code = new_code;
+}
 
 // test functionality for couting
 var yell = function(yelling_what = ""){
@@ -75936,6 +76023,7 @@ var BarChart_Time_Complexity = React.createClass({displayName: "BarChart_Time_Co
                       ), 
                     React.createElement(BarChart, {
                       data: this.state.barData, 
+            		      correctIfTrue: true, 
                       width: graph_widths, 
                       height: graph_heights, 
                       fill: '#8a5715', 
@@ -75953,7 +76041,8 @@ var PieChart_Incorrect_Correct = React.createClass({displayName: "PieChart_Incor
     test_func: function(new_label, new_value) {
       this.setState({myLabel: new_label, myValue: new_value});
       var is_correct = (new_value == "correct")?(true):(false); // true or false //is_correct={is_correct}
-      this.props.setActiveGraph(React.createElement(L1FilterContainer, {correct_sub: is_correct}));
+      this.props.setActiveGraph(React.createElement(L1FilterContainer, {setClickedPlayerState: this.props.setClickedPlayerState, correct_sub: is_correct, act_assign: this.props.act_assign}));
+      this.props.setFilteredMode(1); //indicating that you are transitioning to the L1 mode
     },
     getInitialState : function() {
     var pieData = [
@@ -76008,7 +76097,7 @@ var PieChart_Incorrect_Correct = React.createClass({displayName: "PieChart_Incor
                           )
                         ), 
                   			React.createElement(PieChart, {
-					  test_func: this.test_func, 
+              					  test_func: this.test_func, 
                   			  data: this.state.pieData, 
                   			  width: graph_widths, 
                   			  height: graph_heights, 
@@ -76072,6 +76161,7 @@ var BarChart_Loop_Count = React.createClass({displayName: "BarChart_Loop_Count",
                       ), 
                       React.createElement(BarChart, {
                         data: this.state.barData, 
+                  			correctIfTrue: true, 
                         width: graph_widths, 
                         height: graph_heights, 
                         fill: '#8a5715', 
@@ -76192,6 +76282,7 @@ var BarChart_Loop_Percent = React.createClass({displayName: "BarChart_Loop_Perce
                       ), 
                     React.createElement(BarChart, {
                       data: this.state.barData, 
+            		      correctIfTrue: true, 
                       width: graph_widths, 
                       height: graph_heights, 
                       fill: '#8a5715', 
@@ -76317,6 +76408,7 @@ var BarChart_DataStruct_Percent = React.createClass({displayName: "BarChart_Data
                       React.createElement(BarChart, {
             	          legend: true, 
                         data: this.state.barData, 
+			                  correctIfTrue: true, 
                         width: graph_widths, 
                         height: graph_heights, 
                         fill: '#3182bd', 
@@ -76409,7 +76501,7 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
     },
     test_func: function(new_xx, new_yy) {
       this.setState({xx: new_xx, yy: new_yy});
-      window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
+    //  window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
     },
     render: function() {
       if(this.state.last_ass != this.props.act_assign){
@@ -76448,31 +76540,86 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
 
 /****************** Chart Implementation End ******************/
 
+var strToUpperLower = function(clickedRange){
+  var length = clickedRange.length;
+  var whereHyph = clickedRange.indexOf("-");
+  var lower = function(){
+    temp = "";
+    for(var ii = 0; ii < whereHyph; ii++){
+      temp += clickedRange[ii];
+    }
+    return temp;
+  };
+  var higher = function(){
+    temp = "";
+    for(var ii = whereHyph + 1; ii < length; ii++){
+      temp += clickedRange[ii];
+    }
+    return temp;
+  };
+
+  var low = lower();
+  var high = higher();
+
+  couple = {"lowBound": low, "highBound": high};
+  //window.alert(JSON.stringify(couple));
+  return couple;
+}
+
 /** Filtered Graphs Start**/
 
-var F1_BarChart_Lines_Code = React.createClass({displayName: "F1_BarChart_Lines_Code",
+var active_code_size = {};
+var F1_BarChart_Size_Metric = React.createClass({displayName: "F1_BarChart_Size_Metric",
+    test_func: function(new_xx, new_yy) {
+      this.setState({xx: new_xx, yy: new_yy}); // This purpose is not clear yet
+      if(new_xx.indexOf("student") == -1){
+        var pair = strToUpperLower(new_xx);
+        //pair.lowBound pair.highBound
+          $.ajax({
+            url: "/solutions/fromhistogram?lowerbound=" + pair.lowBound + "&upperbound=" + pair.highBound + "&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=size",
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              json_size = 0;
+              //get how many submission/datapoints there are
+              while(data[json_size]){
+                json_size++;
+              }
+              var lineArray = [];
+              for(var ii = 0; ii < json_size; ii++){
+                  lineArray.push({"x":("student " + data[ii].player_id),"y":data[ii].size});
+                  active_code_size[("student " + data[ii].player_id)] = data[ii].body; //HERE HERE
+              }
+              var loaded_barData = lineArray; //[{},{}]//countToBarChart(lineArray, 5);
+
+              var barData = [{
+              	"name":"Class A",
+              	"values":loaded_barData}
+              ];
+
+              this.setState({barData: barData});
+              //window.alert(barData);
+            }.bind(this),
+            // in the case ajax runs into an error
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+      }
+      // this case is when you are clicking a specific student xx & yy take on a new meaning
+      else{
+        //window.alert(new_xx + "'s solution: " + '\n' + '\n' + active_code_size[new_xx]);
+        var dialog = document.getElementById('window');
+        setClickedPlayer(new_xx,active_code_size[new_xx]);
+        this.props.setClickedPlayerState(new_xx,active_code_size[new_xx]);
+        dialog.show();
+      }
+
+    },
     getInitialState : function() {
-    	var chartSeries = [
-    	      {
-    	        field: 'y',
-    	        name: 'Submissions.Lines of Code'
-    	      }
-    	    ];
-
-    	var x = function(d) {
-    	      return d.x;
-    	    };
-
-      var temp = {
-                color: 'black',
-                fontWeight: 'bold',
-                marginBottom: '5px'
-              };
-
-    	var xScale = 'ordinal';
-    	var yTicks = [10, "c"];
-
-      var barData = [
+      var barData = [{
+          "name":"Class A",
+          "values":[
         {"x": 'A', "y": 245},
         {"x": 'B', "y": 543},
         {"x": 'C', "y": 1093},
@@ -76498,21 +76645,167 @@ var F1_BarChart_Lines_Code = React.createClass({displayName: "F1_BarChart_Lines_
         {"x": 'X', "y": 232},
         {"x": 'Y', "y": 4345},
         {"x": 'Z', "y": 5675}
+       ]}
       ];
-      return {barData: barData,
-              series: chartSeries,
-              x: x,
-              xScale: xScale,
-              yTicks: yTicks,
-              last_assign:"0",};
+      return {barData: barData, xx: -1, yy: -1, correctIfTrue: true};
     },loadLineCountMetricFromServer: function(){
       $.ajax({
-        url: "/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        url: "/solutions/fromhistogram?lowerbound=1&upperbound=1000&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=size", //"/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
         dataType: 'json',
         cache: false,
         success: function(data) {
-      	  var loaded_barData = data;
-          this.setState({barData: loaded_barData});
+          json_size = 0;
+          //get how many submission/datapoints there are
+          while(data[json_size]){
+            json_size++;
+          }
+          var lineArray = [];
+          for(var ii = 0; ii < json_size; ii++){
+              lineArray.push(data[ii].size);
+          }
+          var loaded_barData = countToBarChart(lineArray, 5);
+
+          var barData = [{
+          	"name":"Class A",
+          	"values":loaded_barData}
+          ];
+
+          this.setState({barData: barData});
+          //window.alert(barData);
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.loadLineCountMetricFromServer();
+    },
+    render: function() {
+      var new_width = (graph_widths * 0.9);
+      var new_height = (graph_heights * 0.9);
+
+      var pass_true = (this.props.is_correct == 1)?(true):(false);
+        return (
+          React.createElement("div", {className: "graph-container col-md-4"}, 
+                React.createElement(BarChart, {
+                  test_func: this.test_func, 
+                  data: this.state.barData, 
+            		  correctIfTrue: pass_true, 
+                  width: 1000, 
+                  height: 490, 
+                  fill: '#8a5715', 
+                  title: "", 
+                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                ), 
+              genLegend("Size Range","Number of Submissions")
+           ));
+    }
+});
+
+var active_code_linecount = {};
+var F1_BarChart_Lines_Code = React.createClass({displayName: "F1_BarChart_Lines_Code",
+    test_func: function(new_xx, new_yy) {
+      this.setState({xx: new_xx, yy: new_yy}); // This purpose is not clear yet
+      if(new_xx.indexOf("student") == -1){
+        var pair = strToUpperLower(new_xx);
+        //pair.lowBound pair.highBound
+          $.ajax({
+            url: "/solutions/fromhistogram?lowerbound=" + pair.lowBound + "&upperbound=" + pair.highBound + "&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=linecount",
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+
+            //  window.alert(JSON.stringify(data));
+
+              json_size = 0;
+              //get how many submission/datapoints there are
+              while(data[json_size]){
+                json_size++;
+              }
+              var lineArray = [];
+              for(var ii = 0; ii < json_size; ii++){
+                  lineArray.push({"x":("student " + data[ii].player_id),"y":data[ii].linecount});
+                  active_code_linecount[("student " + data[ii].player_id)] = data[ii].body; //HERE HERE
+              }
+              var loaded_barData = lineArray;
+
+              var barData = [{
+                "name":"Class A",
+                "values":loaded_barData}
+              ];
+              this.setState({barData: barData});
+            }.bind(this),
+            // in the case ajax runs into an error
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+      }
+      // this case is when you are clicking a specific student xx & yy take on a new meaning
+      else{
+        var dialog = document.getElementById('window');
+        setClickedPlayer(new_xx,active_code_linecount[new_xx]);
+        this.props.setClickedPlayerState(new_xx,active_code_linecount[new_xx]);
+        dialog.show();
+      }
+    },
+    getInitialState : function() {
+      var barData = [{
+          "name":"Class A",
+          "values":[
+        {"x": 'A', "y": 245},
+        {"x": 'B', "y": 543},
+        {"x": 'C', "y": 1093},
+        {"x": 'D', "y": 5643},
+        {"x": 'E', "y": 37},
+        {"x": 'F', "y": 7854},
+        {"x": 'G', "y": 645},
+        {"x": 'H', "y": 2443},
+        {"x": 'J', "y": 5544},
+        {"x": 'K', "y": 769},
+        {"x": 'L', "y": 343},
+        {"x": 'M', "y": 4433},
+        {"x": 'N', "y": 354},
+        {"x": 'O', "y": 3654},
+        {"x": 'P', "y": 788},
+        {"x": 'Q', "y": 667},
+        {"x": 'R', "y": 6587},
+        {"x": 'S', "y": 665},
+        {"x": 'T', "y": 2343},
+        {"x": 'U', "y": 45},
+        {"x": 'V', "y": 6645},
+        {"x": 'W', "y": 9786},
+        {"x": 'X', "y": 232},
+        {"x": 'Y', "y": 4345},
+        {"x": 'Z', "y": 5675}
+       ]}
+      ];
+      return {barData: barData, xx: -1, yy: -1};
+    },loadLineCountMetricFromServer: function(){
+      $.ajax({
+        url: "/solutions/fromhistogram?lowerbound=1&upperbound=1000&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=linecount", //"/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          json_size = 0;
+          //get how many submission/datapoints there are
+          while(data[json_size]){
+            json_size++;
+          }
+          var lineArray = [];
+          for(var ii = 0; ii < json_size; ii++){
+              lineArray.push(data[ii].linecount);
+          }
+          var loaded_barData = countToBarChart(lineArray, 5);
+
+          var barData = [{
+          	"name":"Class A",
+          	"values":loaded_barData}
+          ];
+
+          this.setState({barData: barData});
           //window.alert(barData);
         }.bind(this),
         // in the case ajax runs into an error
@@ -76527,139 +76820,30 @@ var F1_BarChart_Lines_Code = React.createClass({displayName: "F1_BarChart_Lines_
     //  setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-      if(this.state.last_ass != this.props.act_assign){
-        this.loadLineCountMetricFromServer();
-      }
-
       var new_width = (graph_widths * 0.9);
       var new_height = (graph_heights * 0.9);
-
+      var pass_true = (this.props.is_correct == 1)?(true):(false);
         return (
           React.createElement("div", {className: "graph-container col-md-4"}, 
-                  		React.createElement(BarTooltip, {
-                        data: this.state.barData, 
-                  		  legend: false, 
-                        width: new_width, 
-                        height: new_height, 
-                        fill: '#3182bd', 
-                        title: "", 
-                  		  chartSeries: this.state.series, 
-                        x: this.state.x, 
-            	          xScale: this.state.xScale, 
-                        yTicks: this.state.yTicks, 
-                        margins: {top: 20, right: 30, bottom: 30, left: 40}}, 
-                    		React.createElement(SimpleTooltipStyle, {tooltip_title: this.state.temp})
-                    	)
-               ));
+                React.createElement(BarChart, {
+                  test_func: this.test_func, 
+                  data: this.state.barData, 
+            		  correctIfTrue: pass_true, 
+                  width: 1000, 
+                  height: 490, 
+                  fill: '#8a5715', 
+                  title: "", 
+                  margins: {top: 20, right: 30, bottom: 30, left: 40}}
+                ), 
+              genLegend("Line Count Range","Number of Submissions")
+           ));
+
     }
 });
 
-var F1_BarChart_Size_Metric = React.createClass({displayName: "F1_BarChart_Size_Metric",
-    getInitialState : function() {
-    	var chartSeries = [
-    	      {
-    	        field: 'y',
-    	        name: 'Submissions.Lines of Code'
-    	      }
-    	    ];
 
-    	var x = function(d) {
-    	      return d.x;
-    	    };
 
-      var temp = {
-                color: 'black',
-                fontWeight: 'bold',
-                marginBottom: '5px'
-              };
 
-    	var xScale = 'ordinal';
-    	var yTicks = [10, "c"];
-
-      var barData = [
-        {"x": 'A', "y": 2345},
-        {"x": 'B', "y": 5463},
-        {"x": 'C', "y": 10293},
-        {"x": 'D', "y": 5643},
-        {"x": 'E', "y": 3657},
-        {"x": 'F', "y": 7854},
-        {"x": 'G', "y": 6845},
-        {"x": 'H', "y": 2435},
-        {"x": 'I', "y": 1243},
-        {"x": 'J', "y": 5544},
-        {"x": 'K', "y": 7869},
-        {"x": 'L', "y": 3343},
-        {"x": 'M', "y": 4433},
-        {"x": 'N', "y": 3354},
-        {"x": 'O', "y": 3654},
-        {"x": 'P', "y": 7887},
-        {"x": 'Q', "y": 6657},
-        {"x": 'R', "y": 6587},
-        {"x": 'S', "y": 6645},
-        {"x": 'T', "y": 2343},
-        {"x": 'U', "y": 4565},
-        {"x": 'V', "y": 6645},
-        {"x": 'W', "y": 9786},
-        {"x": 'X', "y": 2302},
-        {"x": 'Y', "y": 4345},
-        {"x": 'Z', "y": 5675}
-      ];
-      return {barData: barData,
-              series: chartSeries,
-              x: x,
-              xScale: xScale,
-              yTicks: yTicks,
-              last_assign:"0",};
-    },loadSizeMetricFromServer: function(){
-      $.ajax({
-        url: "/problem/" + this.props.act_assign + "/metrics/size", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
-        dataType: 'json',
-        cache: false,
-        success: function(data) {
-      	  var loaded_barData = data;
-          this.setState({barData: loaded_barData});
-          //window.alert(barData);
-        }.bind(this),
-        // in the case ajax runs into an error
-        error: function(xhr, status, err) {
-          console.error(this.props.url, status, err.toString());
-        }.bind(this)
-      });
-    },
-    componentDidMount: function(){
-      this.loadSizeMetricFromServer();
-      //introduces that we will need a pollInterval for the external element
-    //  setInterval(this.loadSizeMetricFromServer);
-    },
-    test_func: function(new_xx, new_yy) {
-      this.setState({xx: new_xx, yy: new_yy});
-      window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
-    },
-    render: function() {
-      if(this.state.last_ass != this.props.act_assign){
-        this.loadSizeMetricFromServer();
-      }
-      var new_width = (graph_widths * 0.9);
-      var new_height = (graph_heights * 0.9);
-        return (
-          React.createElement("div", {className: "graph-container col-md-4"}, 
-                  		React.createElement(BarTooltip, {
-                        data: this.state.barData, 
-                  		  legend: false, 
-                        width: new_width, 
-                        height: new_height, 
-                        fill: '#3182bd', 
-                        title: "", 
-                  		  chartSeries: this.state.series, 
-                        x: this.state.x, 
-            	          xScale: this.state.xScale, 
-                        yTicks: this.state.yTicks, 
-                        margins: {top: 20, right: 30, bottom: 30, left: 40}}, 
-                    		React.createElement(SimpleTooltipStyle, {tooltip_title: this.state.temp})
-                    	)
-               ));
-    }
-});
 
 
 
@@ -76682,8 +76866,8 @@ const L1FilterContainer = React.createClass({displayName: "L1FilterContainer",
   },
 
   render() {
-    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text","sub_graph":(React.createElement(F1_BarChart_Size_Metric, null))},
-    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify","sub_graph":(React.createElement(F1_BarChart_Lines_Code, null))}];
+    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text","sub_graph":(React.createElement(F1_BarChart_Size_Metric, {act_assign: this.props.act_assign, is_correct: this.props.correct_sub, setClickedPlayerState: this.props.setClickedPlayerState}))},
+    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify","sub_graph":(React.createElement(F1_BarChart_Lines_Code, {act_assign: this.props.act_assign, is_correct: this.props.correct_sub, setClickedPlayerState: this.props.setClickedPlayerState}))}];
   //  {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
   //  {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
   //  {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
@@ -76706,7 +76890,6 @@ const L1FilterContainer = React.createClass({displayName: "L1FilterContainer",
     var sub_type = (this.props.correct_sub)?(
       React.createElement("h4", {style: {color:"rgb(137, 203, 124)"}}, "Correct")
       ):(React.createElement("h4", {style: {color:"rgb(215, 136, 136)"}}, "Incorrect"));
-
     return (
       React.createElement("div", {className: "l1FilterContainer"}, 
         sub_type, 
@@ -76976,7 +77159,9 @@ var Activity_Panel = React.createClass({displayName: "Activity_Panel",
     // ensure the graph is up to date
     var ActiveGraph = React.cloneElement(this.props.active_graph,
       {act_assign:this.props.active_assignment.id,
-        setActiveGraph:this.props.setActiveGraph},
+        setActiveGraph:this.props.setActiveGraph,
+        setFilteredMode:this.props.setFilteredMode,
+        setClickedPlayerState:this.props.setClickedPlayerState},
       null);
 
     return (
@@ -77151,14 +77336,15 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
             description: "Pick an assignment and then a graph to see your learning analytics!",
             active_graph: null,
             active_assignment:{
-                                title: "Your Active Assignment Will Appear Here",
-                                description: "The assignment description will appear here.",
+                                title: "Stuff the Board",
+                                description: "You have a stack of tiles to put onto an array-like playing board. Each tile has a number (always an integer), and the board varies in size (you are given dimensions nRows and nCols). You need to put the high-value tiles on the table in any order.",
                                 id: "556",
                               },
-            submission_num: "0",
-            //forward_stack: new Stack(),
-            //backward_stack: new Stack(),
-            activity_window: React.createElement(Activity_Panel, null)
+            submission_num: "652",
+            activity_window: React.createElement(Activity_Panel, null),
+            filtered_mode: 0, //indicates if the user has drilled down, if so, they cannot select a different assignment
+            player:"",
+            code:""
           };
   },
   componentDidMount: function(){
@@ -77170,75 +77356,114 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
                                     active_assignment: this.state.active_assignment, 
                                     active_graph: first_graph, 
                                     setActiveGraph: this.setActiveGraph, 
-                                    sub_count: "0"}
+                                    sub_count: this.state.submission_num, 
+                                    setFilteredMode: this.setFilteredMode, 
+                                    setClickedPlayerState: this.setClickedPlayerState}
                                    )
     });
   },
   clickedBack: function(){
     if(global.backward_stack.size() > 0){
-      global.forward_stack.push(this.state.activity_window);//old_window);
-      this.setState({activity_window: global.backward_stack.pop()});
+      global.forward_stack.push(this.state.activity_window);
     }
-    // yell("clicked back");
+    //var new_filter_mode = (this.state.filtered_mode != 0)?(0):(1);
+    var new_filter_mode;
+    var new_active_window;
+    var new_act_graph;
+    // if you are in the filtered view, you will need to pop twice
+    if(this.state.filtered_mode != 0){
+        new_filter_mode = 0;
+        if(global.backward_stack.size() > 1)
+          global.backward_stack.pop();
+        new_active_window = global.backward_stack.pop();
+        new_act_graph = (React.createElement(PieChart_Incorrect_Correct, {
+                          act_assign: this.state.active_assignment.id, 
+                          setActiveGraph: this.setActiveGraph, 
+                          setFilteredMode: this.setFilteredMode, 
+                          setClickedPlayerState: this.setClickedPlayerState}
+                        ));
+    }
+    else{
+        new_active_window = global.backward_stack.pop();
+        new_act_graph = this.state.active_graph;
+    }
+    this.setState({activity_window: new_active_window, filtered_mode: new_filter_mode, active_graph:new_act_graph});
   },
   clickedForward: function(){
     if(global.forward_stack.size() > 0){
-      global.backward_stack.push(this.state.activity_window); //old_window);
+      global.backward_stack.push(this.state.activity_window);
       this.setState({activity_window: global.forward_stack.pop()});
     }
-    // yell("clicked forward");
+  },
+  setFilteredMode: function(new_mode){
+    //window.alert("filter set");
+    this.setState({filtered_mode: new_mode});
+  },
+  setClickedPlayerState:function(player,code){
+    this.setState({player:player,code:code});
+    //window.alert("The master has " + player + " " + code);
   },
   setActiveGraph: function(new_graph = null){
     var new_active_window = (React.createElement(Activity_Panel, {
                               active_assignment: this.state.active_assignment, 
                               active_graph: new_graph, 
                               setActiveGraph: this.setActiveGraph, 
-                              sub_count: this.state.submission_num}
+                              sub_count: this.state.submission_num, 
+                              setFilteredMode: this.setFilteredMode, 
+                              setClickedPlayerState: this.setClickedPlayerState}
                              ));
     this.setState({active_graph: new_graph,
-                  activity_window: new_active_window
+                  activity_window: new_active_window,
+                  filtered_mode: 0
     });
     //global.backward_stack.push(new_active_window);
     global.backward_stack.push(this.state.activity_window);
   },
   setActiveAssignment: function(new_title = "Scoring for Oriented Dominoes", new_description = "The assignment description has been changed", new_id = "470"){
-    var new_assignment = {
-                          title: new_title,
-                          description: new_description,
-                          id: new_id,
-    }
+    // The user can only select a different graph if they are not drilled down
+    if(this.state.filtered_mode == 0){
+      var new_assignment = {
+                            title: new_title,
+                            description: new_description,
+                            id: new_id,
+      }
 
-    global.backward_stack.push(this.state.activity_window);
+      global.backward_stack.push(this.state.activity_window);
 
-    $.ajax({
-      url: "/problem/" + new_id + "/student_submissions",
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        var the_count = JSON.stringify(data[0].count);
+      $.ajax({
+        url: "/problem/" + new_id + "/student_submissions",
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          var the_count = JSON.stringify(data[0].count);
 
-        var new_active_window = (React.createElement(Activity_Panel, {
-                                  active_assignment: new_assignment, 
-                                  active_graph: this.state.active_graph, 
-                                  setActiveGraph: this.setActiveGraph, 
-                                  sub_count: the_count}
-                                 ));
+          var new_active_window = (React.createElement(Activity_Panel, {
+                                    active_assignment: new_assignment, 
+                                    active_graph: this.state.active_graph, 
+                                    setActiveGraph: this.setActiveGraph, 
+                                    sub_count: the_count, 
+                                    setFilteredMode: this.setFilteredMode, 
+                                    setClickedPlayerState: this.setClickedPlayerState}
+                                   ));
+//
 
-        this.setState({active_assignment: new_assignment,
-          activity_window: new_active_window,
-          submission_num: the_count
-        });
+          this.setState({active_assignment: new_assignment,
+            activity_window: new_active_window,
+            submission_num: the_count
+          });
       }.bind(this),
       // in the case ajax runs into an error
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+   }
+   // In the case that you are drilled down in some capacity
+   else{
+     window.alert("Cannot select different assignment while drilling down. You can however select a different graph from the dropdown.");
+   }
   },
   render:function(){
-    //yell("backstack size: " + global.backward_stack.size() + " frontstack size: " + global.forward_stack.size());
-    //var Activity_Window = <Activity_Panel active_assignment={this.state.active_assignment} active_graph={this.state.active_graph}/>;
-    // .bind(this,Activity_Window) <- if you want to pass a parameter
     return (
       React.createElement("div", {className: "masterGraphContainer"}, 
         React.createElement("div", {className: "content-toolbar"}
@@ -77288,16 +77513,30 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
               )
             )
           ), 
+
+          React.createElement("dialog", {id: "window"}, 
+            React.createElement("button", {id: "exit"}, React.createElement("i", {className: "fa fa-times"})), 
+            React.createElement("h3", null, clicked_player + "'s submission:"), 
+            React.createElement("p", null, clicked_player_code)
+          ), 
           this.state.activity_window
         )
       )
     );
   }
-}); // {Activity_Window}
+});
 
 /****************** Main End ******************/
 
 ReactDOM.render(React.createElement(MasterGraphContainer, null), document.getElementById('content'));
+
+(function() {
+    var dialog = document.getElementById('window');
+    document.getElementById('exit').onclick = function() {
+        dialog.close();
+    };
+
+})();
 
 },{"./trie":714,"react":712,"react-bootstrap":82,"react-d3":373,"react-d3-tooltip":266,"react-dom":556}],714:[function(require,module,exports){
 var Node = function(value, ends){

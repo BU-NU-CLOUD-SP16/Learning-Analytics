@@ -5,6 +5,11 @@
 @blue_drk:rgb(15, 89, 153);
 @stud_list_h: 170px;
 
+@font-face {
+	font-family: Consolas;
+	src: url('/Consolas.ttf');
+}
+
 .pop_brdr{
   border:solid 2px red;
 }
@@ -25,6 +30,31 @@ div.masterGraphContainer{
   .content-body{
     height: calc(100vh - 50px);
     display: table;
+  }
+  dialog#window{
+    position:absolute;
+    border:solid @blue_drk 1px;
+    border-radius: 6px;
+    top:300px;
+    z-index: 100;
+    max-width: 400px;
+    overflow: auto;
+    button#exit{
+      float:right;
+      right:0;
+      color:black;
+      margin-top:-10px;
+      margin-right: -10px;
+    }
+    h3{
+      color:@blue_drk;
+    }
+    p{
+      max-width: 380px;
+      word-wrap: normal;
+      color:@dft_font_clr; 
+      font-family: Consolas;
+    }
   }
 }
 
@@ -138,6 +168,12 @@ div.masterGraphContainer{
     }
   }
 
+  text{
+    transform:rotate(30,20,40);
+  }
+
+
+
 
   .all-graph{
     position: relative;
@@ -155,7 +191,7 @@ div.masterGraphContainer{
       margin-left: 7px;
       margin-top: -13px;
       //background:blue;
-      height: 535px;
+      height: 550px;
       width: 1000px;
       h4{
           padding:3px;
@@ -163,6 +199,10 @@ div.masterGraphContainer{
           background: @blue;
       }
     }
+//   g.rd3-barchart-xaxis
+    /*div.graph-container div.rd3-basic-chart svg.rd3-chart > text{
+      border:solid 3px red;
+    }*/
 
     div.graph-container{
       margin-left: -7px;
@@ -173,6 +213,44 @@ div.masterGraphContainer{
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;
+
+      div.rd3-basic-chart svg.rd3-chart{
+        //border:red solid 2px;
+        //Just expand the bottom of the graph a tad
+        height:535px;
+      }
+
+
+
+      div.legend-container{
+        //border:red solid 1px;
+        background:@bg_clr;
+        border-radius: 6px;
+        height:75px;
+        width:200px;
+        position:absolute;
+        top:12px;
+        right:12px;
+        color:@dft_font_clr;
+        border:@dft_font_clr solid 1px;
+        h4.legend{
+          background: transparent;
+          position: absolute;
+          left:0px;
+          margin-bottom: 20px;
+          margin-left:5px;
+        }
+        div.axis-label-container{
+          margin-top: 28px;
+          //border:solid 1px red;
+          h5{
+            position:relative;
+
+            margin-left: 8px;
+            margin-top: 10px;
+          }
+        }
+      }
 
       div.panel.panel-default{
         width: 1000px;
