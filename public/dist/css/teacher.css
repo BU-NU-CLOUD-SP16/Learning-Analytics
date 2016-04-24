@@ -19,6 +19,28 @@ div.masterGraphContainer .content-body {
   height: calc(50vh);
   display: table;
 }
+div.masterGraphContainer dialog#window {
+  position: absolute;
+  border: solid #0f5999 1px;
+  border-radius: 6px;
+  top: 300px;
+  z-index: 100;
+  max-width: 400px;
+  overflow: auto;
+}
+div.masterGraphContainer dialog#window button#exit {
+  float: right;
+  right: 0;
+  color: black;
+  margin-top: -10px;
+  margin-right: -10px;
+}
+div.masterGraphContainer dialog#window h3 {
+  color: #0f5999;
+}
+div.masterGraphContainer dialog#window p {
+  color: #797777;
+}
 .graphList a {
   color: #797777;
 }

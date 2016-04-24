@@ -27,7 +27,6 @@ genLegend = function(xxlabel, yylabel){
           </div>);
 }
 
-
 // binning code
 function countToBarChart(lineArray, binWidth){
     lineArray.sort(function(a, b){
@@ -105,6 +104,14 @@ var graph_widths = 1000; //250; //500;  // 1000;
 var graph_heights = 480; //123; //245; // 490;
 var graph_R = Math.round(graph_heights/3);
 var graph_r = 20;
+var clicked_player = "";
+var clicked_player_code = "";
+
+var setClickedPlayer = function(new_player, new_code){
+  //window.alert(new_player + " and " + new_code);
+  clicked_player = new_player;
+  clicked_player_code = new_code;
+}
 
 // test functionality for couting
 var yell = function(yelling_what = ""){
@@ -402,7 +409,7 @@ var PieChart_Incorrect_Correct = React.createClass({
     test_func: function(new_label, new_value) {
       this.setState({myLabel: new_label, myValue: new_value});
       var is_correct = (new_value == "correct")?(true):(false); // true or false //is_correct={is_correct}
-      this.props.setActiveGraph(<L1FilterContainer correct_sub={is_correct} act_assign={this.props.act_assign}/>);
+      this.props.setActiveGraph(<L1FilterContainer setClickedPlayerState={this.props.setClickedPlayerState} correct_sub={is_correct} act_assign={this.props.act_assign}/>);
       this.props.setFilteredMode(1); //indicating that you are transitioning to the L1 mode
     },
     getInitialState : function() {
@@ -458,7 +465,7 @@ var PieChart_Incorrect_Correct = React.createClass({
                           </h3>
                         </div>
                   			<PieChart
-					  test_func={this.test_func}
+              					  test_func={this.test_func}
                   			  data={this.state.pieData}
                   			  width={graph_widths}
                   			  height={graph_heights}
@@ -969,8 +976,11 @@ var F1_BarChart_Size_Metric = React.createClass({
       }
       // this case is when you are clicking a specific student xx & yy take on a new meaning
       else{
-        //window.alert(new_xx + " " + new_yy);
-        window.alert(new_xx + "'s solution: " + '\n' + '\n' + active_code_size[new_xx]);
+        //window.alert(new_xx + "'s solution: " + '\n' + '\n' + active_code_size[new_xx]);
+        var dialog = document.getElementById('window');
+        setClickedPlayer(new_xx,active_code_size[new_xx]);
+        this.props.setClickedPlayerState(new_xx,active_code_size[new_xx]);
+        dialog.show();
       }
 
     },
@@ -1100,8 +1110,10 @@ var F1_BarChart_Lines_Code = React.createClass({
       }
       // this case is when you are clicking a specific student xx & yy take on a new meaning
       else{
-        //window.alert(new_xx + " " + new_yy);
-        window.alert(new_xx + "'s solution: " + '\n' + '\n' + active_code_linecount[new_xx]);
+        var dialog = document.getElementById('window');
+        setClickedPlayer(new_xx,active_code_size[new_xx]);
+        this.props.setClickedPlayerState(new_xx,active_code_size[new_xx]);
+        dialog.show();
       }
     },
     getInitialState : function() {
@@ -1219,8 +1231,8 @@ const L1FilterContainer = React.createClass({
   },
 
   render() {
-    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text","sub_graph":(<F1_BarChart_Size_Metric act_assign={this.props.act_assign} is_correct={this.props.correct_sub}/>)},
-    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify","sub_graph":(<F1_BarChart_Lines_Code act_assign={this.props.act_assign} is_correct={this.props.correct_sub}/>)}];
+    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text","sub_graph":(<F1_BarChart_Size_Metric act_assign={this.props.act_assign} is_correct={this.props.correct_sub} setClickedPlayerState={this.props.setClickedPlayerState}/>)},
+    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify","sub_graph":(<F1_BarChart_Lines_Code act_assign={this.props.act_assign} is_correct={this.props.correct_sub} setClickedPlayerState={this.props.setClickedPlayerState}/>)}];
   //  {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
   //  {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
   //  {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
@@ -1513,7 +1525,8 @@ var Activity_Panel = React.createClass({
     var ActiveGraph = React.cloneElement(this.props.active_graph,
       {act_assign:this.props.active_assignment.id,
         setActiveGraph:this.props.setActiveGraph,
-        setFilteredMode:this.props.setFilteredMode},
+        setFilteredMode:this.props.setFilteredMode,
+        setClickedPlayerState:this.props.setClickedPlayerState},
       null);
 
     return (
@@ -1694,7 +1707,9 @@ var MasterGraphContainer = React.createClass({
                               },
             submission_num: "652",
             activity_window: <Activity_Panel/>,
-            filtered_mode: 0 //indicates if the user has drilled down, if so, they cannot select a different assignment
+            filtered_mode: 0, //indicates if the user has drilled down, if so, they cannot select a different assignment
+            player:"",
+            code:""
           };
   },
   componentDidMount: function(){
@@ -1708,6 +1723,7 @@ var MasterGraphContainer = React.createClass({
                                     setActiveGraph={this.setActiveGraph}
                                     sub_count={this.state.submission_num}
                                     setFilteredMode={this.setFilteredMode}
+                                    setClickedPlayerState={this.setClickedPlayerState}
                                    />
     });
   },
@@ -1729,15 +1745,13 @@ var MasterGraphContainer = React.createClass({
                           act_assign={this.state.active_assignment.id}
                           setActiveGraph={this.setActiveGraph}
                           setFilteredMode={this.setFilteredMode}
+                          setClickedPlayerState={this.setClickedPlayerState}
                         />);
     }
     else{
         new_active_window = global.backward_stack.pop();
         new_act_graph = this.state.active_graph;
     }
-
-
-
     this.setState({activity_window: new_active_window, filtered_mode: new_filter_mode, active_graph:new_act_graph});
   },
   clickedForward: function(){
@@ -1750,6 +1764,10 @@ var MasterGraphContainer = React.createClass({
     //window.alert("filter set");
     this.setState({filtered_mode: new_mode});
   },
+  setClickedPlayerState:function(player,code){
+    this.setState({player:player,code:code});
+    //window.alert("The master has " + player + " " + code);
+  },
   setActiveGraph: function(new_graph = null){
     var new_active_window = (<Activity_Panel
                               active_assignment={this.state.active_assignment}
@@ -1757,6 +1775,7 @@ var MasterGraphContainer = React.createClass({
                               setActiveGraph={this.setActiveGraph}
                               sub_count={this.state.submission_num}
                               setFilteredMode={this.setFilteredMode}
+                              setClickedPlayerState={this.setClickedPlayerState}
                              />);
     this.setState({active_graph: new_graph,
                   activity_window: new_active_window,
@@ -1789,6 +1808,7 @@ var MasterGraphContainer = React.createClass({
                                     setActiveGraph={this.setActiveGraph}
                                     sub_count={the_count}
                                     setFilteredMode={this.setFilteredMode}
+                                    setClickedPlayerState={this.setClickedPlayerState}
                                    />);
 //
 
@@ -1809,9 +1829,6 @@ var MasterGraphContainer = React.createClass({
    }
   },
   render:function(){
-    //yell("backstack size: " + global.backward_stack.size() + " frontstack size: " + global.forward_stack.size());
-    //var Activity_Window = <Activity_Panel active_assignment={this.state.active_assignment} active_graph={this.state.active_graph}/>;
-    // .bind(this,Activity_Window) <- if you want to pass a parameter
     return (
       <div className="masterGraphContainer">
         <div className="content-toolbar">
@@ -1860,14 +1877,27 @@ var MasterGraphContainer = React.createClass({
                 </nav>
               </div>
             </div>
-          </div>  
+          </div>
+
+          <dialog id="window">
+            <button id="exit"><i className="fa fa-times"></i></button>
+            <h3>{clicked_player}</h3>
+            <p>{clicked_player_code}</p>
+          </dialog>
           {this.state.activity_window}
         </div>
       </div>
     );
   }
-}); // {Activity_Window}
+});
 
 /****************** Main End ******************/
 
 ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content'));
+
+(function() {
+    var dialog = document.getElementById('window');
+    document.getElementById('exit').onclick = function() {
+        dialog.close();
+    };
+})();
