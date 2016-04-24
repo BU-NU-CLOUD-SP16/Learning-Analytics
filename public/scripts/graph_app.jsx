@@ -1241,9 +1241,8 @@ const L1FilterContainer = React.createClass({
     }
 
     var sub_type = (this.props.correct_sub)?(
-      <h4 style={{color:"rgb(137, 203, 124)"}}>Correct</h4> 
+      <h4 style={{color:"rgb(137, 203, 124)"}}>Correct</h4>
       ):(<h4 style={{color:"rgb(215, 136, 136)"}}>Incorrect</h4>);
-
     return (
       <div className="l1FilterContainer">
         {sub_type}

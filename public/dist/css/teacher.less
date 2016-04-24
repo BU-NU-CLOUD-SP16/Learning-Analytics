@@ -138,6 +138,12 @@ div.masterGraphContainer{
     }
   }
 
+  text{
+    transform:rotate(30,20,40);
+  }
+
+
+
 
   .all-graph{
     position: relative;
@@ -155,7 +161,7 @@ div.masterGraphContainer{
       margin-left: 7px;
       margin-top: -13px;
       //background:blue;
-      height: 535px;
+      height: 550px;
       width: 1000px;
       h4{
           padding:3px;
@@ -163,6 +169,10 @@ div.masterGraphContainer{
           background: @blue;
       }
     }
+//   g.rd3-barchart-xaxis
+    /*div.graph-container div.rd3-basic-chart svg.rd3-chart > text{
+      border:solid 3px red;
+    }*/
 
     div.graph-container{
       margin-left: -7px;
@@ -173,6 +183,12 @@ div.masterGraphContainer{
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center;
+
+      div.rd3-basic-chart svg.rd3-chart{
+        //border:red solid 2px;
+        //Just expand the bottom of the graph a tad
+        height:535px;
+      }
 
       div.legend-container{
         //border:red solid 1px;

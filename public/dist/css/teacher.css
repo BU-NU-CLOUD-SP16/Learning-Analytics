@@ -116,8 +116,14 @@ div.masterGraphContainer .content-body {
   padding-left: 4px;
   padding-top: 2px;
 }
+.col-md-10 .content-container text {
+  transform: rotate(30, 20, 40);
+}
 .col-md-10 .content-container .all-graph {
   position: relative;
+  /*div.graph-container div.rd3-basic-chart svg.rd3-chart > text{
+      border:solid 3px red;
+    }*/
 }
 .col-md-10 .content-container .all-graph .tab {
   height: 492px;
@@ -128,7 +134,7 @@ div.masterGraphContainer .content-body {
   border-radius: 3px;
   margin-left: 7px;
   margin-top: -13px;
-  height: 535px;
+  height: 550px;
   width: 1000px;
 }
 .col-md-10 .content-container .all-graph div.l1FilterContainer h4 {
@@ -145,6 +151,9 @@ div.masterGraphContainer .content-body {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.rd3-basic-chart svg.rd3-chart {
+  height: 535px;
 }
 .col-md-10 .content-container .all-graph div.graph-container div.legend-container {
   background: #f8f8f8;

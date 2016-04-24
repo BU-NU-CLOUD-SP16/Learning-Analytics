@@ -35,48 +35,48 @@ module.exports = React.createClass({
         case 'top':
           return (
             React.createElement("text", {
-              strokeWidth: props.strokeWidth.toString(), 
-              textAnchor: props.textAnchor, 
-              transform: props.verticalTransform, 
-              x: props.width / 2, 
+              strokeWidth: props.strokeWidth.toString(),
+              textAnchor: props.textAnchor,
+              transform: props.verticalTransform,
+              x: props.width / 2,
               y: props.offset
-            }, 
+            },
               props.label
             )
           );
         case 'bottom':
           return (
             React.createElement("text", {
-              strokeWidth: props.strokeWidth.toString(), 
-              textAnchor: props.textAnchor, 
-              transform: props.verticalTransform, 
-              x: props.width / 2, 
+              strokeWidth: props.strokeWidth.toString(),
+              textAnchor: props.textAnchor,
+              transform: props.verticalTransform,
+              x: props.width / 2,
               y: props.offset
-            }, 
+            },
               props.label
             )
           );
         case 'left':
           return (
             React.createElement("text", {
-              strokeWidth: props.strokeWidth.toString(), 
-              textAnchor: props.textAnchor, 
-              transform: props.horizontalTransform, 
-              y: -props.offset, 
+              strokeWidth: props.strokeWidth.toString(),
+              textAnchor: props.textAnchor,
+              transform: props.horizontalTransform,
+              y: -props.offset,
               x: -props.height / 2
-            }, 
+            },
               props.label
             )
           );
         case 'right':
           return (
             React.createElement("text", {
-              strokeWidth: props.strokeWidth.toString(), 
-              textAnchor: props.textAnchor, 
-              transform: props.horizontalTransform, 
-              y: props.offset, 
+              strokeWidth: props.strokeWidth.toString(),
+              textAnchor: props.textAnchor,
+              transform: props.horizontalTransform,
+              y: props.offset,
               x: -props.height / 2
-            }, 
+            },
               props.label
             )
           );
