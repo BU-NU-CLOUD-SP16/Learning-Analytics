@@ -155,6 +155,7 @@ div.masterGraphContainer .content-body {
   top: 12px;
   right: 12px;
   color: #797777;
+  border: #797777 solid 1px;
 }
 .col-md-10 .content-container .all-graph div.graph-container div.legend-container h4.legend {
   background: transparent;

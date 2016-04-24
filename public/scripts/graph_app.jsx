@@ -384,7 +384,7 @@ var BarChart_Time_Complexity = React.createClass({
                       </div>
                     <BarChart
                       data={this.state.barData}
-		      correctIfTrue={true}
+            		      correctIfTrue={true}
                       width={graph_widths}
                       height={graph_heights}
                       fill={'#8a5715'}
@@ -522,7 +522,7 @@ var BarChart_Loop_Count = React.createClass({
                       </div>
                       <BarChart
                         data={this.state.barData}
-			correctIfTrue={true}
+                  			correctIfTrue={true}
                         width={graph_widths}
                         height={graph_heights}
                         fill={'#8a5715'}
@@ -643,7 +643,7 @@ var BarChart_Loop_Percent = React.createClass({
                       </div>
                     <BarChart
                       data={this.state.barData}
-		      correctIfTrue={true}
+            		      correctIfTrue={true}
                       width={graph_widths}
                       height={graph_heights}
                       fill={'#8a5715'}
@@ -769,7 +769,7 @@ var BarChart_DataStruct_Percent = React.createClass({
                       <BarChart
             	          legend={true}
                         data={this.state.barData}
-			correctIfTrue={true}
+			                  correctIfTrue={true}
                         width={graph_widths}
                         height={graph_heights}
                         fill={'#3182bd'}
@@ -1039,33 +1039,26 @@ var F1_BarChart_Size_Metric = React.createClass({
     },
     componentDidMount: function(){
       this.loadLineCountMetricFromServer();
-      //introduces that we will need a pollInterval for the external element
-    //  setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-      /*if(this.state.last_ass != this.props.act_assign){
-        this.loadLineCountMetricFromServer();
-      }*/
-
       var new_width = (graph_widths * 0.9);
       var new_height = (graph_heights * 0.9);
 
+      var pass_true = (this.props.is_correct == 1)?(true):(false);
         return (
           <div className="graph-container col-md-4">
                 <BarChart
                   test_func={this.test_func}
                   data={this.state.barData}
-		  correctIfTrue={true}
+            		  correctIfTrue={pass_true}
                   width={1000}
                   height={490}
                   fill={'#8a5715'}
                   title=''
                   margins={{top: 20, right: 30, bottom: 30, left: 40}}
                 />
-
               {genLegend("Size Range","Number of Submissions")}
-
-               </div>);
+           </div>);
     }
 });
 
@@ -1180,19 +1173,15 @@ var F1_BarChart_Lines_Code = React.createClass({
     //  setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-      /*if(this.state.last_ass != this.props.act_assign){
-        this.loadLineCountMetricFromServer();
-      }*/
-
       var new_width = (graph_widths * 0.9);
       var new_height = (graph_heights * 0.9);
-
+      var pass_true = (this.props.is_correct == 1)?(true):(false);
         return (
           <div className="graph-container col-md-4">
                 <BarChart
                   test_func={this.test_func}
                   data={this.state.barData}
-		  correctIfTrue={true}
+            		  correctIfTrue={pass_true}
                   width={1000}
                   height={490}
                   fill={'#8a5715'}
@@ -1252,7 +1241,7 @@ const L1FilterContainer = React.createClass({
     }
 
     var sub_type = (this.props.correct_sub)?(
-      <h4 style={{color:"rgb(137, 203, 124)"}}>Correct</h4>
+      <h4 style={{color:"rgb(137, 203, 124)"}}>Correct</h4> 
       ):(<h4 style={{color:"rgb(215, 136, 136)"}}>Incorrect</h4>);
 
     return (
