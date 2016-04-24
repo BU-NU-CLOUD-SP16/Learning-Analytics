@@ -384,6 +384,7 @@ var BarChart_Time_Complexity = React.createClass({
                       </div>
                     <BarChart
                       data={this.state.barData}
+		      correctIfTrue={true}
                       width={graph_widths}
                       height={graph_heights}
                       fill={'#8a5715'}
@@ -521,6 +522,7 @@ var BarChart_Loop_Count = React.createClass({
                       </div>
                       <BarChart
                         data={this.state.barData}
+			correctIfTrue={true}
                         width={graph_widths}
                         height={graph_heights}
                         fill={'#8a5715'}
@@ -641,6 +643,7 @@ var BarChart_Loop_Percent = React.createClass({
                       </div>
                     <BarChart
                       data={this.state.barData}
+		      correctIfTrue={true}
                       width={graph_widths}
                       height={graph_heights}
                       fill={'#8a5715'}
@@ -766,6 +769,7 @@ var BarChart_DataStruct_Percent = React.createClass({
                       <BarChart
             	          legend={true}
                         data={this.state.barData}
+			correctIfTrue={true}
                         width={graph_widths}
                         height={graph_heights}
                         fill={'#3182bd'}
@@ -1001,7 +1005,7 @@ var F1_BarChart_Size_Metric = React.createClass({
         {"x": 'Z', "y": 5675}
        ]}
       ];
-      return {barData: barData, xx: -1, yy: -1};
+      return {barData: barData, xx: -1, yy: -1, correctIfTrue: true};
     },loadLineCountMetricFromServer: function(){
       $.ajax({
         url: "/solutions/fromhistogram?lowerbound=1&upperbound=1000&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=size", //"/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
@@ -1051,6 +1055,7 @@ var F1_BarChart_Size_Metric = React.createClass({
                 <BarChart
                   test_func={this.test_func}
                   data={this.state.barData}
+		  correctIfTrue={true}
                   width={1000}
                   height={490}
                   fill={'#8a5715'}
@@ -1187,6 +1192,7 @@ var F1_BarChart_Lines_Code = React.createClass({
                 <BarChart
                   test_func={this.test_func}
                   data={this.state.barData}
+		  correctIfTrue={true}
                   width={1000}
                   height={490}
                   fill={'#8a5715'}
