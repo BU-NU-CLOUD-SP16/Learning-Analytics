@@ -76501,7 +76501,7 @@ var BarChart_Size_Metric = React.createClass({displayName: "BarChart_Size_Metric
     },
     test_func: function(new_xx, new_yy) {
       this.setState({xx: new_xx, yy: new_yy});
-      window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
+    //  window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
     },
     render: function() {
       if(this.state.last_ass != this.props.act_assign){
@@ -76716,6 +76716,9 @@ var F1_BarChart_Lines_Code = React.createClass({displayName: "F1_BarChart_Lines_
             dataType: 'json',
             cache: false,
             success: function(data) {
+
+            //  window.alert(JSON.stringify(data));
+
               json_size = 0;
               //get how many submission/datapoints there are
               while(data[json_size]){
@@ -76726,7 +76729,7 @@ var F1_BarChart_Lines_Code = React.createClass({displayName: "F1_BarChart_Lines_
                   lineArray.push({"x":("student " + data[ii].player_id),"y":data[ii].linecount});
                   active_code_linecount[("student " + data[ii].player_id)] = data[ii].body; //HERE HERE
               }
-              var loaded_barData = lineArray; //[{},{}]//countToBarChart(lineArray, 5);
+              var loaded_barData = lineArray;
 
               var barData = [{
                 "name":"Class A",
@@ -76743,8 +76746,8 @@ var F1_BarChart_Lines_Code = React.createClass({displayName: "F1_BarChart_Lines_
       // this case is when you are clicking a specific student xx & yy take on a new meaning
       else{
         var dialog = document.getElementById('window');
-        setClickedPlayer(new_xx,active_code_size[new_xx]);
-        this.props.setClickedPlayerState(new_xx,active_code_size[new_xx]);
+        setClickedPlayer(new_xx,active_code_linecount[new_xx]);
+        this.props.setClickedPlayerState(new_xx,active_code_linecount[new_xx]);
         dialog.show();
       }
     },
@@ -77513,7 +77516,7 @@ var MasterGraphContainer = React.createClass({displayName: "MasterGraphContainer
 
           React.createElement("dialog", {id: "window"}, 
             React.createElement("button", {id: "exit"}, React.createElement("i", {className: "fa fa-times"})), 
-            React.createElement("h3", null, clicked_player), 
+            React.createElement("h3", null, clicked_player + "'s submission:"), 
             React.createElement("p", null, clicked_player_code)
           ), 
           this.state.activity_window
@@ -77532,6 +77535,7 @@ ReactDOM.render(React.createElement(MasterGraphContainer, null), document.getEle
     document.getElementById('exit').onclick = function() {
         dialog.close();
     };
+
 })();
 
 },{"./trie":714,"react":712,"react-bootstrap":82,"react-d3":373,"react-d3-tooltip":266,"react-dom":556}],714:[function(require,module,exports){

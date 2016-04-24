@@ -43,6 +43,8 @@ div.masterGraphContainer dialog#window h3 {
   color: #0f5999;
 }
 div.masterGraphContainer dialog#window p {
+  max-width: 380px;
+  word-wrap: normal;
   color: #797777;
   font-family: Consolas;
 }
