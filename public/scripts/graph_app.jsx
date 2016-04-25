@@ -420,9 +420,9 @@ var PieChart_Incorrect_Correct = React.createClass({
 
     var colorFunction = function(d) {
       if (d == 0) {
-        return "rgb(137, 203, 124)";
+	return '#89CB7C';
       } else {
-        return "rgb(217, 90, 90)";
+	return '#E65A5A';
       }
     };
 
