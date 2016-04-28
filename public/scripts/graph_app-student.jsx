@@ -3,8 +3,8 @@ var ReactDOM = require('react-dom');
 var rd3 = require('react-d3');
 
 var BarChart = rd3.BarChart;
-var LineChart = rd3.LineChart; 
-var PieChart = rd3.PieChart; 
+var LineChart = rd3.LineChart;
+var PieChart = rd3.PieChart;
 
 var BarChart_Lines_Code = React.createClass({
     getInitialState : function() {
@@ -153,7 +153,7 @@ var BarChart_Comment_Percent = React.createClass({
         return <div className="BarChart_Comment_Percent">
                 <center>
                   <h3>
-                  Comments Percentage 
+                  Comments Percentage
                   </h3>
                 </center>
                 <BarChart
@@ -207,7 +207,7 @@ var BarChart_Attempt_Count = React.createClass({
         return <div className="BarChart_Attempt_Count">
                 <center>
                   <h3>
-		    Number of Attempts 
+		    Number of Attempts
                   </h3>
                 </center>
                 <BarChart
@@ -261,7 +261,7 @@ var BarChart_Loop_Count = React.createClass({
         return <div className="BarChart_Loop_Count">
                 <center>
                   <h3>
-                    NNested Loop Count 
+                    NNested Loop Count
                   </h3>
                 </center>
                 <BarChart
@@ -369,7 +369,7 @@ var BarChart_Loop_Percent = React.createClass({
         return <div className="BarChart_Loop_Percent">
                 <center>
                   <h3>
-                    Loop Count (Percentage of input) 
+                    Loop Count (Percentage of input)
                   </h3>
                 </center>
                 <BarChart
@@ -405,12 +405,12 @@ var LineChart_Class_Rank = React.createClass({
           }
       ];
 
- 
+
     return <div className="LineChart_Class_Rank">
            <center>
              <h3>
-               Class Rank 
-             </h3> 
+               Class Rank
+             </h3>
            </center>
            <LineChart
              data={lineData}
@@ -782,11 +782,6 @@ var MasterGraphContainer = React.createClass({
             <div className="content-container">
               <div className="all-graph">
                   <GraphContainerList/>
-
-
-
-
-
               </div>
             </div>
           </div>

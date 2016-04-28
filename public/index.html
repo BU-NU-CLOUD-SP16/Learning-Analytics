@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="/icon.png">
+    <link rel="shortcut icon" href="/icon_v2.png">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,12 +29,33 @@
 
 
     <link href="/dist/css/custom.css" rel="stylesheet">
-    <link href="/dist/css/custom_index.css" rel="stylesheet">
+<!--    <link href="/dist/css/custom_index.css" rel="stylesheet"> -->
     <script src="http://d3js.org/d3.v3.min.js"  charset="utf-8"></script>
+
+  	<link href="/dist/css/index.css" rel="stylesheet">
+
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="../dist/css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="../bower_components/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
   </head>
       <body role="document">
 
-        <!-- Fixed navbar -->
+        <!-- Fixed navbar
         <nav class="navbar navbar-inverse navbar-fixed-top">
            <div class="container">
              <div class="navbar-header">
@@ -46,7 +67,7 @@
                </button>
                <a class="navbar-brand" href="/index.html">Learning Analytics</a>
              </div>
-             <div id="navbar" class="navbar-collapse collapse">
+                <div id="navbar" class="navbar-collapse collapse">
                <ul class="nav navbar-nav">
                  <li><a href="/index.html">Home</a></li>
                  <li><a href="/pages/about.html">About</a></li>
@@ -54,11 +75,11 @@
                  <li class="dropdown">
                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Views<span class="caret"></span></a>
                    <ul class="dropdown-menu">
-                <!--     <li><a href="#">Action</a></li>
-                     <li><a href="#">Another action</a></li>
-                     <li><a href="#">Something else here</a></li>
-                     <li role="separator" class="divider"></li>
-                     <li class="dropdown-header">User Views</li> -->
+                                           <li><a href="#">Action</a></li>
+                                           <li><a href="#">Another action</a></li>
+                                           <li><a href="#">Something else here</a></li>
+                                           <li role="separator" class="divider"></li>
+                                           <li class="dropdown-header">User Views</li>
                      <li><a href="/pages/teacher.html">Teacher</a></li>
                      <li><a href="/pages/student.html">Student</a></li>
                    </ul>
@@ -66,18 +87,26 @@
                </ul>
              </div>
            </div>
+        </nav> -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="index.html">Learning analytics</a>
+          </div>
         </nav>
 
          <div class="row">
            <div class="container" role="main">
-             <div class="jumbotron">
-               <h1  class="text-center" id="welcome" >Learning Analytics</h1>
-             </div>
+               <h1  class="text-center" id="welcome" style="font-size: 70px;">Learning Analytics</h1>
            </div>
          </div>
 
-         <div class="row">
-
+         <div class="row" id="user-type-select">
             <div id="content"></div>
 
             <div id="user-select"></div>
@@ -85,15 +114,83 @@
             <script src="bundle.js"></script>
          </div>
 
-      <footer class="footer">
-        <div class="container">
-          <p class="text-muted">Boston University EC500 A1</p>
+          <div class="row bottom-container" style="background: white;">
+           <div class="additional-info">
+            <div class="col-md-6">
+             <center>
+               <h1>
+                 Our Mission <i class="fa fa-rocket"></i>
+               </h1>
+               <div id="mission-statement">
+                   <p class="text-left">
+                   &nbsp &nbsp &nbsp &nbsp We are aimed to offer an online service to the academic community. Most assignment turn in portals offer very little beyond whether the submission is correct or incorrect. We want to tailor fit a platform for two different end users: instructors and students.
+                   </p>
+                   <p class="text-left">
+                   &nbsp &nbsp &nbsp &nbsp Students want feedback for their program submissions. On the other hand, teachers are an integral component of Learning Analytics. We want teachers to be able to ultimately gauge where their class is struggling and where they excel.
+                   </p>
+                   <p class="text-left">
+                   &nbsp &nbsp &nbsp &nbsp Ideally, Learning Analytics will be highly integratable with the ability to utilize our application in spaces outside the Learning Analytics web app. In addition, we will supply a highly sleek and user-friendly UI for both types of target users. It is also worth noting that we do not grade these assignments, but rather output a variety of analytic solutions.
+                   </p>
+                   <center>
+                     Inspired by: <img src="mw-logo.png" width="200px" height="40px" style="margin-top: 50px;">
+                   </center>
+               </div>
+             </center>
+            </div>
+            <div class="col-md-6">
+             <center>
+               <h1>
+                 Contact Us <i class="fa fa-file-text-o"></i>
+               </h1>
+               <div id="contact-statement">
+                 <p class="text-left">
+            <!--       I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine
+                   I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine
+                   I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine
+                   I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine
+                   I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine
+                   I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine I am fine
+  -->
+                  &nbsp &nbsp &nbsp &nbsp Here at L.A. we are driven to supply an incredible service; in order for our service to continue being incredible, we need help from users like you to give us your feedback. If you feel a certain part of our application is not easy to maneuver or use, let us know!
+                 </p>
+                 <p class="text-left">
+                   &nbsp &nbsp &nbsp &nbsp We want the help of students and teachers alike, so do not hesistate to email us at feedback@learninganalytics.com. We readily check our inbox, and are excited to introduce new features desired by our incredible community of educators and students.
+                 </p>
+                 <p class="text-left">
+                   &nbsp &nbsp &nbsp &nbsp Learning is different for everyone. Let us enhance your personal learning experience.
+                 </p>
+               </div>
+             </center>
+           </div>
+          </div>
         </div>
-      </footer>
+
+        <footer class="footer">
+              Boston University EC500 A1
+        </footer>
+
 
         <!-- Bootstrap core JavaScript Placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery.min.js"><\/script>')</script>
         <script src="/dist/js/bootstrap.min.js"></script>
+
+        <!-- jQuery -->
+        <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+        <!-- Morris Charts JavaScript -->
+        <script src="../bower_components/raphael/raphael-min.js"></script>
+        <script src="../bower_components/morrisjs/morris.min.js"></script>
+        <script src="../js/morris-data.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="../dist/js/sb-admin-2.js"></script>
+
   </body>
 </html>

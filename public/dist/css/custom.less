@@ -1,0 +1,172 @@
+*{
+  font-family: Quicksand;
+  src: url("/quicksand/Quicksand-Regular.otf") format("opentype");
+}
+
+footer{
+  height: 50px;
+  &.footer a{
+    border: solid orange 1px;
+  }
+  p{
+    margin-top: 15px;
+    text-align: center;
+  }
+
+}
+
+h1#welcome{
+  color: white;
+  text-shadow: 3px 3px 3px rgb(121,119,119);
+  position: relative;
+  margin-top:50px;
+  margin-bottom: 50px;
+}
+
+.row{
+  margin:0px;
+  padding:0px;
+  width: 100%;
+  padding-bottom: 0px;
+  box-shadow: 0px 3px 10px rgb(121,119,119);
+}
+
+#welcome, #user-select {
+    position: relative;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    /* Fade upward */
+    -webkit-animation-name: page_intro; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 2s; /* Chrome, Safari, Opera */
+    -webkit-animation-iteration-count: 1; /* Chrome, Safari, Opera */
+    -webkit-animation-direction: alternate; /* Chrome, Safari, Opera */
+    animation-name: page_intro;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-direction: alternate;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes page_intro {
+    0%   {top:20px;opacity: 0;}
+    100% {top:0px;opacity: 1;}
+}
+/* Standard syntax */
+@keyframes page_intro {
+  0%   {top:20px;opacity: 0;}
+  100% {top:0px;opacity: 1;}
+}
+
+button[type="submit"]{
+  margin-left: 4px;
+}
+
+#assignment_dir{
+  margin-bottom: -15px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  min-width: 100%;/* 260px;*/
+  box-shadow: 3px 3px 10px 3px rgb(144, 144, 144);
+
+  .panel-body{
+    padding: 0px;
+  }
+
+  .panel-heading{
+    h3{
+      /*border-bottom: 4px solid rgb(137, 52, 176); *//* This is how the headers have underlines */
+      -webkit-box-shadow: 0px 6px 3px -3px rgba(0,0,0,0.75);
+      -moz-box-shadow: 0px 6px 3px -3px rgba(0,0,0,0.75);
+      box-shadow: 0px 6px 3px -3px rgba(0,0,0,0.75);
+      font-size: 2.5em;
+      font-weight: bold;
+      /*border: red solid 1px;*/
+      overflow: hidden;
+    }
+  }
+
+  .form-group{
+    width: calc(100% - 50px);
+  }
+
+  input[type="text"]{
+    width: 100%;
+  }
+
+}
+
+.assignment{
+  span{
+    padding-left: 5em;
+  }
+  h3{
+    padding-left: 5px;
+    margin-bottom: -4px;
+  }
+  a {
+    color: #4183c4;
+    text-decoration: none;
+      &:hover{
+        text-decoration: underline;
+      }
+  }
+}
+
+h1, h2, h3, h4 {
+  font-weight: bold;
+  margin: 0 0 15px;
+  padding: 0;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+form.search_container > *{
+  display:inline-block;
+  vertical-align: text-top;
+}
+
+.center {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+.userContainer{
+   border: #c2c2c2 solid 1px;
+   background: #c2c2c2;
+
+   .col-md-4 div{
+     display: inline;
+  }
+}
+
+ul.col-center{
+  padding:0px;
+  margin:0px;
+  /*border: solid orange 10px;*/
+
+  li{
+    display:inline;
+
+    a button{
+      font-size: 60px;
+      margin:20px;
+      display: table-cell;
+    }
+  }
+}
+
+.text-container {
+  width: 100%;
+  clear: both;
+  text-align: center;
+  margin-top: 0px;
+  a{
+    color: grey; /*  color:rgb(137, 52, 176);*/
+  }
+  h3{
+    margin-top: 0px;
+  }
+}

@@ -1,0 +1,68 @@
+var PieChart_Incorrect_Correct = React.createClass({
+getInitialState : function() {
+    var pieData = [
+      {label: 'Correct', value: 55.0},
+      {label: 'Incorrect', value: 45.0}
+    ];
+
+    var colorFunction = function(d) {
+      if (d == 0) {
+        return "rgb(137, 203, 124)";
+      } else {
+        return "rgb(217, 90, 90)";
+      }
+    };
+
+    return {pieData: pieData,
+            colorFunction: colorFunction};
+}, loadSubmissionDataFromServer: function(){
+      $.ajax({
+        url: "/problem/470/metrics/submissions",
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          var loaded_pieData = data;
+          this.setState({pieData: loaded_pieData});
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.loadSubmissionDataFromServer();
+      //introduces that we will need a pollInterval for the external element
+      setInterval(300);
+    },
+
+    render: function() {
+
+        return (<div className="graph-container col-md-4">
+                <div className="graphContainerList">
+                  <div className="pieChart_Incorrect_Correct">
+                    <div className="panel panel-default">
+                      <div className="panel-heading">
+                        <h3>
+                          Submissions
+                        </h3>
+                        <div className="graph-x" onClick={hide}>
+                          <i className="fa fa-times"></i>
+                        </div>
+                      </div>
+			<PieChart
+			  data={this.state.pieData}
+			  width={1000}
+			  height={500}
+			  radius={200}
+			  colors={this.state.colorFunction}
+			  innerRadius={60}
+			  sectorBorderColor="white"
+			  //title="Pie Chart"
+			/>
+                    </div>
+                   </div>
+                 </div>
+               </div>);
+    }
+});

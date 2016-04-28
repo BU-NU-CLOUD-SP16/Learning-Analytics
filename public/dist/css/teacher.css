@@ -1,0 +1,298 @@
+/* 331 lines (pre-less) ->  lines (post-less) */
+div.masterGraphContainer {
+  background: #fcfcfc;
+  /*  border:red solid 30px;*/
+  box-shadow: 0px 3px 10px black;
+  margin: 0 auto;
+  display: table;
+  width: 100%;
+  margin-top: 0px;
+}
+div.masterGraphContainer .content-toolbar {
+  /*height:60px;*/
+  width: 100%;
+  white-space: nowrap;
+}
+div.masterGraphContainer .content-body {
+  height: calc(50vh);
+  display: table;
+}
+.pop_brdr {
+  border: solid 2px red;
+}
+.graphList a {
+  color: #797777;
+}
+.col-md-10,
+.col-md-2 {
+  /*   border-radius: 6px; */
+  min-height: 85vh;
+  padding: 0px;
+}
+.col-md-2 .property-container,
+.col-md-10 .content-container {
+  height: 100vh;
+  width: 100%;
+}
+.graph {
+  height: 60px;
+  padding-top: 20px;
+  overflow: hidden;
+  padding-right: 2px;
+  color: #797777;
+}
+/* graph container */
+.col-md-10 .content-container {
+  overflow: hidden;
+  background: white;
+}
+.col-md-10 .content-container div.assignment_Description {
+  background: #f8f8f8;
+  border-radius: 2px;
+  border: #3277b2 solid 1px;
+  width: 1000px;
+  margin-left: 8px;
+  margin-top: 9px;
+}
+.col-md-10 .content-container div.assignment_Description span {
+  color: #0f5999;
+  font-style: italic;
+}
+.col-md-10 .content-container div.assignment_Description h4 {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 10px;
+  color: black;
+}
+.col-md-10 .content-container div.assignment_Description p {
+  margin-left: 10px;
+}
+.col-md-10 .content-container .all-graph {
+  position: relative;
+}
+.col-md-10 .content-container .all-graph div.graph-container {
+  background: transparent;
+  height: 535px;
+  margin: 10px;
+  width: 1000px;
+  /*box-shadow: 0px 3px 10px rgb(121,119,119);*/
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  margin-left: -7px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default {
+  width: 1000px;
+  color: #797777;
+  border: #3277b2 1px solid;
+  margin-top: 12px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading {
+  background: #3277b2;
+  height: 50px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading > * {
+  display: inline;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading h3 {
+  color: white;
+  margin-top: 2px;
+  width: 950px;
+  magin-left: 20px;
+  white-space: nowrap;
+  position: absolute;
+  text-align: center;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading div {
+  margin-right: -16px;
+  margin-top: -11px;
+  width: 28px;
+  height: 28px;
+  float: right;
+  border-top-right-radius: 4px;
+  background: #0f5999;
+  border-top: #3277b2 solid 1px;
+  border-right: #3277b2 solid 1px;
+  color: black;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading div i {
+  float: right;
+  margin-top: 6px;
+  margin-right: 8px;
+}
+.col-md-10 .content-container .all-graph div.graph-container div.panel.panel-default div.panel-heading div:hover {
+  background: #f8f8f8;
+  color: #797777;
+  border-top: #ededed solid 1px;
+  border-right: #ededed solid 1px;
+}
+/* properties */
+.col-md-2 .property-container {
+  background: #ffffff;
+  overflow-y: scroll;
+  background: #f8f8f8;
+  overflow: scroll;
+  overflow-x: hidden;
+  border-right: #ededed 1px solid;
+}
+.col-md-2 .property-container::-webkit-scrollbar {
+  width: 0px;
+  /* remove scrollbar space */
+  background: transparent;
+  /* optional: just make scrollbar invisible */
+}
+/*override the alternating row background color*/
+.row,
+div.row:nth-of-type(even) {
+  background: transparent;
+  box-shadow: 0px 0px 0px 0px transparent;
+}
+#assignment_dir {
+  box-shadow: 0px 0px 0px 0px transparent;
+  border-bottom: transparent 1px solid;
+  border: transparent solid 0px;
+}
+#assignment_dir .panel-heading {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+#assignment_dir .panel-body form {
+  max-height: 170px;
+}
+.assignmentBox {
+  margin-bottom: 30px;
+}
+.assignmentBox .assignmentList {
+  overflow-y: auto;
+  width: 100%;
+  background: #f8f8f8;
+  border-radius: 0px;
+  border: none;
+  border-bottom: solid 2px #ededed;
+}
+.assignmentBox .assignmentList button {
+  border-radius: 0px;
+}
+.studentList h3 {
+  display: block;
+}
+label {
+  display: block;
+  margin: 0;
+  padding-left: 15px;
+  text-indent: -15px;
+  font-size: 15px;
+}
+label input[type=checkbox] {
+  position: relative;
+  vertical-align: middle;
+  bottom: 1px;
+  border: solid green 1px;
+}
+input {
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+  *overflow: hidden;
+}
+input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-left: 10px;
+}
+.graphForm input[type="checkbox"] {
+  margin-right: 18px;
+  width: 22px;
+  height: 22px;
+}
+.assignment button {
+  padding-top: 0px;
+  height: 60px;
+  width: 100%;
+  padding-left: 3px;
+}
+.assignment button h5 {
+  margin-top: -5px;
+  margin-bottom: 8px;
+  white-space: normal;
+  padding-left: 0px;
+  align: left;
+  margin-left: 0px;
+  text-align: left;
+}
+.assignment span {
+  padding-left: 5em;
+}
+.studentList {
+  max-height: 170px;
+  border-bottom: solid 2px #ededed;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.panel-title {
+  color: #3277b2;
+}
+.bar_chart {
+  margin-left: -15px;
+}
+.bar_chart h3 {
+  margin-top: 5px;
+}
+div.graph-container.col-md-4 {
+  /*border: red solid 3px;*/
+  background: #d4d4d4;
+  padding-top: 5px;
+}
+nav.navbar {
+  border-bottom: solid 1px #ededed;
+  box-shadow: none;
+}
+nav.navbar div.sidebar {
+  margin: 0px;
+  margin-top: 2px;
+}
+ul.nav li {
+  background: #f8f8f8;
+}
+nav.navbar-static-top {
+  background: #f8f8f8;
+}
+/* Left box where the selected project will have basic info displayed */
+div.description-box {
+  padding: 15px;
+}
+div.description-box h1 {
+  color: #3277b2;
+  text-decoration: underline;
+}
+div.description-box p {
+  color: #797777;
+}
+div#wrapper > * {
+  background: #f8f8f8;
+}
+.assignment,
+.student {
+  height: 3em;
+  background: #f8f8f8;
+  overflow: hidden;
+  border-bottom: solid 1px #ededed;
+}
+div.navbar-default.sidebar > * {
+  box-shadow: 0px 0px 0px transparent;
+  /*border: red solid 1px;*/
+}
+div.sidebar-search {
+  background: #f8f8f8;
+}
+div.custom-search-form span.input-group-btn {
+  top: -1px;
+  margin-top: -1px;
+}
+/*
+div.activity_Panel{
+  border:solid 100px green;
+  height:10px;
+  width:10px;
+}*/
