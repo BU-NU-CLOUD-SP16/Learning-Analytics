@@ -12,7 +12,58 @@ var BarChart = rd3.BarChart;
 var PieChart = rd3.PieChart;
 var PieTooltip = Tooltip.PieTooltip;
 var SimpleTooltipStyle = require('react-d3-tooltip').SimpleTooltip;
-var Trie = require('./trie').Trie; 
+var Trie = require('./trie').Trie;
+
+//generate custom legend for a graph
+genLegend = function(xxlabel, yylabel){
+//Size Range
+//Number of Submissions
+  return (<div className="legend-container">
+            <h4 className="legend">Legend:</h4>
+            <div className="axis-label-container">
+              <h5>X: {xxlabel}</h5>
+              <h5>Y: {yylabel}</h5>
+            </div>
+          </div>);
+}
+
+// binning code
+function countToBarChart(lineArray, binWidth){
+    lineArray.sort(function(a, b){
+        return a -b;
+    });
+    var maximum = lineArray[lineArray.length - 1];
+
+    // Do the histogram in increments of 50
+    var blockSize = binWidth * 5
+    var upperBound = (Math.floor(maximum / blockSize) + 1)*blockSize;
+    var lowerBound = 0;
+
+    //var binWidth = 10;
+    var numOfBins = (upperBound - lowerBound) / binWidth;
+
+    var histogram = Array.apply(null, Array(numOfBins)).map(Number.prototype.valueOf, 0);
+
+    var binIndex = 0;
+    for(var i = 0; i < lineArray.length; i++){
+        // Check to see if the code length is too big for the bin
+        while(lineArray[i] >= (binIndex + 1)*binWidth) binIndex += 1;
+        histogram[binIndex] += 1;
+    }
+
+    // Create associative array to send back
+    var barData = [];
+    for(binIndex = 0; binIndex < numOfBins; binIndex++){
+        var lowerLabel = binWidth * binIndex;
+        var upperLabel = lowerLabel + (binWidth - 1);
+        if (binWidth > 1)
+            var label = lowerLabel.toString() + "-" + upperLabel.toString();
+        else
+            var label = lowerLabel.toString()
+        barData.push({"x": label, "y": histogram[binIndex]});
+    }
+    return barData;
+}
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -53,6 +104,14 @@ var graph_widths = 1000; //250; //500;  // 1000;
 var graph_heights = 480; //123; //245; // 490;
 var graph_R = Math.round(graph_heights/3);
 var graph_r = 20;
+var clicked_player = "";
+var clicked_player_code = "";
+
+var setClickedPlayer = function(new_player, new_code){
+  //window.alert(new_player + " and " + new_code);
+  clicked_player = new_player;
+  clicked_player_code = new_code;
+}
 
 // test functionality for couting
 var yell = function(yelling_what = ""){
@@ -332,6 +391,7 @@ var BarChart_Time_Complexity = React.createClass({
                       </div>
                     <BarChart
                       data={this.state.barData}
+            		      correctIfTrue={true}
                       width={graph_widths}
                       height={graph_heights}
                       fill={'#8a5715'}
@@ -349,7 +409,8 @@ var PieChart_Incorrect_Correct = React.createClass({
     test_func: function(new_label, new_value) {
       this.setState({myLabel: new_label, myValue: new_value});
       var is_correct = (new_value == "correct")?(true):(false); // true or false //is_correct={is_correct}
-      this.props.setActiveGraph(<L1FilterContainer correct_sub={is_correct}/>);
+      this.props.setActiveGraph(<L1FilterContainer setClickedPlayerState={this.props.setClickedPlayerState} correct_sub={is_correct} act_assign={this.props.act_assign}/>);
+      this.props.setFilteredMode(1); //indicating that you are transitioning to the L1 mode
     },
     getInitialState : function() {
     var pieData = [
@@ -359,9 +420,9 @@ var PieChart_Incorrect_Correct = React.createClass({
 
     var colorFunction = function(d) {
       if (d == 0) {
-        return "rgb(137, 203, 124)";
+	return '#89CB7C';
       } else {
-        return "rgb(217, 90, 90)";
+	return '#E65A5A';
       }
     };
 
@@ -404,7 +465,7 @@ var PieChart_Incorrect_Correct = React.createClass({
                           </h3>
                         </div>
                   			<PieChart
-					  test_func={this.test_func}
+              					  test_func={this.test_func}
                   			  data={this.state.pieData}
                   			  width={graph_widths}
                   			  height={graph_heights}
@@ -468,6 +529,7 @@ var BarChart_Loop_Count = React.createClass({
                       </div>
                       <BarChart
                         data={this.state.barData}
+                  			correctIfTrue={true}
                         width={graph_widths}
                         height={graph_heights}
                         fill={'#8a5715'}
@@ -588,6 +650,7 @@ var BarChart_Loop_Percent = React.createClass({
                       </div>
                     <BarChart
                       data={this.state.barData}
+            		      correctIfTrue={true}
                       width={graph_widths}
                       height={graph_heights}
                       fill={'#8a5715'}
@@ -713,6 +776,7 @@ var BarChart_DataStruct_Percent = React.createClass({
                       <BarChart
             	          legend={true}
                         data={this.state.barData}
+			                  correctIfTrue={true}
                         width={graph_widths}
                         height={graph_heights}
                         fill={'#3182bd'}
@@ -805,7 +869,7 @@ var BarChart_Size_Metric = React.createClass({
     },
     test_func: function(new_xx, new_yy) {
       this.setState({xx: new_xx, yy: new_yy});
-      window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
+    //  window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
     },
     render: function() {
       if(this.state.last_ass != this.props.act_assign){
@@ -844,31 +908,86 @@ var BarChart_Size_Metric = React.createClass({
 
 /****************** Chart Implementation End ******************/
 
+var strToUpperLower = function(clickedRange){
+  var length = clickedRange.length;
+  var whereHyph = clickedRange.indexOf("-");
+  var lower = function(){
+    temp = "";
+    for(var ii = 0; ii < whereHyph; ii++){
+      temp += clickedRange[ii];
+    }
+    return temp;
+  };
+  var higher = function(){
+    temp = "";
+    for(var ii = whereHyph + 1; ii < length; ii++){
+      temp += clickedRange[ii];
+    }
+    return temp;
+  };
+
+  var low = lower();
+  var high = higher();
+
+  couple = {"lowBound": low, "highBound": high};
+  //window.alert(JSON.stringify(couple));
+  return couple;
+}
+
 /** Filtered Graphs Start**/
 
-var F1_BarChart_Lines_Code = React.createClass({
+var active_code_size = {};
+var F1_BarChart_Size_Metric = React.createClass({
+    test_func: function(new_xx, new_yy) {
+      this.setState({xx: new_xx, yy: new_yy}); // This purpose is not clear yet
+      if(new_xx.indexOf("student") == -1){
+        var pair = strToUpperLower(new_xx);
+        //pair.lowBound pair.highBound
+          $.ajax({
+            url: "/solutions/fromhistogram?lowerbound=" + pair.lowBound + "&upperbound=" + pair.highBound + "&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=size",
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              json_size = 0;
+              //get how many submission/datapoints there are
+              while(data[json_size]){
+                json_size++;
+              }
+              var lineArray = [];
+              for(var ii = 0; ii < json_size; ii++){
+                  lineArray.push({"x":("student " + data[ii].player_id),"y":data[ii].size});
+                  active_code_size[("student " + data[ii].player_id)] = data[ii].body; //HERE HERE
+              }
+              var loaded_barData = lineArray; //[{},{}]//countToBarChart(lineArray, 5);
+
+              var barData = [{
+              	"name":"Class A",
+              	"values":loaded_barData}
+              ];
+
+              this.setState({barData: barData});
+              //window.alert(barData);
+            }.bind(this),
+            // in the case ajax runs into an error
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+      }
+      // this case is when you are clicking a specific student xx & yy take on a new meaning
+      else{
+        //window.alert(new_xx + "'s solution: " + '\n' + '\n' + active_code_size[new_xx]);
+        var dialog = document.getElementById('window');
+        setClickedPlayer(new_xx,active_code_size[new_xx]);
+        this.props.setClickedPlayerState(new_xx,active_code_size[new_xx]);
+        dialog.show();
+      }
+
+    },
     getInitialState : function() {
-    	var chartSeries = [
-    	      {
-    	        field: 'y',
-    	        name: 'Submissions.Lines of Code'
-    	      }
-    	    ];
-
-    	var x = function(d) {
-    	      return d.x;
-    	    };
-
-      var temp = {
-                color: 'black',
-                fontWeight: 'bold',
-                marginBottom: '5px'
-              };
-
-    	var xScale = 'ordinal';
-    	var yTicks = [10, "c"];
-
-      var barData = [
+      var barData = [{
+          "name":"Class A",
+          "values":[
         {"x": 'A', "y": 245},
         {"x": 'B', "y": 543},
         {"x": 'C', "y": 1093},
@@ -894,21 +1013,167 @@ var F1_BarChart_Lines_Code = React.createClass({
         {"x": 'X', "y": 232},
         {"x": 'Y', "y": 4345},
         {"x": 'Z', "y": 5675}
+       ]}
       ];
-      return {barData: barData,
-              series: chartSeries,
-              x: x,
-              xScale: xScale,
-              yTicks: yTicks,
-              last_assign:"0",};
+      return {barData: barData, xx: -1, yy: -1, correctIfTrue: true};
     },loadLineCountMetricFromServer: function(){
       $.ajax({
-        url: "/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        url: "/solutions/fromhistogram?lowerbound=1&upperbound=1000&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=size", //"/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
         dataType: 'json',
         cache: false,
         success: function(data) {
-      	  var loaded_barData = data;
-          this.setState({barData: loaded_barData});
+          json_size = 0;
+          //get how many submission/datapoints there are
+          while(data[json_size]){
+            json_size++;
+          }
+          var lineArray = [];
+          for(var ii = 0; ii < json_size; ii++){
+              lineArray.push(data[ii].size);
+          }
+          var loaded_barData = countToBarChart(lineArray, 5);
+
+          var barData = [{
+          	"name":"Class A",
+          	"values":loaded_barData}
+          ];
+
+          this.setState({barData: barData});
+          //window.alert(barData);
+        }.bind(this),
+        // in the case ajax runs into an error
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });
+    },
+    componentDidMount: function(){
+      this.loadLineCountMetricFromServer();
+    },
+    render: function() {
+      var new_width = (graph_widths * 0.9);
+      var new_height = (graph_heights * 0.9);
+
+      var pass_true = (this.props.is_correct == 1)?(true):(false);
+        return (
+          <div className="graph-container col-md-4">
+                <BarChart
+                  test_func={this.test_func}
+                  data={this.state.barData}
+            		  correctIfTrue={pass_true}
+                  width={1000}
+                  height={490}
+                  fill={'#8a5715'}
+                  title=''
+                  margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                />
+              {genLegend("Size Range","Number of Submissions")}
+           </div>);
+    }
+});
+
+var active_code_linecount = {};
+var F1_BarChart_Lines_Code = React.createClass({
+    test_func: function(new_xx, new_yy) {
+      this.setState({xx: new_xx, yy: new_yy}); // This purpose is not clear yet
+      if(new_xx.indexOf("student") == -1){
+        var pair = strToUpperLower(new_xx);
+        //pair.lowBound pair.highBound
+          $.ajax({
+            url: "/solutions/fromhistogram?lowerbound=" + pair.lowBound + "&upperbound=" + pair.highBound + "&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=linecount",
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+
+            //  window.alert(JSON.stringify(data));
+
+              json_size = 0;
+              //get how many submission/datapoints there are
+              while(data[json_size]){
+                json_size++;
+              }
+              var lineArray = [];
+              for(var ii = 0; ii < json_size; ii++){
+                  lineArray.push({"x":("student " + data[ii].player_id),"y":data[ii].linecount});
+                  active_code_linecount[("student " + data[ii].player_id)] = data[ii].body; //HERE HERE
+              }
+              var loaded_barData = lineArray;
+
+              var barData = [{
+                "name":"Class A",
+                "values":loaded_barData}
+              ];
+              this.setState({barData: barData});
+            }.bind(this),
+            // in the case ajax runs into an error
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+      }
+      // this case is when you are clicking a specific student xx & yy take on a new meaning
+      else{
+        var dialog = document.getElementById('window');
+        setClickedPlayer(new_xx,active_code_linecount[new_xx]);
+        this.props.setClickedPlayerState(new_xx,active_code_linecount[new_xx]);
+        dialog.show();
+      }
+    },
+    getInitialState : function() {
+      var barData = [{
+          "name":"Class A",
+          "values":[
+        {"x": 'A', "y": 245},
+        {"x": 'B', "y": 543},
+        {"x": 'C', "y": 1093},
+        {"x": 'D', "y": 5643},
+        {"x": 'E', "y": 37},
+        {"x": 'F', "y": 7854},
+        {"x": 'G', "y": 645},
+        {"x": 'H', "y": 2443},
+        {"x": 'J', "y": 5544},
+        {"x": 'K', "y": 769},
+        {"x": 'L', "y": 343},
+        {"x": 'M', "y": 4433},
+        {"x": 'N', "y": 354},
+        {"x": 'O', "y": 3654},
+        {"x": 'P', "y": 788},
+        {"x": 'Q', "y": 667},
+        {"x": 'R', "y": 6587},
+        {"x": 'S', "y": 665},
+        {"x": 'T', "y": 2343},
+        {"x": 'U', "y": 45},
+        {"x": 'V', "y": 6645},
+        {"x": 'W', "y": 9786},
+        {"x": 'X', "y": 232},
+        {"x": 'Y', "y": 4345},
+        {"x": 'Z', "y": 5675}
+       ]}
+      ];
+      return {barData: barData, xx: -1, yy: -1};
+    },loadLineCountMetricFromServer: function(){
+      $.ajax({
+        url: "/solutions/fromhistogram?lowerbound=1&upperbound=1000&problemid=" + this.props.act_assign + "&correct=" + this.props.is_correct + "&submetric=linecount", //"/problem/" + this.props.act_assign + "/metrics/linecount", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          json_size = 0;
+          //get how many submission/datapoints there are
+          while(data[json_size]){
+            json_size++;
+          }
+          var lineArray = [];
+          for(var ii = 0; ii < json_size; ii++){
+              lineArray.push(data[ii].linecount);
+          }
+          var loaded_barData = countToBarChart(lineArray, 5);
+
+          var barData = [{
+          	"name":"Class A",
+          	"values":loaded_barData}
+          ];
+
+          this.setState({barData: barData});
           //window.alert(barData);
         }.bind(this),
         // in the case ajax runs into an error
@@ -923,139 +1188,30 @@ var F1_BarChart_Lines_Code = React.createClass({
     //  setInterval(this.loadSizeMetricFromServer);
     },
     render: function() {
-      if(this.state.last_ass != this.props.act_assign){
-        this.loadLineCountMetricFromServer();
-      }
-
       var new_width = (graph_widths * 0.9);
       var new_height = (graph_heights * 0.9);
-
+      var pass_true = (this.props.is_correct == 1)?(true):(false);
         return (
           <div className="graph-container col-md-4">
-                  		<BarTooltip
-                        data={this.state.barData}
-                  		  legend={false}
-                        width={new_width}
-                        height={new_height}
-                        fill={'#3182bd'}
-                        title=''
-                  		  chartSeries = {this.state.series}
-                        x= {this.state.x}
-            	          xScale= {this.state.xScale}
-                        yTicks= {this.state.yTicks}
-                        margins={{top: 20, right: 30, bottom: 30, left: 40}}>
-                    		<SimpleTooltipStyle tooltip_title={this.state.temp}/>
-                    	</BarTooltip>
-               </div>);
+                <BarChart
+                  test_func={this.test_func}
+                  data={this.state.barData}
+            		  correctIfTrue={pass_true}
+                  width={1000}
+                  height={490}
+                  fill={'#8a5715'}
+                  title=''
+                  margins={{top: 20, right: 30, bottom: 30, left: 40}}
+                />
+              {genLegend("Line Count Range","Number of Submissions")}
+           </div>);
+
     }
 });
 
-var F1_BarChart_Size_Metric = React.createClass({
-    getInitialState : function() {
-    	var chartSeries = [
-    	      {
-    	        field: 'y',
-    	        name: 'Submissions.Lines of Code'
-    	      }
-    	    ];
 
-    	var x = function(d) {
-    	      return d.x;
-    	    };
 
-      var temp = {
-                color: 'black',
-                fontWeight: 'bold',
-                marginBottom: '5px'
-              };
 
-    	var xScale = 'ordinal';
-    	var yTicks = [10, "c"];
-
-      var barData = [
-        {"x": 'A', "y": 2345},
-        {"x": 'B', "y": 5463},
-        {"x": 'C', "y": 10293},
-        {"x": 'D', "y": 5643},
-        {"x": 'E', "y": 3657},
-        {"x": 'F', "y": 7854},
-        {"x": 'G', "y": 6845},
-        {"x": 'H', "y": 2435},
-        {"x": 'I', "y": 1243},
-        {"x": 'J', "y": 5544},
-        {"x": 'K', "y": 7869},
-        {"x": 'L', "y": 3343},
-        {"x": 'M', "y": 4433},
-        {"x": 'N', "y": 3354},
-        {"x": 'O', "y": 3654},
-        {"x": 'P', "y": 7887},
-        {"x": 'Q', "y": 6657},
-        {"x": 'R', "y": 6587},
-        {"x": 'S', "y": 6645},
-        {"x": 'T', "y": 2343},
-        {"x": 'U', "y": 4565},
-        {"x": 'V', "y": 6645},
-        {"x": 'W', "y": 9786},
-        {"x": 'X', "y": 2302},
-        {"x": 'Y', "y": 4345},
-        {"x": 'Z', "y": 5675}
-      ];
-      return {barData: barData,
-              series: chartSeries,
-              x: x,
-              xScale: xScale,
-              yTicks: yTicks,
-              last_assign:"0",};
-    },loadSizeMetricFromServer: function(){
-      $.ajax({
-        url: "/problem/" + this.props.act_assign + "/metrics/size", //"/problem/" + selected_id + "/linecount",    //selected_id = 470;
-        dataType: 'json',
-        cache: false,
-        success: function(data) {
-      	  var loaded_barData = data;
-          this.setState({barData: loaded_barData});
-          //window.alert(barData);
-        }.bind(this),
-        // in the case ajax runs into an error
-        error: function(xhr, status, err) {
-          console.error(this.props.url, status, err.toString());
-        }.bind(this)
-      });
-    },
-    componentDidMount: function(){
-      this.loadSizeMetricFromServer();
-      //introduces that we will need a pollInterval for the external element
-    //  setInterval(this.loadSizeMetricFromServer);
-    },
-    test_func: function(new_xx, new_yy) {
-      this.setState({xx: new_xx, yy: new_yy});
-      window.alert("last New_xx = " + new_xx + " last New_yy = " + new_yy);
-    },
-    render: function() {
-      if(this.state.last_ass != this.props.act_assign){
-        this.loadSizeMetricFromServer();
-      }
-      var new_width = (graph_widths * 0.9);
-      var new_height = (graph_heights * 0.9);
-        return (
-          <div className="graph-container col-md-4">
-                  		<BarTooltip
-                        data={this.state.barData}
-                  		  legend={false}
-                        width={new_width}
-                        height={new_height}
-                        fill={'#3182bd'}
-                        title=''
-                  		  chartSeries = {this.state.series}
-                        x= {this.state.x}
-            	          xScale= {this.state.xScale}
-                        yTicks= {this.state.yTicks}
-                        margins={{top: 20, right: 30, bottom: 30, left: 40}}>
-                    		<SimpleTooltipStyle tooltip_title={this.state.temp}/>
-                    	</BarTooltip>
-               </div>);
-    }
-});
 
 
 
@@ -1078,8 +1234,8 @@ const L1FilterContainer = React.createClass({
   },
 
   render() {
-    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text","sub_graph":(<F1_BarChart_Size_Metric/>)},
-    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify","sub_graph":(<F1_BarChart_Lines_Code/>)}];
+    var metrics = [{"innerHTMLs":"Size Metric","iconTYPEs":"file-text","sub_graph":(<F1_BarChart_Size_Metric act_assign={this.props.act_assign} is_correct={this.props.correct_sub} setClickedPlayerState={this.props.setClickedPlayerState}/>)},
+    {"innerHTMLs":"Number of Lines","iconTYPEs":"align-justify","sub_graph":(<F1_BarChart_Lines_Code act_assign={this.props.act_assign} is_correct={this.props.correct_sub} setClickedPlayerState={this.props.setClickedPlayerState}/>)}];
   //  {"innerHTMLs":"Attempts Until Correct","iconTYPEs":"align-justify"},
   //  {"innerHTMLs":"Space Complexity","iconTYPEs":"database"},
   //  {"innerHTMLs":"Time Complexity","iconTYPEs":"clock-o"},
@@ -1102,7 +1258,6 @@ const L1FilterContainer = React.createClass({
     var sub_type = (this.props.correct_sub)?(
       <h4 style={{color:"rgb(137, 203, 124)"}}>Correct</h4>
       ):(<h4 style={{color:"rgb(215, 136, 136)"}}>Incorrect</h4>);
-
     return (
       <div className="l1FilterContainer">
         {sub_type}
@@ -1372,7 +1527,9 @@ var Activity_Panel = React.createClass({
     // ensure the graph is up to date
     var ActiveGraph = React.cloneElement(this.props.active_graph,
       {act_assign:this.props.active_assignment.id,
-        setActiveGraph:this.props.setActiveGraph},
+        setActiveGraph:this.props.setActiveGraph,
+        setFilteredMode:this.props.setFilteredMode,
+        setClickedPlayerState:this.props.setClickedPlayerState},
       null);
 
     return (
@@ -1547,14 +1704,15 @@ var MasterGraphContainer = React.createClass({
             description: "Pick an assignment and then a graph to see your learning analytics!",
             active_graph: null,
             active_assignment:{
-                                title: "Your Active Assignment Will Appear Here",
-                                description: "The assignment description will appear here.",
+                                title: "Stuff the Board",
+                                description: "You have a stack of tiles to put onto an array-like playing board. Each tile has a number (always an integer), and the board varies in size (you are given dimensions nRows and nCols). You need to put the high-value tiles on the table in any order.",
                                 id: "556",
                               },
-            submission_num: "0",
-            //forward_stack: new Stack(),
-            //backward_stack: new Stack(),
-            activity_window: <Activity_Panel/>
+            submission_num: "652",
+            activity_window: <Activity_Panel/>,
+            filtered_mode: 0, //indicates if the user has drilled down, if so, they cannot select a different assignment
+            player:"",
+            code:""
           };
   },
   componentDidMount: function(){
@@ -1566,23 +1724,52 @@ var MasterGraphContainer = React.createClass({
                                     active_assignment={this.state.active_assignment}
                                     active_graph={first_graph}
                                     setActiveGraph={this.setActiveGraph}
-                                    sub_count={"0"}
+                                    sub_count={this.state.submission_num}
+                                    setFilteredMode={this.setFilteredMode}
+                                    setClickedPlayerState={this.setClickedPlayerState}
                                    />
     });
   },
   clickedBack: function(){
     if(global.backward_stack.size() > 0){
-      global.forward_stack.push(this.state.activity_window);//old_window);
-      this.setState({activity_window: global.backward_stack.pop()});
+      global.forward_stack.push(this.state.activity_window);
     }
-    // yell("clicked back");
+    //var new_filter_mode = (this.state.filtered_mode != 0)?(0):(1);
+    var new_filter_mode;
+    var new_active_window;
+    var new_act_graph;
+    // if you are in the filtered view, you will need to pop twice
+    if(this.state.filtered_mode != 0){
+        new_filter_mode = 0;
+        if(global.backward_stack.size() > 1)
+          global.backward_stack.pop();
+        new_active_window = global.backward_stack.pop();
+        new_act_graph = (<PieChart_Incorrect_Correct
+                          act_assign={this.state.active_assignment.id}
+                          setActiveGraph={this.setActiveGraph}
+                          setFilteredMode={this.setFilteredMode}
+                          setClickedPlayerState={this.setClickedPlayerState}
+                        />);
+    }
+    else{
+        new_active_window = global.backward_stack.pop();
+        new_act_graph = this.state.active_graph;
+    }
+    this.setState({activity_window: new_active_window, filtered_mode: new_filter_mode, active_graph:new_act_graph});
   },
   clickedForward: function(){
     if(global.forward_stack.size() > 0){
-      global.backward_stack.push(this.state.activity_window); //old_window);
+      global.backward_stack.push(this.state.activity_window);
       this.setState({activity_window: global.forward_stack.pop()});
     }
-    // yell("clicked forward");
+  },
+  setFilteredMode: function(new_mode){
+    //window.alert("filter set");
+    this.setState({filtered_mode: new_mode});
+  },
+  setClickedPlayerState:function(player,code){
+    this.setState({player:player,code:code});
+    //window.alert("The master has " + player + " " + code);
   },
   setActiveGraph: function(new_graph = null){
     var new_active_window = (<Activity_Panel
@@ -1590,51 +1777,61 @@ var MasterGraphContainer = React.createClass({
                               active_graph={new_graph}
                               setActiveGraph={this.setActiveGraph}
                               sub_count={this.state.submission_num}
+                              setFilteredMode={this.setFilteredMode}
+                              setClickedPlayerState={this.setClickedPlayerState}
                              />);
     this.setState({active_graph: new_graph,
-                  activity_window: new_active_window
+                  activity_window: new_active_window,
+                  filtered_mode: 0
     });
     //global.backward_stack.push(new_active_window);
     global.backward_stack.push(this.state.activity_window);
   },
   setActiveAssignment: function(new_title = "Scoring for Oriented Dominoes", new_description = "The assignment description has been changed", new_id = "470"){
-    var new_assignment = {
-                          title: new_title,
-                          description: new_description,
-                          id: new_id,
-    }
+    // The user can only select a different graph if they are not drilled down
+    if(this.state.filtered_mode == 0){
+      var new_assignment = {
+                            title: new_title,
+                            description: new_description,
+                            id: new_id,
+      }
 
-    global.backward_stack.push(this.state.activity_window);
+      global.backward_stack.push(this.state.activity_window);
 
-    $.ajax({
-      url: "/problem/" + new_id + "/student_submissions",
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        var the_count = JSON.stringify(data[0].count);
+      $.ajax({
+        url: "/problem/" + new_id + "/student_submissions",
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          var the_count = JSON.stringify(data[0].count);
 
-        var new_active_window = (<Activity_Panel
-                                  active_assignment={new_assignment}
-                                  active_graph={this.state.active_graph}
-                                  setActiveGraph={this.setActiveGraph}
-                                  sub_count={the_count}
-                                 />);
+          var new_active_window = (<Activity_Panel
+                                    active_assignment={new_assignment}
+                                    active_graph={this.state.active_graph}
+                                    setActiveGraph={this.setActiveGraph}
+                                    sub_count={the_count}
+                                    setFilteredMode={this.setFilteredMode}
+                                    setClickedPlayerState={this.setClickedPlayerState}
+                                   />);
+//
 
-        this.setState({active_assignment: new_assignment,
-          activity_window: new_active_window,
-          submission_num: the_count
-        });
+          this.setState({active_assignment: new_assignment,
+            activity_window: new_active_window,
+            submission_num: the_count
+          });
       }.bind(this),
       // in the case ajax runs into an error
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+   }
+   // In the case that you are drilled down in some capacity
+   else{
+     window.alert("Cannot select different assignment while drilling down. You can however select a different graph from the dropdown.");
+   }
   },
   render:function(){
-    //yell("backstack size: " + global.backward_stack.size() + " frontstack size: " + global.forward_stack.size());
-    //var Activity_Window = <Activity_Panel active_assignment={this.state.active_assignment} active_graph={this.state.active_graph}/>;
-    // .bind(this,Activity_Window) <- if you want to pass a parameter
     return (
       <div className="masterGraphContainer">
         <div className="content-toolbar">
@@ -1684,13 +1881,27 @@ var MasterGraphContainer = React.createClass({
               </div>
             </div>
           </div>
+
+          <dialog id="window">
+            <button id="exit"><i className="fa fa-times"></i></button>
+            <h3>{clicked_player + "'s submission:"}</h3>
+            <p>{clicked_player_code}</p>
+          </dialog>
           {this.state.activity_window}
         </div>
       </div>
     );
   }
-}); // {Activity_Window}
+});
 
 /****************** Main End ******************/
 
 ReactDOM.render(<MasterGraphContainer/>, document.getElementById('content'));
+
+(function() {
+    var dialog = document.getElementById('window');
+    document.getElementById('exit').onclick = function() {
+        dialog.close();
+    };
+
+})();

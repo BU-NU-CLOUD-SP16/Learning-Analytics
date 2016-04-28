@@ -1,0 +1,255 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/4.1.1/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'react-popup',
+1 verbose cli   '--save' ]
+2 info using npm@2.14.4
+3 info using node@v4.1.1
+4 verbose install initial load of /Users/nick102795/Desktop/Learning-Analytics/package.json
+5 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/body-parser/package.json
+6 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/browserify/package.json
+7 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/chai/package.json
+8 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/express/package.json
+9 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/gulp/package.json
+10 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/gulp-less/package.json
+11 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/less/package.json
+12 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/mysql/package.json
+13 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react/package.json
+14 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-bootstrap/package.json
+15 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-d3/package.json
+16 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-d3-tooltip/package.json
+17 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-dom/package.json
+18 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popout/package.json
+19 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/reactify/package.json
+20 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/vinyl-source-stream/package.json
+21 verbose installManyTop reading scoped package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/yati/package.json
+22 info package.json react-d3-tooltip@1.4.4 license should be a valid SPDX license expression
+23 verbose readDependencies loading dependencies from /Users/nick102795/Desktop/Learning-Analytics/package.json
+24 silly cache add args [ 'react-popup', null ]
+25 verbose cache add spec react-popup
+26 silly cache add parsed spec Result {
+26 silly cache add   raw: 'react-popup',
+26 silly cache add   scope: null,
+26 silly cache add   name: 'react-popup',
+26 silly cache add   rawSpec: '',
+26 silly cache add   spec: '*',
+26 silly cache add   type: 'range' }
+27 silly addNamed react-popup@*
+28 verbose addNamed "*" is a valid semver range for react-popup
+29 silly addNameRange { name: 'react-popup', range: '*', hasData: false }
+30 silly mapToRegistry name react-popup
+31 silly mapToRegistry using default registry
+32 silly mapToRegistry registry https://registry.npmjs.org/
+33 silly mapToRegistry uri https://registry.npmjs.org/react-popup
+34 verbose addNameRange registry:https://registry.npmjs.org/react-popup not in flight; fetching
+35 verbose request uri https://registry.npmjs.org/react-popup
+36 verbose request no auth needed
+37 info attempt registry request try #1 at 10:18:47 AM
+38 verbose request id ce77d4a8331fa8d9
+39 http request GET https://registry.npmjs.org/react-popup
+40 http 200 https://registry.npmjs.org/react-popup
+41 silly get cb [ 200,
+41 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+41 silly get     etag: '"CK8Y1KIA28YZBX9RIGGPYCE1B"',
+41 silly get     'content-type': 'application/json',
+41 silly get     'content-encoding': 'gzip',
+41 silly get     'cache-control': 'max-age=300',
+41 silly get     'content-length': '5029',
+41 silly get     'accept-ranges': 'bytes',
+41 silly get     date: 'Sun, 24 Apr 2016 14:18:47 GMT',
+41 silly get     via: '1.1 varnish',
+41 silly get     age: '0',
+41 silly get     connection: 'keep-alive',
+41 silly get     'x-served-by': 'cache-atl6231-ATL',
+41 silly get     'x-cache': 'MISS',
+41 silly get     'x-cache-hits': '0',
+41 silly get     'x-timer': 'S1461507527.575621,VS0,VE90',
+41 silly get     vary: 'Accept-Encoding' } ]
+42 verbose get saving react-popup to /Users/nick102795/.npm/registry.npmjs.org/react-popup/.cache.json
+43 silly addNameRange number 2 { name: 'react-popup', range: '*', hasData: true }
+44 silly addNameRange versions [ 'react-popup',
+44 silly addNameRange   [ '0.1.0',
+44 silly addNameRange     '0.1.1',
+44 silly addNameRange     '0.2.0',
+44 silly addNameRange     '0.2.1',
+44 silly addNameRange     '0.2.2',
+44 silly addNameRange     '0.2.3',
+44 silly addNameRange     '0.3.0',
+44 silly addNameRange     '0.4.0',
+44 silly addNameRange     '0.4.1',
+44 silly addNameRange     '0.4.2' ] ]
+45 silly addNamed react-popup@0.4.2
+46 verbose addNamed "0.4.2" is a plain semver version for react-popup
+47 silly mapToRegistry name react-popup
+48 silly mapToRegistry using default registry
+49 silly mapToRegistry registry https://registry.npmjs.org/
+50 silly mapToRegistry uri https://registry.npmjs.org/react-popup
+51 verbose addRemoteTarball https://registry.npmjs.org/react-popup/-/react-popup-0.4.2.tgz not in flight; adding
+52 verbose addRemoteTarball [ 'https://registry.npmjs.org/react-popup/-/react-popup-0.4.2.tgz',
+52 verbose addRemoteTarball   '33e7382f704c793e5ee4976e942aaf424a9e63aa' ]
+53 info retry fetch attempt 1 at 10:18:47 AM
+54 info attempt registry request try #1 at 10:18:47 AM
+55 http fetch GET https://registry.npmjs.org/react-popup/-/react-popup-0.4.2.tgz
+56 http fetch 200 https://registry.npmjs.org/react-popup/-/react-popup-0.4.2.tgz
+57 silly fetchAndShaCheck shasum 33e7382f704c793e5ee4976e942aaf424a9e63aa
+58 verbose addTmpTarball /var/folders/z5/hvy0xgmj2pn1n4d86rkwkzh80000gn/T/npm-20353-1b2889f5/registry.npmjs.org/react-popup/-/react-popup-0.4.2.tgz not in flight; adding
+59 verbose addTmpTarball already have metadata; skipping unpack for react-popup@0.4.2
+60 silly cache afterAdd react-popup@0.4.2
+61 verbose afterAdd /Users/nick102795/.npm/react-popup/0.4.2/package/package.json not in flight; writing
+62 verbose afterAdd /Users/nick102795/.npm/react-popup/0.4.2/package/package.json written
+63 silly install resolved [ { name: 'react-popup',
+63 silly install resolved     version: '0.4.2',
+63 silly install resolved     description: 'React popup component from Minutemailer',
+63 silly install resolved     main: 'dist/index.js',
+63 silly install resolved     scripts: { lint: 'eslint index.js', test: 'jest' },
+63 silly install resolved     repository:
+63 silly install resolved      { type: 'git',
+63 silly install resolved        url: 'git+https://github.com/minutemailer/react-popup.git' },
+63 silly install resolved     keywords:
+63 silly install resolved      [ 'react',
+63 silly install resolved        'popup',
+63 silly install resolved        'js',
+63 silly install resolved        'javascript',
+63 silly install resolved        'minutemailer',
+63 silly install resolved        'react-component' ],
+63 silly install resolved     author: { name: 'Tobias Bleckert', url: 'Minutemailer' },
+63 silly install resolved     license: 'MIT',
+63 silly install resolved     bugs: { url: 'https://github.com/minutemailer/react-popup/issues' },
+63 silly install resolved     homepage: 'https://github.com/minutemailer/react-popup',
+63 silly install resolved     peerDependencies: { react: '^15.0.1', 'react-dom': '^15.0.1' },
+63 silly install resolved     jest:
+63 silly install resolved      { scriptPreprocessor: '<rootDir>/node_modules/babel-jest',
+63 silly install resolved        unmockedModulePathPatterns: [Object],
+63 silly install resolved        modulePathIgnorePatterns: [Object] },
+63 silly install resolved     devDependencies:
+63 silly install resolved      { 'babel-eslint': '^6.0.2',
+63 silly install resolved        'babel-jest': '^11.0.0',
+63 silly install resolved        'babel-plugin-transform-object-assign': '^6.5.0',
+63 silly install resolved        'babel-preset-es2015': '^6.6.0',
+63 silly install resolved        'babel-preset-react': '^6.5.0',
+63 silly install resolved        eslint: '^2.7.0',
+63 silly install resolved        gulp: '^3.9.1',
+63 silly install resolved        'gulp-babel': '^6.1.2',
+63 silly install resolved        'gulp-rename': '^1.2.2',
+63 silly install resolved        'jest-cli': '^11.0.0',
+63 silly install resolved        'react-addons-test-utils': '^15.0.1' },
+63 silly install resolved     gitHead: 'be25fe6cd652b64e4cd39c604a6c2ead744bedef',
+63 silly install resolved     _id: 'react-popup@0.4.2',
+63 silly install resolved     _shasum: '33e7382f704c793e5ee4976e942aaf424a9e63aa',
+63 silly install resolved     _from: 'react-popup@*',
+63 silly install resolved     _npmVersion: '2.14.4',
+63 silly install resolved     _nodeVersion: '5.1.1',
+63 silly install resolved     _npmUser: { name: 'tbleckert', email: 'me@tb-one.se' },
+63 silly install resolved     dist:
+63 silly install resolved      { shasum: '33e7382f704c793e5ee4976e942aaf424a9e63aa',
+63 silly install resolved        tarball: 'https://registry.npmjs.org/react-popup/-/react-popup-0.4.2.tgz' },
+63 silly install resolved     maintainers: [ [Object] ],
+63 silly install resolved     _npmOperationalInternal:
+63 silly install resolved      { host: 'packages-16-east.internal.npmjs.com',
+63 silly install resolved        tmp: 'tmp/react-popup-0.4.2.tgz_1461005028458_0.01637518871575594' },
+63 silly install resolved     directories: {},
+63 silly install resolved     _resolved: 'https://registry.npmjs.org/react-popup/-/react-popup-0.4.2.tgz' } ]
+64 info install react-popup@0.4.2 into /Users/nick102795/Desktop/Learning-Analytics
+65 info installOne react-popup@0.4.2
+66 verbose installOne of react-popup to /Users/nick102795/Desktop/Learning-Analytics not in flight; installing
+67 verbose lock using /Users/nick102795/.npm/_locks/react-popup-2484ad9689fa8b0a.lock for /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup
+68 silly install write writing react-popup 0.4.2 to /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup
+69 verbose unbuild node_modules/react-popup
+70 silly gentlyRm /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup is being purged from base /Users/nick102795/Desktop/Learning-Analytics
+71 verbose gentlyRm don't care about contents; nuking /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup
+72 verbose tar unpack /Users/nick102795/.npm/react-popup/0.4.2/package.tgz
+73 verbose tar unpacking to /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup
+74 silly gentlyRm /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup is being purged
+75 verbose gentlyRm don't care about contents; nuking /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup
+76 silly gunzTarPerm modes [ '755', '644' ]
+77 silly gunzTarPerm extractEntry package.json
+78 silly gunzTarPerm extractEntry .npmignore
+79 silly gunzTarPerm extractEntry README.md
+80 silly gunzTarPerm extractEntry LICENSE
+81 silly gunzTarPerm extractEntry gulpfile.js
+82 silly gunzTarPerm extractEntry __tests__/.gitkeep
+83 silly gunzTarPerm extractEntry .babelrc
+84 silly gunzTarPerm extractEntry dist/ActionButton.react.js
+85 silly gunzTarPerm extractEntry dist/Footer.react.js
+86 silly gunzTarPerm extractEntry dist/Header.react.js
+87 silly gunzTarPerm extractEntry dist/Input.react.js
+88 silly gunzTarPerm extractEntry dist/index.js
+89 silly gunzTarPerm extractEntry .eslintrc
+90 silly gunzTarPerm extractEntry src/ActionButton.react.js
+91 silly gunzTarPerm extractEntry src/Footer.react.js
+92 silly gunzTarPerm extractEntry src/Header.react.js
+93 silly gunzTarPerm extractEntry src/Input.react.js
+94 silly gunzTarPerm extractEntry src/index.js
+95 verbose write writing to /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup/package.json
+96 info preinstall react-popup@0.4.2
+97 verbose readDependencies loading dependencies from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup/package.json
+98 silly prepareForInstallMany adding react@^15.0.1 from react-popup peerDependencies
+99 silly prepareForInstallMany adding react-dom@^15.0.1 from react-popup peerDependencies
+100 warn peerDependencies The peer dependency react@^15.0.1 included from react-popup will no
+101 warn peerDependencies longer be automatically installed to fulfill the peerDependency
+102 warn peerDependencies in npm 3+. Your application will need to depend on it explicitly.
+103 warn peerDependencies The peer dependency react-dom@^15.0.1 included from react-popup will no
+104 warn peerDependencies longer be automatically installed to fulfill the peerDependency
+105 warn peerDependencies in npm 3+. Your application will need to depend on it explicitly.
+106 verbose readDependencies loading dependencies from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup/package.json
+107 silly install resolved []
+108 verbose about to build /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup
+109 info build /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup
+110 info linkStuff react-popup@0.4.2
+111 silly linkStuff react-popup@0.4.2 has /Users/nick102795/Desktop/Learning-Analytics/node_modules as its parent node_modules
+112 verbose linkBins react-popup@0.4.2
+113 verbose linkMans react-popup@0.4.2
+114 verbose rebuildBundles react-popup@0.4.2
+115 info install react-popup@0.4.2
+116 info postinstall react-popup@0.4.2
+117 verbose readDependencies loading dependencies from /Users/nick102795/Desktop/Learning-Analytics/package.json
+118 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/body-parser/package.json
+119 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/browserify/package.json
+120 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/chai/package.json
+121 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/express/package.json
+122 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/gulp/package.json
+123 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/gulp-less/package.json
+124 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/less/package.json
+125 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/mysql/package.json
+126 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react/package.json
+127 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-bootstrap/package.json
+128 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-d3/package.json
+129 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-d3-tooltip/package.json
+130 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-dom/package.json
+131 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popout/package.json
+132 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup/package.json
+133 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/reactify/package.json
+134 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/vinyl-source-stream/package.json
+135 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/yati/package.json
+136 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/.bin/browserify/package.json
+137 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/.bin/gulp/package.json
+138 verbose targetResolver reading package data from /Users/nick102795/Desktop/Learning-Analytics/node_modules/.bin/lessc/package.json
+139 verbose already installed skipping react@^15.0.1 /Users/nick102795/Desktop/Learning-Analytics
+140 verbose already installed skipping react-dom@^15.0.1 /Users/nick102795/Desktop/Learning-Analytics
+141 silly install resolved []
+142 verbose unlock done using /Users/nick102795/.npm/_locks/react-popup-2484ad9689fa8b0a.lock for /Users/nick102795/Desktop/Learning-Analytics/node_modules/react-popup
+143 verbose validateInstall loading /Users/nick102795/Desktop/Learning-Analytics/package.json for validation
+144 verbose stack Error: The package react@0.14.7 does not satisfy its siblings' peerDependencies requirements!
+144 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:125:32
+144 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:268:7
+144 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:142:5
+144 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+144 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+144 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+144 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+144 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+144 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+144 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+145 verbose cwd /Users/nick102795/Desktop/Learning-Analytics
+146 error Darwin 15.4.0
+147 error argv "/usr/local/Cellar/node/4.1.1/bin/node" "/usr/local/bin/npm" "install" "react-popup" "--save"
+148 error node v4.1.1
+149 error npm  v2.14.4
+150 error code EPEERINVALID
+151 error peerinvalid The package react@0.14.7 does not satisfy its siblings' peerDependencies requirements!
+151 error peerinvalid Peer react-d3-tooltip@1.4.4 wants react@^0.14.7
+151 error peerinvalid Peer react-dom@0.14.7 wants react@^0.14.7
+151 error peerinvalid Peer react-popup@0.4.2 wants react@^15.0.1
+151 error peerinvalid Peer react-bootstrap@0.28.5 wants react@>=0.14.0
+152 verbose exit [ 1, true ]
